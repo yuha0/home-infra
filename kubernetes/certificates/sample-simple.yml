@@ -4,12 +4,12 @@ metadata:
   labels:
     app: plex
     use-cloudflare-solver: "true"
-  name: plex-yuha0-com
+  name: plex-example-com
   namespace: default
 spec:
   dnsNames:
-  - plex.yuha0.com
+  - plex.example.com
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt
-  secretName: plex-yuha0-com
+  secretName: plex-example-com
