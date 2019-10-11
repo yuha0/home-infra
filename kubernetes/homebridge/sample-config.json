@@ -13,6 +13,17 @@
   ],
   "platforms": [
     {
+      "platform": "config",
+      "name": "Config",
+      "port": 8081,
+      "auth": "none",
+      "theme": "dark-mode",
+      "log": {
+        "method": "file",
+        "path": "/dev/stdout"
+      }
+    },
+    {
       "platform": "TplinkSmarthome",
       "name": "TplinkSmarthome"
     }

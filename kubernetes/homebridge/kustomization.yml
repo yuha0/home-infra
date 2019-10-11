@@ -1,5 +1,6 @@
 resources:
 - deployment.yml
+- ingress.yml
 configMapGenerator:
 - name: homebridge
   files:
