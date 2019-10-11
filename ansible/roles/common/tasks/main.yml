@@ -1,0 +1,14 @@
+- name: sudoers
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^{{ admin_user }} ALL="
+    line: "{{ admin_user }} ALL=(ALL) NOPASSWD: ALL"
+
+- name: authorized_keys
+  authorized_key:
+    user: "{{ admin_user }}"
+    state: present
+    key: "{{ item }}"
+  with_file:
+  - id_rsa.pub

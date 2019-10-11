@@ -1,0 +1,4 @@
+*
+!.gitignore
+!cloudflare/kustomization.yml
+!sample-issuer.yml

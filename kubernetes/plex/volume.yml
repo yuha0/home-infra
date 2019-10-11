@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media
+spec:
+  capacity:
+    storage: 11T
+  mountOptions:
+  - rsize=131072
+  - wsize=131072
+  persistentVolumeReclaimPolicy: Retain
+  accessModes:
+  - ReadWriteMany
+  mountOptions:
+  nfs:
+    server: 192.168.1.9
+    path: /ocean
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 11T

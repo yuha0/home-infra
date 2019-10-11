@@ -1,0 +1,15 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  labels:
+    app: plex
+    use-cloudflare-solver: "true"
+  name: plex-yuha0-com
+  namespace: default
+spec:
+  dnsNames:
+  - plex.yuha0.com
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  secretName: plex-yuha0-com

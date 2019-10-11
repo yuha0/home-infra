@@ -1,0 +1,5 @@
+- hosts: nuc
+  become: yes
+  roles:
+  - common
+  - docker
