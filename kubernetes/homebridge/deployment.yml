@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homebridge
+  labels:
+    app: homebridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homebridge
+  template:
+    metadata:
+      labels:
+        app: homebridge
+    spec:
+      hostNetwork: true
+      volumes:
+      - name: config
+        configMap:
+          name: homebridge
+      containers:
+      - name: homebridge
+        image: oznu/homebridge:latest
+        imagePullPolicy: Always
+        env:
+        - name: TZ
+          value: America/Chicago
+        - name: HOMEBRIDGE_CONFIG_UI
+          value: "1"
+        - name: HOMEBRIDGE_CONFIG_UI_PORT
+          value: "8081"
+        ports:
+        - name: ui
+          containerPort: 8081
+          hostPort: 8081
+        - name: bonjour
+          containerPort: 5353
+          hostPort: 5353
+        - name: bridge
+          containerPort: 51826
+          hostPort: 51826
+        - name: tplink
+          containerPort: 9999
+          hostPort: 9999
+        volumeMounts:
+        - name: config
+          mountPath: /homebridge/config.json
+          subPath: config.json
+        - name: config
+          mountPath: /homebridge/package.json
+          subPath: package.json

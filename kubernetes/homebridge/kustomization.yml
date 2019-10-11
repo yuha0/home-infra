@@ -1,0 +1,7 @@
+resources:
+- deployment.yml
+configMapGenerator:
+- name: homebridge
+  files:
+  - config.json
+  - package.json
