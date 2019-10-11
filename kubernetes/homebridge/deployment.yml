@@ -9,6 +9,8 @@ spec:
   selector:
     matchLabels:
       app: homebridge
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -19,6 +21,9 @@ spec:
       - name: config
         configMap:
           name: homebridge
+      - name: data
+        hostPath:
+          path: /home/zzyzxd/homebridge
       containers:
       - name: homebridge
         image: oznu/homebridge:latest
@@ -50,3 +55,5 @@ spec:
         - name: config
           mountPath: /homebridge/package.json
           subPath: package.json
+        - name: data
+          mountPath: /homebridge
