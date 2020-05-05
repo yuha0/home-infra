@@ -17,8 +17,8 @@ At this moment, I have the following up and running:
 | [plex](https://github.com/plexinc/pms-docker)                    | Kubernetes     |                                                                                     |
 | [home-bridge](https://github.com/nfarina/homebridge)             | Kubernetes     | Bridge for controlling Wi-Fi connected home appliances                              |
 | [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets) | Kubernetes     | To hide secrets in Kubernetes                                                       |
+| [wireguard](https://www.wireguard.com/)                          | Kubernetes     | WireGuard VPN, road-warrior style, in Kubernetes                                    |
 | [qnap](https://www.qnap.com)                                     | manual         | Kubernetes persistent volume provider (NFS)                                         |
-| [wireguard](https://www.wireguard.com/)                          | manual         | on-demand VPN to connect back home on the go                                        |
 
 ## Limitations
 
