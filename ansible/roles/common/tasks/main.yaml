@@ -1,3 +1,8 @@
+- name: Add user
+  user:
+    name: '{{ admin_user }}'
+    shell: /bin/bash
+
 - name: sudoers
   lineinfile:
     path: /etc/sudoers

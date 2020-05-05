@@ -1,0 +1,10 @@
+- hosts: ubuntu
+  become: yes
+  roles:
+  - common
+  - focal
+  - docker
+- hosts: pi
+  become: yes
+  roles:
+  - common

@@ -1,10 +1,3 @@
-- name: install dependencies
-  apt: 
-    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg-agent', 'software-properties-common']
-    state: latest
-    update_cache: yes
-    force_apt_get: yes
-
 - name: add GPG apt Key
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
@@ -13,13 +6,13 @@
 - name: add docker repository
   apt_repository:
     filename: docker
-    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} eoan stable"
     state: present
 
 - name: install docker-ce
   apt:
     update_cache: yes
-    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    name: "docker-ce={{ docker_version }}"
     state: present
     force_apt_get: yes
 
