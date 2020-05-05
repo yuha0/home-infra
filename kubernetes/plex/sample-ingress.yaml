@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/configuration-snippet: |
       send_timeout 100m;
       gzip on;
@@ -18,6 +19,7 @@ metadata:
   labels:
     app: plex
   name: plex
+  namespace: plex
 spec:
   rules:
   - host: plex.example.com
@@ -30,4 +32,4 @@ spec:
   tls:
   - hosts:
     - plex.example.com
-    secretName: plex-example-com
+    secretName: plex

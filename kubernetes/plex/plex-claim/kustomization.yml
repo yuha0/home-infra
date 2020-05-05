@@ -1,5 +1,0 @@
-secretGenerator:
-- name: plex
-  env: claim.env
-generatorOptions:
-  disableNameSuffixHash: true

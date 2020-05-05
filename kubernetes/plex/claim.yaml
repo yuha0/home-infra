@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: plex
+  namespace: plex
+spec:
+  encryptedData:
+    PLEX_CLAIM: AgDCwgyaSY6Pb6b7Nk4OuaWWfN3j7vo5QIteoBfGW6pUUFmrE2hQlI6ibzQQT8UbJREQZjAd393Vkl87f8EOH+7uViK8VDWqCE68sQranpim5tY/MDP2xpVYZAtS+Qz1yBlbPTF+4PqtRDvuCoVajgoJA/oLW1nxJ8HRYOVLBfgQbUHqDDHyZSgCcu98VPtYYB8g0eQLnYXOyRdzq1kZ2EPITIrHbjfh7mpwWu0YCv1ecU1y3fD/m5LkyHLhfzLl9nCgsC7AaBZk+9har26VZ0frJLJAKEDavIsYJd7aTEZGOmSB+ul8ycLjxqdbfoDgm7dzQph26FN3Omex3yDIw6XcbNV2H6Z8Lyl5u/i7kJ8hJ8Nm7orW9Nt6W0HyHEckyk+qwqBMScu7SDPCQd4lBkqIREgRf7heiPrJiEFUhy00wQxG7I3oze4mbOEqA0QfRjNpDwAgu13kAKZGfq6lSb07tpdJh2BhIfvY1VefEsrj/X/Ee18rhjjfyuBT/msmIleuYSa1NfqqBLmIUOWL9Pe4PcrIwRZ0XfqdiYr+x5UsEqoIrANAiJv1mDMaVr91FxRSkuh79fo0nXr+yBb0Y1bRORVqaBr497bdXsTanzKXrWdJJMFFQ4/00kwfob2rW3JRsBZ7fWtSJWNcPgfKkQzXXdjBSWqYN1nfKNdz0KaRfw2qtmJCxwFsj4wwuN3IJAsu/wo4vSDVWBit6bU528k1Z66fABlTefcm4g==
+  template:
+    metadata:
+      name: plex
+      namespace: plex
+    type: Opaque
+
