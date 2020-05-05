@@ -1,0 +1,24 @@
+cluster_name: lindsey.local
+kubernetes_version: v1.17.5-rancher1-1
+nodes:
+- address: lindsey
+  user: zzyzxd
+  role:
+  - controlplane
+  - etcd
+  - worker
+ssh_key_path: ~/.ssh/id_rsa
+
+dns:
+  provider: coredns
+
+services:
+  kubelet:
+    fail_swap_on: true
+    extra_args:
+      cgroup-driver: systemd
+network:
+  plugin: flannel
+
+ingress:
+  provider: none
