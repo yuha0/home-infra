@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: wg0-private
+  namespace: wireguard
+spec:
+  encryptedData:
+    wg0-private.key: AgCUqTiwU9LUF8A+keEDt5v6zsu/AvSCPlU0a6LAVPOdwGcNhy4Du1ug6SAn1FZTQec8/lbYQBlpOqAqsETUFu8pIxyAVi21AUhWF8zyy6yIMcNdnonL5UjA5hJq6eza+Q3TepyzN6rTTdi7KqkRRuP5xXuWzYfO0ESvk9+oGVJyk9yvMmeobxUTW09sfSvoHBS1M7DBJ1eg1/D/PolwaaoT7TjwflBH5uZJH9O+naWqaB5TiO+fWQdgKd4+pHZ7y5995Oahi5El+BbZZOPK3ReCxLKmdvMYtjJ6/JMcCJcyK1YwsrL8jDyouIlsKnJfs7I2KxA+CFbFRS7brwIgjjhIFZ2MiaCHrjcHbsdnXzU4yULe6Dr0qNVJd+hItRGlKxwvAEC/p4QcF1gxdv5vyOeaquYwTCc0gzxAoPHzcY+NK2cIVEVPkyycdjq0rr55bSVHbNIItLXb3WbGS2wOvEgfHP8JfAraAluS0JSXbhaLM4QA8ZTfZcl38wy1dABItSnLo+wZFuWyAmQZD+qYVynHRXsit/ja3vKE7lJ5bq0491OGvlLQDlXb6OuEWIKoLw4KDnE4/ndDfb3V42JIHBmHW0hOZqbIiSOIqHBsAtvPOEshL0hPJuapPelVvLSMLObLAZExdUJ8vFv8Y7V5kF4Fnh/uK7aCt29CyLmIYEXKiv2imtZjn9vX1aUZT+5S8uvGabMAe3MO7RU3bpxWExRRzZ5e6LB5fK6JuuVdmn96Qap0Dt5vcT6cgg9HXQ==
+  template:
+    metadata:
+      name: wg0-private
+      namespace: wireguard
+    type: Opaque
+

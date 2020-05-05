@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wireguard
+  labels:
+    app: wireguard
+spec:
+  type: LoadBalancer
+  selector:
+    app: wireguard
+  ports:
+  - port: 51820
+    targetPort: 51820
+    protocol: UDP
