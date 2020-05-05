@@ -1,3 +1,4 @@
 **/ingress.yaml
 **/ingress.yml
-**/clusterissuer.yaml
+letsencrypt/clusterissuer.yaml
+homebridge/config.json

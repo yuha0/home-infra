@@ -5,7 +5,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/10"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "192.168.1.0/24"
   labels:
     app: homebridge
   name: homebridge
@@ -21,4 +21,4 @@ spec:
   tls:
   - hosts:
     - homebridge.example.com
-    secretName: homebridge-example-com
+    secretName: homebridge
