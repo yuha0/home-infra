@@ -6,7 +6,7 @@ metadata:
     app: wireguard
 spec:
   updateStrategy:
-    type: OnDelete
+    type: RollingUpdate
   selector:
     matchLabels:
       app: wireguard
@@ -36,14 +36,14 @@ spec:
               command: ["wg-quick",  "down", "wg0"]
         command: ["tail",  "-f", "/dev/null"]
         volumeMounts:
-          - name: wg0-key
-            mountPath: /etc/wireguard/wg0-private.key
-            subPath: wg0-private.key
-            readOnly: true
-          - name: wg0-conf
-            mountPath: /etc/wireguard/wg0.conf
-            subPath: wg0.conf
-            readOnly: true
+        - name: wg0-key
+          mountPath: /etc/wireguard/wg0-private.key
+          subPath: wg0-private.key
+          readOnly: true
+        - name: wg0-conf
+          mountPath: /etc/wireguard/wg0.conf
+          subPath: wg0.conf
+          readOnly: true
         ports:
         - containerPort: 51820
           protocol: UDP
