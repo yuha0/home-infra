@@ -22,8 +22,9 @@ At this moment, I have the following up and running:
 
 ## Limitations
 
-1. pi-hole cannot run in Kubernetes because I can't pull container images from internet without DNS.
-2. qnap does not provide APIs to manage the storage, so I have to manage persistent volumes by hand like animals.
+1. Although I really want to get rid of docker, the cluster is deployed by [rke](https://github.com/rancher/rke), which only support docker as the CRI implementation.
+2. pi-hole cannot run in Kubernetes because I can't pull container images from internet without DNS.
+3. qnap does not provide APIs to manage the storage, so I have to manage persistent volumes by hand like animals.
 
 ## Upcoming projects
 
