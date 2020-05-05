@@ -5,7 +5,8 @@ services:
     image: pihole/pihole:latest
     ports:
     - "53:53/tcp"
-    - "53:53/udp"
+    # Bind only the public interface here or Docker iptables UDP nat will mess up DNS resolution for other containers
+    - "192.168.1.14:53:53/udp"
     - "67:67/udp"
     - "8080:80/tcp"
     environment:
