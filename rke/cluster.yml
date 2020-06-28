@@ -1,5 +1,5 @@
 cluster_name: lindsey.local
-kubernetes_version: v1.17.5-rancher1-1
+kubernetes_version: v1.17.6-rancher2-2
 nodes:
 - address: lindsey
   user: zzyzxd
