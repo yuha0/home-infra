@@ -15,6 +15,7 @@ spec:
       labels:
         app: wireguard
     spec:
+      terminationGracePeriodSeconds: 5
       restartPolicy: Always
       volumes:
       - name: wg0-key
