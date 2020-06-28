@@ -35,6 +35,8 @@ spec:
       labels:
         app: plex
     spec:
+      securityContext:
+        fsGroup: 100
       containers:
       - name: plex
         image: plexinc/pms-docker:plexpass
