@@ -6,7 +6,7 @@
 - name: add docker repository
   apt_repository:
     filename: docker
-    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} eoan stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
     state: present
 
 - name: install docker-ce
