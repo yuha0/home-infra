@@ -66,8 +66,8 @@ spec:
         - name: PLEX_CLAIM
           valueFrom:
             secretKeyRef:
-              name: plex
-              key: PLEX_CLAIM
+              name: claim-code
+              key: code
         volumeMounts:
         - name: config
           mountPath: /config
@@ -78,10 +78,11 @@ spec:
       volumes:
       - name: config
         hostPath:
-          path: /home/zzyzxd/plex/config
+          path: /mnt/ocean/plex
       - name: transcode
         hostPath:
           path: /home/zzyzxd/plex/transcode
+          type: DirectoryOrCreate
       - name: media
         persistentVolumeClaim:
           claimName: media

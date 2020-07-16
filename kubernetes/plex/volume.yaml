@@ -13,7 +13,7 @@ spec:
   - ReadWriteMany
   mountOptions:
   nfs:
-    server: 192.168.1.9
+    server: 10.100.1.9
     path: /ocean
 
 ---
