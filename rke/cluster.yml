@@ -1,7 +1,7 @@
-cluster_name: lindsey.local
-kubernetes_version: v1.17.6-rancher2-2
+cluster_name: lindsey
+kubernetes_version: v1.18.3-rancher2-2
 nodes:
-- address: lindsey
+- address: lindsey.yuha0.com
   user: zzyzxd
   role:
   - controlplane
