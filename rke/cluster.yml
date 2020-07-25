@@ -17,6 +17,9 @@ services:
     fail_swap_on: true
     extra_args:
       cgroup-driver: systemd
+    extra_binds:
+    - "/var/lib/kubevolumes:/var/lib/kubevolumes"
+
 network:
   plugin: flannel
 
