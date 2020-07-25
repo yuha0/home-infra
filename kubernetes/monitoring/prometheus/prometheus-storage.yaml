@@ -1,0 +1,22 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: manual
+provisioner: manual
+
+---
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: prometheus-k8s-db-prometheus-k8s-0
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /var/lib/kubevolumes/prometheus/data
