@@ -38,6 +38,7 @@ metadata:
 data:
   enable-modsecurity: "true"
   enable-owasp-modsecurity-crs: "true"
+  use-proxy-protocol: "true"
 ---
 # Source: ingress-nginx/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
