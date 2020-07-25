@@ -1,5 +1,6 @@
 namespace: homebridge
 resources:
+- namespace.yaml
 - deployment.yaml
 - ingress.yaml
 configMapGenerator:
