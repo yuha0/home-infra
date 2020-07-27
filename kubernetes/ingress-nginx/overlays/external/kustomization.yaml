@@ -1,0 +1,19 @@
+nameSuffix: -external
+bases:
+- ./../../base
+commonLabels:
+  nginx: external
+
+patchesJson6902:
+- target:
+    group: apps
+    version: v1
+    kind: Deployment
+    name: ingress-nginx-controller
+  path: deployment.yaml
+- target:
+    group: ""
+    version: v1
+    kind: Service
+    name: ingress-nginx-controller
+  path: service.yaml
