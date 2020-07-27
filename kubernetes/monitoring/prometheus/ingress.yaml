@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: internal
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.100.1.0/24"
+  labels:
+    app: prometheus
+  name: prometheus
+spec:
+  rules:
+  - host: prometheus.yuha0.com
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus-operated
+          servicePort: 9090
+        path: /
+  tls:
+  - hosts:
+    - prometheus.yuha0.com
+
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: internal
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "10.100.1.0/24"
+  labels:
+    app: thanos-query
+  name: thanos-query
+spec:
+  rules:
+  - host: thanos-query.yuha0.com
+    http:
+      paths:
+      - backend:
+          serviceName: thanos-query
+          servicePort: 9090
+        path: /
+  tls:
+  - hosts:
+    - thanos-query.yuha0.com
