@@ -1,0 +1,10 @@
+namespace: adguardhome
+resources:
+- namespace.yaml
+- deploy.yaml
+- ingress.yaml
+
+secretGenerator:
+- name: conf
+  files:
+  - AdGuardHome.yaml
