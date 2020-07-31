@@ -26,6 +26,7 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerIP: 10.100.1.241
+  externalTrafficPolicy: Local
   ports:
   - name: dns-tcp
     targetPort: dns-tcp
@@ -45,6 +46,7 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerIP: 10.100.1.242
+  externalTrafficPolicy: Local
   ports:
   - name: dns-udp
     targetPort: dns-udp
@@ -72,6 +74,7 @@ spec:
         app.kubernetes.io/name: adguardhome
     spec:
       initContainers:
+      # https://github.com/AdguardTeam/AdGuardHome/issues/1964
       - name: conf-init
         image: busybox:1.32
         command: ["cp", "/tmp/AdGuardHome.yaml", "/opt/adguardhome/conf/AdGuardHome.yaml"]
@@ -83,9 +86,6 @@ spec:
       containers:
       - name: adguardhome
         image: adguard/adguardhome:v0.103.3
-        # env:
-        # - name: TZ
-        #   value: "UTC"
         volumeMounts:
         - name: work-dir
           mountPath: /opt/adguardhome/work
@@ -100,9 +100,6 @@ spec:
           protocol: UDP
         - name: http
           containerPort: 80
-          protocol: TCP
-        - name: https
-          containerPort: 443
           protocol: TCP
         - name: dot
           containerPort: 853
