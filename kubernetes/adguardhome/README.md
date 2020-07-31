@@ -24,4 +24,10 @@ There's a load balancer that round-robins your reuqest to a random instance, and
 
 However, you can run a log forwarder as a sidecar container, and forward query logs to an Elasticsearch instance. I might implement this one day, because visualize my queries on a [geo map](https://www.elastic.co/guide/en/kibana/current/maps.html) is interesting.
 
+### Query log spam:
+
+Actually, query logs is not only making little sense, it even contains useless spam queries! You will see a lot of queries from client `127.0.0.1` that asking for `probe`'s address. This because I used command `nslookup probe 127.0.0.1` to perform liveness/readiness probes.
+
+## Result
+
 Now at this point, because of the above two shortcomings, your AdGuard Home effectively becomes stateless. Any internal state does not make sense at all. But anyway, go ahead and change the replica count in the `Deployment` and enjoy a more reliable Ad blocking!
