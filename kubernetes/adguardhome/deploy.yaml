@@ -125,13 +125,9 @@ spec:
           timeoutSeconds: 5
       volumes:
       - name: work-dir
-        hostPath:
-          path: /var/lib/kubevolumes/adguard/work
-          type: DirectoryOrCreate
+        emptyDir: {}
       - name: conf-dir
-        hostPath:
-          path: /var/lib/kubevolumes/adguard/work
-          type: DirectoryOrCreate
+        emptyDir: {}
       - name: conf
         secret:
           secretName: conf
