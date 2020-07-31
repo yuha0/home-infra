@@ -107,6 +107,22 @@ spec:
         - name: web-init
           containerPort: 3000
           protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "nslookup probe 127.0.0.1 &> /dev/null; echo ok"
+          initialDelaySeconds: 1
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - "/bin/sh"
+            - "-c"
+            - "nslookup probe 127.0.0.1 &> /dev/null; echo ok"
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
       volumes:
       - name: work-dir
         hostPath:
