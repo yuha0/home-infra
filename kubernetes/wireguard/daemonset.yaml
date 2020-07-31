@@ -20,7 +20,7 @@ spec:
       volumes:
       - name: wg0-key
         secret:
-          secretName: wg0-private
+          secretName: wg0-key
       - name: wg0-conf
         configMap:
           name: wg0-conf
@@ -38,8 +38,8 @@ spec:
         command: ["tail",  "-f", "/dev/null"]
         volumeMounts:
         - name: wg0-key
-          mountPath: /etc/wireguard/wg0-private.key
-          subPath: wg0-private.key
+          mountPath: /etc/wireguard/wg0.key
+          subPath: wg0.key
           readOnly: true
         - name: wg0-conf
           mountPath: /etc/wireguard/wg0.conf

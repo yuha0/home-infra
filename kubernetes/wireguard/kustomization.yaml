@@ -1,8 +1,8 @@
 namespace: wireguard
 resources:
+- sealed-wg0-private.yaml
 - service.yaml
 - daemonset.yaml
-- wg0-private.yaml
 configMapGenerator:
 - name: wg0-conf
   files:
@@ -10,4 +10,4 @@ configMapGenerator:
 # track public key here just for record
 - name: wg0-public
   literals:
-  - wg0-public.key=STxgSJv/SH25kIept1NIhAEAu7vLwGMQIRNz2luFQhg=
+  - wg0-public.key=0pbbaFkh9c1eMH3O/lc7C9fEcXHzHODpQpAitOGBQDc=

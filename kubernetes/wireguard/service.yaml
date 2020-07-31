@@ -6,6 +6,7 @@ metadata:
     app: wireguard
 spec:
   type: LoadBalancer
+  loadBalancerIP: 10.100.1.201
   selector:
     app: wireguard
   ports:
