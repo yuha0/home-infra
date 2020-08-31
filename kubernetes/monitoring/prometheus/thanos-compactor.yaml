@@ -37,6 +37,7 @@ spec:
       - args:
         - compact
         - --wait
+        - --wait-interval=60m
         - --retention.resolution-raw=30d
         - --retention.resolution-5m=30d
         - --retention.resolution-1h=30d
