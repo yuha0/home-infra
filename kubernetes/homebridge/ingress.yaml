@@ -4,6 +4,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: internal
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
   labels:
     app: homebridge
   name: homebridge
