@@ -85,7 +85,7 @@ spec:
           mountPath: /tmp
       containers:
       - name: adguardhome
-        image: adguard/adguardhome:v0.103.3
+        image: adguard/adguardhome:v0.104.0
         volumeMounts:
         - name: work-dir
           mountPath: /opt/adguardhome/work
