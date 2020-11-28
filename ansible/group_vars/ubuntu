@@ -34,3 +34,4 @@ packages:
 - curl
 - software-properties-common
 - nfs-client
+- open-iscsi
