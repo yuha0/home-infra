@@ -85,7 +85,7 @@ spec:
           mountPath: /tmp
       containers:
       - name: adguardhome
-        image: adguard/adguardhome:v0.104.0
+        image: adguard/adguardhome:v0.104.3
         volumeMounts:
         - name: work-dir
           mountPath: /opt/adguardhome/work
@@ -125,9 +125,13 @@ spec:
           timeoutSeconds: 5
       volumes:
       - name: work-dir
-        emptyDir: {}
+        hostPath:
+          path: /var/lib/kubevolumes/adguard/work
+          type: DirectoryOrCreate
       - name: conf-dir
-        emptyDir: {}
+        hostPath:
+          path: /var/lib/kubevolumes/adguard/work
+          type: DirectoryOrCreate
       - name: conf
         secret:
           secretName: conf
