@@ -1,10 +1,11 @@
 namespace: adguardhome
 resources:
 - namespace.yaml
+- sealed-upstream-dns.yaml
 - deploy.yaml
 - ingress.yaml
 
-secretGenerator:
+configMapGenerator:
 - name: conf
   files:
   - AdGuardHome.yaml

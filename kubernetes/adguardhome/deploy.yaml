@@ -65,6 +65,7 @@ metadata:
     app.kubernetes.io/name: adguardhome
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: adguardhome
@@ -76,7 +77,7 @@ spec:
       initContainers:
       # https://github.com/AdguardTeam/AdGuardHome/issues/1964
       - name: conf-init
-        image: busybox:1.32
+        image: busybox:1.33.0
         command: ["cp", "/tmp/AdGuardHome.yaml", "/opt/adguardhome/conf/AdGuardHome.yaml"]
         volumeMounts:
         - name: conf-dir
@@ -91,6 +92,8 @@ spec:
           mountPath: /opt/adguardhome/work
         - name: conf-dir
           mountPath: /opt/adguardhome/conf
+        - name: upstream-dns
+          mountPath: /opt/adguardhome/upstream-dns
         ports:
         - name: dns-tcp
           containerPort: 53
@@ -113,7 +116,7 @@ spec:
             - "/bin/sh"
             - "-c"
             - "nslookup probe 127.0.0.1 &> /dev/null; echo ok"
-          initialDelaySeconds: 1
+          initialDelaySeconds: 5
           timeoutSeconds: 5
         livenessProbe:
           exec:
@@ -129,8 +132,8 @@ spec:
       - name: conf-dir
         emptyDir: {}
       - name: conf
+        configMap:
+          name: conf
+      - name: upstream-dns
         secret:
-          secretName: conf
-          items:
-          - key: AdGuardHome.yaml
-            path: AdGuardHome.yaml
+          secretName: upstream-dns
