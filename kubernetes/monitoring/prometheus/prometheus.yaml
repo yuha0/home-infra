@@ -90,7 +90,7 @@ spec:
     - name: alertmanager-main
       namespace: monitoring
       port: web
-  image: quay.io/prometheus/prometheus:v2.20.0
+  image: quay.io/prometheus/prometheus:v2.26.0
   nodeSelector:
     kubernetes.io/os: linux
   podMonitorNamespaceSelector: {}
@@ -99,7 +99,7 @@ spec:
   resources:
     requests:
       memory: 400Mi
-  retention: 48h
+  retention: 6h
   ruleSelector:
     matchLabels:
       prometheus: k8s
@@ -119,11 +119,11 @@ spec:
           requests:
             storage: 10Gi
   thanos:
-    version: v0.14.0
+    version: v0.19.0
     resources:
       requests:
         memory: 100Mi
     objectStorageConfig:
       key: thanos.yaml
       name: thanos-objstore-config
-  version: v2.20.0
+  version: v2.26.0
