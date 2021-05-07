@@ -15,7 +15,6 @@ At this moment, I have the following up and running:
 | [NGINX](https://github.com/kubernetes/ingress-nginx)             | Ingress controller to the infrastructure, open port 80 and 443 on the router for this |
 | [cert-manager](https://github.com/jetstack/cert-manager)         | Manage Letsencrypt certificates for NGINX                                             |
 | [plex](https://github.com/plexinc/pms-docker)                    | Watch videos and stuff                                                                |
-| [home-bridge](https://github.com/nfarina/homebridge)             | Bridge for controlling Wi-Fi connected home appliances                                |
 | [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets) | To hide secrets in Kubernetes                                                         |
 | [wireguard](https://www.wireguard.com/)                          | WireGuard VPN, road-warrior style                                                     |
 
