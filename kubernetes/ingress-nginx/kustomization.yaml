@@ -6,4 +6,3 @@ bases:
 resources:
 - common.yaml
 - dummy-service.yaml
-- wildcard-cert.yaml
