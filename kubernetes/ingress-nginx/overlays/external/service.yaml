@@ -1,6 +1,3 @@
 - op: add
   path: /spec/loadBalancerIP
   value: 10.100.1.240
-- op: add
-  path: /spec/selector/nginx
-  value: external

@@ -4,7 +4,7 @@ bases:
 commonLabels:
   nginx: internal
 
-patchesJson6902:
+patches:
 - target:
     group: apps
     version: v1
