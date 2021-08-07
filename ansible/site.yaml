@@ -1,10 +1,7 @@
-- hosts: ubuntu
+- hosts: nuc
   become: yes
+  become_user: root
+  become_method: su
   roles:
   - common
-  - focal
-  - docker
-- hosts: pi
-  become: yes
-  roles:
-  - common
+  - k0s

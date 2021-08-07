@@ -1,7 +1,11 @@
-- name: Add user
-  user:
-    name: '{{ admin_user }}'
-    shell: /bin/bash
+- name: Install required packages
+  apt:
+    name: '{{ item }}'
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items: '{{ packages }}'
+  tags:
+  - packages
 
 - name: sudoers
   lineinfile:
@@ -9,6 +13,8 @@
     state: present
     regexp: "^{{ admin_user }} ALL="
     line: "{{ admin_user }} ALL=(ALL) NOPASSWD: ALL"
+  tags:
+  - sudoers
 
 - name: authorized_keys
   authorized_key:
@@ -16,4 +22,20 @@
     state: present
     key: "{{ item }}"
   with_file:
-  - id_rsa.pub
+  - id_ed25519.pub
+  tags:
+  - ssh
+
+- name: swap - remove current swaps from fstab
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '^.*\s+swap\s+.*'
+    state: absent
+  tags:
+  - swap
+
+- name: Disable swap
+  command: /sbin/swapoff -a
+  when: ansible_swaptotal_mb > 0
+  tags:
+  - swap

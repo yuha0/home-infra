@@ -1,0 +1,12 @@
+- name: Load kernel modules
+  modprobe:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ kernel_modules }}'
+  tags:
+  - kernel_modules
+
+- name: persistent kernel modules
+  template:
+    src: modules.conf.j2
+    dest: /etc/modules-load.d/k0s.conf
