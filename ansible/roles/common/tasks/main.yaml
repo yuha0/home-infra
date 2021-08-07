@@ -46,9 +46,15 @@
     lv: var
     size: 80%VG
     force: yes
+  when: ansible_architecture == "x86_64"
+  tags:
+  - lvm
 
 - name: resize fs
   community.general.filesystem:
     fstype: ext4
     dev: '/dev/mapper/{{ inventory_hostname }}--vg-var'
     resizefs: yes
+  when: ansible_architecture == "x86_64"
+  tags:
+  - lvm
