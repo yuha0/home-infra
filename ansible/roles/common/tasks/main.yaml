@@ -39,3 +39,16 @@
   when: ansible_swaptotal_mb > 0
   tags:
   - swap
+
+- name: Ensure lv size
+  community.general.lvol:
+    vg: '{{ inventory_hostname }}-vg'
+    lv: var
+    size: 80%VG
+    force: yes
+
+- name: resize fs
+  community.general.filesystem:
+    fstype: ext4
+    dev: '/dev/mapper/{{ inventory_hostname }}--vg-var'
+    resizefs: yes
