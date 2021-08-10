@@ -11,14 +11,14 @@
   lineinfile:
     path: /etc/sudoers
     state: present
-    regexp: "^{{ admin_user }} ALL="
-    line: "{{ admin_user }} ALL=(ALL) NOPASSWD: ALL"
+    regexp: "^{{ ansible_user }} ALL="
+    line: "{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
   tags:
   - sudoers
 
 - name: authorized_keys
   authorized_key:
-    user: "{{ admin_user }}"
+    user: "{{ ansible_user }}"
     state: present
     key: "{{ item }}"
   with_file:
