@@ -1,1 +1,9 @@
 admin_user: zzyzxd
+
+kernel_modules:
+- br_netfilter
+- nf_conntrack
+- overlay
+
+packages:
+- sudo

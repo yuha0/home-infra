@@ -1,7 +1,0 @@
-kernel_modules:
-- br_netfilter
-- nf_conntrack
-- overlay
-
-packages:
-- sudo
