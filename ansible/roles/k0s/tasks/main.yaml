@@ -10,3 +10,19 @@
   template:
     src: modules.conf.j2
     dest: /etc/modules-load.d/k0s.conf
+  tags:
+  - kernel_modules
+
+- name: Download k0s binary
+  vars:
+    arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
+    k0s_checksum: "{{ amd64_checksum if ansible_architecture == 'x86_64' else arm64_checksum }}"
+  get_url:
+    url: https://github.com/k0sproject/k0s/releases/download/{{ k0s_version }}/k0s-{{ k0s_version }}-{{ arch }}
+    checksum: "sha256:{{ k0s_checksum }}"
+    dest: /usr/local/bin/k0s
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+  tags:
+  - k0s_binary

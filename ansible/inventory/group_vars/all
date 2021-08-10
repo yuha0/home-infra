@@ -1,4 +1,8 @@
-admin_user: zzyzxd
+ansible_user: zzyzxd
+
+k0s_version: v1.21.3+k0s.0
+amd64_checksum: f53789b6156676a9f8be87606f73dbc128db9c8a04b9b1d826e3779a67a38aeb
+arm64_checksum: dcece8028a74577b7c90932fe109da6c7d69be96fb0b1cf3c27a9cde61ab10a8
 
 kernel_modules:
 - br_netfilter
