@@ -26,3 +26,21 @@
     mode: 0755
   tags:
   - k0s_binary
+
+- name: Create config directory
+  file:
+    path: /etc/k0s
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+  when: "'control_plane' in group_names"
+    
+- name: Generate config
+  template:
+    src: k0s.yaml.j2
+    dest: /etc/k0s/k0s.yaml
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
+  when: "'control_plane' in group_names"
