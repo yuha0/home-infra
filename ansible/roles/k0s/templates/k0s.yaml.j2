@@ -1,7 +1,7 @@
 apiVersion: k0s.k0sproject.io/v1beta1
 kind: Cluster
 metadata:
-  name: {{ inventory_file | regex_replace('.*\\/(.*)\\.ini', '\\1') }}
+  name: {{ cluster_name }}
 spec:
   api:
     address: {{ ansible_default_ipv4.address }}

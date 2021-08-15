@@ -26,6 +26,13 @@
   tags:
   - ssh
 
+- name: "setup {{ ansible_user }}'s login shell to fish"
+  user:
+    name: "{{ansible_user}}"
+    shell: /usr/bin/fish
+  tags:
+  - fish
+
 - name: swap - remove current swaps from fstab
   lineinfile:
     dest: /etc/fstab

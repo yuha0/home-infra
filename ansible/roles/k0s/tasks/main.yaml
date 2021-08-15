@@ -27,20 +27,137 @@
   tags:
   - k0s_binary
 
-- name: Create config directory
+- name: Create directories
   file:
-    path: /etc/k0s
+    path: "{{ item }}"
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0755
-  when: "'control_plane' in group_names"
+  with_items:
+  - "{{ k0s_config_dir }}"
+  - "{{ k0s_data_dir }}"
+  tags:
+  - k0s_config
     
 - name: Generate config
+  register: k0s_config
   template:
     src: k0s.yaml.j2
-    dest: /etc/k0s/k0s.yaml
+    dest: "{{ k0s_config_dir }}/k0s.yaml"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0644
   when: "'control_plane' in group_names"
+  tags:
+  - k0s_config
+
+- name: "{{ inventory_hostname }} | Install controller"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  register: k0s_controller_install
+  ignore_errors: yes
+  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml
+  tags:
+  - first_controller
+
+- name: "{{ inventory_hostname }} | Ignore installation error only if it complained about an existing installation"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  fail:
+    msg: "{{ k0s_controller_install.stderr }}"
+  when: "k0s_controller_install.rc != 0 and 'Init already exists' not in k0s_controller_install.stderr"
+  tags:
+  - first_controller
+
+- name: "{{ inventory_hostname }} | Set ETCD_UNSUPPORTED_ARCH=arm64 in k0scontroller system service"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  lineinfile:
+    dest: /etc/systemd/system/k0scontroller.service
+    insertafter: '\[Service\]'
+    line: 'Environment="ETCD_UNSUPPORTED_ARCH=arm64"'
+  when: "ansible_architecture != 'x86_64'"
+  tags:
+  - first_controller
+
+- name: "{{ inventory_hostname }} | Restart controller after config change"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  systemd:
+    name: k0scontroller
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+  when: k0s_config is defined and k0s_config.changed
+  tags:
+  - first_controller
+
+- name: "{{ inventory_hostname }} | Verify that the controller is started"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  systemd:
+    name: k0scontroller
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  tags:
+  - first_controller
+
+- name: "{{ inventory_hostname }} | Wait for k8s apiserver"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  wait_for:
+    host: localhost
+    port: 6443
+    timeout: 180
+  tags:
+  - first_controller
+
+- name: "{{ inventory_hostname }} | Make a copy of admin kubeconfig file"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  copy:
+    src: "{{ k0s_data_dir }}/pki/admin.conf"
+    dest: "{{ k0s_data_dir }}/pki/admin.conf.cp"
+    remote_src: yes
+    owner: "{{ ansible_user }}"
+    mode: 0644
+  tags:
+  - kubeconfig
+
+- name: "{{ inventory_hostname }} | Fix hostname in the admin kubeconfig file copy"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  replace:
+    path: "{{ k0s_data_dir }}/pki/admin.conf.cp"
+    regexp: 'localhost'
+    replace: "{{ ansible_host }}"
+  tags:
+  - kubeconfig
+    
+- name: "{{ inventory_hostname }} | Copy the admin kubeconfig file copy to local directory {{ inventory_dir }}/artifacts"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  fetch:
+    src: "{{ k0s_data_dir }}/pki/admin.conf.cp"
+    dest: "{{ inventory_dir }}/artifacts/admin.conf"
+    flat: yes
+  become: no
+  tags:
+  - kubeconfig
+
+- name: "{{ inventory_hostname }} | Delete the temporary admin kubeconfig file copy"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  file:
+    path: "{{ k0s_data_dir }}/pki/admin.conf.cp"
+    state: absent
+  tags:
+  - kubeconfig
+
+# - name: "{{ inventory_hostname }} | Generate join token for other controllers"
+#   run_once: yes
+#   delegate_to: "{{ groups['control_plane'][0] }}"
+#   register: join_token_controller
+#   command: k0s token create --role=controller --expiry=1h -c {{ k0s_config_dir }}/k0s.yaml

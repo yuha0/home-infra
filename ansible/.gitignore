@@ -1,2 +1,2 @@
 env
-*.retry
+inventory/artifacts
