@@ -1,19 +1,20 @@
 apiVersion: k0s.k0sproject.io/v1beta1
 kind: Cluster
 metadata:
-  name: {{ inventory_file | regex_search('.*\\/(.*)\\.ini', '\\1') }}
+  name: {{ inventory_file | regex_replace('.*\\/(.*)\\.ini', '\\1') }}
 spec:
   api:
-    address: {{ ansible_host }}
+    address: {{ ansible_default_ipv4.address }}
     port: 6443
     k0sApiPort: 9443
     sans:
     - {{ ansible_host }}
+    - {{ ansible_default_ipv4.address }}
     - {{ api_lb }}
   storage:
     type: etcd
     etcd:
-      peerAddress: {{ ansible_host }}
+      peerAddress: {{ ansible_default_ipv4.address }}
   network:
     podCIDR: 10.42.0.0/16
     serviceCIDR: 10.43.0.0/16
@@ -28,7 +29,7 @@ spec:
       disabled: false
       mode: ipvs
   podSecurityPolicy:
-    defaultPolicy: null
+    defaultPolicy: 00-k0s-privileged
   telemetry:
     enabled: false
   installConfig:
