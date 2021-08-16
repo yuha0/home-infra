@@ -13,12 +13,37 @@
   tags:
   - kernel_modules
 
+- name: Get kubectl checksum
+  get_url:
+    url: https://dl.k8s.io/{{ kubectl_version }}/bin/linux/{{ server_arch }}/kubectl.sha256
+    dest: /tmp/kubectl.sha256
+  tags:
+  - kubectl
+
+- name: Get checksum content
+  slurp:
+    src: /tmp/kubectl.sha256
+  register: kubectl_checksum
+
+- name: debug
+  debug:
+    msg: "{{kubectl_checksum['content'] | b64decode }} "
+- name: Install kubectl
+  get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/{{ server_arch }}/kubectl"
+    checksum: "sha256:{{ kubectl_checksum['content'] | b64decode }}"
+    dest: /usr/local/bin/kubectl
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+  tags:
+  - kubectl
+
 - name: Download k0s binary
   vars:
-    arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
     k0s_checksum: "{{ amd64_checksum if ansible_architecture == 'x86_64' else arm64_checksum }}"
   get_url:
-    url: https://github.com/k0sproject/k0s/releases/download/{{ k0s_version }}/k0s-{{ k0s_version }}-{{ arch }}
+    url: https://github.com/k0sproject/k0s/releases/download/{{ k0s_version }}/k0s-{{ k0s_version }}-{{ server_arch }}
     checksum: "sha256:{{ k0s_checksum }}"
     dest: /usr/local/bin/k0s
     owner: "{{ ansible_user }}"
@@ -55,20 +80,13 @@
 - name: "{{ inventory_hostname }} | Install controller"
   run_once: yes
   delegate_to: "{{ groups['control_plane'][0] }}"
-  register: k0s_controller_install
-  ignore_errors: yes
-  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml
+  register: k0s_first_controller_install
+  failed_when: k0s_first_controller_install.rc != 0 and 'Init already exists' not in k0s_first_controller_install.stderr
+  changed_when: k0s_first_controller_install.rc == 0
+  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml --enable-worker --kubelet-extra-args='--register-with-taints=node-role.kubernetes.io/master=:NoSchedule'
   tags:
   - first_controller
-
-- name: "{{ inventory_hostname }} | Ignore installation error only if it complained about an existing installation"
-  run_once: yes
-  delegate_to: "{{ groups['control_plane'][0] }}"
-  fail:
-    msg: "{{ k0s_controller_install.stderr }}"
-  when: "k0s_controller_install.rc != 0 and 'Init already exists' not in k0s_controller_install.stderr"
-  tags:
-  - first_controller
+  - control_plane
 
 - name: "{{ inventory_hostname }} | Set ETCD_UNSUPPORTED_ARCH=arm64 in k0scontroller system service"
   run_once: yes
@@ -80,6 +98,7 @@
   when: "ansible_architecture != 'x86_64'"
   tags:
   - first_controller
+  - control_plane
 
 - name: "{{ inventory_hostname }} | Restart controller after config change"
   run_once: yes
@@ -92,6 +111,7 @@
   when: k0s_config is defined and k0s_config.changed
   tags:
   - first_controller
+  - control_plane
 
 - name: "{{ inventory_hostname }} | Verify that the controller is started"
   run_once: yes
@@ -103,6 +123,7 @@
     daemon_reload: yes
   tags:
   - first_controller
+  - control_plane
 
 - name: "{{ inventory_hostname }} | Wait for k8s apiserver"
   run_once: yes
@@ -113,6 +134,7 @@
     timeout: 180
   tags:
   - first_controller
+  - control_plane
 
 - name: "{{ inventory_hostname }} | Make a copy of admin kubeconfig file"
   run_once: yes
@@ -156,8 +178,95 @@
   tags:
   - kubeconfig
 
-# - name: "{{ inventory_hostname }} | Generate join token for other controllers"
-#   run_once: yes
-#   delegate_to: "{{ groups['control_plane'][0] }}"
-#   register: join_token_controller
-#   command: k0s token create --role=controller --expiry=1h -c {{ k0s_config_dir }}/k0s.yaml
+- name: "{{ inventory_hostname }} | wait for 30 seconds for the controller to be stable"
+  wait_for:
+    timeout: 30
+  delegate_to: localhost
+  tags:
+  - control_plane
+
+- name: "{{ inventory_hostname }} | Generate join token for other controllers -- this token is only valid for 10 minutes"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  register: controller_join_token
+  command: k0s token create --role=controller --expiry=10m -c {{ k0s_config_dir }}/k0s.yaml
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Copy controller join token to other controllers
+  template:
+    src: controller_join_token.j2
+    dest: "{{ k0s_config_dir }}/controller-token"
+    mode: 0600
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  when: inventory_hostname in groups['control_plane'][1:]
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Install controllers
+  register: k0s_controller_install
+  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml --token-file {{ k0s_config_dir }}/controller-token --enable-worker --kubelet-extra-args='--register-with-taints=node-role.kubernetes.io/master=:NoSchedule'
+  failed_when: k0s_controller_install.rc != 0 and 'Init already exists' not in k0s_controller_install.stderr
+  changed_when: k0s_controller_install.rc == 0
+  when: inventory_hostname in groups['control_plane'][1:]
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Set ETCD_UNSUPPORTED_ARCH=arm64 in k0scontroller system service
+  lineinfile:
+    dest: /etc/systemd/system/k0scontroller.service
+    insertafter: '\[Service\]'
+    line: 'Environment="ETCD_UNSUPPORTED_ARCH=arm64"'
+  when: inventory_hostname in groups['control_plane'][1:] and ansible_architecture != 'x86_64'
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Restart controller after config change
+  systemd:
+    name: k0scontroller
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+  when: inventory_hostname in groups['control_plane'][1:] and k0s_config is defined and k0s_config.changed
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Verify that the controller is started
+  systemd:
+    name: k0scontroller
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  when: inventory_hostname in groups['control_plane'][1:]
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Wait for k8s apiserver
+  wait_for:
+    host: localhost
+    port: 6443
+    timeout: 180
+  when: inventory_hostname in groups['control_plane'][1:]
+  tags:
+  - controller_join
+  - control_plane
+
+- name: Add role labels to control plane nodes
+  command: kubectl --kubeconfig {{ k0s_data_dir }}/pki/admin.conf label node {{ inventory_hostname }} {{ item }}
+  register: control_plane_labels
+  with_items:
+  - node-role.kubernetes.io/master=
+  - node-role.kubernetes.io/control-plane=
+  when: inventory_hostname in groups['control_plane']
+  failed_when: control_plane_labels.rc != 0 and 'already has a value' not in control_plane_labels.stderr
+  changed_when: control_plane_labels.rc == 0
+  tags:
+  - control_plane
+  - label
