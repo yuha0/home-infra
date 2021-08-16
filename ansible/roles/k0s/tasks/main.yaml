@@ -25,9 +25,6 @@
     src: /tmp/kubectl.sha256
   register: kubectl_checksum
 
-- name: debug
-  debug:
-    msg: "{{kubectl_checksum['content'] | b64decode }} "
 - name: Install kubectl
   get_url:
     url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/{{ server_arch }}/kubectl"
@@ -269,4 +266,70 @@
   changed_when: control_plane_labels.rc == 0
   tags:
   - control_plane
-  - label
+  - node_label
+
+- name: "{{ inventory_hostname }} | Generate join token for worker nodes -- this token is only valid for 10 minutes"
+  run_once: yes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  register: worker_join_token
+  command: k0s token create --role=worker --expiry=10m -c {{ k0s_config_dir }}/k0s.yaml
+  tags:
+  - worker_join
+  - worker
+
+- name: Copy worker join token to worker nodes
+  template:
+    src: worker_join_token.j2
+    dest: "{{ k0s_config_dir }}/worker-token"
+    mode: 0600
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  when: inventory_hostname in groups['worker']
+  tags:
+  - worker_join
+  - worker
+
+- name: "Install worker"
+  register: k0s_worker_install
+  failed_when: k0s_worker_install.rc != 0 and 'Init already exists' not in k0s_worker_install.stderr
+  changed_when: k0s_worker_install.rc == 0
+  command: k0s install worker --token-file {{ k0s_config_dir }}/worker-token
+  when: inventory_hostname in groups['worker']
+  tags:
+  - worker_join
+  - worker
+
+- name: Restart controller after config change
+  systemd:
+    name: k0sworker
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+  when: inventory_hostname in groups['worker'] and k0s_config is defined and k0s_config.changed
+  tags:
+  - worker_join
+  - worker
+
+- name: Verify that the controller is started
+  systemd:
+    name: k0sworker
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  when: inventory_hostname in groups['worker']
+  tags:
+  - worker_join
+  - worker
+
+- name: Add role labels to worker nodes
+  delegate_to: "{{ groups['control_plane'][0] }}"
+  command: kubectl --kubeconfig {{ k0s_data_dir }}/pki/admin.conf label node {{ inventory_hostname }} {{ item }}
+  when: inventory_hostname in groups['worker']
+  register: worker_labels
+  with_items:
+  - node-role.kubernetes.io/node=
+  failed_when: worker_labels.rc != 0 and 'already has a value' not in worker_labels.stderr
+  changed_when: worker_labels.rc == 0
+  tags:
+  - worker
+  - node_label
