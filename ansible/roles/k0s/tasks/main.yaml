@@ -59,8 +59,9 @@
   with_items:
   - "{{ k0s_config_dir }}"
   - "{{ k0s_data_dir }}"
+  - "{{ k0s_libexec_dir }}"
   tags:
-  - k0s_config
+  - k0s_dir
     
 - name: Generate config
   register: k0s_config

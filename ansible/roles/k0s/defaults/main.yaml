@@ -1,6 +1,8 @@
-server_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
+# cluster name is the inventory file name without the 'ini' extension
 cluster_name: "{{ inventory_file | regex_replace('.*\\/(.*)\\.ini', '\\1') }}"
+server_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}"
 k0s_config_dir: /etc/k0s
 k0s_data_dir: /var/lib/k0s
+k0s_libexec_dir: /usr/libexec/k0s/
 artifacts_dir: "{{ inventory_dir }}/artifacts"
 kubectl_version: "{{ k0s_version | regex_replace('(v\\d+\\.\\d+\\.\\d+)\\+.*', '\\1') }}"
