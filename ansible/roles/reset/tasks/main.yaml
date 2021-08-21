@@ -32,3 +32,8 @@
 - name: daemon_reload
   systemd:
     daemon_reload: yes
+
+- name: Reboot after reset (cleanup interfaces, fs, and other ephemeral resources)
+  reboot:
+  tags:
+  - reboot
