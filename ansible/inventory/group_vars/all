@@ -2,6 +2,8 @@ ansible_user: zzyzxd
 api_lb: k0.yuha0.com
 
 k0s_version: v1.21.3+k0s.0
+crictl_version: v1.22.0
+
 amd64_checksum: f53789b6156676a9f8be87606f73dbc128db9c8a04b9b1d826e3779a67a38aeb
 arm64_checksum: dcece8028a74577b7c90932fe109da6c7d69be96fb0b1cf3c27a9cde61ab10a8
 
