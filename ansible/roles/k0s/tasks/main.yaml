@@ -201,7 +201,6 @@
     src: "{{ k0s_data_dir }}/pki/admin.conf.cp"
     dest: "{{ inventory_dir }}/artifacts/admin.conf"
     flat: yes
-  become: no
   tags:
   - kubeconfig
 
