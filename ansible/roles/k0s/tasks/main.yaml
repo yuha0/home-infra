@@ -13,10 +13,19 @@
   tags:
   - kernel_modules
 
+- name: check kubectl
+  command: kubectl -h
+  register: kubectl_status
+  changed_when: kubectl_status.rc != 0
+  ignore_errors: yes
+  tags:
+  - kubectl
+
 - name: Get kubectl checksum
   get_url:
     url: https://dl.k8s.io/{{ kubectl_version }}/bin/linux/{{ server_arch }}/kubectl.sha256
     dest: /tmp/kubectl.sha256
+  when: kubectl_status.rc != 0
   tags:
   - kubectl
 
@@ -24,6 +33,9 @@
   slurp:
     src: /tmp/kubectl.sha256
   register: kubectl_checksum
+  when: kubectl_status.rc != 0
+  tags:
+  - kubectl
 
 - name: Install kubectl
   get_url:
@@ -33,6 +45,7 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0755
+  when: kubectl_status.rc != 0
   tags:
   - kubectl
 
@@ -176,18 +189,14 @@
   tags:
   - kubeconfig
 
-- name: "{{ inventory_hostname }} | wait for 30 seconds for the controller to be stable"
-  wait_for:
-    timeout: 30
-  delegate_to: localhost
-  tags:
-  - control_plane
-
 - name: "{{ inventory_hostname }} | Generate join token for other controllers -- this token is only valid for 10 minutes"
   run_once: yes
   delegate_to: "{{ groups['control_plane'][0] }}"
   register: controller_join_token
   command: k0s token create --role=controller --expiry=10m -c {{ k0s_config_dir }}/k0s.yaml
+  retries: 6
+  delay: 10
+  until: controller_join_token is not failed
   tags:
   - controller_join
   - control_plane
@@ -265,6 +274,9 @@
   when: inventory_hostname in groups['control_plane']
   failed_when: control_plane_labels.rc != 0 and 'already has a value' not in control_plane_labels.stderr
   changed_when: control_plane_labels.rc == 0
+  retries: 6
+  delay: 10
+  until: control_plane_labels is not failed
   tags:
   - control_plane
   - node_label
@@ -331,6 +343,9 @@
   - node-role.kubernetes.io/node=
   failed_when: worker_labels.rc != 0 and 'already has a value' not in worker_labels.stderr
   changed_when: worker_labels.rc == 0
+  retries: 6
+  delay: 10
+  until: worker_labels is not failed
   tags:
   - worker
   - node_label
