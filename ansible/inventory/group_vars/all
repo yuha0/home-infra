@@ -13,4 +13,5 @@ kernel_modules:
 packages:
 - fish
 - neovim
+- nfs-client
 - sudo
