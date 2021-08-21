@@ -18,8 +18,9 @@ spec:
   network:
     podCIDR: 10.42.0.0/16
     serviceCIDR: 10.43.0.0/16
-    provider: kuberouter
-    calico: null
+    provider: calico
+    calico:
+      mode: vxlan
     kuberouter:
       mtu: 0
       peerRouterIPs: ""
