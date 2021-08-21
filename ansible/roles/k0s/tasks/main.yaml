@@ -42,12 +42,44 @@
     url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/{{ server_arch }}/kubectl"
     checksum: "sha256:{{ kubectl_checksum['content'] | b64decode }}"
     dest: /usr/local/bin/kubectl
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: 0755
   when: kubectl_status.rc != 0
   tags:
   - kubectl
+
+- name: check crictl
+  command: crictl -h
+  register: crictl_status
+  changed_when: crictl_status.rc != 0
+  ignore_errors: yes
+  tags:
+  - crictl
+
+- name: Download crictl
+  get_url:
+    url: https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz
+    checksum: "sha256:https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz.sha256"
+    dest: /tmp/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz
+  when: crictl_status.rc != 0
+  tags:
+  - crictl
+
+- name: Install crictl
+  unarchive:
+    src: /tmp/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+  when: crictl_status.rc != 0
+  tags:
+  - crictl
+
+- name: crictl config
+  copy:
+    src: crictl.yaml
+    dest: /etc/crictl.yaml
+    mode: 0644
+  tags:
+  - crictl
 
 - name: Download k0s binary
   vars:
@@ -56,8 +88,6 @@
     url: https://github.com/k0sproject/k0s/releases/download/{{ k0s_version }}/k0s-{{ k0s_version }}-{{ server_arch }}
     checksum: "sha256:{{ k0s_checksum }}"
     dest: /usr/local/bin/k0s
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: 0755
   tags:
   - k0s_binary
@@ -66,8 +96,6 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: 0755
   with_items:
   - "{{ k0s_config_dir }}"
@@ -81,8 +109,6 @@
   template:
     src: k0s.yaml.j2
     dest: "{{ k0s_config_dir }}/k0s.yaml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: 0644
   when: "'control_plane' in group_names"
   tags:
@@ -154,8 +180,7 @@
     src: "{{ k0s_data_dir }}/pki/admin.conf"
     dest: "{{ k0s_data_dir }}/pki/admin.conf.cp"
     remote_src: yes
-    owner: "{{ ansible_user }}"
-    mode: 0644
+    mode: 0600
   tags:
   - kubeconfig
 
@@ -206,8 +231,6 @@
     src: controller_join_token.j2
     dest: "{{ k0s_config_dir }}/controller-token"
     mode: 0600
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
   when: inventory_hostname in groups['control_plane'][1:]
   tags:
   - controller_join
@@ -295,8 +318,6 @@
     src: worker_join_token.j2
     dest: "{{ k0s_config_dir }}/worker-token"
     mode: 0600
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
   when: inventory_hostname in groups['worker']
   tags:
   - worker_join
