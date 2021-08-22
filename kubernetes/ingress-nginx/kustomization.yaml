@@ -1,8 +1,0 @@
-namespace: ingress-nginx
-bases:
-- ./overlays/internal
-- ./overlays/external 
-
-resources:
-- common.yaml
-- dummy-service.yaml

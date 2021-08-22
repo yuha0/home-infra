@@ -1,3 +1,0 @@
-namespace: monitoring
-resources:
-- bundle.yaml

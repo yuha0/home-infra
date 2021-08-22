@@ -1,9 +1,0 @@
-namespace: monitoring
-resources:
-- prometheus-storage.yaml
-- sealed-thanos-config.yaml
-- prometheus.yaml
-- thanos-query.yaml
-- thanos-store.yaml
-- thanos-compactor.yaml
-- ingress.yaml
