@@ -1,0 +1,4 @@
+namespace: metallb-system
+resources:
+- namespace.yaml
+- generated.yaml
