@@ -1,0 +1,8 @@
+image:
+  tag: v4.0.2
+nfs:
+  server: fred.yuha0.com
+  path: /k8s
+replicaCount: 3
+storageClass:
+  accessModes: ReadWriteMany
