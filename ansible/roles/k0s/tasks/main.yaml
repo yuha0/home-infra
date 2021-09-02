@@ -89,6 +89,7 @@
     checksum: "sha256:{{ k0s_checksum }}"
     dest: /usr/local/bin/k0s
     mode: 0755
+  register: k0s_binary
   tags:
   - k0s_binary
 
@@ -145,7 +146,7 @@
     enabled: yes
     state: restarted
     daemon_reload: yes
-  when: k0s_config is defined and k0s_config.changed
+  when: (k0s_config is defined and k0s_config.changed) or k0s_binary.changed
   tags:
   - first_controller
   - control_plane
@@ -261,7 +262,7 @@
     enabled: yes
     state: restarted
     daemon_reload: yes
-  when: inventory_hostname in groups['control_plane'][1:] and k0s_config is defined and k0s_config.changed
+  when: inventory_hostname in groups['control_plane'][1:] and ((k0s_config is defined and k0s_config.changed) or k0s_binary.changed)
   tags:
   - controller_join
   - control_plane
@@ -338,7 +339,7 @@
     enabled: yes
     state: restarted
     daemon_reload: yes
-  when: inventory_hostname in groups['worker'] and k0s_config is defined and k0s_config.changed
+  when: inventory_hostname in groups['worker'] and ((k0s_config is defined and k0s_config.changed) or k0s_binary.changed)
   tags:
   - worker_join
   - worker
