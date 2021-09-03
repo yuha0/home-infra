@@ -7,5 +7,5 @@
 ## Update
 
 ```bash
-helm template -f helm/values.yaml sealed-secrets sealed-secrets/sealed-secrets > generated.yaml
+helm template -f helm/values.yaml sealed-secrets-controller sealed-secrets/sealed-secrets > generated.yaml
 ```
