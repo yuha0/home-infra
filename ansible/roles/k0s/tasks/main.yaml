@@ -121,7 +121,7 @@
   register: k0s_first_controller_install
   failed_when: k0s_first_controller_install.rc != 0 and 'Init already exists' not in k0s_first_controller_install.stderr
   changed_when: k0s_first_controller_install.rc == 0
-  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml --enable-worker --kubelet-extra-args='--register-with-taints=node-role.kubernetes.io/master=:NoSchedule'
+  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml --enable-worker --kubelet-extra-args='--register-with-taints=node-role.kubernetes.io/master=:NoSchedule' --disable-components {{ disable_components }}
   tags:
   - first_controller
   - control_plane
@@ -238,7 +238,7 @@
 
 - name: Install controllers
   register: k0s_controller_install
-  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml --token-file {{ k0s_config_dir }}/controller-token --enable-worker --kubelet-extra-args='--register-with-taints=node-role.kubernetes.io/master=:NoSchedule'
+  command: k0s install controller -c {{ k0s_config_dir }}/k0s.yaml --token-file {{ k0s_config_dir }}/controller-token --enable-worker --kubelet-extra-args='--register-with-taints=node-role.kubernetes.io/master=:NoSchedule' --disable-components {{ disable_components }}
   failed_when: k0s_controller_install.rc != 0 and 'Init already exists' not in k0s_controller_install.stderr
   changed_when: k0s_controller_install.rc == 0
   when: inventory_hostname in groups['control_plane'][1:]
