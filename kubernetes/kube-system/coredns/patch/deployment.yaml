@@ -1,0 +1,2 @@
+- op: remove
+  path: /spec/template/metadata/annotations/scheduler.alpha.kubernetes.io~1critical-pod
