@@ -1,0 +1,16 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: apiserver
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: k0.yuha0.com
+    external-dns.alpha.kubernetes.io/ttl: "120"
+spec:
+  ports:
+  - protocol: TCP
+    port: 6443
+    targetPort: 6443
+  selector: {}
+  type: LoadBalancer
