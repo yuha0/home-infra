@@ -3,3 +3,6 @@
   value: 
     external-dns.alpha.kubernetes.io/hostname: "*.external.yuha0.com"
     external-dns.alpha.kubernetes.io/ttl: "120"
+- op: add
+  path: /spec/loadBalancerIP
+  value: 10.44.0.1
