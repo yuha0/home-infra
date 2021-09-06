@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/template/spec/containers/0/args
+  value:
+  - create
+  - --host=ingress-nginx-controller-admission-internal,ingress-nginx-controller-admission-internal.$(POD_NAMESPACE).svc
+  - --namespace=$(POD_NAMESPACE)
+  - --secret-name=ingress-nginx-admission-internal

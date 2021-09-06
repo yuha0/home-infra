@@ -1,0 +1,4 @@
+- op: replace
+  path: /rules/6/resourceNames
+  value:
+  - ingress-controller-leader-internal

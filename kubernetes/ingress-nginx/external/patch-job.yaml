@@ -1,0 +1,9 @@
+- op: replace
+  path: /spec/template/spec/containers/0/args
+  value:
+  - patch
+  - --webhook-name=ingress-nginx-admission-external
+  - --namespace=$(POD_NAMESPACE)
+  - --patch-mutating=false
+  - --secret-name=ingress-nginx-admission-external
+  - --patch-failure-policy=Fail
