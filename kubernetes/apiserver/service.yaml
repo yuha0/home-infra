@@ -8,7 +8,6 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: k0.yuha0.com
     external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
-  externalTrafficPolicy: Local
   ports:
   - protocol: TCP
     port: 6443
