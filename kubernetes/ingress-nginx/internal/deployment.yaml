@@ -9,6 +9,10 @@
   - --validating-webhook=:8443
   - --validating-webhook-certificate=/usr/local/certificates/cert
   - --validating-webhook-key=/usr/local/certificates/key
+  - --default-ssl-certificate=ingress-nginx/wildcard-internal-yuha0-com
 - op: replace
   path: /spec/template/spec/volumes/0/secret/secretName
   value: ingress-nginx-admission-internal
+- op: add
+  path: /spec/replicas
+  value: 3
