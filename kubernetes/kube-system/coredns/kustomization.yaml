@@ -1,9 +1,0 @@
-namespace: kube-system
-resources:
-- generated.yaml
-
-patches:
-- path: patch/deployment.yaml
-  target:
-    group: apps
-    kind: Deployment
