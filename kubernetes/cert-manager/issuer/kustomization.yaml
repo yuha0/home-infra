@@ -1,0 +1,3 @@
+resources:
+- sealed-cloudflare-api-token-secret.yaml
+- clusterissuer.yaml

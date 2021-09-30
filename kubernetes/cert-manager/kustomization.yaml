@@ -1,5 +1,5 @@
-namespace: cert-manager
 resources:
 - namespace.yaml
 - generated.yaml
-- sealed-cloudflare-api-token-secret.yaml
+- issuer
+- certificate
