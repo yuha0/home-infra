@@ -1,5 +1,0 @@
-namespace: ingress-nginx
-resources:
-- namespace.yaml
-- internal
-- external

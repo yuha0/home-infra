@@ -2,9 +2,9 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: external-yuha0-com
-  namespace: ingress-nginx
+  namespace: ingress-nginx-external
 spec:
-  secretName: wildcard-external-yuha0-com
+  secretName: wildcard-yuha0-com
   dnsNames:
   - "*.external.yuha0.com"
   issuerRef:

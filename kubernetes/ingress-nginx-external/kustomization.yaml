@@ -1,0 +1,4 @@
+namespace: ingress-nginx-external
+resources:
+- namespace.yaml
+- generated.yaml

@@ -1,5 +1,0 @@
-- op: add
-  path: /metadata/annotations
-  value: 
-    external-dns.alpha.kubernetes.io/hostname: "*.internal.yuha0.com"
-    external-dns.alpha.kubernetes.io/ttl: "120"

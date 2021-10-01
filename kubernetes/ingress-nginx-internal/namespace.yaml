@@ -1,0 +1,9 @@
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx-internal
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/instance: internal
