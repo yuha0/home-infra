@@ -1,0 +1,4 @@
+namespace: monitoring
+resources:
+- namespace.yaml
+- bundle.yaml

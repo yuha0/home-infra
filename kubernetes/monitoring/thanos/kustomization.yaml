@@ -1,0 +1,3 @@
+namespace: monitoring
+resources:
+- sealed-thanos-objstore-config.yaml

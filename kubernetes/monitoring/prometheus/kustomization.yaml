@@ -1,0 +1,4 @@
+namespace: monitoring
+resources:
+- rbac.yaml
+- overlays/kube-system
