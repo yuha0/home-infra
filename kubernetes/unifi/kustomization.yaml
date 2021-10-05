@@ -1,0 +1,5 @@
+namespace: unifi
+resources:
+- namespace.yaml
+- mongodb
+- controller
