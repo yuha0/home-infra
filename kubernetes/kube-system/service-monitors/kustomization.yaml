@@ -1,0 +1,5 @@
+namespace: kube-system
+resources:
+- apiserver.yaml
+- coredns.yaml
+- kubelet.yaml
