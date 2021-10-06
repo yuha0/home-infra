@@ -99,22 +99,34 @@ spec:
       
       serviceAccountName: default
       securityContext:
+        fsGroup: 999
         runAsGroup: 999
         runAsUser: 999
       dnsPolicy: ClusterFirst
       enableServiceLinks: true
       initContainers:
         - command:
-          - /bin/sh
+          - /bin/bash
           - -c
           - mkdir -p /unifi/data/ && cp /tmp/unifi/config.gateway.json /unifi/data/config.gateway.json
-          image: busybox:1.33.1
+          image: jacobalberty/unifi:v6.4.54
           name: config-init
           volumeMounts:
           - mountPath: /unifi/
             name: unifi-data
           - mountPath: /tmp/unifi
             name: unifi-config
+        - command:
+          - /bin/bash
+          - -c
+          - cp -r /usr/lib/unifi/* /tmp/usr-lib-unifi/ && chown -R unifi:unifi /tmp/usr-lib-unifi/
+          image: jacobalberty/unifi:v6.4.54
+          name: permission-fix
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+          - mountPath: /tmp/usr-lib-unifi/
+            name: usr-lib-unifi
       containers:
         - name: unifi
           image: "jacobalberty/unifi:v6.4.54"
@@ -168,6 +180,10 @@ spec:
               mountPath: /tmp/unifi
             - name: unifi-data
               mountPath: /unifi
+            - name: usr-lib-unifi
+              mountPath: /usr/lib/unifi
+            - name: var-run-unifi
+              mountPath: /var/run/unifi
           livenessProbe:
             tcpSocket:
               port: 8443
@@ -199,6 +215,10 @@ spec:
         - name: unifi-data
           persistentVolumeClaim:
             claimName: unifi-unifi-data
+        - name: usr-lib-unifi
+          emptyDir: {}
+        - name: var-run-unifi
+          emptyDir: {}
 ---
 # Source: unifi/templates/common.yaml
 apiVersion: networking.k8s.io/v1

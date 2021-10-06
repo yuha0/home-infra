@@ -16,6 +16,7 @@ image:
 podSecurityContext:
   runAsUser: 999
   runAsGroup: 999
+  fsGroup: 999
 
 nodeSelector:
 
@@ -25,9 +26,9 @@ resources:
 
 initContainers:
   config-init:
-    image: busybox:1.33.1
+    image: jacobalberty/unifi:v6.4.54
     command:
-    - /bin/sh
+    - /bin/bash
     - -c
     - >-
       mkdir -p /unifi/data/ && cp /tmp/unifi/config.gateway.json /unifi/data/config.gateway.json
@@ -36,6 +37,18 @@ initContainers:
       mountPath: /unifi/
     - name: unifi-config
       mountPath: /tmp/unifi
+  permission-fix:
+    image: jacobalberty/unifi:v6.4.54
+    command:
+    - /bin/bash
+    - -c
+    - >-
+      cp -r /usr/lib/unifi/* /tmp/usr-lib-unifi/ && chown -R unifi:unifi /tmp/usr-lib-unifi/
+    volumeMounts:
+    - name: usr-lib-unifi
+      mountPath: /tmp/usr-lib-unifi/
+    securityContext:
+      runAsUser: 0
 
 # -- environment variables. See more environment variables in the [image documentation](https://github.com/jacobalberty/unifi-docker#environment-variables).
 # @default -- See below
@@ -158,6 +171,19 @@ persistence:
     volumeSpec:
       configMap:
         name: unifi-config
+  usr-lib-unifi:
+    enabled: true
+    type: custom
+    mountPath: /usr/lib/unifi
+    volumeSpec:
+      emptyDir: {}
+  var-run-unifi:
+    enabled: true
+    type: custom
+    mountPath: /var/run/unifi
+    volumeSpec:
+      emptyDir: {}
+    
   # data:
   #   enabled: true
   #   mountPath: /unifi
