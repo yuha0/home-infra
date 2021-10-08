@@ -1,0 +1,10 @@
+namespace: plex
+commonLabels:
+  app.kubernetes.io/name: plex
+  app.kubernetes.io/instance: plex
+resources:
+- namespace.yaml
+- sealed-claim.yaml
+- volume.yaml
+- plex.yaml
+- ingress.yaml

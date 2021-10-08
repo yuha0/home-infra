@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: claim-code
+  namespace: plex
+spec:
+  encryptedData:
+    code: AgCMvfwJ6hDOp590xcvID7MQV4AkDFal00PTHFTrRLMDeYNPL8X2Wh8g71QVGfKvK6c/4jUtme3nTJQx9ZZ2gy+EIPshTc0rzZAAYiYKnqEe/2+2KGg1Ws0SfrkQSiKmG8UQmyDGtEfSegKuIg40x4iJeSGBaESaXIo6sXd00g1RqO8DXEt99nQsqOLT53n8mj4M5Lo6hleqQbI6zZQmZpGN3JrqctlRsl4MGivMTe21fcQ4i3xkBPCso1s2G0ekzGZBE9AOQTU/T7Djzt6pmUOsSyuM90lo08H8ljEwN26jQ16xCsZC71F3BY95QJmhQdJ0DGXf0EFrwX9sGTDpU5fyUFR3S2OAOJQQIIgGfif5TpZ3s3WoKtAGhlPG4ZS7EShEGB7OpuI/zPat60jHF9LOQRZTnR4mNQ78gNzx1ILmiktwQc71pq62tmkjleYLFPpPjS9xeJM9YiTfp9JiEecobfTKJgk73lE+T1KSpZ3jBgZh7xhfO3UyvEk66VSPzQ/X9SfL5FR8VYhiuX/241LZ9CHMLBNegQj2GWbKzd6+VYQNz0N5upKfwoVL0tUO1Hp91YZFGGld0SM9Sjp6klTBz7iRUwll59Lq814Kurz2W1q5Wpqvvlm1jZC9wsOWjT7JoPfVcom+t93MNr9MlSD+1eLP75fGDxlKxogyeG4wywkarCfczDNIFzB2Uoc9vCtv+XEaMdCISJOkMoqa3dWtJeaMCVqgv+dLgw==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: claim-code
+      namespace: plex
+    type: Opaque
+
