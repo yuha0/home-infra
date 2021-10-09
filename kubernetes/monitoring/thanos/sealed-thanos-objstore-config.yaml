@@ -6,8 +6,21 @@ metadata:
   namespace: monitoring
 spec:
   encryptedData:
-    thanos.yaml: AgAiCrEXKTLmaNgm6cn7IFTw3EVbmwpd0xF2/MehFp+qUEd5STqDG+Y7b8aKV6s1dSIL5f4fcx2qzRyipWwrTh8QA3AVkHlJy2nph6r6ElNLZfX1ueSmD/XeGrJMjW9IaDLuBk/NVPRM5qVnC6tjA7H8YnIWkX7OZMqlGgFoUdxjY714X585YJsWp5ZyzCrCzWO2zNGNFsgmPrR4CbpUN/6Zc6GbbfQHNbCcVzAjNmtNPWXENYc/7KbyKw7HUz1RJyA2krwcQuMaLeoRIupzuAC+ctCG3pXEF6T1cRsRbEx2LeGLpra1g5otg8r0M1v78dPhmm1s0NkSAIP/rNv6MXoTQLcu3nQL9CeUnZhz9WvUYQGI/r2nh4633bTtyQU2ATnNUO3aAjEUlACu242QN7u7NEw4n3ZFambWqgZnPLbwGnGdgyUqZqpA8L0PeF2SrxtpT9QPaW3SI1q/TQ9ZkBJ22bpxONrkvHsPBOFwv3SIUaKpLvNgSAOyqOQf2+79Cu73AbcSBr+h/cX3XeF+JDJPCqlljVfSb/vBvuU7mbug4ZJRDATm+iHqFnKfSzR3AlbEqgpZ8XMBnA4sHnUPQs6pcwrZi2xAGOhSqZ54gB7Ruu3Tw3oUBDypZ6VFRnay6BtIWBnfYrjnWxfGqk1RYcz0gUSM8JmsZFYXdinLmziss5AZkuuXqsPaxdUzMUpbVFUMWwwJW6T5FKFd2n/IgMo79UVkUryEirdp8FSGTRZlAli9NbYmY4R9XKRTmJBzZBSauec9x4KNsddqM1pH4Wct54jFc8+42XGZuRFZHxRy/TODDQKEWJVutC7TCnBg2ZM+RAG7MpJeOfE4FnHi0Y2eJsKCSsFxTackZRPyOKACbR2bQ3TaG4MCMr86PL0fHfpjzGm5y9NVRxfzmKtgFaW/QPQ8StU0I8TIliRqpD9xMeG46la2INRcHVSHfZEGnv5OjvU22WPcPyrqNPxjeWHrftBDg0LFMqNcaNaC3dugnlehrj8xDxeku/qr+OhFL9VJQr4=
+    access-key: AgCKKrB2AYqI3Kog06akAsMbdgZtvrWW9BaohNIVSAF730cDYNm86vxpcROcyw3+tUFAwazn+1AqmSsUXg6NpVtwKnvbQknlq572jbta1iV1ba0iWCnFhF7B3DgVAd2yBhtzu4OD3gpZFCu8/GWV/+gfrEDRltZnnhC08G/e9Rcwx2AniTm2qhILa4EzPthjaOVLkoMNeLZ86ETErBJ/YyGbCQttBmteIohzUlDyFqzDhFKDzpY1UC9CIC3OAx8TeGRLQB5mCEU4iHHcy187SZ6oq0M5EME83PXKIZYNqO0OK32EAzh9oKUbfwjbkEXvT5fP9HjhR0+vkWiFRRPwrICe3pICDJ6VE3WJWt4wuQVyhRASbz1Ov03dXOqtK0ck5VNZBQoM7kWHQVfj5mR9DpJIa2rN6fKQ5+RniHoRCkzaLJa4U5om4KMgPT6d+yMO7as/L+OOH9dPGuiSPZhH0xv0aiWnXwJMfIAPLtk2qoY9JlCi1aEVodV6WzgOhHE87pYygnS/vXc9qddtY5cHJcsgMNVqC8EqtJ10CNIg+0XdoANRPk+EaN0VMtWicoqu1nk2UgbZP3CZQhKYHpERkkT2+6Vs5tE9IPuZg6l4XdKPj6Bwu/aHPL8ZgUQlCqp4NgQRKX+eUlJhOVRNyfap+pD/1No2yD/jASFQYH/zg6Dd4FVqvIg1vOemmlSNsteW3FC2cU6r30AoveQ6EUQ/AmQ931DBMP6HPf4=
+    secret-key: AgCilRAgTt2OaPNlgX44rCHHvpMA36f/C8RmNklJ9qUhoC9YIBzuOMQJ/o1GUPrQeaJm9zcEVPOruqZh/QH3pwG51h8bbegLITpbtxfKxAj8XDIAGjrbVHVKv32LDATx3wm0HoF1nVRWpi3i4JkEk0bwPIqS74IWWvMSI7oSJ9VkCqUF7Ka3k3HbVd4gV9H/6urRYpdT1ETVE7RLBMp8syRmv3OQyx0BFpKs8KhVX3z3v+2LzquCN+3IJUzXb44tCC03PXOW6CXt/sFmhxMOfOK/D61sLt3ZgY9JnkZfP24OmzITb3j8F6wn1ASqgCNq+kGKnzfZmtrixl/AA26CVV9zzqBeUsn/LqewkNlxXUxl75CDIp8HbH5CFJPkzKtP9e+7x278AEDC9hjrA9+I3+wkHz+skM7DJLHYM47R3RKV1SL/lyL7cvLjZOZidSAUMlgmLb7DCbwvPG6gzBY9SkmXNhno812LWO5vywO4/kaWa5z0VZGWRgU4YdIMf1ops+rGG0qkNQN/alfP2mLEiK/xmfcnuvyCUqWxMOdNwC59EB7GCh3sWCip5HVI0l9FferUudwX8pdBjGSVDoO7xtKmMH5OR8hmP19ePWstD8Sm0bbBda6ltAQvtTX+a2II7lm6mve/2VwvJ9YOSJLdRxDl6Bfau08yi1AobramZflOhW7WwMgGwZFdqO/QLhXdQH4EhgqdN4uyGzHAADkWGzbz+Lzjm8hHW5H+yEgJkeiINQ==
   template:
+    data:
+      thanos.yaml: |
+        type: S3
+        config:
+          bucket: "thanos"
+          endpoint: "fred.yuha0.com:8010"
+          insecure: false
+          signature_version2: true
+          access_key: {{ index . "access-key" }}
+          secret_key: {{ index . "secret-key" }}
+          http_config:
+            insecure_skip_verify: true
     metadata:
       creationTimestamp: null
       name: thanos-objstore-config
