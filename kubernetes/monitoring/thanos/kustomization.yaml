@@ -1,3 +1,19 @@
 namespace: monitoring
+commonLabels:
+  app.kubernetes.io/name: thanos
 resources:
 - sealed-thanos-objstore-config.yaml
+- ingress.yaml
+- thanos-query.yaml
+- thanos-store.yaml
+- thanos-compact.yaml
+
+images:
+- name: thanos
+  newName: quay.io/thanos/thanos
+  newTag: v0.23.1
+
+patches:
+- path: patch/pod.yaml
+  target:
+    group: apps
