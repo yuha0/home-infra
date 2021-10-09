@@ -10,6 +10,10 @@ spec:
   nodeSelector:
     kubernetes.io/arch: amd64
   retention: 24h
+  securityContext:
+    fsGroup: 65534
+    runAsGroup: 65534
+    runAsUser: 65534
   serviceAccountName: prometheus
   serviceMonitorSelector: {}
   storage:
@@ -20,8 +24,8 @@ spec:
           requests:
             storage: 10Gi
   thanos:
-    image: quay.io/thanos/thanos:v0.23.0
-    version: v0.23.0
+    image: quay.io/thanos/thanos:v0.23.1
+    version: v0.23.1
     objectStorageConfig:
       name: thanos-objstore-config
       key: thanos.yaml
