@@ -55,6 +55,8 @@ spec:
           value: "1000"
         - name: PLEX_GID
           value: "1000"
+        - name: ADVERTISE_IP
+          value: https://plex.internal.yuha0.com
         - name: PLEX_CLAIM
           valueFrom:
             secretKeyRef:
