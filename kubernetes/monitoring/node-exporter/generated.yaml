@@ -1,0 +1,155 @@
+---
+# Source: prometheus-node-exporter/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: monitoring-prometheus-node-exporter
+  namespace: monitoring
+  labels:
+    app: prometheus-node-exporter
+    chart: prometheus-node-exporter-2.2.0
+    release: "monitoring"
+    heritage: "Helm"
+  annotations:
+    {}
+imagePullSecrets:
+  []
+---
+# Source: prometheus-node-exporter/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitoring-prometheus-node-exporter
+  namespace: monitoring
+  annotations:
+    prometheus.io/scrape: "true"
+  labels:     
+    app: prometheus-node-exporter
+    heritage: Helm
+    release: monitoring
+    chart: prometheus-node-exporter-2.2.0
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9100
+      targetPort: 9100
+      protocol: TCP
+      name: metrics
+  selector:
+    app: prometheus-node-exporter
+    release: monitoring
+---
+# Source: prometheus-node-exporter/templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-prometheus-node-exporter
+  namespace: monitoring
+  labels:     
+    app: prometheus-node-exporter
+    heritage: Helm
+    release: monitoring
+    chart: prometheus-node-exporter-2.2.0
+spec:
+  selector:
+    matchLabels:
+      app: prometheus-node-exporter
+      release: monitoring
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:         
+        app: prometheus-node-exporter
+        heritage: Helm
+        release: monitoring
+        chart: prometheus-node-exporter-2.2.0
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    spec:
+      automountServiceAccountToken: false
+      serviceAccountName: monitoring-prometheus-node-exporter
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      containers:
+        - name: node-exporter
+          image: "quay.io/prometheus/node-exporter:v1.2.2"
+          imagePullPolicy: IfNotPresent
+          args:
+            - --path.procfs=/host/proc
+            - --path.sysfs=/host/sys
+            - --path.rootfs=/host/root
+            - --web.listen-address=$(HOST_IP):9100
+          env:
+          - name: HOST_IP
+            value: 0.0.0.0
+          ports:
+            - name: metrics
+              containerPort: 9100
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9100
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9100
+          resources:
+            limits:
+              cpu: 100m
+              memory: 50Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi
+          volumeMounts:
+            - name: proc
+              mountPath: /host/proc
+              readOnly:  true
+            - name: sys
+              mountPath: /host/sys
+              readOnly: true
+            - name: root
+              mountPath: /host/root
+              mountPropagation: HostToContainer
+              readOnly: true
+      hostNetwork: true
+      hostPID: true
+      tolerations:
+        - operator: Exists
+      volumes:
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: sys
+          hostPath:
+            path: /sys
+        - name: root
+          hostPath:
+            path: /
+---
+# Source: prometheus-node-exporter/templates/monitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: monitoring-prometheus-node-exporter
+  namespace: monitoring
+  labels:     
+    app: prometheus-node-exporter
+    heritage: Helm
+    release: monitoring
+    chart: prometheus-node-exporter-2.2.0
+spec:
+  selector:
+    matchLabels:
+      app: prometheus-node-exporter
+      release: monitoring
+  endpoints:
+    - port: metrics
+      scheme: http
+      scrapeTimeout: 10s
