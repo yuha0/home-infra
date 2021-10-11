@@ -1,4 +1,6 @@
 namespace: monitoring
 resources:
 - rbac.yaml
+- servicemonitor.yaml
 - overlays/kube-system
+- overlays/monitoring

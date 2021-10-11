@@ -1,0 +1,8 @@
+nameSuffix: -monitoring
+commonLabels:
+  app.kubernetes.io/instance: prom-monitoring
+bases:
+- ./../../base
+patchesStrategicMerge:
+- prometheus.yaml
+- ingress.yaml
