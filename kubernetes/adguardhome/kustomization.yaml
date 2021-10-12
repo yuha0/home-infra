@@ -1,0 +1,16 @@
+namespace: adguardhome
+commonLabels:
+  app.kubernetes.io/name: adguardhome
+resources:
+- namespace.yaml
+- sealed-config.yaml
+- deploy.yaml
+- ingress.yaml
+
+images:
+- name: adguardhome
+  newName: adguard/adguardhome
+  newTag: v0.106.3
+- name: adguard-exporter
+  newName: ebrianne/adguard-exporter
+  newTag: v1.14
