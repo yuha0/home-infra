@@ -371,10 +371,10 @@ cainjector:
   resources:
     requests:
       cpu: 80m
-      memory: 60Mi
+      memory: 80Mi
     limits:
       cpu: 80m
-      memory: 60Mi
+      memory: 80Mi
 
   nodeSelector: {}
 
