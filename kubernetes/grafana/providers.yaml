@@ -1,0 +1,9 @@
+apiVersion: 1
+providers:
+- name: 'k8s-sidecar'
+  orgId: 1
+  type: file
+  allowUiUpdates: false
+  options:
+    path: /grafana-provisioning-dashboards
+    foldersFromFilesStructure: true

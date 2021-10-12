@@ -1,0 +1,12 @@
+namePrefix: dashboard-kubernetes-
+commonLabels:
+  grafana-provisioning: dashboard
+commonAnnotations:
+  grafana-provisioning-directory: kubernetes
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: container-resources
+  files:
+  - containers.json

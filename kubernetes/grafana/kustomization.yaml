@@ -1,0 +1,27 @@
+namespace: grafana
+commonLabels:
+  app.kubernetes.io/name: grafana
+resources:
+- namespace.yaml
+- sealed-grafana-admin.yaml
+- service.yaml
+- rbac.yaml
+- ingress.yaml
+- deployment.yaml
+- dashboards/kubernetes
+
+configMapGenerator:
+- name: grafana-provisioning-datasources
+  files:
+  - datasources.yaml
+- name: grafana-provisioning-providers
+  files:
+  - providers.yaml
+
+images:
+- name: grafana
+  newName: grafana/grafana
+  newTag: 8.2.1
+- name: k8s-sidecar
+  newName: kiwigrid/k8s-sidecar
+  newTag: 1.14.2

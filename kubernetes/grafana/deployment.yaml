@@ -1,0 +1,132 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  template:
+    spec:
+      containers:
+      - env:
+        - name: GF_ANALYTICS_REPORTING_ENABLED
+          value: "false"
+        - name: GF_ANALYTICS_CHECK_FOR_UPDATES
+          value: "false"
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_AUTH_BASIC_ENABLED
+          value: "true"
+        - name: GF_AUTH_DISABLE_LOGIN_FORM
+          value: "true"
+        - name: GF_LOG_MODE
+          value: console
+        - name: GF_SECURITY_ADMIN_USER
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: grafana-admin
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: grafana-admin
+        - name: GF_PATHS_DATA
+          value: /var/lib/grafana
+        - name: GF_PATHS_PROVISIONING
+          value: /etc/grafana/provisioning
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Editor
+        - name: GF_USERS_EDITORS_CAN_ADMIN
+          value: "true"
+        - name: GF_SERVER_ROOT_URL
+          value: https://grafana.internal.yuha0.com
+        image: grafana
+        name: grafana
+        ports:
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3000
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 200m
+            memory: 100Mi
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-data
+        - mountPath: /etc/grafana/provisioning/datasources
+          name: grafana-provisioning-datasources
+        - mountPath: /etc/grafana/provisioning/dashboards
+          name: grafana-provisioning-providers
+        - mountPath: /grafana-provisioning-dashboards
+          name: grafana-provisioning-dashboards
+      - env:
+        - name: LABEL
+          value: grafana-provisioning
+        - name: LABEL_VALUE
+          value: dashboard
+        - name: FOLDER
+          value: /grafana-provisioning-dashboards
+        - name: FOLDER_ANNOTATION
+          value: grafana-provisioning-directory
+        - name: NAMESPACE
+          value: grafana
+        - name: RESOURCE
+          value: configmap
+        - name: METHOD
+          value: null
+        - name: REQ_URL
+          value: http://localhost:3000/api/admin/provisioning/dashboards/reload
+        - name: REQ_METHOD
+          value: POST
+        - name: REQ_RETRY_TOTAL
+          value: "9999"
+        - name: REQ_RETRY_BACKOFF_FACTOR
+          value: "1"
+        - name: REQ_TIMEOUT
+          value: "30"
+        - name: REQ_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: grafana-admin
+        - name: REQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: grafana-admin
+        image: k8s-sidecar
+        name: config-sidecar
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - mountPath: /grafana-provisioning-dashboards
+          name: grafana-provisioning-dashboards
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      securityContext:
+        fsGroup: 472
+        runAsUser: 472
+        runAsGroup: 472
+      serviceAccountName: grafana
+      volumes:
+      - emptyDir: {}
+        name: grafana-data
+      - configMap:
+          name: grafana-provisioning-datasources
+        name: grafana-provisioning-datasources
+      - configMap:
+          name: grafana-provisioning-providers
+        name: grafana-provisioning-providers
+      - emptyDir: {}
+        name: grafana-provisioning-dashboards
