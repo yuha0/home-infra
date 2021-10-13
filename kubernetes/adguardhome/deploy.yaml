@@ -11,6 +11,10 @@ spec:
     targetPort: http
     port: 80
     protocol: TCP
+  - name: metrics
+    targetPort: http
+    port: 9617
+    protocol: TCP
 
 ---
 
@@ -58,8 +62,25 @@ spec:
       initContainers:
       # https://github.com/AdguardTeam/AdGuardHome/issues/1964
       - name: conf-init
-        image: busybox:1.33.0
-        command: ["cp", "/tmp/AdGuardHome.yaml", "/opt/adguardhome/conf/AdGuardHome.yaml"]
+        image: httpd:2.4.51-alpine
+        env:
+        - name: ADGUARD_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: config
+              key: username
+        - name: ADGUARD_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: config
+              key: password
+        command:
+        - /bin/sh
+        - -c
+        - |
+          cp /tmp/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
+          sed -i -e "s@#ADGUARD_USERNAME#@${ADGUARD_USERNAME}@g" /opt/adguardhome/conf/AdGuardHome.yaml
+          sed -i -e "s@#ADGUARD_PASSWORD#@$(htpasswd -b -n -B -C 10 '' ${ADGUARD_PASSWORD} | tr -d ':')@g" /opt/adguardhome/conf/AdGuardHome.yaml
         volumeMounts:
         - name: conf-dir
           mountPath: /opt/adguardhome/conf
@@ -109,7 +130,15 @@ spec:
         - name: adguard_hostname
           value: localhost
         - name: adguard_username
+          valueFrom:
+            secretKeyRef:
+              name: config
+              key: username
         - name: adguard_password
+          valueFrom:
+            secretKeyRef:
+              name: config
+              key: password
         - name: server_port
           value: "9617"
       volumes:
