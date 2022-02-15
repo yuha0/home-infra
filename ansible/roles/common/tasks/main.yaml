@@ -1,5 +1,5 @@
 - name: Install required packages
-  apt:
+  ansible.builtin.apt:
     name: '{{ item }}'
     update_cache: yes
     cache_valid_time: 3600
@@ -8,7 +8,7 @@
   - packages
 
 - name: sudoers
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/sudoers
     state: present
     regexp: "^{{ ansible_user }} ALL="
@@ -17,7 +17,7 @@
   - sudoers
 
 - name: authorized_keys
-  authorized_key:
+  ansible.builtin.authorized_key:
     user: "{{ ansible_user }}"
     state: present
     key: "{{ item }}"
@@ -27,7 +27,7 @@
   - ssh
 
 - name: "setup {{ ansible_user }}'s login shell to fish"
-  user:
+  ansible.builtin.user:
     name: "{{ansible_user}}"
     shell: /usr/bin/fish
   tags:
@@ -50,10 +50,11 @@
 - name: Ensure lv size
   community.general.lvol:
     vg: '{{ inventory_hostname }}-vg'
-    lv: var
-    size: 80%VG
+    lv: '{{ item.key }}'
+    size: '{{ item.value }}'
     force: yes
   when: ansible_architecture == "x86_64"
+  loop: "{{ lvm | dict2items }}"
   tags:
   - lvm
 

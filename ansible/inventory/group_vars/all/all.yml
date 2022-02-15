@@ -1,0 +1,17 @@
+ansible_user: zzyzxd
+
+kernel_modules:
+- br_netfilter
+- nf_conntrack
+- overlay
+
+lvm:
+  home: 20%VG
+  var: 70%VG
+
+packages:
+- fish
+- neovim
+- nfs-client
+- sudo
+

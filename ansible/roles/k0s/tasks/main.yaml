@@ -29,7 +29,7 @@
   tags:
   - kubectl
 
-- name: Get checksum content
+- name: Get kubectl checksum content
   slurp:
     src: /tmp/kubectl.sha256
   register: kubectl_checksum
@@ -55,10 +55,26 @@
   tags:
   - crictl
 
+- name: Get crictl checksum
+  get_url:
+    url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz.sha256"
+    dest: /tmp/crictl.sha256
+  when: crictl_status.rc != 0
+  tags:
+  - crictl
+
+- name: Get crictl checksum content
+  slurp:
+    src: /tmp/crictl.sha256
+  register: crictl_checksum
+  when: crictl_status.rc != 0
+  tags:
+  - crictl
+
 - name: Download crictl
   get_url:
     url: https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz
-    checksum: "sha256:https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz.sha256"
+    checksum: "sha256:{{ crictl_checksum['content'] | b64decode }}"
     dest: /tmp/crictl-{{ crictl_version }}-linux-{{ server_arch }}.tar.gz
   when: crictl_status.rc != 0
   tags:

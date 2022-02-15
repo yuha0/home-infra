@@ -1,0 +1,6 @@
+- hosts: all
+  become: yes
+  roles:
+  - k0s
+  tags:
+  - k0s
