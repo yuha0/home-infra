@@ -1,4 +1,4 @@
-# All the custom fixes to make kubespray work on raspberry pi boards
+# All the custom fixes to make kubespray work in a multi-arch cluster
 
 # https://github.com/kubernetes-sigs/kubespray/issues/8357
 kata_containers_binary_checksums:
@@ -54,3 +54,6 @@ containerd_archive_checksums:
     1.6.0: f77725e4f757523bf1472ec3b9e02b09303a5d99529173be0f11a6d39f5676e9
 containerd_version: 1.6.0
 runc_version: v1.1.0
+
+# https://github.com/kubernetes-sigs/kubespray/issues/7934
+cilium_version: v1.10.7 
