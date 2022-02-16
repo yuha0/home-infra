@@ -66,3 +66,7 @@
   when: ansible_architecture == "x86_64"
   tags:
   - lvm
+
+- name: UTC timezone
+  community.general.timezone:
+    name: UTC
