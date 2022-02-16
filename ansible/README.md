@@ -11,7 +11,7 @@ Ansible playbook for basic server setup and then bootstrap a [kubernetes-sigs/ku
 
 ### Operating System
 
-[x] Debian 11
+- [x] Debian 11
 
 ## Operations
 
