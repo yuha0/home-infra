@@ -61,9 +61,10 @@
 - name: resize fs
   community.general.filesystem:
     fstype: ext4
-    dev: '/dev/mapper/{{ inventory_hostname }}--vg-var'
+    dev: '/dev/mapper/{{ inventory_hostname }}--vg-{{ item.key }}'
     resizefs: yes
   when: ansible_architecture == "x86_64"
+  loop: "{{ lvm | dict2items }}"
   tags:
   - lvm
 
