@@ -1,6 +1,4 @@
-- hosts: all
-  become: yes
-  roles:
-  - k0s
-  tags:
-  - k0s
+- name: common
+  import_playbook: common.yml
+- name: Deploy cluster
+  import_playbook: kubespray/cluster.yml

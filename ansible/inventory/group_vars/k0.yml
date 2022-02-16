@@ -1,9 +1,0 @@
-api_lb: k0.yuha0.com
-
-k0s_version: v1.23.3+k0s.0
-crictl_version: v1.23.0
-
-amd64_checksum: aa170c7fa0ea3fe1194eaec6a18964543e1e139eab1cfbbbafec7f357fb1679d
-arm64_checksum: 43dad211318121073e7dd76a01f2fb6d53261835be07f7ac4b5e53fec0a1f09f
-
-disable_components: coredns,default-psp,helm,metrics-server
