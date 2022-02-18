@@ -113,7 +113,7 @@ logLevel: info
 logFormat: text
 
 interval: 1m
-triggerLoopOnEvent: false
+triggerLoopOnEvent: true
 
 sources:
   - service
@@ -129,7 +129,7 @@ txtSuffix: ""
 domainFilters:
 - yuha0.com
 
-provider: aws
+provider: cloudflare
 
 extraArgs:
 - --zone-id-filter=$(CF_API_ZONE_ID)
