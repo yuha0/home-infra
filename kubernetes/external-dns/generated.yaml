@@ -5,10 +5,10 @@ kind: ServiceAccount
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.2.0
+    helm.sh/chart: external-dns-1.7.1
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.9.0"
+    app.kubernetes.io/version: "0.10.2"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: external-dns/templates/clusterrole.yaml
@@ -17,21 +17,24 @@ kind: ClusterRole
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.2.0
+    helm.sh/chart: external-dns-1.7.1
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.9.0"
+    app.kubernetes.io/version: "0.10.2"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups: [""]
-    resources: ["services","endpoints","pods"]
+    resources: ["nodes"]
+    verbs: ["list","watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get","watch","list"]
+  - apiGroups: [""]
+    resources: ["services","endpoints"]
     verbs: ["get","watch","list"]
   - apiGroups: ["extensions","networking.k8s.io"]
     resources: ["ingresses"]
     verbs: ["get","watch","list"]
-  - apiGroups: [""]
-    resources: ["nodes"]
-    verbs: ["list","watch"]
 ---
 # Source: external-dns/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -39,10 +42,10 @@ kind: ClusterRoleBinding
 metadata:
   name: external-dns-viewer
   labels:
-    helm.sh/chart: external-dns-1.2.0
+    helm.sh/chart: external-dns-1.7.1
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.9.0"
+    app.kubernetes.io/version: "0.10.2"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -59,10 +62,10 @@ kind: Service
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.2.0
+    helm.sh/chart: external-dns-1.7.1
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.9.0"
+    app.kubernetes.io/version: "0.10.2"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -81,10 +84,10 @@ kind: Deployment
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.2.0
+    helm.sh/chart: external-dns-1.7.1
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.9.0"
+    app.kubernetes.io/version: "0.10.2"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -110,7 +113,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 65534
-          image: k8s.gcr.io/external-dns/external-dns:v0.9.0
+          image: k8s.gcr.io/external-dns/external-dns:v0.10.2
           imagePullPolicy: IfNotPresent
           env:
             - name: CF_API_TOKEN
@@ -123,14 +126,22 @@ spec:
                 secretKeyRef:
                   key: CF_API_EMAIL
                   name: cf-api
+            - name: CF_API_ZONE_ID
+              valueFrom:
+                secretKeyRef:
+                  key: CF_API_ZONE_ID
+                  name: cf-api
           args:
             - --log-level=info
             - --log-format=text
             - --interval=1m
             - --source=service
+            - --source=ingress
             - --policy=upsert-only
-            - --provider=cloudflare
+            - --registry=txt
             - --domain-filter=yuha0.com
+            - --provider=aws
+            - --zone-id-filter=$(CF_API_ZONE_ID)
           ports:
             - name: http
               protocol: TCP
