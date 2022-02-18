@@ -41,7 +41,7 @@ global:
 
 installCRDs: true
 
-replicaCount: 1
+replicaCount: 2
 
 strategy: {}
   # type: RollingUpdate
@@ -61,7 +61,7 @@ image:
 
   # Override the image tag to deploy by setting this variable.
   # If no value is set, the chart's appVersion will be used.
-  # tag: canary
+  tag: v1.7.1
 
   # Setting a digest will override any tag
   # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -70,7 +70,7 @@ image:
 # Override the namespace used to store DNS provider credentials etc. for ClusterIssuer
 # resources. By default, the same namespace as cert-manager is deployed within is
 # used. This namespace will not be automatically created by the Helm chart.
-clusterResourceNamespace: "cert-manager"
+clusterResourceNamespace: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -83,15 +83,11 @@ serviceAccount:
   # Automount API credentials for a Service Account.
   automountServiceAccountToken: true
 
-# Optional additional arguments
+# Additional command line flags to pass to cert-manager controller binary.
+# To see all available flags run docker run quay.io/jetstack/cert-manager-controller:<version> --help
 extraArgs:
-- --cluster-resource-namespace=cert-manager
-- --enable-certificate-owner-ref=true
-  # Use this flag to set a namespace that cert-manager will use to store
-  # supporting resources required for each ClusterIssuer (default is kube-system)
-  # - --cluster-resource-namespace=kube-system
   # When this flag is enabled, secrets will be automatically removed when the certificate resource is deleted
-  # - --enable-certificate-owner-ref=true
+  - --enable-certificate-owner-ref=true
   # Use this flag to enabled or disable arbitrary controllers, for example, disable the CertificiateRequests approver
   # - --controllers=*,-certificaterequests-approver
 
@@ -101,9 +97,6 @@ extraEnv: []
 
 resources:
   requests:
-    cpu: 100m
-    memory: 80Mi
-  limits:
     cpu: 100m
     memory: 80Mi
 
@@ -145,6 +138,9 @@ volumeMounts: []
 
 podLabels: {}
 
+# Optional annotations to add to the controller Service
+# serviceAnnotations: {}
+
 # Optional additional labels to add to the controller Service
 # serviceLabels: {}
 
@@ -176,6 +172,7 @@ prometheus:
     interval: 60s
     scrapeTimeout: 30s
     labels: {}
+    honorLabels: false
 
 # Use these variables to configure the HTTP_PROXY environment variables
 # http_proxy: "http://proxy:8080"
@@ -205,8 +202,25 @@ affinity: {}
 tolerations: []
 
 webhook:
-  replicaCount: 1
+  replicaCount: 2
   timeoutSeconds: 10
+
+  # Used to configure options for the webhook pod.
+  # This allows setting options that'd usually be provided via flags.
+  # An APIVersion and Kind must be specified in your values.yaml file.
+  # Flags will override options that are set here.
+  config:
+    # apiVersion: webhook.config.cert-manager.io/v1alpha1
+    # kind: WebhookConfiguration
+
+    # The port that the webhook should listen on for requests.
+    # In GKE private clusters, by default kubernetes apiservers are allowed to
+    # talk to the cluster nodes only on 443 and 10250. so configuring
+    # securePort: 10250, will work out of the box without needing to add firewall
+    # rules or requiring NET_BIND_SERVICE capabilities to bind port numbers <1000.
+    # This should be uncommented and set as a default by the chart once we graduate
+    # the apiVersion of WebhookConfiguration past v1alpha1.
+    # securePort: 10250
 
   strategy: {}
     # type: RollingUpdate
@@ -234,22 +248,25 @@ webhook:
   # Optional additional annotations to add to the webhook Pods
   # podAnnotations: {}
 
+  # Optional additional annotations to add to the webhook Service
+  # serviceAnnotations: {}
+
   # Optional additional annotations to add to the webhook MutatingWebhookConfiguration
   # mutatingWebhookConfigurationAnnotations: {}
 
   # Optional additional annotations to add to the webhook ValidatingWebhookConfiguration
   # validatingWebhookConfigurationAnnotations: {}
 
-  # Optional additional arguments for webhook
+  # Additional command line flags to pass to cert-manager webhook binary.
+  # To see all available flags run docker run quay.io/jetstack/cert-manager-webhook:<version> --help
   extraArgs: []
+  # Path to a file containing a WebhookConfiguration object used to configure the webhook
+  # - --config=<path-to-config-file>
 
-  resources:
-    requests:
-      cpu: 50m
-      memory: 40Mi
-    limits:
-      cpu: 50m
-      memory: 40Mi
+  resources: {}
+    # requests:
+    #   cpu: 10m
+    #   memory: 32Mi
 
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -287,7 +304,7 @@ webhook:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.7.1
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -336,7 +353,7 @@ webhook:
 
 cainjector:
   enabled: true
-  replicaCount: 1
+  replicaCount: 2
 
   strategy: {}
     # type: RollingUpdate
@@ -365,16 +382,16 @@ cainjector:
   # Optional additional annotations to add to the cainjector Pods
   # podAnnotations: {}
 
-  # Optional additional arguments for cainjector
+  # Additional command line flags to pass to cert-manager cainjector binary.
+  # To see all available flags run docker run quay.io/jetstack/cert-manager-cainjector:<version> --help
   extraArgs: []
+  # Enable profiling for cainjector
+  # - --enable-profiling=true
 
-  resources:
-    requests:
-      cpu: 80m
-      memory: 80Mi
-    limits:
-      cpu: 80m
-      memory: 80Mi
+  resources: {}
+    # requests:
+    #   cpu: 10m
+    #   memory: 32Mi
 
   nodeSelector: {}
 
@@ -393,7 +410,7 @@ cainjector:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.7.1
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -417,7 +434,7 @@ cainjector:
 # sidecar proxies into cert-manager pods, you probably want to ensure that they
 # are not injected into this Job's pod. Otherwise the installation may time out
 # due to the Job never being completed because the sidecar proxy does not exit.
-# See https://github.com/jetstack/cert-manager/pull/4414 for context.
+# See https://github.com/cert-manager/cert-manager/pull/4414 for context.
 startupapicheck:
   enabled: true
 
@@ -441,16 +458,14 @@ startupapicheck:
   # Optional additional annotations to add to the startupapicheck Pods
   # podAnnotations: {}
 
-  # Optional additional arguments for startupapicheck
+  # Additional command line flags to pass to startupapicheck binary.
+  # To see all available flags run docker run quay.io/jetstack/cert-manager-ctl:<version> --help
   extraArgs: []
 
-  resources:
-    requests:
-      cpu: 80m
-      memory: 70Mi
-    requests:
-      cpu: 80m
-      memory: 70Mi
+  resources: {}
+    # requests:
+    #   cpu: 10m
+    #   memory: 32Mi
 
   nodeSelector: {}
 
@@ -469,7 +484,7 @@ startupapicheck:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    # tag: canary
+    tag: v1.7.1
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20

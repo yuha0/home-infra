@@ -1,5 +1,5 @@
 resources:
 - namespace.yaml
 - generated.yaml
-- issuer
-- certificate
+- issuers
+# - certificates
