@@ -5,10 +5,10 @@ kind: ServiceAccount
 metadata:
   name: metallb-controller
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
 ---
@@ -18,10 +18,10 @@ kind: ServiceAccount
 metadata:
   name: metallb-speaker
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: speaker
 ---
@@ -31,16 +31,16 @@ kind: ConfigMap
 metadata:
   name: metallb
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 data:
   config: |
     address-pools:
     - addresses:
-      - 10.44.0.0/16
+      - 100.66.0.0/16
       name: default
       protocol: bgp
     peers:
@@ -54,15 +54,15 @@ kind: ClusterRole
 metadata:
   name: metallb:controller
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
   resources: ["services"]
-  verbs: ["get", "list", "watch", "update"]
+  verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["services/status"]
   verbs: ["update"]
@@ -76,14 +76,17 @@ kind: ClusterRole
 metadata:
   name: metallb:speaker
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
   resources: ["services", "endpoints", "nodes"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
   verbs: ["get", "list", "watch"]
 - apiGroups: [""]
   resources: ["events"]
@@ -95,10 +98,10 @@ kind: ClusterRoleBinding
 metadata:
   name: metallb:controller
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -115,10 +118,10 @@ kind: ClusterRoleBinding
 metadata:
   name: metallb:speaker
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -134,12 +137,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: metallb-config-watcher
-  namespace: metallb-system
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -151,12 +153,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: metallb-pod-lister
-  namespace: metallb-system
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -168,12 +169,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: metallb-controller
-  namespace: metallb-system
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -193,12 +193,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: metallb-config-watcher
-  namespace: metallb-system
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -215,12 +214,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: metallb-pod-lister
-  namespace: metallb-system
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -235,12 +233,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: metallb-controller
-  namespace: metallb-system
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -256,10 +253,10 @@ kind: DaemonSet
 metadata:
   name: metallb-speaker
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: speaker
 spec:
@@ -280,10 +277,11 @@ spec:
       hostNetwork: true
       containers:
       - name: speaker
-        image: quay.io/metallb/speaker:v0.10.2
+        image: quay.io/metallb/speaker:v0.12.1
         args:
         - --port=7472
         - --config=metallb
+        - --log-level=info
         env:
         - name: METALLB_NODE_NAME
           valueFrom:
@@ -307,7 +305,7 @@ spec:
               name: metallb-memberlist
               key: secretkey
         ports:
-        - name: metrics
+        - name: monitoring
           containerPort: 7472
         - name: memberlist-tcp
           containerPort: 7946
@@ -318,7 +316,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /metrics
-            port: metrics
+            port: monitoring
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
@@ -327,19 +325,12 @@ spec:
         readinessProbe:
           httpGet:
             path: /metrics
-            port: metrics
+            port: monitoring
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-        resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              cpu: 100m
-              memory: 100Mi
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
@@ -350,7 +341,6 @@ spec:
             - NET_RAW
       nodeSelector:
         "kubernetes.io/os": linux
-        node-role.kubernetes.io/node: ""
       tolerations:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
@@ -362,10 +352,10 @@ kind: Deployment
 metadata:
   name: metallb-controller
   labels:
-    helm.sh/chart: metallb-0.10.2
+    helm.sh/chart: metallb-0.12.1
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.10.2"
+    app.kubernetes.io/version: "v0.12.1"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
 spec:
@@ -384,26 +374,28 @@ spec:
       serviceAccountName: metallb-controller
       terminationGracePeriodSeconds: 0
       securityContext:
+        fsGroup: 65534
         runAsNonRoot: true
-        runAsUser: 65534 # nobody
+        runAsUser: 65534
       containers:
       - name: controller
-        image: quay.io/metallb/controller:v0.10.2
+        image: quay.io/metallb/controller:v0.12.1
         args:
         - --port=7472
         - --config=metallb
+        - --log-level=info
         env:
         - name: METALLB_ML_SECRET_NAME
           value: metallb-memberlist
         - name: METALLB_DEPLOYMENT
           value: metallb-controller
         ports:
-        - name: metrics
+        - name: monitoring
           containerPort: 7472
         livenessProbe:
           httpGet:
             path: /metrics
-            port: metrics
+            port: monitoring
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
@@ -412,19 +404,12 @@ spec:
         readinessProbe:
           httpGet:
             path: /metrics
-            port: metrics
+            port: monitoring
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-        resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              cpu: 100m
-              memory: 100Mi
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
