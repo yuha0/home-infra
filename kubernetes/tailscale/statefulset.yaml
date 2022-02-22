@@ -1,0 +1,53 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: subrouter
+spec:
+  ports:
+  - port: 8080
+    name: metrics
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: subrouter
+spec:
+  replicas: 1
+  serviceName: subrouter
+  template:
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+      volumes:
+      - name: run-script
+        configMap:
+          name: run-script
+      serviceAccountName: subrouter
+      containers:
+      - name: tailscale
+        image: tailscale
+        command:
+        - /bin/sh
+        - /run-script/run.sh
+        envFrom:
+        - configMapRef:
+            name: config
+        env:
+        - name: USERSPACE
+          value: "true"
+        - name: AUTH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: tailscale-auth
+              key: AUTH_KEY
+        volumeMounts:
+        - mountPath: /run-script
+          name: run-script
+        ports:
+        - name: metrics
+          containerPort: 8080

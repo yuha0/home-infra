@@ -1,0 +1,23 @@
+namespace: tailscale
+commonLabels:
+  app.kubernetes.io/name: tailscale
+  app.kubernetes.io/component: subrouter
+resources:
+- namespace.yaml
+- rbac.yaml
+- sealed-auth-key.yaml
+- statefulset.yaml
+
+configMapGenerator:
+- name: config
+  literals:
+  - KUBE_SECRET=state
+  - ROUTES=10.100.0.0/20
+- name: run-script
+  files:
+  - run.sh
+
+images:
+- name: tailscale
+  newName: tailscale/tailscale
+  newTag: v1.20.4
