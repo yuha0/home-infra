@@ -1,0 +1,63 @@
+nameSuffix: -internal
+namespace: ingress-nginx-internal
+resources:
+- ../base
+
+patches:
+- target:
+    group: ""
+    kind: Service
+    name: ingress-nginx-controller
+  patch: |-
+    - op: add
+      path: /spec/loadBalancerIP
+      value: 100.66.0.1
+- target:
+    group: apps
+    kind: Deployment
+    name: ingress-nginx-controller
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args
+      value:
+        - /nginx-ingress-controller
+        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-internal
+        - --election-id=ingress-controller-leader
+        - --controller-class=k8s.io/ingress-nginx-internal
+        - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller-internal
+        - --validating-webhook=:8443
+        - --validating-webhook-certificate=/usr/local/certificates/cert
+        - --validating-webhook-key=/usr/local/certificates/key
+- target:
+    group: batch
+    kind: Job
+    name: ingress-nginx-admission-create
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args
+      value:
+        - create
+        - --host=ingress-nginx-controller-admission-internal,ingress-nginx-controller-admission-internal.$(POD_NAMESPACE).svc
+        - --namespace=$(POD_NAMESPACE)
+        - --secret-name=ingress-nginx-admission
+- target:
+    group: batch
+    kind: Job
+    name: ingress-nginx-admission-patch
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/args
+      value:
+        - patch
+        - --webhook-name=ingress-nginx-admission-internal
+        - --namespace=$(POD_NAMESPACE)
+        - --patch-mutating=false
+        - --secret-name=ingress-nginx-admission
+        - --patch-failure-policy=Fail
+- target:
+    group: networking.k8s.io
+    kind: IngressClass
+  patch: |-
+     - op: replace
+       path: /spec/controller
+       value: k8s.io/ingress-nginx-internal
