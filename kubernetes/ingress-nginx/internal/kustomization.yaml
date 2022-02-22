@@ -2,6 +2,7 @@ nameSuffix: -internal
 namespace: ingress-nginx-internal
 resources:
 - ../base
+- certificate.yaml
 
 patches:
 - target:
@@ -28,6 +29,7 @@ patches:
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
+        - --default-ssl-certificate=$(POD_NAMESPACE)/wildcard-yuha0-com
 - target:
     group: batch
     kind: Job

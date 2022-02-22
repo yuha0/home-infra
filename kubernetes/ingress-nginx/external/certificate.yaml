@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-yuha0-com
+spec:
+  secretName: wildcard-yuha0-com
+  dnsNames:
+  - "*.external.yuha0.com"
+  issuerRef:
+    name: letsencrypt
+    group: cert-manager.io
+    kind: ClusterIssuer
