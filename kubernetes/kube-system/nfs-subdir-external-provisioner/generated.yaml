@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
@@ -15,24 +15,26 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
   name: nfs-client
   annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: cluster.local/nfs-subdir-external-provisioner
 allowVolumeExpansion: true
 reclaimPolicy: Delete
 parameters:
-  archiveOnDelete: "true"
+  archiveOnDelete: "false"
+  onDelete: "delete"
 ---
 # Source: nfs-subdir-external-provisioner/templates/clusterrole.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
@@ -59,7 +61,7 @@ kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
@@ -78,7 +80,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
@@ -93,7 +95,7 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
@@ -113,7 +115,7 @@ kind: Deployment
 metadata:
   name: nfs-subdir-external-provisioner
   labels:
-    chart: nfs-subdir-external-provisioner-4.0.13
+    chart: nfs-subdir-external-provisioner-4.0.16
     heritage: Helm
     app: nfs-subdir-external-provisioner
     release: nfs-subdir-external-provisioner
@@ -133,10 +135,14 @@ spec:
         release: nfs-subdir-external-provisioner
     spec:
       serviceAccountName: nfs-subdir-external-provisioner
+      securityContext:
+        {}
       containers:
         - name: nfs-subdir-external-provisioner
           image: "k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2"
           imagePullPolicy: IfNotPresent
+          securityContext:
+            {}
           volumeMounts:
             - name: nfs-subdir-external-provisioner-root
               mountPath: /persistentvolumes
@@ -144,11 +150,11 @@ spec:
             - name: PROVISIONER_NAME
               value: cluster.local/nfs-subdir-external-provisioner
             - name: NFS_SERVER
-              value: fred.yuha0.com
+              value: fred.main.yuha0.com
             - name: NFS_PATH
               value: /k8s
       volumes:
         - name: nfs-subdir-external-provisioner-root
           nfs:
-            server: fred.yuha0.com
+            server: fred.main.yuha0.com
             path: /k8s

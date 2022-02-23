@@ -6,9 +6,9 @@ resources:
 - namespace.yaml
 - generated.yaml
 
-patches:
-- path: patch/deployment.yaml
-  target:
-    group: apps
-    kind: Deployment
-    name: nfs-subdir-external-provisioner
+# patches:
+# - path: patch/deployment.yaml
+#   target:
+#     group: apps
+#     kind: Deployment
+#     name: nfs-subdir-external-provisioner
