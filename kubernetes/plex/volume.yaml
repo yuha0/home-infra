@@ -11,9 +11,8 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   accessModes:
   - ReadWriteMany
-  mountOptions:
   nfs:
-    server: fred.yuha0.com
+    server: fred.main.yuha0.com
     path: /media
 
 ---

@@ -72,15 +72,10 @@ spec:
       volumes:
       - name: transcode
         emptyDir: {}
+      - name: config
+        hostPath:
+          path: /var/opt/plex
+          type: DirectoryOrCreate
       - name: media
         persistentVolumeClaim:
           claimName: media
-  volumeClaimTemplates:
-  - metadata:
-      name: config
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      storageClassName: "nfs-client"
-      resources:
-        requests:
-          storage: 10Gi

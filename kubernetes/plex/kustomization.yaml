@@ -6,5 +6,5 @@ resources:
 - namespace.yaml
 - sealed-claim.yaml
 - volume.yaml
-- plex.yaml
+- statefulset.yaml
 - ingress.yaml
