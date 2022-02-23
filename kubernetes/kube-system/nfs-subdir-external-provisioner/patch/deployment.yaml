@@ -1,9 +1,0 @@
-- op: add
-  path: /spec/template/spec/affinity
-  value:
-    podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-      - topologyKey: "kubernetes.io/hostname"
-        labelSelector:
-          matchLabels:
-            app:
