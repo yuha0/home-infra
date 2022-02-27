@@ -1,0 +1,17 @@
+commonLabels:
+  app.kubernetes.io/name: unifi
+
+resources:
+- volume.yaml
+- service.yaml
+- ingress.yaml
+- statefulset.yaml
+
+configMapGenerator:
+- name: unifi-config
+  files:
+  - config.gateway.json
+images:
+- name: unifi
+  newName: jacobalberty/unifi
+  newTag: v6.5.55
