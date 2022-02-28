@@ -12,17 +12,17 @@ spec:
         runAsGroup: 999
         runAsUser: 999
       initContainers:
-      # - command:
-      #   - /bin/bash
-      #   - -c
-      #   - mkdir -p /unifi/data/ && cp /tmp/unifi/config.gateway.json /unifi/data/config.gateway.json
-      #   image: unifi
-      #   name: config-init
-      #   volumeMounts:
-      #   - mountPath: /unifi/
-      #     name: unifi-data
-      #   - mountPath: /tmp/unifi
-      #     name: unifi-config
+      - command:
+        - /bin/bash
+        - -c
+        - mkdir -p /unifi/data/sites/default/ && cp /tmp/unifi/config.gateway.json /unifi/data/sites/default/config.gateway.json
+        image: unifi
+        name: config-init
+        volumeMounts:
+        - mountPath: /unifi/
+          name: unifi-data
+        - mountPath: /tmp/unifi
+          name: unifi-config
       - command:
         - /bin/bash
         - -c
@@ -58,7 +58,7 @@ spec:
         - name: "UNIFI_UID"
           value: "999"
         ports:
-        - name: http
+        - name: inform
           containerPort: 8080
           protocol: TCP
         - name: discovery
