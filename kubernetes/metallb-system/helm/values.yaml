@@ -27,6 +27,7 @@ configInline:
     protocol: bgp
     addresses:
     - 100.66.0.0/16
+    - 10.200.0.0/16
   peers:
   - peer-address: 10.100.0.1
     peer-asn: 64512

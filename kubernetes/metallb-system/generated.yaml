@@ -41,6 +41,7 @@ data:
     address-pools:
     - addresses:
       - 100.66.0.0/16
+      - 10.200.0.0/16
       name: default
       protocol: bgp
     peers:
