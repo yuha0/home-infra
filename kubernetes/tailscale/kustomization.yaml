@@ -12,7 +12,7 @@ configMapGenerator:
 - name: config
   literals:
   - KUBE_SECRET=state
-  - ROUTES=10.100.0.0/20,100.66.0.0/16
+  - ROUTES=10.100.0.0/20,10.200.0.0/16
 - name: run-script
   files:
   - run.sh
@@ -20,4 +20,4 @@ configMapGenerator:
 images:
 - name: tailscale
   newName: tailscale/tailscale
-  newTag: v1.20.4
+  newTag: v1.22.0
