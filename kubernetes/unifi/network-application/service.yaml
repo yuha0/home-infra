@@ -8,7 +8,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: unifi-api.internal.yuha0.com
     external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
-  loadBalancerIP: 100.66.0.3
+  loadBalancerIP: 10.200.0.0
   type: LoadBalancer
   ports:
   - port: 8080
@@ -40,10 +40,10 @@ metadata:
   name: unifi-udp
   annotations:
     metallb.universe.tf/allow-shared-ip: "unifi"
-    external-dns.alpha.kubernetes.io/hostname: unifi-api.internal.yuha0.com
-    external-dns.alpha.kubernetes.io/ttl: "120"
+    # external-dns.alpha.kubernetes.io/hostname: unifi-api.internal.yuha0.com
+    # external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
-  loadBalancerIP: 100.66.0.3
+  loadBalancerIP: 10.200.0.0
   type: LoadBalancer
   ports:
   - port: 10001
