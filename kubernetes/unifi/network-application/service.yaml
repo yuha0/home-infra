@@ -2,18 +2,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: unifi
+  name: unifi-tcp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "unifi"
+    external-dns.alpha.kubernetes.io/hostname: unifi-api.internal.yuha0.com
+    external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
-  type: ClusterIP
+  loadBalancerIP: 100.66.0.3
+  type: LoadBalancer
   ports:
   - port: 8080
-    targetPort: http
+    targetPort: inform
     protocol: TCP
-    name: http
-  - port: 10001
-    targetPort: discovery
-    protocol: UDP
-    name: discovery
+    name: inform
   - port: 8443
     targetPort: https
     protocol: TCP
@@ -30,6 +31,25 @@ spec:
     targetPort: speedtest
     protocol: TCP
     name: speedtest
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-udp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "unifi"
+    external-dns.alpha.kubernetes.io/hostname: unifi-api.internal.yuha0.com
+    external-dns.alpha.kubernetes.io/ttl: "120"
+spec:
+  loadBalancerIP: 100.66.0.3
+  type: LoadBalancer
+  ports:
+  - port: 10001
+    targetPort: discovery
+    protocol: UDP
+    name: discovery
   - port: 3478
     targetPort: stun
     protocol: UDP

@@ -7,6 +7,13 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-ssl-verify: "off"
+    # To upload a large backup file (.unf)
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.org/client-max-body-size: "100m"
+    # for long websocket connections
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
 spec:
   ingressClassName: nginx-internal
   rules:
@@ -17,6 +24,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: unifi
+            name: unifi-tcp
             port:
               number: 8443
