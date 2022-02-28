@@ -12,7 +12,7 @@ configMapGenerator:
 - name: config
   literals:
   - KUBE_SECRET=state
-  - ROUTES=10.100.0.0/20
+  - ROUTES=10.100.0.0/20,100.66.0.0/16
 - name: run-script
   files:
   - run.sh
