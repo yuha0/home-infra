@@ -7,7 +7,7 @@ metadata:
   namespace: monitoring
   labels:
     app: prometheus-node-exporter
-    chart: prometheus-node-exporter-2.2.0
+    chart: prometheus-node-exporter-3.0.1
     release: "monitoring"
     heritage: "Helm"
   annotations:
@@ -27,7 +27,7 @@ metadata:
     app: prometheus-node-exporter
     heritage: Helm
     release: monitoring
-    chart: prometheus-node-exporter-2.2.0
+    chart: prometheus-node-exporter-3.0.1
 spec:
   type: ClusterIP
   ports:
@@ -49,7 +49,7 @@ metadata:
     app: prometheus-node-exporter
     heritage: Helm
     release: monitoring
-    chart: prometheus-node-exporter-2.2.0
+    chart: prometheus-node-exporter-3.0.1
 spec:
   selector:
     matchLabels:
@@ -65,7 +65,7 @@ spec:
         app: prometheus-node-exporter
         heritage: Helm
         release: monitoring
-        chart: prometheus-node-exporter-2.2.0
+        chart: prometheus-node-exporter-3.0.1
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     spec:
@@ -78,7 +78,7 @@ spec:
         runAsUser: 65534
       containers:
         - name: node-exporter
-          image: "quay.io/prometheus/node-exporter:v1.2.2"
+          image: quay.io/prometheus/node-exporter:v1.3.1
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
@@ -121,7 +121,8 @@ spec:
       hostNetwork: true
       hostPID: true
       tolerations:
-        - operator: Exists
+        - effect: NoSchedule
+          operator: Exists
       volumes:
         - name: proc
           hostPath:
@@ -133,7 +134,7 @@ spec:
           hostPath:
             path: /
 ---
-# Source: prometheus-node-exporter/templates/monitor.yaml
+# Source: prometheus-node-exporter/templates/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -143,8 +144,9 @@ metadata:
     app: prometheus-node-exporter
     heritage: Helm
     release: monitoring
-    chart: prometheus-node-exporter-2.2.0
+    chart: prometheus-node-exporter-3.0.1
 spec:
+  jobLabel: app.kubernetes.io/name
   selector:
     matchLabels:
       app: prometheus-node-exporter
