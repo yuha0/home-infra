@@ -11,9 +11,15 @@ resources:
 images:
 - name: thanos
   newName: quay.io/thanos/thanos
-  newTag: v0.23.1
+  newTag: v0.25.0-rc.0
 
 patches:
-- path: patch/pod.yaml
-  target:
+- target:
     group: apps
+  patch: |-
+    - op: add
+      path: /spec/template/spec/securityContext
+      value:
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
