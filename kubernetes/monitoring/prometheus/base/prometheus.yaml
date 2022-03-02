@@ -5,10 +5,8 @@ metadata:
 spec:
   externalLabels:
     cluster: k0
-  image: quay.io/prometheus/prometheus:v2.30.1
-  version: v2.30.1
-  nodeSelector:
-    kubernetes.io/arch: amd64
+  image: quay.io/prometheus/prometheus:v2.33.4
+  version: v2.33.4
   retention: 24h
   securityContext:
     fsGroup: 65534
@@ -24,8 +22,8 @@ spec:
           requests:
             storage: 10Gi
   thanos:
-    image: quay.io/thanos/thanos:v0.23.1
-    version: v0.23.1
+    image: quay.io/thanos/thanos:v0.25.0-rc.0
+    version: v0.25.0-rc.0
     objectStorageConfig:
       name: thanos-objstore-config
       key: thanos.yaml
