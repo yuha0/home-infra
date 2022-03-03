@@ -7,6 +7,36 @@ generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-- name: container-resources
+- name: apiserver
+  files:
+  - apiserver.json
+- name: cluster-total
+  files:
+  - cluster-total.json
+- name: containers
   files:
   - containers.json
+- name: controller-manager
+  files:
+  - controller-manager.json
+- name: k8s-resources-cluster
+  files:
+  - k8s-resources-cluster.json
+- name: k8s-resources-namespace
+  files:
+  - k8s-resources-namespace.json
+- name: k8s-resources-node
+  files:
+  - k8s-resources-node.json
+- name: k8s-resources-pod
+  files:
+  - k8s-resources-pod.json
+- name: kubelet
+  files:
+  - kubelet.json
+- name: prometheus
+  files:
+  - prometheus.json
+- name: node-exporter
+  files:
+  - node-exporter.json
