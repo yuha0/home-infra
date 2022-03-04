@@ -6,6 +6,7 @@ resources:
 - service.yaml
 - ingress.yaml
 - statefulset.yaml
+- backup
 
 configMapGenerator:
 - name: unifi-config
@@ -15,3 +16,6 @@ images:
 - name: unifi
   newName: jacobalberty/unifi
   newTag: v6.5.55
+- name: rclone
+  newName: rclone/rclone
+  newTag: "1.57"
