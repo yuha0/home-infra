@@ -1,0 +1,4 @@
+namespace: argocd
+resources:
+- namespace.yaml
+- generated.yaml
