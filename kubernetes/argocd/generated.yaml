@@ -3785,6 +3785,7 @@ spec:
         - info
         - --redis
         - argocd-redis:6379
+        - --kubectl-parallelism-limit=2
         image: quay.io/argoproj/argocd:v2.3.0-rc5
         imagePullPolicy: IfNotPresent
         name: application-controller

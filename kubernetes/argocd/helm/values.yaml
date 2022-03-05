@@ -129,7 +129,8 @@ controller:
   logLevel: info
 
   # -- Additional command line arguments to pass to application controller
-  extraArgs: []
+  extraArgs:
+  - --kubectl-parallelism-limit=2
 
   # -- Environment variables to pass to application controller
   env:
