@@ -1,6 +1,7 @@
 resources:
 - argocd.yaml
 - grafana.yaml
+- metallb-system.yaml
 
 patches:
 # Both Project and Application should have resource finalizer
