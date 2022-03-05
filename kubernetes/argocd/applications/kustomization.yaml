@@ -1,0 +1,68 @@
+resources:
+- argocd
+- grafana
+
+patches:
+# Both Project and Application should have resource finalizer
+- target:
+    group: argoproj.io
+  patch: |-
+    - op: add
+      path: /metadata/finalizers
+      value:
+      - resources-finalizer.argocd.argoproj.io
+# Peg allowed repositories for all projects
+# Peg destination server
+- target:
+    group: argoproj.io
+    kind: AppProject
+  patch: |-
+    - op: add
+      path: /spec/sourceRepos
+      value:
+      - "https://github.com/yuha0/home-infra.git"
+    - op: add
+      path: /spec/destinations/0/server
+      value: https://kubernetes.default.svc
+# Peg source repository for all applications, only sync `main` branch
+# Force sync policy
+- target:
+    group: argoproj.io
+    kind: Application
+  patch: |-
+    - op: add
+      path: /spec/source/repoURL
+      value: "https://github.com/yuha0/home-infra.git"
+    - op: add
+      path: /spec/source/targetRevision
+      value: main
+    - op: add
+      path: /spec/destination/server
+      value: https://kubernetes.default.svc
+    - op: add
+      path: /spec/syncPolicy
+      value:
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true
+
+
+
+resources:
+# - argocd
+# - cert-manager
+# - external-dns
+# - grafana
+# - ingress-nginx
+# - kube-system
+# - metallb-system
+# - monitoring
+# - nfs-subdir
+# - plex
+# - tailscale
+# - unifi
+#
+#
+#
+#

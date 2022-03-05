@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: grafana
+spec:
+  destinations:
+  - namespace: "grafana"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+spec:
+  project: grafana
+  source:
+    path: kubernetes/grafana
+  destination:
+    namespace: grafana
