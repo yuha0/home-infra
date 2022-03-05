@@ -1,6 +1,6 @@
 resources:
-- argocd
-- grafana
+- argocd.yaml
+- grafana.yaml
 
 patches:
 # Both Project and Application should have resource finalizer
@@ -46,23 +46,3 @@ patches:
           allowEmpty: true
           prune: true
           selfHeal: true
-
-
-
-resources:
-# - argocd
-# - cert-manager
-# - external-dns
-# - grafana
-# - ingress-nginx
-# - kube-system
-# - metallb-system
-# - monitoring
-# - nfs-subdir
-# - plex
-# - tailscale
-# - unifi
-#
-#
-#
-#
