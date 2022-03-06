@@ -72,9 +72,9 @@ spec:
           blocked_services: []
         tls:
           enabled: true
-          server_name: "dns.internal.yuha0.com"
+          server_name: "adguard.internal.yuha0.com"
           force_https: false
-          port_https: 8080
+          port_https: 0
           port_dns_over_tls: 853
           allow_unencrypted_doh: true
           strict_sni_check: false
