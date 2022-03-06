@@ -2,7 +2,6 @@ nameSuffix: -external
 namespace: ingress-nginx-external
 resources:
 - ../base
-- certificate.yaml
 
 patches:
 - target:
