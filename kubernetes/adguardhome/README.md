@@ -10,6 +10,11 @@ What I get from this setup:
 - Prometheus metrics (thanks to [ebrianne/adguard-exporter](https://github.com/ebrianne/adguard-exporter).
 - DoH.
 
+## TODOs
+
+- An easy-to-trigger adhoc job to temporarily disable filter for a given period of time.
+- Forward query logs to loki
+
 ## Details
 
 Before getting too excided, you should be aware that AdGguard Home seems to be a stateful, centralized singleton application. It does not support HA out of box. It requires dedicated storage on filesystem, a writable config file and it has no concept of clustering built-in.
