@@ -10,6 +10,7 @@ resources:
 - metallb-system.yaml
 - sealed-secrets.yaml
 - system-service-monitors.yaml
+- tailscale.yaml
 
 patches:
 # Both Project and Application should have resource finalizer

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: tailscale
+spec:
+  destinations:
+  - namespace: "tailscale"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tailscale
+spec:
+  project: tailscale
+  source:
+    path: kubernetes/tailscale
+  destination:
+    namespace: tailscale
