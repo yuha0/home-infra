@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: apiserver
+spec:
+  destinations:
+  - namespace: "kube-system"
+  namespaceResourceWhitelist:
+  - group: ''
+    kind: Endpoints
+  - group: ''
+    kind: Service
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apiserver
+spec:
+  project: apiserver
+  source:
+    path: kubernetes/apiserver
+  destination:
+    namespace: kube-system

@@ -1,4 +1,5 @@
 resources:
+- apiserver.yaml
 - argocd.yaml
 - cert-manager.yaml
 - external-dns.yaml
