@@ -50,6 +50,7 @@ Obviously, I can't check in my secret as base64 encoded plaintext. All the secre
       encryptedData:
         nextdns-bootstrap-1:
         nextdns-bootstrap-2:
+        nextdns-upstream:
         password:
         username:
       template:
@@ -68,6 +69,7 @@ Obviously, I can't check in my secret as base64 encoded plaintext. All the secre
     stringData:
       nextdns-bootstrap-1: 1.2.3.4
       nextdns-bootstrap-2: 5.6.7.8
+      nextdns-upstream: https://dns.nextdns.io/xxxxx
       password: plaintext-password
       username: custom-username
     ```
