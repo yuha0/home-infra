@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cert-manager
+spec:
+  destinations:
+  - namespace: "cert-manager"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: cert-manager.io
+    kind: ClusterIssuer
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+spec:
+  project: cert-manager
+  source:
+    path: kubernetes/cert-manager
+  destination:
+    namespace: cert-manager
