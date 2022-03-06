@@ -13,6 +13,7 @@ resources:
 - sealed-secrets.yaml
 - system-service-monitors.yaml
 - tailscale.yaml
+- unifi.yaml
 
 patches:
 # Both Project and Application should have resource finalizer
