@@ -3,6 +3,8 @@ resources:
 - cert-manager.yaml
 - external-dns.yaml
 - grafana.yaml
+- ingress-nginx-external.yaml
+- ingress-nginx-internal.yaml
 - metallb-system.yaml
 
 patches:
