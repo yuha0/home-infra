@@ -4,6 +4,7 @@ resources:
 - argocd.yaml
 - cert-manager.yaml
 - external-dns.yaml
+- external-service-accounts.yaml
 - grafana.yaml
 - ingress-nginx-external.yaml
 - ingress-nginx-internal.yaml
