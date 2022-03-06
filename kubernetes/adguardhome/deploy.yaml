@@ -23,7 +23,7 @@ spec:
         - name: ADGUARD_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: admin
+              name: config
               key: password
         command:
         - /bin/sh
