@@ -4,13 +4,14 @@ commonLabels:
 resources:
 - namespace.yaml
 - sealed-config.yaml
+- service.yaml
 - deploy.yaml
 - ingress.yaml
 
 images:
 - name: adguardhome
   newName: adguard/adguardhome
-  newTag: v0.106.3
+  newTag: v0.107.5
 - name: adguard-exporter
   newName: ebrianne/adguard-exporter
   newTag: v1.14

@@ -1,127 +1,27 @@
-apiVersion: bitnami.com/v1alpha1
-kind: SealedSecret
-metadata:
-  creationTimestamp: null
-  name: config
-  namespace: adguardhome
-spec:
-  encryptedData:
-    nextdns-bootstrap-1: AgB+Mig/lfDxxMuJBj/0t0uaeIx40tz/naOVxxqdOxr2Pucr30GjtnFKCls+8TRI7IrbQzuie808Jvijdh8/eWCX/ONqmdtFmTL4GmtUx7TyBIBvtO/x59F3XrizFMQfL4LQhxXFHG7QeL03QZKrN9geAd5qFFTlsY6LpHZksfJwkNncKEyGTllQtxPvYfOQeeJb1twkakJdgNHw5IfrvmKsNout9CCJNm7Nr/wPsjpsminVACuLziqGCer7mYDkFr79cl6MyLqw9oRnr5RSx95wZb0YM3gGlDTQ2yMqqow4Uy7qXpNuqfetWbQ4zl+X61j3KaL3hYfNoYcRuwOJRg2kDcwsZu7x/B+kLBDGN7LdPb9R/DzkaRgj6hA+9tVNJz5JB7k55zzuoPqjbisySGWIvcx4RWLx8Mj1VryidQZYeZlORjb534zhDMpgiWxNMssXxcBuxiBCavQU8EhVq/t4yqH5G5f3FIo1S6NkQ3ELmxYi4lufJtwKPDUkvrvhcA9QSkEmceZLVEZ6hiFQls4PL38WbCNlE99s44MEConJ/vsv2AAUaJ575DRdRQiWuw1EKBS52oTNkSxjmjOKk4Si/sALdypL6o+4gCCqezJG0QD9MypMYMsz8k+YJV73H3DaQa87PECMEjgJXsYPGMyYnhRPa9xggpXYNcYcO+Z4Zl6S2RjBw3/EQivViF5AmcV6iX1sqOahuaMicg==
-    nextdns-bootstrap-2: AgAF/XlF2q19Tbypymqjba+QA8kwjnwr4nQ37MbKLu0AtB7gc7EO1FMcEyITPcLDE9iAfGO6Ff//bC5cOSn+vo2gP00fHNt1vIh/3MJH0HaPOsHFEsQsu06eNSI/ZJDNch2AqgiREY2PpcacrEBfrYdnqURrJNMfAJ6+j4/j7tWqWiudzKIW/G543wLeadVnkjxPWulV9r6gIiJKQ4SKvcHYsS2qdE3ycV8J1ugKs/eR3T5DCcbq07CugCJ4gqBoJRIYylm14hSKpcSOKbthWAzuKuU3E3h/8Hmz3U4RZ4RkkQ8K+7lQwC1br9PV5soj1AisTrky+QtCakG/zDdEQg+B8CEPXsbEXeiMPizZdkudyC0ducGyeceEOOFNKbLHRcQevC+/wWGY7N1Rq6SoVMsTCa9NtsY3QoMf8VT/zgwHCv7JLOMfh4kd6g1JTJ/gKuye4mP1CHskcrDd+J8cSFPkBV6vn6lZF6b6qx8eENJiSDcIZPfHjt7JN9ddG3QZOCk0cxkVzGVn1ckuCqXtM3QPdw9Gp1d4BKRCvjTaeBPG6duzqEaardgwWuPfXqszuB6JVTpy8Pnsv0vvMRoP9pAyuJX1Bi+N1WJS1sjncoYA3bbJXKahwwDZzrwPCeY8f2VB4CMLXalpLuPO/Fj2C/HT+aFfoIU6L7MjuIMulvF2vLkeXLyc/oZM+IIFWzGQOOiERWzQ4N7HJzDEXw==
-    nextdns-doh: AgCl9Cu9MPyEQxeOJWlaeTxKzD4UsIUv0MjmAQHE1u5cTLL4laaUajWou0FcK5kwPsuKs7bcdSQIyOUDS7dDPtEhYDlnbA1E63hlSHXCOLo+SO/xn85wz+F3qAYR90WdyZmAO7YM8ZJdkvLL2kWIhPiW93PpVGmzhFFLikAeDp0F/AGoFwJC69Q27QmloBqVB06OWd63+5s95VQryPc8DLdXjizhnp86uk5kW9oVpvVSbykHcMBmUlHqLpW6du8Tw8O8zAQbh/As4nJMpMzuheFabDAXiYsXV0EfRbY4/CPOsGM2++ypgRTFZ+Xi7KgR49xvpGVxk4W7cJAeF+wm2jLC3407mSNu+aaZ4nosb+X5h2GWmamV/9RoJpsktxkSMTsvQHOS5rt6dqIxV/IHT8o+mUWeyH9GV5KQij7w7ydTZREIJHuLvM7HAVzAnGTxlDRYXHV4UgjCLX/nQg257Z8b5bDn1N6t3uOUJoJtYXBiAjUhQOEVSZlR9jRk+otzCh+H1NUx2FNLUoD1iQjSYnnKirYjWHKH3WJ7ZVn1fxZ9a93SyrmJrZulAO52DNfzxg1T5w8Rg2b6URgUIZY1JQ1LD+SdU1aJOOsCQAUOUVrPiQyPiCh8YhB1w3ER+3u4mjjHNV8Qf4cBibZeKa2a8Fu7l536F1lGl94GRExmAjgMkoOYwQIsVzdm9YC9K3IoMrrBTBUtMF/KI0/HTS+9CXIgHv0vQBB3oJ17QU1TnQ==
-    password: AgA8FH1Qywn8WYmA+bOwL8nDk18x0DxesXnwoLhvfJOq0oeJHByDjdYetYDt85zsCkUVkbF6cwdTNPMGKNCCVrKP3lumD9LCPxH4MjadtI/5aCr2p01Me4m7oLt+lt38xVTVmTNgp9ABdEQkb1e04f4akVv88KcfK3IZ3KpPsyaPSE+ORM7ZQQ3s0H69ebRzDZIunHylaxONJYYMLmn7PilieXJqBZXDzJzHrFI64/quFr4uazNoJzLoVz+bZTWBZ2yxVOj1qbzTaWDP44S6aXZV+FQr14EJ9q93gzaOmLBsYX+vXB4M8j8lkwodHliLmze+Yh+F6xLH9AuFcPtdVM7FLwF9DCif/pQgNeTBsM4ovYGL9IvcpP0WXRbSf30hRkreU3hMX+tmj4CVKrOnOcMJdtNf6xmzLkwCX/FfT4sy+cAnHUoxDI7f1Sarcv4cSel+FHsGcg/GePleOr2URAj2xoxdD2mBBQIMy5kZulwHHnEPkPo3gYEoZEsMrZZaUiX5ZfTMnvreeWJZVZC2f6oBoz/qW2dgOC1fkFtJON2DZakeOt0YB8UnyUJHc4MoyH0aCNKKoPof36LBtEc8iGQvSfRw6zAlQaeT9ghSFk2u9TVDf2YR7xDoQJkgwwGF5SGHQUos+35dwsIauVawuMljzU11ichzDbmIyw2ViNKB+Z15gzzyj6GY5nQ3kW06AYuk2cR146HnzyibDddr5uePAv+ztX6LQNV+vYGElFU=
-    username: AgCcar4u/u0pNCba6Glm/7O6f9rAUdWmLS5OOzSXfKetoo4w6RvLCD4dyDrLdRwggekqtwd6WyauFJdIV7vurXms0LreQ9x42QziakQen/UACn4A60KKPEcRqFlxQSjfrB3Y4ZDKlWfXVe9QY1kja1xupKjklfNkOMAm7JeWPO2/3rw+8h2CNPpaOxsrOq18P1FHgmeJHrMgTN4rPT+jcakk1w/c54PFxevksA35FZ+Jrk+LDHN0hwxEqm/xADufb0IFPXi1EhKOPT01E8RgNym0od3PyHPxancEer9/RvB+gd1an6VcxuApQCt1tQ81GlLLie9SuZgonLkWuE5rci0pkEkV3mCEuknYT+fsA/2MSoZm6XeUlhJ6IImO1ogGVi19r3BTuU96RIYRLn9G+ulXvGXXPr/TddydFpQ1lbyuwsf+goCIyAu/eWlKsS68BNNNxR+tUal/0CM+r+K13IGe0EG4Xq0zge3BPvpv++7R8s9IrTsio8/ItwMnO7AEohz4/i6DvCzAcLejN0UCocNHEnWtuyJN0NxibpXlHzzFmU84TtFcTkdzGdF6ot/ko18T0p0rtg5eCm5xsmGH0IH6qkVLjP+1fYgBxchpEuOaNwXVmtUXR1u+F+MiyNgB5VdLUSeg8NT9+ApR5M+pIQjVXphVAxL1cd2bJ0bwWsQd2bt4R1UnD9ECZOP3R5Ql4LqgwKVhhnk=
-  template:
-    data:
-      AdGuardHome.yaml: |
-        bind_host: 0.0.0.0
-        bind_port: 80
-        users:
-        - name: #ADGUARD_USERNAME#
-          password: #ADGUARD_PASSWORD#
-        http_proxy: ""
-        language: ""
-        rlimit_nofile: 0
-        debug_pprof: false
-        web_session_ttl: 720
-        dns:
-          bind_host: 0.0.0.0
-          port: 53
-          statistics_interval: 1
-          querylog_enabled: true
-          querylog_file_enabled: true
-          querylog_interval: 90
-          querylog_size_memory: 1000
-          anonymize_client_ip: false
-          protection_enabled: true
-          blocking_mode: default
-          blocking_ipv4: ""
-          blocking_ipv6: ""
-          blocked_response_ttl: 10
-          parental_block_host: family-block.dns.adguard.com
-          safebrowsing_block_host: standard-block.dns.adguard.com
-          ratelimit: 20
-          ratelimit_whitelist: []
-          refuse_any: true
-          upstream_dns:
-          - {{ index . "nextdns-doh" }}
-          bootstrap_dns:
-          - {{ index . "nextdns-bootstrap-1" }}
-          - {{ index . "nextdns-bootstrap-2" }}
-          all_servers: false
-          fastest_addr: false
-          allowed_clients: []
-          disallowed_clients: []
-          blocked_hosts: []
-          cache_size: 4194304
-          cache_ttl_min: 0
-          cache_ttl_max: 0
-          bogus_nxdomain: []
-          aaaa_disabled: false
-          enable_dnssec: false
-          edns_client_subnet: false
-          filtering_enabled: true
-          filters_update_interval: 24
-          parental_enabled: false
-          safesearch_enabled: false
-          safebrowsing_enabled: false
-          safebrowsing_cache_size: 1048576
-          safesearch_cache_size: 1048576
-          parental_cache_size: 1048576
-          cache_time: 30
-          rewrites: []
-          blocked_services: []
-        tls:
-          enabled: true
-          server_name: "dns.internal.yuha0.com"
-          force_https: false
-          port_https: 8080
-          port_dns_over_tls: 853
-          allow_unencrypted_doh: true
-          strict_sni_check: false
-          certificate_chain: ""
-          private_key: ""
-          certificate_path: ""
-          private_key_path: ""
-        filters:
-        - enabled: true
-          url: https://block.energized.pro/ultimate/formats/hosts.txt
-          name: Energized Ultimate
-          id: 1
-        - enabled: false
-          url: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-          name: Steven Black
-          id: 2
-        - enabled: false
-          url: https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
-          name: notracking
-          id: 3
-        - enabled: true
-          url: https://easylist-downloads.adblockplus.org/easylistchina.txt
-          name: EasyList China
-          id: 4
-        whitelist_filters: []
-        user_rules: []
-        dhcp:
-          enabled: false
-          interface_name: ""
-          gateway_ip: ""
-          subnet_mask: ""
-          range_start: ""
-          range_end: ""
-          lease_duration: 86400
-          icmp_timeout_msec: 1000
-        clients: []
-        log_compress: false
-        log_localtime: false
-        log_max_backups: 0
-        log_max_size: 100
-        log_max_age: 3
-        log_file: ""
-        verbose: false
-        schema_version: 6
-    metadata:
-      creationTimestamp: null
-      name: config
-      namespace: adguardhome
-
+{
+  "kind": "SealedSecret",
+  "apiVersion": "bitnami.com/v1alpha1",
+  "metadata": {
+    "name": "config",
+    "namespace": "adguardhome",
+    "creationTimestamp": null
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "config",
+        "namespace": "adguardhome",
+        "creationTimestamp": null
+      },
+      "data": {
+        "AdGuardHome.yaml": "bind_host: 0.0.0.0\nbind_port: 80\nusers:\n- name: #ADGUARD_USERNAME#\n  password: #ADGUARD_PASSWORD#\nhttp_proxy: \"\"\nlanguage: \"\"\nrlimit_nofile: 0\ndebug_pprof: false\nweb_session_ttl: 720\ndns:\n  bind_host: 0.0.0.0\n  port: 53\n  statistics_interval: 1\n  querylog_enabled: true\n  querylog_file_enabled: true\n  querylog_interval: 90\n  querylog_size_memory: 1000\n  anonymize_client_ip: false\n  protection_enabled: true\n  blocking_mode: default\n  blocking_ipv4: \"\"\n  blocking_ipv6: \"\"\n  blocked_response_ttl: 10\n  parental_block_host: family-block.dns.adguard.com\n  safebrowsing_block_host: standard-block.dns.adguard.com\n  ratelimit: 20\n  ratelimit_whitelist: []\n  refuse_any: true\n  upstream_dns:\n  - https://dns.nextdns.io\n  bootstrap_dns:\n  - {{ index . \"nextdns-bootstrap-1\" }}\n  - {{ index . \"nextdns-bootstrap-2\" }}\n  all_servers: false\n  fastest_addr: false\n  allowed_clients: []\n  disallowed_clients: []\n  blocked_hosts: []\n  cache_size: 4194304\n  cache_ttl_min: 0\n  cache_ttl_max: 0\n  bogus_nxdomain: []\n  aaaa_disabled: false\n  enable_dnssec: false\n  edns_client_subnet: false\n  filtering_enabled: true\n  filters_update_interval: 24\n  parental_enabled: false\n  safesearch_enabled: false\n  safebrowsing_enabled: false\n  safebrowsing_cache_size: 1048576\n  safesearch_cache_size: 1048576\n  parental_cache_size: 1048576\n  cache_time: 30\n  rewrites: []\n  blocked_services: []\ntls:\n  enabled: true\n  server_name: \"dns.internal.yuha0.com\"\n  force_https: false\n  port_https: 8080\n  port_dns_over_tls: 853\n  allow_unencrypted_doh: true\n  strict_sni_check: false\n  certificate_chain: \"\"\n  private_key: \"\"\n  certificate_path: \"\"\n  private_key_path: \"\"\nfilters:\n- enabled: true\n  url: https://block.energized.pro/ultimate/formats/hosts.txt\n  name: Energized Ultimate\n  id: 1\n- enabled: false\n  url: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts\n  name: Steven Black\n  id: 2\n- enabled: false\n  url: https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt\n  name: notracking\n  id: 3\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/easylistchina.txt\n  name: EasyList China\n  id: 4\nwhitelist_filters: []\nuser_rules: []\ndhcp:\n  enabled: false\n  interface_name: \"\"\n  gateway_ip: \"\"\n  subnet_mask: \"\"\n  range_start: \"\"\n  range_end: \"\"\n  lease_duration: 86400\n  icmp_timeout_msec: 1000\nclients: []\nlog_compress: false\nlog_localtime: false\nlog_max_backups: 0\nlog_max_size: 100\nlog_max_age: 3\nlog_file: \"\"\nverbose: false\nschema_version: 6\n"
+      }
+    },
+    "encryptedData": {
+      "nextdns-bootstrap-1": "AgCyT8Nx60CpSZzYFy6xb8YgzcE/lPsF6IVeHAgbJbmteJPAd8GZMOnc3jYfxPAbR+/yCPQzotzqBlyxTBL1RRZCloWMd9gwHHCZKM1VbPIr3/htTX55T64zdqTpsGVv6VC+WRvfOevQVyFmyHxMogotfQJJd9khC/VZOf/ojIs6SA+0WF3/xkEdB6MAiFddH14UpBCsCZp9SxEzCHI2ZY3pt2lP0YwS1Z6RxRurEF9AvtA4fxaVDotJP5t/tHJE5ueOo7aVQnkT6BgwYLnU+C1+rWzZIqmIL5pr0ry+O6byvgRvw0r0LPbzUfT+/QcA84Ft0z1NnVgGgWi3ens5aotsJImBsHg27EpcWVWcppEqFJjOoFO5wLee6DRZgI0rZ0SixsWiwLpyIVopuBTR4joKG1WVJWV8aILHSzqormlCHdDeT9M1AemNiLj8UBjz53zErGGQ56TaN9WpaCEfk1B7pQzmQ/v6pL9IfRgXOkJ2R4LWJdTmy2lbq04U5o4vSDU7ntEJZn/V5MJ9y909d5wkhXbtz9rRaj5J+uUFGbXGnGzdYJuSM0vXIkO9+6LGabOxy1vqP8DPumga4ZeeBAnNSJyCg8kv8sQCXui0Wr7EkTmllUE+y0qlpETt+juSWdAv5UtX8aYiyoPK32vx0KSJTlCwUfIJHU6DyPD/a1IuDF8VnolXT8b+Fwr60RFdsWmS3oEL5+ECbLVKFw==",
+      "nextdns-bootstrap-2": "AgCMJdwnOCKGKj8FNwqXLOFreYdIbp4++ugygZ5JcBUyzXP0xgN6+bpReKD42T0reOBaB7l/zV2Lvmd4vIRAlI7FIunWv2YeNm2quwL724zQ/mBSDBaTc1kVFfFn4BqTHZvSKHBNa2U/PqkgfNoUeJLz+Dms/pKX1l04pCFfihQ40ch3pssxpErGRE1A9wlxHc/jboc3C1vYg37P6lRDCm7l/x6hPTNgeIGa1L4Xtw9zKuzfpebQL0ljqL7Ib8h7LvSZ8C81khchK1PtEXDbvjxK5vfKBSdRJ5wDO9sfLJxQH+zfkjGWDskObvhVEJRz9GMy2FftBInhL4EW3fMZEZtWQFjwN1At1fGwbcWOnXizLudiog6JKbFJPwvLnZve8NTu7u8Y3DASG0KMhlSjIHxLeMYXaowEMyd8GHrQJGy+3qOF6SK4x6fQSd42pGnH+X6cUfjQWXAvGNB0+Jd/jq4GMMi3AkOMW3y5aKmuKUK0VADwcDJfFQsXD9a+BJUg+O7u4XglNYSqTftGH2snctPxHOGRvcGtvBWN2RypSoQzTD2YJzl6kSwS4dBSJFy7BhJ0KLtAjzLnVuMIeV2LMuK+mg0s0FTn2gSYeZNd64TD9XOqlykoHH6OojWffbTA6ErS8mDCEyOUvUVcfFViWWdBn+gL0yiCEmPtJEXWsjhBxbDaY0Pr8E+RDFq4QX+sPTIsScy8sWfTVke3rA==",
+      "password": "AgCeTS+NiFVAcT8swWCfCqhSdrAMdGsPnqC6ZQuStMjIw03UztJ0sp526oqn2VGYTGbMJE3WlkeuQcxrtH9aLkI95NWDHICJu4LNl44sqiHmgyxs3BzebfAkGT04IPA8uu7JNQpvpdWFmuSpcjF5QsgIvBMaHUIj+MOEnnxaUeymvLdwO49Fx+RSZ6svH8NkLggcNvfwQ4VJ8VcYxRV7Lex2se6KfIEYQnN1PBizEbrSVrZekCS/m4c6NAHugyxW6QxA0nDSaYmGaudNtSWGJOWAD0p0aLj3t4RSwgLJmAM5PiKVNVYGFSuqc4vXssSrGXxAaGbpdKeVJhN/9EJzX4MMv3BW8EZPHs1CpW2GGtCrvnUBkpL+AY9sEQcsaGTIzdk6LoXd04tBrYs7M0jzBHyEVnfRmdXnKFAr+Eyco8gGM/9VT3/OmskB9vXTRCbK+YRdz3cL4jStr6liwDTs0VvaZJ0sbgYspgybjsuM17T42p10rNIiYVvUEwHHv59IBt8kSlZTNtdqs/ckL1VkEIwIVKPHEM5vzfN7wg7NSlXAfnOBlMAEDRR2SU4hEeume+doiq+eobaoc+gyLXWw8S7GhAnjjhW7IE4LNtQZo2PnpRbrsN5VY5q2X7P7dlYeeMPDi9izQI8A8CEJaO6SOy1BS+FyeEl2w3PfAfP/0HgWkuLM49o+J3JAlvjL+J5bAchuw4nrIaFsv8gU1ykhRXvGElgTxPXMdG3ihlmwCNp8FwEx1QgsEFRnvkAS",
+      "username": "AgBAr6Nvf5V70llKHbV1aWI6O5iuVLwSkaT7eNq93YbWW+6mJMGyQtDZwa6ENnbkKNdgPk5Tej6HeQE+c+S6TEuUuLplsYKwjgVvd/KQ1BfyhpFn38Q6lQcfmby6ZTTzTNOCW/H5braw1g/4t7vl0gMbzMVl7XU0+PP1ji4FC+me9LrP/UeXxKCF/Zdtdh6HFKdwZHuHa1n2KNcw2dxy30jr8PefU3FTMCripPHlJ/TpiXzH8sYULPd3Iz89IyH1Jw+yC1m6CTJ7w5sNlnTwwbNi7ez6eaoDB+BkgE/Ormsm05Cr724VvlmGw4fNvJ7fZxQaIL91y1GF47DIQoGp1TMnCh/Q502ieoNozJZaA4vdADYfAtwAq2aOD4BXLpPifb5FgfVw0JkJqRHR4O+8BwFUeE7714M0GgM4ksuQGbdlngPU751au6LF3e8JZHADluJ/bAuGCZildEiZsXfAQ7Fw8TnjG0kklDCBSa35KmAkERu/iW7vMGJGTw1fhTVZSgljZK/hJJF41M3HvFqCXayz2LA0Ak5yp/Y+Ty2AW4wUtcjmaRICdu+6TDQRs+g9lAWPeE+s7VKPKXlLXjusnJ7Jf11+8C2oSyJu8fiJ2NwPHr4DhIkVs/68nfpguM4qcaViqH52rh9Ss4M+sp/IJoOFVJqVpJ0OTdVh1Ndc6dj6gunKR5tmF9530IIN4sB9T0y4CMhztPg="
+    }
+  }
+}

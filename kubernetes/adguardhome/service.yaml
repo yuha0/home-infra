@@ -1,0 +1,50 @@
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: http
+spec:
+  ports:
+  - name: http
+    targetPort: http
+    port: 80
+    protocol: TCP
+  - name: metrics
+    targetPort: http
+    port: 9617
+    protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dns-tcp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguardhome
+spec:
+  loadBalancerIP: 10.200.0.4
+  type: LoadBalancer
+  ports:
+  - name: dns-tcp
+    targetPort: dns-tcp
+    port: 53
+    protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dns-udp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguardhome
+spec:
+  loadBalancerIP: 10.200.0.4
+  type: LoadBalancer
+  ports:
+  - name: dns-udp
+    targetPort: dns-udp
+    port: 53
+    protocol: UDP
