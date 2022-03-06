@@ -39,5 +39,5 @@ subjects:
   name: kubenav
 roleRef:
   kind: ClusterRole
-  name: kubenav-view-ndoes
+  name: kubenav-view-nodes
   apiGroup: rbac.authorization.k8s.io
