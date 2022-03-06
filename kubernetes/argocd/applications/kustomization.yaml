@@ -6,6 +6,7 @@ resources:
 - grafana.yaml
 - ingress-nginx-external.yaml
 - ingress-nginx-internal.yaml
+- kube-state-metrics.yaml
 - metallb-system.yaml
 
 patches:

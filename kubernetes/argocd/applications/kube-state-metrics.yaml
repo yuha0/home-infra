@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kube-state-metrics
+spec:
+  destinations:
+  - namespace: "kube-system"
+  clusterResourceWhitelist:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-state-metrics
+spec:
+  project: kube-state-metrics
+  source:
+    path: kubernetes/kube-system/kube-state-metrics
+  destination:
+    namespace: kube-system
