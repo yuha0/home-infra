@@ -8,6 +8,7 @@ resources:
 - ingress-nginx-internal.yaml
 - kube-state-metrics.yaml
 - metallb-system.yaml
+- sealed-secrets.yaml
 
 patches:
 # Both Project and Application should have resource finalizer
