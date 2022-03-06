@@ -73,7 +73,7 @@ Obviously, I can't check in my secret as base64 encoded plaintext. All the secre
     ```
 3. Generate the final SealedSecret object:
     ```bash
-    $ kubeseal < config.yaml --merge-into sealed-config.yaml
+    $ kubeseal < config.yaml -oyaml --merge-into sealed-config.yaml
     ```
 
 ### Query logs:
