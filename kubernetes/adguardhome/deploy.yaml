@@ -99,5 +99,5 @@ spec:
       - name: conf-dir
         emptyDir: {}
       - name: conf
-        configMap:
-          name: config
+        secret:
+          secretName: config
