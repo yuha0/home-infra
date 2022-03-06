@@ -4,13 +4,40 @@ metadata:
   name: kubenav
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubenav-view-nodes
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - nodes/status
+  verbs:
+  - get
+  - watch
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: kubenav
+  name: kubenav-view
 subjects:
 - kind: ServiceAccount
   name: kubenav
 roleRef:
   kind: ClusterRole
   name: view
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubenav-view-nodes
+subjects:
+- kind: ServiceAccount
+  name: kubenav
+roleRef:
+  kind: ClusterRole
+  name: kubenav-view-ndoes
   apiGroup: rbac.authorization.k8s.io
