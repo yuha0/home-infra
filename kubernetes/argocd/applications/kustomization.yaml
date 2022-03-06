@@ -9,6 +9,7 @@ resources:
 - kube-state-metrics.yaml
 - metallb-system.yaml
 - nfs-subdir.yaml
+- plex.yaml
 - sealed-secrets.yaml
 - system-service-monitors.yaml
 - tailscale.yaml
