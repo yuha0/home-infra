@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: monitoring
+spec:
+  destinations:
+  - namespace: "monitoring"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-exporter
+spec:
+  project: monitoring
+  source:
+    path: kubernetes/monitoring/node-exporter
+  destination:
+    namespace: monitoring
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-operator
+spec:
+  project: monitoring
+  source:
+    path: kubernetes/monitoring/prometheus-operator
+  destination:
+    namespace: monitoring
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+spec:
+  project: monitoring
+  source:
+    path: kubernetes/monitoring/prometheus
+  destination:
+    namespace: monitoring
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: thanos
+spec:
+  project: monitoring
+  source:
+    path: kubernetes/monitoring/thanos
+  destination:
+    namespace: monitoring

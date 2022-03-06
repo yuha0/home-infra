@@ -8,6 +8,7 @@ resources:
 - ingress-nginx-internal.yaml
 - kube-state-metrics.yaml
 - metallb-system.yaml
+- monitoring.yaml
 - nfs-subdir.yaml
 - plex.yaml
 - sealed-secrets.yaml
