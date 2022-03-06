@@ -16,6 +16,10 @@ spec:
     kind: ClusterRoleBinding
   - group: cert-manager.io
     kind: ClusterIssuer
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+  - group: admissionregistration.k8s.io
+    kind: ValidatingWebhookConfiguration
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
