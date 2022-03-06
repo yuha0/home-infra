@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: system-service-monitors
+spec:
+  destinations:
+  - namespace: "kube-system"
+  namespaceResourceWhitelist:
+  - group: "monitoring.coreos.com"
+    kind: ServiceMonitor
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: system-service-monitors
+spec:
+  project: system-service-monitors
+  source:
+    path: kubernetes/kube-system/system-service-monitors
+  destination:
+    namespace: kube-system

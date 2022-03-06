@@ -9,6 +9,7 @@ resources:
 - kube-state-metrics.yaml
 - metallb-system.yaml
 - sealed-secrets.yaml
+- system-service-monitors.yaml
 
 patches:
 # Both Project and Application should have resource finalizer
