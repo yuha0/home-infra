@@ -2,4 +2,3 @@ resources:
 - namespace.yaml
 - generated.yaml
 - issuers
-# - certificates
