@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: adguardhome
+spec:
+  destinations:
+  - namespace: "adguardhome"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: adguardhome
+spec:
+  project: adguardhome
+  source:
+    path: kubernetes/adguardhome
+  destination:
+    namespace: adguardhome
