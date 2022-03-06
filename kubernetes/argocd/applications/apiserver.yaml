@@ -18,6 +18,6 @@ metadata:
 spec:
   project: apiserver
   source:
-    path: kubernetes/apiserver
+    path: kubernetes/kube-system/apiserver
   destination:
     namespace: kube-system
