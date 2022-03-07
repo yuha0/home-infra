@@ -184,6 +184,9 @@ loki:
     aws:
       s3: s3://fred.main.yuha0.com:8010/loki
       s3forcepathstyle: true
+      insecure: false
+      http_config:
+        insecure_skip_verify: true
     # filesystem:
     #   directory: /var/loki/chunks
 # -- Uncomment to configure each storage individually

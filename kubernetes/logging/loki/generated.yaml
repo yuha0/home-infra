@@ -197,6 +197,9 @@ data:
       http_listen_port: 3100
     storage_config:
       aws:
+        http_config:
+          insecure_skip_verify: true
+        insecure: false
         s3: s3://fred.main.yuha0.com:8010/loki
         s3forcepathstyle: true
       boltdb_shipper:
@@ -574,7 +577,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: a4f56840e1e812fba10f802fce95514ce7409a1d3ed689c0a43dc64c9c865286
+        checksum/config: 457b9987b2b19ff2b3f918c395ff9e137be3455e6f59c2d4e7bf98b285d7f65e
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -662,7 +665,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: a4f56840e1e812fba10f802fce95514ce7409a1d3ed689c0a43dc64c9c865286
+        checksum/config: 457b9987b2b19ff2b3f918c395ff9e137be3455e6f59c2d4e7bf98b285d7f65e
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -864,7 +867,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: a4f56840e1e812fba10f802fce95514ce7409a1d3ed689c0a43dc64c9c865286
+        checksum/config: 457b9987b2b19ff2b3f918c395ff9e137be3455e6f59c2d4e7bf98b285d7f65e
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -959,7 +962,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: a4f56840e1e812fba10f802fce95514ce7409a1d3ed689c0a43dc64c9c865286
+        checksum/config: 457b9987b2b19ff2b3f918c395ff9e137be3455e6f59c2d4e7bf98b285d7f65e
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1076,7 +1079,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: a4f56840e1e812fba10f802fce95514ce7409a1d3ed689c0a43dc64c9c865286
+        checksum/config: 457b9987b2b19ff2b3f918c395ff9e137be3455e6f59c2d4e7bf98b285d7f65e
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
