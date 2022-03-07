@@ -7,7 +7,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
 secrets:
@@ -21,7 +21,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: mongodb
@@ -84,7 +84,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
 rules:
@@ -114,7 +114,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
 roleRef:
@@ -134,7 +134,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: arbiter
@@ -174,6 +174,34 @@ spec:
     primary: "true"
   type: ClusterIP
 ---
+# Source: mongodb/templates/metrics-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: unifi-mongodb-metrics
+  namespace: unifi
+  labels:
+    app.kubernetes.io/name: mongodb
+    helm.sh/chart: mongodb-11.0.6
+    app.kubernetes.io/instance: unifi
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: metrics
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: '9216'
+    prometheus.io/scrape: "true"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9216
+      targetPort: metrics
+      protocol: TCP
+      name: http-metrics
+  selector:
+    app.kubernetes.io/name: mongodb
+    app.kubernetes.io/instance: unifi
+    app.kubernetes.io/component: mongodb
+---
 # Source: mongodb/templates/replicaset/headless-svc.yaml
 apiVersion: v1
 kind: Service
@@ -182,7 +210,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: mongodb
@@ -207,7 +235,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: arbiter
@@ -222,7 +250,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: mongodb
-        helm.sh/chart: mongodb-11.0.4
+        helm.sh/chart: mongodb-11.0.6
         app.kubernetes.io/instance: unifi
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: arbiter
@@ -315,7 +343,7 @@ metadata:
   namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-11.0.4
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: mongodb
@@ -334,7 +362,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: mongodb
-        helm.sh/chart: mongodb-11.0.4
+        helm.sh/chart: mongodb-11.0.6
         app.kubernetes.io/instance: unifi
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: mongodb
@@ -463,6 +491,44 @@ spec:
               mountPath: /scripts/setup.sh
               subPath: setup.sh
             
+        - name: metrics
+          image: docker.io/bitnami/mongodb-exporter:0.30.0-debian-10-r58
+          imagePullPolicy: "IfNotPresent"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+          command:
+            - /bin/bash
+            - -ec
+          args:
+            - |
+              /bin/mongodb_exporter --web.listen-address ":9216" --mongodb.uri "mongodb://localhost:27017/admin?" 
+          env:
+          volumeMounts:
+          ports:
+            - name: metrics
+              containerPort: 9216
+          livenessProbe:
+            httpGet:
+              path: /
+              port: metrics
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 1
+            failureThreshold: 3
+            successThreshold: 1
+          resources:
+            limits: {}
+            requests: {}
         - env:
           - name: LABEL_SELECTOR
             value: app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=unifi,app.kubernetes.io/name=mongodb
@@ -490,3 +556,27 @@ spec:
           requests:
             storage: "10Gi"
         storageClassName: nfs-client
+---
+# Source: mongodb/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: unifi-mongodb
+  namespace: unifi
+  labels:
+    app.kubernetes.io/name: mongodb
+    helm.sh/chart: mongodb-11.0.6
+    app.kubernetes.io/instance: unifi
+    app.kubernetes.io/managed-by: Helm
+spec:
+  endpoints:
+    - port: http-metrics
+      interval: 30s
+  namespaceSelector:
+    matchNames:
+      - "unifi"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mongodb
+      app.kubernetes.io/instance: unifi
+      app.kubernetes.io/component: metrics

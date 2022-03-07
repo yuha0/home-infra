@@ -1584,7 +1584,7 @@ hidden:
 metrics:
   ## @param metrics.enabled Enable using a sidecar Prometheus exporter
   ##
-  enabled: false
+  enabled: true
   ## Bitnami MongoDB(&reg;) Promtheus Exporter image
   ## ref: https://hub.docker.com/r/bitnami/mongodb-exporter/tags/
   ## @param metrics.image.registry MongoDB(&reg;) Prometheus exporter image registry
@@ -1701,7 +1701,7 @@ metrics:
   serviceMonitor:
     ## @param metrics.serviceMonitor.enabled Create ServiceMonitor Resource for scraping metrics using Prometheus Operator
     ##
-    enabled: false
+    enabled: true
     ## @param metrics.serviceMonitor.namespace Namespace which Prometheus is running in
     ##
     namespace: ""
