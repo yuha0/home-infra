@@ -9,10 +9,12 @@ resources:
 - ingress-nginx-external.yaml
 - ingress-nginx-internal.yaml
 - kube-state-metrics.yaml
+- loki.yaml
 - metallb-system.yaml
 - monitoring.yaml
 - nfs-subdir.yaml
 - plex.yaml
+- promtail.yaml
 - sealed-secrets.yaml
 - system-service-monitors.yaml
 - tailscale.yaml

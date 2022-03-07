@@ -8,3 +8,11 @@ datasources:
   version: 1
   isDefault: true
   editable: false
+- name: loki
+  type: loki
+  access: proxy
+  orgId: 1
+  url: http://loki-loki-distributed-gateway.loki.svc.cluster.local.
+  version: 1
+  isDefault: false
+  editable: false
