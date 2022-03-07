@@ -13,6 +13,6 @@ images:
   newTag: "2.1.3"
 
 configMapGenerator:
-- name: config
+- name: unpoller-config
   files:
   - up.conf

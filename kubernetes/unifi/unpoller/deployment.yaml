@@ -27,4 +27,4 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: config
+          name: unpoller-config
