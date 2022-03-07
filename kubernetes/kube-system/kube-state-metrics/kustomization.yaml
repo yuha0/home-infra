@@ -6,3 +6,4 @@ resources:
 - service-account.yaml
 - cluster-role-binding.yaml
 - service-monitor.yaml
+- prometheus-rule.yaml
