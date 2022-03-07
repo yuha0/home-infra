@@ -4,3 +4,4 @@ resources:
 - servicemonitor.yaml
 - overlays/kube-system
 - overlays/monitoring
+- prometheus-rule.yaml
