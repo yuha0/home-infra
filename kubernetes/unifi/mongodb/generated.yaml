@@ -465,7 +465,7 @@ spec:
             
         - env:
           - name: LABEL_SELECTOR
-            value: app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=unifi,app.kubernetes.io/name=mongodb
+            value: app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=unifi
           - name: NAMESPACE
             valueFrom:
               fieldRef:
