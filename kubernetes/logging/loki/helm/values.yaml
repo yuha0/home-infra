@@ -182,7 +182,8 @@ loki:
       cache_location: /var/loki/cache
       cache_ttl: 168h
     aws:
-      s3: s3://fred.main.yuha0.com:8010/loki
+      bucketnames: loki
+      endpoint: fred.main.yuha0.com:8010
       s3forcepathstyle: true
       insecure: false
       http_config:
