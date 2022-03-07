@@ -4,4 +4,5 @@ resources:
 - servicemonitor.yaml
 - overlays/kube-system
 - overlays/monitoring
+- overlays/unifi
 - prometheus-rule.yaml

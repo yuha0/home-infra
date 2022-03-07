@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: unpoller
+  namespace: unifi
+stringData:
+  UP_UNIFI_DEFAULT_USER: unpoller
+  UP_UNIFI_DEFAULT_PASS: KReiMXu3LwmCM2Y_vj7vr*L3Vz2CZsJ_L.xztg8R

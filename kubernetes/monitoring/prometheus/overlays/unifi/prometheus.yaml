@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prom
+spec:
+  externalLabels:
+    prometheus: unifi
+  replicas: 2
+  resources:
+    limits:
+      cpu: 400m
+      memory: 300Mi
+    requests:
+      cpu: 400m
+      memory: 300Mi
+  serviceMonitorNamespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: unifi
