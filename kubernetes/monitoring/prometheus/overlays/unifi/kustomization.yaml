@@ -1,6 +1,6 @@
-nameSuffix: -monitoring
+nameSuffix: -unifi
 commonLabels:
-  app.kubernetes.io/instance: prom-monitoring
+  app.kubernetes.io/instance: prom-unifi
 bases:
 - ./../../base
 patchesStrategicMerge:
