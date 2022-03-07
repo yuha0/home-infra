@@ -1,3 +1,4 @@
 namespace: monitoring
 resources:
 - generated.yaml
+- prometheus-rule.yaml
