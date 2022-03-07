@@ -23,8 +23,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11312,
   "graphTooltip": 1,
-  "id": 14,
-  "iteration": 1646682920283,
+  "id": 23,
+  "iteration": 1646683932383,
   "links": [
     {
       "asDropdown": true,
@@ -80,7 +80,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "If you have access points and gateways they will also show up here because they have switch ports.",
       "editable": true,
@@ -360,7 +361,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 1,
       "description": "",
@@ -475,7 +477,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "",
@@ -576,7 +579,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "editable": true,
       "error": false,
@@ -701,7 +705,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "",
@@ -797,7 +802,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Shows data transferred for selected switch ports.",
       "fieldConfig": {
@@ -901,7 +907,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "This panel displays lifetime totals and current data as of now.",
       "fontSize": "90%",
@@ -1403,7 +1410,8 @@
         {
           "columns": [],
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "These are total \"lifetime\" counters.",
           "fieldConfig": {
@@ -1707,7 +1715,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Shows data transfer rate per second for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
@@ -1808,7 +1817,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Shows broadcast and multicast packets per second for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
@@ -1921,7 +1931,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Shows errors and dropped packets for Switch $Port. RX on negative axis.",
           "fieldConfig": {
@@ -2037,7 +2048,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Shows packet counters for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
@@ -2138,7 +2150,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Display POE Power for Switch $Port.",
           "fieldConfig": {
@@ -2229,7 +2242,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Display POE Voltage for Switch $Port.",
           "fieldConfig": {
@@ -2321,7 +2335,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Display POE Current for Switch $Port.",
           "fieldConfig": {
@@ -2420,7 +2435,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 75
       },
       "id": 2299,
       "panels": [],
@@ -2445,6 +2460,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info,source)",
         "hide": 2,
         "includeAll": true,
@@ -2453,7 +2472,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info,source)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Controller-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2512,6 +2531,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info{source=~\"$Controller\"},site_name)",
         "hide": 0,
         "includeAll": true,
@@ -2520,7 +2543,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{source=~\"$Controller\"},site_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Site-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2538,6 +2561,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
         "hide": 0,
         "includeAll": true,
@@ -2546,7 +2573,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Switch-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2564,6 +2591,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
         "hide": 0,
         "includeAll": true,
@@ -2572,7 +2603,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Port-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2665,7 +2696,7 @@
   },
   "timezone": "browser",
   "title": "UniFi-Poller: USW Insights - Prometheus",
-  "uid": "FsfxpWaZz",
+  "uid": "unifi-usw-insights",
   "version": 1,
   "weekStart": ""
 }

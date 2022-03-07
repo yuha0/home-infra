@@ -23,8 +23,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11311,
   "graphTooltip": 1,
-  "id": 9,
-  "iteration": 1646682668091,
+  "id": 20,
+  "iteration": 1646683749157,
   "links": [
     {
       "asDropdown": true,
@@ -63,7 +63,8 @@
   "panels": [
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "fieldConfig": {
         "defaults": {
@@ -136,7 +137,8 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "fieldConfig": {
         "defaults": {
@@ -209,7 +211,8 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "fieldConfig": {
         "defaults": {
@@ -282,7 +285,8 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "fieldConfig": {
         "defaults": {
@@ -383,7 +387,8 @@
       "panels": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -460,7 +465,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "decimals": 0,
           "description": "These are counters, totals, but they don't change much so the graph does not show rate.",
@@ -589,7 +595,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "gridPos": {
             "h": 8,
@@ -661,7 +668,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "gridPos": {
             "h": 8,
@@ -735,7 +743,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Shows data transfer for each subsystem on the site. RX is on the negative axis.",
           "fill": 0,
@@ -834,7 +843,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "decimals": 0,
           "description": "This graphs shows clients connected to the site.",
@@ -946,7 +956,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "decimals": 0,
           "description": "This graphs shows clients connected to the site.",
@@ -1045,7 +1056,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "decimals": 0,
           "description": "This graph only works if DPI is enabled on the controller and DPI collection is enabled in UniFi Poller. Rx is on the negative axis.",
@@ -1163,6 +1175,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_site_transmit_rate_bytes,source)",
         "hide": 0,
         "includeAll": true,
@@ -1172,7 +1188,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_site_transmit_rate_bytes,source)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Controller-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -1189,6 +1205,10 @@
           "selected": false,
           "text": "All",
           "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
         },
         "definition": "label_values(unifipoller_site_transmit_rate_bytes{source=~\"$Controller\"},site_name)",
         "hide": 2,
@@ -1199,7 +1219,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_site_transmit_rate_bytes{source=~\"$Controller\"},site_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Site-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -1217,6 +1237,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(subsystem)",
         "hide": 2,
         "includeAll": true,
@@ -1225,7 +1249,7 @@
         "options": [],
         "query": {
           "query": "label_values(subsystem)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Subsystem-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -1308,7 +1332,7 @@
   },
   "timezone": "browser",
   "title": "UniFi-Poller: Network Sites - Prometheus",
-  "uid": "9WaGWZaZk",
+  "uid": "unifi-network-sites",
   "version": 1,
   "weekStart": ""
 }

@@ -23,8 +23,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11315,
   "graphTooltip": 1,
-  "id": 13,
-  "iteration": 1646682342593,
+  "id": 19,
+  "iteration": 1646683648821,
   "links": [
     {
       "asDropdown": true,
@@ -64,7 +64,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "This table represents current (latest) data.\nBytes columns are lifetime totals.",
       "fontSize": "80%",
@@ -563,7 +564,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "This table represents current (latest) data.\nBytes columns are lifetime totals.",
       "fontSize": "80%",
@@ -948,7 +950,8 @@
         "threshold": 0
       },
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "Visualize wireless channel usage w/ wired client counts.",
@@ -1002,7 +1005,8 @@
         "threshold": 0
       },
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "Visualize how many clients are connected to which radios/APs.",
@@ -1050,7 +1054,8 @@
         "threshold": "0.01"
       },
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "This shows an OUI breakdown from Unifi's perspective. e = wired, w = wireless",
@@ -1108,7 +1113,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Bandwidth usage per wireless devices as reported by the UAPs. Rx is on the negative axis. Does not include amazon devices.",
       "fieldConfig": {
@@ -1217,7 +1223,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Wired TX / RX bytes per second (calculated in 30 second buckets). Rx is on the negative axis. Does not include amazon and camera devices. Unaffected by the AP setting.",
       "fieldConfig": {
@@ -1254,6 +1261,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1323,7 +1333,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Amazon Devices TX / RX bytes per second. Rx is on the negative axis. My home network has a ton of Amazon devices, so I broke them out separately. If you don't have Amazon devices, or they have different names, you can edit the query to use a different name. e = wired, w = wireless",
       "fieldConfig": {
@@ -1359,6 +1370,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1441,7 +1455,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Cameras TX / RX bytes per second. Rx is on the negative axis. This graph shows any device with the word \"camera\" in its name and has nothing to do with UniFi Protect/video products. e = wired, w = wireless",
       "fieldConfig": {
@@ -1478,6 +1493,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1561,7 +1579,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -1599,6 +1618,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1655,7 +1677,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -1693,6 +1716,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1751,7 +1777,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -1789,6 +1816,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1845,7 +1875,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Client reported transmit rate.",
       "fieldConfig": {
@@ -1881,6 +1912,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -1935,7 +1969,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -1973,6 +2008,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2029,7 +2067,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Client reported receive rate.",
       "fieldConfig": {
@@ -2067,6 +2106,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2122,7 +2164,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2160,6 +2203,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2215,7 +2261,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2253,6 +2300,9 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2308,7 +2358,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2346,6 +2397,9 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2402,7 +2456,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2440,6 +2495,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2498,7 +2556,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2536,6 +2595,9 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2591,7 +2653,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2629,6 +2692,9 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
       "pluginVersion": "8.4.3",
       "pointradius": 5,
@@ -2696,6 +2762,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_client_uptime_seconds,source)",
         "hide": 2,
         "includeAll": true,
@@ -2704,7 +2774,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_client_uptime_seconds,source)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Controller-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2722,6 +2792,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_client_uptime_seconds{source=~\"$Controller\"},site_name)",
         "hide": 0,
         "includeAll": true,
@@ -2730,7 +2804,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_client_uptime_seconds{source=~\"$Controller\"},site_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Site-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2748,6 +2822,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\"},ap_name)",
         "hide": 0,
         "includeAll": true,
@@ -2756,7 +2834,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\"},ap_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-AP-Variable-Query"
         },
         "refresh": 2,
         "regex": "",
@@ -2774,6 +2852,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\"},sw_name)",
         "hide": 0,
         "includeAll": true,
@@ -2782,7 +2864,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\"},sw_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Switch-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2799,6 +2881,10 @@
           "selected": false,
           "text": "All",
           "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
         },
         "definition": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\", wired=\"false\"},name)",
         "hide": 0,
@@ -2808,7 +2894,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\", wired=\"false\"},name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Wireless-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2826,6 +2912,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\", sw_name=~\"$Switch\", wired=\"true\"},name)",
         "hide": 0,
         "includeAll": true,
@@ -2834,7 +2924,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_client_uptime_seconds{site_name=~\"$Site\", sw_name=~\"$Switch\", wired=\"true\"},name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Wired-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2959,7 +3049,7 @@
   },
   "timezone": "browser",
   "title": "UniFi-Poller: Client Insights - Prometheus",
-  "uid": "jMfvAjxWz",
+  "uid": "unifi-client-insights",
   "version": 1,
   "weekStart": ""
 }

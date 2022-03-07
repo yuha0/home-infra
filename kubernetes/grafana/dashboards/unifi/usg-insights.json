@@ -25,8 +25,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11313,
   "graphTooltip": 2,
-  "id": 8,
-  "iteration": 1646682919382,
+  "id": 22,
+  "iteration": 1646683893189,
   "links": [
     {
       "asDropdown": true,
@@ -66,7 +66,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "editable": true,
       "error": false,
@@ -351,7 +352,8 @@
       "panels": [
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "",
           "fieldConfig": {
@@ -420,7 +422,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "",
           "fieldConfig": {
@@ -497,7 +500,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "",
           "fieldConfig": {
@@ -574,7 +578,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -656,7 +661,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "WAN Port Speed",
           "fieldConfig": {
@@ -731,7 +737,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -806,7 +813,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -880,7 +888,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -955,7 +964,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -1029,7 +1039,8 @@
         },
         {
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "fieldConfig": {
             "defaults": {
@@ -1111,7 +1122,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "editable": true,
           "error": false,
@@ -1229,7 +1241,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Spikes on this graph that are missing from the LAN graph indicate gateway-originated traffic, like a scheduled speed test. Rx is on the negative axis.",
           "editable": true,
@@ -1353,7 +1366,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "Spikes on this graph that do not appear on the WAN graph indicate inter-VLAN-routing. Rx is on the negative axis.",
           "editable": true,
@@ -1463,7 +1477,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "PPS on the WAN interface. Rx is on the negative axis.",
           "editable": true,
@@ -1575,7 +1590,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "PPS on the LAN interface. Rx is on the negative axis.",
           "editable": true,
@@ -1689,7 +1705,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "decimals": 2,
           "description": "",
@@ -1814,7 +1831,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "May show problems with your WAN interface. Rx on negative axis.",
           "editable": true,
@@ -1934,7 +1952,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "uid": "${DS_PROMETHEUS}"
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
           },
           "description": "",
           "editable": true,
@@ -2071,6 +2090,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info{type=~\"udm|usg|ugw\"},source)",
         "hide": 2,
         "includeAll": true,
@@ -2080,7 +2103,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{type=~\"udm|usg|ugw\"},source)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Controller-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2095,6 +2118,10 @@
           "selected": false,
           "text": "All",
           "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
         },
         "definition": "label_values(unifipoller_device_info{source=~\"$Controller\", type=~\"udm|usg|ugw\"},site_name)",
         "hide": 0,
@@ -2105,7 +2132,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{source=~\"$Controller\", type=~\"udm|usg|ugw\"},site_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Site-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2121,6 +2148,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"udm|usg|ugw\"},name)",
         "hide": 2,
         "includeAll": true,
@@ -2130,7 +2161,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"udm|usg|ugw\"},name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Gateway-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -2216,7 +2247,7 @@
   },
   "timezone": "browser",
   "title": "UniFi-Poller: USG Insights - Prometheus",
-  "uid": "4Yo8IZ-Wk",
+  "uid": "unifi-usg-insights",
   "version": 1,
   "weekStart": ""
 }

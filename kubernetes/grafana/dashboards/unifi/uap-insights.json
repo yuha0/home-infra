@@ -24,8 +24,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11314,
   "graphTooltip": 1,
-  "id": 11,
-  "iteration": 1646682918569,
+  "id": 21,
+  "iteration": 1646683821496,
   "links": [
     {
       "asDropdown": true,
@@ -95,7 +95,8 @@
         "threshold": 0
       },
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "Visualize wireless channel usage w/ wired client counts.",
@@ -149,7 +150,8 @@
         "threshold": 0
       },
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "Visualize how many clients are connected to which radios/APs.",
@@ -199,7 +201,8 @@
         "threshold": "0.01"
       },
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "This shows an OUI breakdown from Unifi's perspective.",
@@ -243,7 +246,8 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "",
       "fieldConfig": {
@@ -305,7 +309,8 @@
     },
     {
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "",
       "fieldConfig": {
@@ -398,7 +403,7 @@
           "endText": "00:00:00"
         },
         "countupSettings": {
-          "beginCountupTime": "2022-03-07T17:55:18-08:00",
+          "beginCountupTime": "2022-03-07T18:10:21-08:00",
           "beginText": "00:00:00"
         },
         "dateSettings": {
@@ -443,7 +448,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "editable": true,
       "error": false,
@@ -718,7 +724,8 @@
     {
       "columns": [],
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "The counters in this table represent uptime totals and do not change with the time range selector. ",
       "editable": true,
@@ -1235,7 +1242,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "",
       "fieldConfig": {
@@ -1330,7 +1338,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "",
       "fieldConfig": {
@@ -1427,7 +1436,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "editable": true,
       "error": false,
@@ -1544,7 +1554,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "editable": true,
@@ -1644,7 +1655,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "Devices TX / RX bytes per second grouped by OUI. RX on negative axis.",
       "fieldConfig": {
@@ -1748,7 +1760,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "editable": true,
@@ -1866,7 +1879,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -1960,7 +1974,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "fieldConfig": {
@@ -2054,7 +2069,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "editable": true,
       "error": false,
@@ -2147,7 +2163,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "editable": true,
       "error": false,
@@ -2241,7 +2258,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "editable": true,
@@ -2346,7 +2364,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "Displays 2.4GHz usage.",
@@ -2449,7 +2468,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "RX is on the negative Axis.",
       "editable": true,
@@ -2557,7 +2577,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "description": "RX is on the negative Axis.",
       "editable": true,
@@ -2663,7 +2684,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "PPS on the na band. In is on the negative Axis.",
@@ -2770,7 +2792,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "PPS on the ng band calculated in 30 second buckets. In is on the negative Axis.",
@@ -2878,7 +2901,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "Visualize packet errors (several types)  per second in the 5GHz band.",
@@ -3022,7 +3046,8 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "uid": "${DS_PROMETHEUS}"
+        "type": "prometheus",
+        "uid": "PC96415006F908B67"
       },
       "decimals": 0,
       "description": "In is on the negative axis.",
@@ -3178,6 +3203,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info{type=\"uap\"},source)",
         "hide": 2,
         "includeAll": true,
@@ -3187,7 +3216,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{type=\"uap\"},source)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Controller-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -3202,6 +3231,10 @@
           "selected": false,
           "text": "All",
           "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
         },
         "definition": "label_values(unifipoller_device_info{source=~\"$Controller\", type=\"uap\"},site_name)",
         "hide": 0,
@@ -3212,7 +3245,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{source=~\"$Controller\", type=\"uap\"},site_name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-Site-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -3228,6 +3261,10 @@
           "text": "All",
           "value": "$__all"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PC96415006F908B67"
+        },
         "definition": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"uap|udm\",model!=\"UDMPRO\"},name)",
         "hide": 0,
         "includeAll": true,
@@ -3237,7 +3274,7 @@
         "options": [],
         "query": {
           "query": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"uap|udm\",model!=\"UDMPRO\"},name)",
-          "refId": "StandardVariableQuery"
+          "refId": "thanos-AP-Variable-Query"
         },
         "refresh": 1,
         "regex": "",
@@ -3334,7 +3371,7 @@
   },
   "timezone": "browser",
   "title": "UniFi-Poller: UAP Insights - Prometheus",
-  "uid": "g5wFWqxZk",
+  "uid": "unifi-uap-insights",
   "version": 1,
   "weekStart": ""
 }
