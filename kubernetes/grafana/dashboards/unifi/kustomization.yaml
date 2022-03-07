@@ -1,0 +1,24 @@
+namePrefix: dashboard-unifi-
+commonLabels:
+  grafana-provisioning: dashboard
+commonAnnotations:
+  grafana-provisioning-directory: unifi
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: client-insights
+  files:
+  - client-insights.json
+- name: network-sites
+  files:
+  - network-sites.json
+- name: uap-insights
+  files:
+  - uap-insights.json
+- name: usg-insights
+  files:
+  - usg-insights.json
+- name: usw-insights
+  files:
+  - usw-insights.json

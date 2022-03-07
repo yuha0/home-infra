@@ -19,6 +19,8 @@ spec:
           value: "true"
         - name: GF_AUTH_DISABLE_LOGIN_FORM
           value: "true"
+        - name: GF_INSTALL_PLUGINS
+          value: "grafana-clock-panel,natel-discrete-panel,grafana-piechart-panel"
         - name: GF_LOG_MODE
           value: console
         - name: GF_SECURITY_ADMIN_USER

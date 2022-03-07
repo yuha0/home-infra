@@ -9,6 +9,7 @@ resources:
 - ingress.yaml
 - deployment.yaml
 - dashboards/kubernetes
+- dashboards/unifi
 
 configMapGenerator:
 - name: grafana-provisioning-datasources
