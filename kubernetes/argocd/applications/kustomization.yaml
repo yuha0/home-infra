@@ -67,4 +67,4 @@ patches:
         automated:
           allowEmpty: true
           prune: true
-          selfHeal: false
+          selfHeal: true
