@@ -189,8 +189,8 @@ data:
       - from: "2020-09-07"
         index:
           period: 24h
-          prefix: loki_index_
-        object_store: filesystem
+          prefix: index_
+        object_store: s3
         schema: v11
         store: boltdb-shipper
     server:
@@ -578,7 +578,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: acdbe3c71ec3dd04f386bba89f284151a42514e773a07b1df69df988fb3d1cf2
+        checksum/config: 7c32c1e28d8c17c121254366b8987adca7dbcbb003da3abec75024f9866d0a4f
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -666,7 +666,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: acdbe3c71ec3dd04f386bba89f284151a42514e773a07b1df69df988fb3d1cf2
+        checksum/config: 7c32c1e28d8c17c121254366b8987adca7dbcbb003da3abec75024f9866d0a4f
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -868,7 +868,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: acdbe3c71ec3dd04f386bba89f284151a42514e773a07b1df69df988fb3d1cf2
+        checksum/config: 7c32c1e28d8c17c121254366b8987adca7dbcbb003da3abec75024f9866d0a4f
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -963,7 +963,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: acdbe3c71ec3dd04f386bba89f284151a42514e773a07b1df69df988fb3d1cf2
+        checksum/config: 7c32c1e28d8c17c121254366b8987adca7dbcbb003da3abec75024f9866d0a4f
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1080,7 +1080,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: acdbe3c71ec3dd04f386bba89f284151a42514e773a07b1df69df988fb3d1cf2
+        checksum/config: 7c32c1e28d8c17c121254366b8987adca7dbcbb003da3abec75024f9866d0a4f
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki

@@ -168,10 +168,10 @@ loki:
     configs:
     - from: 2020-09-07
       store: boltdb-shipper
-      object_store: filesystem
+      object_store: s3
       schema: v11
       index:
-        prefix: loki_index_
+        prefix: index_
         period: 24h
 
   # -- Check https://grafana.com/docs/loki/latest/configuration/#storage_config for more info on how to configure storages
