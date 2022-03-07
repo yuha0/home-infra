@@ -1,5 +1,5 @@
 commonLabels:
-  app.kubernetes.io/name: unifi
+  app.kubernetes.io/component: controller
 
 resources:
 - volume.yaml
