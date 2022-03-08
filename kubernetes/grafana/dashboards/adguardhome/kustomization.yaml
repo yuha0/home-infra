@@ -1,0 +1,12 @@
+namePrefix: dashboard-adguardhome-
+commonLabels:
+  grafana-provisioning: dashboard
+commonAnnotations:
+  grafana-provisioning-directory: adguardhome
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: adguardhome
+  files:
+  - adguardhome.json
