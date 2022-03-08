@@ -226,8 +226,8 @@ controller:
   # -- Resource limits and requests for the application controller pods
   resources:
     limits:
-      cpu: 450m
-      memory: 400Mi
+      cpu: 850m
+      memory: 600Mi
     requests:
       cpu: 450m
       memory: 400Mi
@@ -648,10 +648,10 @@ redis:
   # -- Resource limits and requests for redis
   resources:
     limits:
-      cpu: 100m
-      memory: 64Mi
+      cpu: 50m
+      memory: 128Mi
     requests:
-      cpu: 100m
+      cpu: 50m
       memory: 64Mi
 
   # -- Additional volumeMounts to the redis container

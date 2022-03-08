@@ -3728,10 +3728,10 @@ spec:
           name: redis
         resources:
           limits:
-            cpu: 100m
-            memory: 64Mi
+            cpu: 50m
+            memory: 128Mi
           requests:
-            cpu: 100m
+            cpu: 50m
             memory: 64Mi
 ---
 # Source: argo-cd/templates/argocd-application-controller/deployment.yaml
@@ -3829,8 +3829,8 @@ spec:
           name: argocd-repo-server-tls
         resources:
           limits:
-            cpu: 450m
-            memory: 400Mi
+            cpu: 850m
+            memory: 600Mi
           requests:
             cpu: 450m
             memory: 400Mi
