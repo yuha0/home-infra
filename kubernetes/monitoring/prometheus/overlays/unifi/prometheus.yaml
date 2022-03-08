@@ -5,14 +5,14 @@ metadata:
 spec:
   externalLabels:
     prometheus: unifi
-  replicas: 2
+  replicas: 1
   resources:
     limits:
-      cpu: 400m
-      memory: 300Mi
+      cpu: 100m
+      memory: 200Mi
     requests:
-      cpu: 400m
-      memory: 300Mi
+      cpu: 100m
+      memory: 200Mi
   serviceMonitorNamespaceSelector:
     matchLabels:
       kubernetes.io/metadata.name: unifi
