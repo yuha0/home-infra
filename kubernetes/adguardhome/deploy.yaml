@@ -75,6 +75,10 @@ spec:
           timeoutSeconds: 5
       - name: adguard-exporter
         image: adguard-exporter
+        ports:
+        - name: metrics
+          containerPort: 9617
+          protocol: TCP
         env:
         - name: adguard_protocol
           value: http

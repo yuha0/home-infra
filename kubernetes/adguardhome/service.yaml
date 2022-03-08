@@ -11,7 +11,7 @@ spec:
     port: 80
     protocol: TCP
   - name: metrics
-    targetPort: http
+    targetPort: metrics
     port: 9617
     protocol: TCP
 
