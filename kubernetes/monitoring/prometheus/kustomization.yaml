@@ -2,6 +2,7 @@ namespace: monitoring
 resources:
 - rbac.yaml
 - servicemonitor.yaml
+- overlays/adguardhome
 - overlays/kube-system
 - overlays/monitoring
 - overlays/unifi
