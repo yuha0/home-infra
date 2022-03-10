@@ -7,3 +7,7 @@ resources:
 - cluster-role-binding.yaml
 - service-monitor.yaml
 - prometheus-rule.yaml
+images:
+- name: kube-state-metrics
+  newName: k8s.gcr.io/kube-state-metrics/kube-state-metrics
+  newTag: v2.4.2
