@@ -15,7 +15,7 @@ configMapGenerator:
 images:
 - name: unifi
   newName: jacobalberty/unifi
-  newTag: v6.5.55
+  newTag: v7.0.23
 - name: rclone
   newName: rclone/rclone
   newTag: "1.57"
