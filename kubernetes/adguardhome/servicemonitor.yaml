@@ -7,10 +7,17 @@ spec:
   - interval: 15s
     port: metrics
     metricRelabelings:
+    # Obviously, `domain` label will cause high cardinality metrics to be ingested.
+    # There's no workaround because full domain names are actually very useful information
+    # In most cases, we are only interested in the subdomains prepended to [public suffixes](https://publicsuffix.org/).
+    # But that's not something we can implement in regex.
+    # Now let's aggregate all the second level domains to another label.
+    # This label helps consolidate metrics sourced from the same tracker that uses multiple subdomains (e.g.: <random-string-bs>.siteintercept.qualtrics.com)
+    # This will fail for domains like co.uk, com.cn...etc
     - sourceLabels: [domain]
       regex: '^.*?\.?([^.]+\.[^.]+$)'
       replacement: '$1'
-      targetLabel: domain
+      targetLabel: second_level_domain
   selector:
     matchLabels:
       app.kubernetes.io/name: adguardhome
