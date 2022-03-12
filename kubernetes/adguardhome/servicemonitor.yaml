@@ -6,6 +6,11 @@ spec:
   endpoints:
   - interval: 15s
     port: metrics
+    metricRelabelings:
+    - sourceLabels: [domain]
+      regex: '^.*?\.?([^.]+\.[^.]+$)'
+      replacement: '$1'
+      target_label: domain
   selector:
     matchLabels:
       app.kubernetes.io/name: adguardhome
