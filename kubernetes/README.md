@@ -3,7 +3,7 @@
 ## Components
 
 | Name | Description | Sync Status |
-| ------------- | ------------- |
+| --- | --- | --- |
 | adguardhome | | ![sync-status](https://argocd.yuha0.com/api/badge?name=adguardhome&revision=true) |
 | apiserver | | ![sync-status](https://argocd.yuha0.com/api/badge?name=apiserver&revision=true) |
 | argocd | | ![sync-status](https://argocd.yuha0.com/api/badge?name=argocd&revision=true) |
