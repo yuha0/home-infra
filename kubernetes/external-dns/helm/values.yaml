@@ -127,7 +127,7 @@ txtPrefix: ""
 txtSuffix: ""
 
 domainFilters:
-- yuha0.com
+- internal.yuha0.com
 
 provider: cloudflare
 
