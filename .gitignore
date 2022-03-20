@@ -1,4 +1,6 @@
 ansible/inventory/credentials
 ansible/inventory/artifacts
 ansible/.env
+**/*.orig
+**/*.rej
 .DS_Store
