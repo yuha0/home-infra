@@ -10322,6 +10322,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/limit-connections: "10"
   name: argocd-server
   labels:
     helm.sh/chart: argo-cd-4.2.1

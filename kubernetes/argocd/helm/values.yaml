@@ -1005,6 +1005,7 @@ server:
     # -- Additional ingress annotations
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/limit-connections: "10"
       cert-manager.io/cluster-issuer: letsencrypt
 
     # -- Additional ingress labels
