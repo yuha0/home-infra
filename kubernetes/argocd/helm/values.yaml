@@ -1141,6 +1141,7 @@ server:
     url: https://argocd.yuha0.com
     # Argo CD instance label key
     application.instanceLabelKey: argocd.argoproj.io/instance
+    statusbadge.enabled: "true"
 
     # DEPRECATED: Please instead use configs.credentialTemplates and configs.repositories
     # repositories: |
@@ -1817,7 +1818,8 @@ configs:
     # -- Create the argocd-secret
     createSecret: true
     # -- Annotations to be added to argocd-secret
-    annotations: {}
+    annotations:
+      sealedsecrets.bitnami.com/managed: "true"
 
     # -- Shared secret for authenticating GitHub webhook events
     githubSecret: ""
