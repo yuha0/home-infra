@@ -33,10 +33,10 @@ patches:
       value:
         requests:
           cpu: 100m
-          memory: 200MiB
+          memory: 200Mi
         limits:
           cpu: 100m
-          memory: 200MiB
+          memory: 200Mi
     - op: add
       path: /spec/replicas
       value: 2
