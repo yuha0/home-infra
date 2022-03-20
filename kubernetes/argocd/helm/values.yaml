@@ -1816,10 +1816,9 @@ configs:
 
   secret:
     # -- Create the argocd-secret
-    createSecret: true
+    createSecret: false
     # -- Annotations to be added to argocd-secret
-    annotations:
-      sealedsecrets.bitnami.com/managed: "true"
+    annotations: {}
 
     # -- Shared secret for authenticating GitHub webhook events
     githubSecret: ""

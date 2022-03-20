@@ -1,6 +1,7 @@
 namespace: argocd
 resources:
 - namespace.yaml
+- sealed-argocd-secret.yaml
 - generated.yaml
 - applications
 - ingress-internal.yaml
