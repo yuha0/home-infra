@@ -1,0 +1,26 @@
+# In additional to helm generated ingress, which is external facing with nginx-external IngressClass
+# This ingress is internal facing
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  name: argocd-server-internal
+  labels:
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: server
+    app.kubernetes.io/part-of: argocd
+spec:
+  ingressClassName: nginx-internal
+  rules:
+    - host: argocd.internal.yuha0.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80

@@ -3,3 +3,4 @@ resources:
 - namespace.yaml
 - generated.yaml
 - applications
+- ingress-internal.yaml

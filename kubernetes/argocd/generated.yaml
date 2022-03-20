@@ -9430,7 +9430,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
 data:
     application.instanceLabelKey: argocd.argoproj.io/instance
-    url: https://argocd.internal.yuha0.com
+    url: https://argocd.yuha0.com
 ---
 # Source: argo-cd/templates/argocd-configs/argocd-gpg-keys-cm.yaml
 apiVersion: v1
@@ -10333,6 +10333,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   name: argocd-server
   labels:
@@ -10343,9 +10344,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
 spec:
-  ingressClassName: nginx-internal
+  ingressClassName: nginx-external
   rules:
-    - host: argocd.internal.yuha0.com
+    - host: argocd.yuha0.com
       http:
         paths:
           - path: /
@@ -10355,6 +10356,10 @@ spec:
                 name: argocd-server
                 port:
                   number: 80
+  tls:
+    - hosts:
+      - argocd.yuha0.com
+      secretName: argocd-tls-certificate
 ---
 # Source: argo-cd/templates/argocd-application-controller/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1

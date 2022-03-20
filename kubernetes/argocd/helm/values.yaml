@@ -1005,17 +1005,19 @@ server:
     # -- Additional ingress annotations
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      cert-manager.io/cluster-issuer: letsencrypt
+
     # -- Additional ingress labels
     labels: {}
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: "nginx-internal"
+    ingressClassName: "nginx-external"
 
     # -- List of ingress hosts
     ## Argo Ingress.
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
     hosts:
-    - argocd.internal.yuha0.com
+    - argocd.yuha0.com
 
     # -- List of ingress paths
     paths:
@@ -1040,10 +1042,9 @@ server:
 
     # -- Ingress TLS configuration
     tls:
-      []
-      # - secretName: argocd-tls-certificate
-      #   hosts:
-      #     - argocd.example.com
+    - secretName: argocd-tls-certificate
+      hosts:
+        - argocd.yuha0.com
 
     # -- Uses `server.service.servicePortHttps` instead `server.service.servicePortHttp`
     https: false
@@ -1137,7 +1138,7 @@ server:
   # @default -- See [values.yaml]
   config:
     # Argo CD's externally facing base URL (optional). Required when configuring SSO
-    url: https://argocd.internal.yuha0.com
+    url: https://argocd.yuha0.com
     # Argo CD instance label key
     application.instanceLabelKey: argocd.argoproj.io/instance
 
