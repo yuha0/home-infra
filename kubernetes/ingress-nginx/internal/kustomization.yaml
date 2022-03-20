@@ -30,6 +30,15 @@ patches:
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
         - --default-ssl-certificate=$(POD_NAMESPACE)/wildcard-yuha0-com
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 120m
+          memory: 200MiB
+        limits:
+          cpu: 120m
+          memory: 200MiB
     - op: add
       path: /spec/replicas
       value: 3
