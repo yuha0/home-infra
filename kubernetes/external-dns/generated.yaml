@@ -140,7 +140,7 @@ spec:
             - --source=ingress
             - --policy=upsert-only
             - --registry=txt
-            - --domain-filter=internal.yuha0.com
+            - --domain-filter=yuha0.com
             - --provider=cloudflare
             - --zone-id-filter=$(CF_API_ZONE_ID)
           ports:
