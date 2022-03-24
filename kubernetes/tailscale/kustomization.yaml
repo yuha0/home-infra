@@ -20,4 +20,4 @@ configMapGenerator:
 images:
 - name: tailscale
   newName: tailscale/tailscale
-  newTag: v1.22.1
+  newTag: v1.22.2
