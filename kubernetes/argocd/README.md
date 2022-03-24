@@ -14,7 +14,7 @@ helm template -f helm/values.yaml --include-crds -n argocd argocd argo/argo-cd >
 # Go to the submodule dir and generate the diff file between our own version and the latest version
 cd helm/argo-helm
 git pull
-git diff --relative <curr-commit> <newer commit>  charts/argo-cd/values.yaml > /tmp/argocdvalue.diff
+git diff --relative <curr-commit> <newer commit>  charts/argo-cd/values.yaml > /tmp/values.diff
 
 # Patch our values.yaml
 cd ..
