@@ -18,7 +18,7 @@ git diff --relative <curr-commit> <newer commit>  charts/argo-cd/values.yaml > /
 
 # Patch our values.yaml
 cd ..
-patch values.yaml /tmp/argocdvalue.diff
+patch values.yaml /tmp/values.diff
 
 # solve all the conflicts
 ```
