@@ -3,6 +3,7 @@ resources:
 - apiserver.yaml
 - argocd.yaml
 - cert-manager.yaml
+- cloudflare-ddns.yaml
 - external-dns.yaml
 - external-service-accounts.yaml
 - grafana.yaml

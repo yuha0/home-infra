@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+spec:
+  replicas: 5
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 99%
+      maxSurge: 0
+  template:
+    spec:
+      serviceAccountName: cloudflare-ddns
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: cloudflare-ddns
+              topologyKey: kubernetes.io/hostname
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: cloudflare-ddns
+        image: cloudflare-ddns
+        resources:
+          requests:
+            cpu: 100m
+            memory: 80Mi
+          limits:
+            cpu: 100m
+            memory: 80Mi
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        envFrom:
+        - secretRef:
+            name: cf-api
+        args:
+        - --ipv4
+        - --proxied
+        - --subdomains
+        - ddns

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cloudflare-ddns
+spec:
+  destinations:
+  - namespace: "cloudflare-ddns"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflare-ddns
+spec:
+  project: cloudflare-ddns
+  source:
+    path: kubernetes/cloudflare-ddns
+  destination:
+    namespace: cloudflare-ddns

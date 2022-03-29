@@ -1,0 +1,14 @@
+namespace: cloudflare-ddns
+commonLabels:
+  app.kubernetes.io/name: cloudflare-ddns
+
+resources:
+- namespace.yaml
+- sealed-cf-api.yaml
+- rbac.yaml
+- deploy.yaml
+
+images:
+- name: cloudflare-ddns
+  newName: ghcr.io/yuha0/cloudflare-ddns
+  newTag: v0.0.1
