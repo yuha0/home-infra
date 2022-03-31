@@ -1,0 +1,8 @@
+nameSuffix: -ingress-nginx
+commonLabels:
+  app.kubernetes.io/instance: prom-ingress-nginx
+bases:
+- ./../../base
+patchesStrategicMerge:
+- prometheus.yaml
+- ingress.yaml

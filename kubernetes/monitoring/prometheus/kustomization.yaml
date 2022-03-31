@@ -3,6 +3,7 @@ resources:
 - rbac.yaml
 - servicemonitor.yaml
 - overlays/adguardhome
+- overlays/ingress-nginx
 - overlays/kube-system
 - overlays/monitoring
 - overlays/unifi
