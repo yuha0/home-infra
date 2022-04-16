@@ -71,7 +71,9 @@ spec:
           mountPath: /media
       volumes:
       - name: transcode
-        emptyDir: {}
+        hostPath:
+          path: /var/opt/plex-transcode
+          type: DirectoryOrCreate
       - name: config
         hostPath:
           path: /var/opt/plex
