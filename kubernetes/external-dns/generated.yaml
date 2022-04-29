@@ -5,10 +5,10 @@ kind: ServiceAccount
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.7.1
+    helm.sh/chart: external-dns-1.9.0
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.10.2"
+    app.kubernetes.io/version: "0.11.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: external-dns/templates/clusterrole.yaml
@@ -17,10 +17,10 @@ kind: ClusterRole
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.7.1
+    helm.sh/chart: external-dns-1.9.0
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.10.2"
+    app.kubernetes.io/version: "0.11.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups: [""]
@@ -42,10 +42,10 @@ kind: ClusterRoleBinding
 metadata:
   name: external-dns-viewer
   labels:
-    helm.sh/chart: external-dns-1.7.1
+    helm.sh/chart: external-dns-1.9.0
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.10.2"
+    app.kubernetes.io/version: "0.11.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -62,10 +62,10 @@ kind: Service
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.7.1
+    helm.sh/chart: external-dns-1.9.0
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.10.2"
+    app.kubernetes.io/version: "0.11.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -84,10 +84,10 @@ kind: Deployment
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.7.1
+    helm.sh/chart: external-dns-1.9.0
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.10.2"
+    app.kubernetes.io/version: "0.11.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -113,7 +113,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
             runAsUser: 65534
-          image: k8s.gcr.io/external-dns/external-dns:v0.10.2
+          image: k8s.gcr.io/external-dns/external-dns:v0.11.0
           imagePullPolicy: IfNotPresent
           env:
             - name: CF_API_TOKEN

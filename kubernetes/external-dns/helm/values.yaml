@@ -5,7 +5,7 @@
 image:
   repository: k8s.gcr.io/external-dns/external-dns
   # Overrides the image tag whose default is v{{ .Chart.AppVersion }}
-  tag: "v0.10.2"
+  tag: "v0.11.0"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -33,6 +33,8 @@ podLabels: {}
 
 # Annotations to add to the Pod
 podAnnotations: {}
+
+shareProcessNamespace: false
 
 podSecurityContext:
   fsGroup: 65534
