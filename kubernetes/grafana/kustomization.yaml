@@ -23,7 +23,7 @@ configMapGenerator:
 images:
 - name: grafana
   newName: grafana/grafana
-  newTag: 8.5.1
+  newTag: 8.5.2
 - name: k8s-sidecar
   newName: kiwigrid/k8s-sidecar
   newTag: 1.16.0
