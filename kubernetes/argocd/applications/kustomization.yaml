@@ -10,6 +10,7 @@ resources:
 - ingress-nginx-external.yaml
 - ingress-nginx-internal.yaml
 - kube-state-metrics.yaml
+- kubegres.yaml
 - loki.yaml
 - metallb-system.yaml
 - monitoring.yaml
