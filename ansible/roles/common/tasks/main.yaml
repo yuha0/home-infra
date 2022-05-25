@@ -71,3 +71,23 @@
 - name: UTC timezone
   community.general.timezone:
     name: UTC
+
+- name: Bump nofile (hard)
+  community.general.pam_limits:
+    domain: '*'
+    limit_type: hard
+    limit_item: nofile
+    value: 65535
+  when: ansible_architecture == "x86_64"
+  tags:
+  - nofile
+
+- name: Bump nofile (soft)
+  community.general.pam_limits:
+    domain: '*'
+    limit_type: soft
+    limit_item: nofile
+    value: 4096
+  when: ansible_architecture == "x86_64"
+  tags:
+  - nofile
