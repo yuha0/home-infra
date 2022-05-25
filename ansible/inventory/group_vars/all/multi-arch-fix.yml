@@ -57,3 +57,13 @@ runc_version: v1.1.0
 
 # https://github.com/kubernetes-sigs/kubespray/issues/7934
 cilium_version: v1.10.7 
+cilium_hubble_relay_image_repo: quay.io/cilium/hubble-relay
+cilium_hubble_relay_image_tag: v1.10.7
+cilium_hubble_ui_image_repo: quay.io/cilium/hubble-ui
+cilium_hubble_ui_image_tag: v0.8.5
+cilium_hubble_ui_backend_image_repo: quay.io/cilium/hubble-ui-backend
+cilium_hubble_ui_backend_image_tag: v0.8.5
+cilium_hubble_envoy_image_repo: docker.io/envoyproxy/envoy
+cilium_hubble_envoy_image_tag: v1.16.5
+cilium_hubble_certgen_image_repo: quay.io/cilium/certgen
+cilium_hubble_certgen_image_tag: v0.1.8

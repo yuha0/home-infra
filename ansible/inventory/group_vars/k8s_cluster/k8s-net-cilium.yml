@@ -1,1 +1,13 @@
 # see roles/network_plugin/cilium/defaults/main.yml
+cilium_enable_prometheus: true
+cilium_enable_hubble: true
+cilium_enable_hubble_metrics: true
+cilium_hubble_install: true
+cilium_hubble_tls_generate: true
+cilium_hubble_metrics:
+- dns
+- drop
+- tcp
+- flow
+- icmp
+- http
