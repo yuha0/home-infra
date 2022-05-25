@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: hubble
+spec:
+  destinations:
+  - namespace: "kube-system"
+  namespaceResourceWhitelist:
+  - group: 'networking.k8s.io'
+    kind: Ingress
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hubble
+spec:
+  project: hubble
+  source:
+    path: kubernetes/hubble
+  destination:
+    namespace: kube-system

@@ -7,6 +7,7 @@ resources:
 - external-dns.yaml
 - external-service-accounts.yaml
 - grafana.yaml
+- hubble.yaml
 - ingress-nginx-external.yaml
 - ingress-nginx-internal.yaml
 - kube-state-metrics.yaml
