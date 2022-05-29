@@ -6,6 +6,7 @@ resources:
 - service.yaml
 - servicemonitor.yaml
 - deployment.yaml
+- sealed-unpoller-user.yaml
 
 images:
 - name: unpoller
