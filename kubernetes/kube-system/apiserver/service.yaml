@@ -7,8 +7,6 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: k0.yuha0.com
     external-dns.alpha.kubernetes.io/ttl: "120"
-  labels:
-    app.kubernetes.io/name: k8s-apiserver
 spec:
   ports:
   - protocol: TCP
