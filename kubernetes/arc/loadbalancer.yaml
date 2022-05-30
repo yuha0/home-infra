@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: db
+    replicationRole: primary
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: arc-data.internal.yuha0.com.
+  name: db-primary-external
+spec:
+  ports:
+  - port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: db
+    replicationRole: primary
+  type: LoadBalancer
