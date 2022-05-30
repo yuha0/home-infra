@@ -24,6 +24,7 @@ Everything else is running in the Kubernetes cluster and managed with [GitOps](h
 | [ingress-nginx-internal](kubernetes/ingress-nginx/internal) | Local-only instance of [kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx) |
 | [kube-state-metrics](kubernetes/kube-system/kube-state-metrics) | [kubernetes/kube-state-metrics](https://github.com/kubernetes/kube-state-metrics) |
 | [loki](kubernetes/logging/loki) | [grafana/loki](https://github.com/grafana/loki) |
+| [metabase](kubernetes/metabase) | [metabase/metabase](https://github.com/metabase/metabase) |
 | [metallb-system](kubernetes/metallb-system) | [metallb/metallb](https://github.com/metallb/metallb) |
 | [nfs-subdir](kubernetes/nfs-subdir) | [kubernetes-sigs/nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner) |
 | [node-exporter](kubernetes/monitoring/node-exporter) | [prometheus/node_exporter](https://github.com/prometheus/node_exporter) |
