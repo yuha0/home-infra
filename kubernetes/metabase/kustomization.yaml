@@ -1,0 +1,10 @@
+namespace: metabase
+resources:
+- namespace.yaml
+- database
+- metabase
+
+images:
+- name: metabase
+  newName: metabase/metabase
+  newTag: v0.43.1

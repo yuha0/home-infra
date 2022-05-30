@@ -13,6 +13,7 @@ resources:
 - kube-state-metrics.yaml
 - kubegres.yaml
 - loki.yaml
+- metabase.yaml
 - metallb-system.yaml
 - monitoring.yaml
 - nfs-subdir.yaml

@@ -1,0 +1,6 @@
+commonLabels:
+  app.kubernetes.io/name: metabase
+resources:
+- service.yaml
+- ingress.yaml
+- statefulset.yaml
