@@ -31,7 +31,7 @@ spec:
     - cidr: 10.100.0.0/20
   # check device firmware updates
   - toFQDNs:
-    - matchName: fw-update.ubnt.com
+    - matchName: "*.ubnt.com"
     toPorts:
     - ports:
       - port: "443"
@@ -48,9 +48,19 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
   # nodelocaldns
   - toCIDRSet:
     - cidr: 169.254.25.10/32
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
 ---
 
 apiVersion: cilium.io/v2
