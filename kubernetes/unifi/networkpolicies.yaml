@@ -65,36 +65,6 @@ spec:
   - fromEndpoints:
     - matchLabels:
         app.kubernetes.io/name: mongodb
-  egress:
-  # DNS
-  - toEndpoints:
-    - matchLabels:
-        io.kubernetes.pod.namespace: kube-system
-        k8s-app: kube-dns
-    toPorts:
-    - ports:
-      - port: "53"
-        protocol: UDP
-  # MongoDB pods themselves
-  - toEndpoints:
-    - matchLabels:
-        app.kubernetes.io/name: mongodb
-  # kube-apiserver because mongodb labeler needs to update pod labels.
-  - toCIDRSet:
-    - cidr: 10.100.0.44/32
-    toPorts:
-    - ports:
-      - port: "6443"
-  - toCIDRSet:
-    - cidr: 10.100.0.45/32
-    toPorts:
-    - ports:
-      - port: "6443"
-  - toCIDRSet:
-    - cidr: 10.100.0.46/32
-    toPorts:
-    - ports:
-      - port: "6443"
 
 ---
 
