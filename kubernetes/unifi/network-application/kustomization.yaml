@@ -7,7 +7,6 @@ resources:
 - ingress.yaml
 - statefulset.yaml
 - backup
-- networkpolicies.yaml
 
 configMapGenerator:
 - name: unifi-config
