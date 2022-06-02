@@ -35,6 +35,9 @@ spec:
     toPorts:
     - ports:
       - port: "443"
+  # multicast
+  - toFQDNs:
+    - matchName: "igmp.mcast.net"
   # mongodb in the same namespace
   - toEndpoints:
     - matchLabels:
