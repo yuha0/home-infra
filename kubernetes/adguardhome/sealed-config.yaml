@@ -88,11 +88,11 @@ spec:
           url: https://block.energized.pro/ultimate/formats/hosts.txt
           name: Energized Ultimate
           id: 1
-        - enabled: false
+        - enabled: true
           url: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
           name: Steven Black
           id: 2
-        - enabled: false
+        - enabled: true
           url: https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
           name: notracking
           id: 3
