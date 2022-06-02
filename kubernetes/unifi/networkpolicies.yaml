@@ -29,7 +29,7 @@ spec:
   # unifi gears in the main vlan
   - toCIDRSet:
     - cidr: 10.100.0.0/20
-  # check device firmware updates
+  # check firmware updates, device EOL dates ... etc
   - toFQDNs:
     - matchPattern: "*.ubnt.com"
     toPorts:
@@ -108,17 +108,18 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
   # nodelocaldns
   - toCIDRSet:
     - cidr: 169.254.25.10/32
-  # BackBlaze IP list: https://help.backblaze.com/hc/en-us/articles/217664588-Backblaze-IP-Address-List
-  - toCIDRSet:
-    - cidr: 104.153.232.0/21
-  - toCIDRSet:
-    - cidr: 149.137.128.0/20
-  - toCIDRSet:
-    - cidr: 206.190.208.0/21
-  - toCIDRSet:
-    - cidr: 2605:72c0::/32
-  - toCIDRSet:
-    - cidr: 45.11.36.0/22
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toFQDNs:
+    - matchPattern: "*.backblazeb2.com"
