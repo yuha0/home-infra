@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: unifi-poller
 spec:
+  replicas: 0
   template:
     spec:
       containers:
