@@ -22,10 +22,13 @@ spec:
   # unifi gears in the main vlan
   - fromCIDRSet:
     - cidr: 10.100.0.0/20
+  # nodelocaldns
+  - fromCIDRSet:
+    - cidr: 169.254.25.10/32
   egress:
   # unifi gears in the main vlan
   - toCIDRSet:
-    - cidr: 10.0.0.0/8
+    - cidr: 10.100.0.0/20
   # check device firmware updates
   - toFQDNs:
     - matchName: fw-update.ubnt.com
@@ -45,6 +48,9 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
+  # nodelocaldns
+  - toCIDRSet:
+    - cidr: 169.254.25.10/32
 ---
 
 apiVersion: cilium.io/v2
@@ -89,6 +95,9 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
+  # nodelocaldns
+  - toCIDRSet:
+    - cidr: 169.254.25.10/32
   # BackBlaze IP list: https://help.backblaze.com/hc/en-us/articles/217664588-Backblaze-IP-Address-List
   - toCIDRSet:
     - cidr: 104.153.232.0/21
