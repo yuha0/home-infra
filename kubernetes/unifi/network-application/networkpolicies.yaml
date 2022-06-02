@@ -1,0 +1,124 @@
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: controller
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/component: controller
+      app.kubernetes.io/name: unifi
+  ingress:
+  # internal ingress controller
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/component: controller
+        app.kubernetes.io/instance: ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
+        io.kubernetes.pod.namespace: ingress-nginx-internal
+  # everything within namespace
+  - fromEndpoints:
+    - {}
+  # unifi gears in the main vlan
+  - fromCIDRSet:
+    - cidr: 10.100.0.0/20
+  egress:
+  # unifi gears in the main vlan
+  - toCIDRSet:
+    - cidr: 10.0.0.0/8
+  # check device firmware updates
+  - toFQDNs:
+    - matchName: fw-update.ubnt.com
+    toPorts:
+    - ports:
+      - port: "443"
+  # mongodb in the same namespace
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: mongodb
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+---
+
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: mongodb
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: mongodb
+  ingress:
+  # unifi controller
+  - fromEndpoints:
+      - matchLabels:
+          app.kubernetes.io/component: controller
+          app.kubernetes.io/name: unifi
+  egress:
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+  # kube-apiserver because mongodb labler needs to update pod labels.
+  - toCIDRSet:
+    - cidr: 10.100.0.44/32
+    toPorts:
+    - ports:
+      - port: "6443"
+  - toCIDRSet:
+    - cidr: 10.100.0.45/32
+    toPorts:
+    - ports:
+      - port: "6443"
+  - toCIDRSet:
+    - cidr: 10.100.0.46/32
+    toPorts:
+    - ports:
+      - port: "6443"
+
+---
+
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: backup
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: rclone
+  # should not need to be accessed by anything
+  ingress:
+  - {}
+  egress:
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+  # BackBlaze IP list: https://help.backblaze.com/hc/en-us/articles/217664588-Backblaze-IP-Address-List
+  - toCIDRSet:
+    - cidr: 104.153.232.0/21
+  - toCIDRSet:
+    - cidr: 149.137.128.0/20
+  - toCIDRSet:
+    - cidr: 206.190.208.0/21
+  - toCIDRSet:
+    - cidr: 2605:72c0::/32
+  - toCIDRSet:
+    - cidr: 45.11.36.0/22
