@@ -58,9 +58,13 @@ spec:
   ingress:
   # unifi controller
   - fromEndpoints:
-      - matchLabels:
-          app.kubernetes.io/component: controller
-          app.kubernetes.io/name: unifi
+    - matchLabels:
+        app.kubernetes.io/component: controller
+        app.kubernetes.io/name: unifi
+  # MongoDB pods themselves
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: mongodb
   egress:
   # DNS
   - toEndpoints:
