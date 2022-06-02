@@ -3,12 +3,12 @@ kind: CronJob
 metadata:
   name: backup
 spec:
-  schedule: "0 */6 * * *"
+  schedule: "0 */12 * * *"
   concurrencyPolicy: Forbid
   # two weeks failure history
-  failedJobsHistoryLimit: 56
+  failedJobsHistoryLimit: 28
   # one week success history
-  successfulJobsHistoryLimit: 28
+  successfulJobsHistoryLimit: 14
   jobTemplate:
     spec:
       template:
