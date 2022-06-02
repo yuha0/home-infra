@@ -71,7 +71,11 @@ spec:
     - ports:
       - port: "53"
         protocol: UDP
-  # kube-apiserver because mongodb labler needs to update pod labels.
+  # MongoDB pods themselves
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: mongodb
+  # kube-apiserver because mongodb labeler needs to update pod labels.
   - toCIDRSet:
     - cidr: 10.100.0.44/32
     toPorts:
