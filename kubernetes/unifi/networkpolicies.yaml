@@ -31,7 +31,7 @@ spec:
     - cidr: 10.100.0.0/20
   # check device firmware updates
   - toFQDNs:
-    - matchName: "*.ubnt.com"
+    - matchPattern: "*.ubnt.com"
     toPorts:
     - ports:
       - port: "443"
