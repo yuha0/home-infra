@@ -123,6 +123,8 @@ spec:
         - matchPattern: "*"
   - toFQDNs:
     - matchPattern: "*.backblazeb2.com"
+  - toFQDNs:
+    - matchPattern: "*.backblaze.com"
 
 ---
 
