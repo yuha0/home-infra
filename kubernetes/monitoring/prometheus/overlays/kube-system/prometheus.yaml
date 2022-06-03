@@ -8,11 +8,11 @@ spec:
   replicas: 1
   resources:
     limits:
-      cpu: 500m
-      memory: 1Gi
+      cpu: 800m
+      memory: 2Gi
     requests:
-      cpu: 500m
-      memory: 1Gi
+      cpu: 800m
+      memory: 2Gi
   serviceMonitorNamespaceSelector:
     matchLabels:
       kubernetes.io/metadata.name: kube-system
