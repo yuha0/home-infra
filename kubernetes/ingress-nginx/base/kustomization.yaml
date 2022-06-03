@@ -1,2 +1,14 @@
 resources:
 - deploy.yaml
+
+patches:
+- target:
+    group: batch
+    kind: Job
+  patch: |-
+    - op: add
+      path: /metadata/annotations/argocd.argoproj.io~1hook
+      value: PreSync
+    - op: add
+      path: /metadata/annotations/argocd.argoproj.io~1hook-delete-policy
+      value: BeforeHookCreation
