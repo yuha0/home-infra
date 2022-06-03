@@ -5,8 +5,8 @@ metadata:
 spec:
   externalLabels:
     cluster: k0
-  image: quay.io/prometheus/prometheus:v2.35.0
-  version: v2.35.0
+  image: quay.io/prometheus/prometheus:v2.36.0
+  version: v2.36.0
   retention: 24h
   securityContext:
     fsGroup: 65534
