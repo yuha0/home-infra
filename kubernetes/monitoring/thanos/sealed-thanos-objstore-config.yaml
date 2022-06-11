@@ -20,7 +20,8 @@ spec:
           access_key: {{ index . "access-key" }}
           secret_key: {{ index . "secret-key" }}
           http_config:
-            insecure_skip_verify: true
+            tls_config:
+              insecure_skip_verify: true
     metadata:
       creationTimestamp: null
       name: thanos-objstore-config
