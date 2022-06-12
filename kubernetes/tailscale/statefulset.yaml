@@ -16,7 +16,7 @@ kind: StatefulSet
 metadata:
   name: subrouter
 spec:
-  replicas: 1
+  replicas: 0
   serviceName: subrouter
   template:
     spec:
