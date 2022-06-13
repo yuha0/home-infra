@@ -16,7 +16,7 @@ kind: StatefulSet
 metadata:
   name: subrouter
 spec:
-  replicas: 0
+  replicas: 1
   serviceName: subrouter
   template:
     spec:
@@ -38,9 +38,7 @@ spec:
         - configMapRef:
             name: config
         env:
-        - name: USERSPACE
-          value: "true"
-        - name: AUTH_KEY
+        - name: TS_AUTH_KEY
           valueFrom:
             secretKeyRef:
               name: tailscale-auth

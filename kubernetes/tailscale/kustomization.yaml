@@ -11,13 +11,14 @@ resources:
 configMapGenerator:
 - name: config
   literals:
-  - KUBE_SECRET=state
-  - ROUTES=10.100.0.0/20,10.200.0.0/16
+  - TS_USERSPACE=true
+  - TS_KUBE_SECRET=state
+  - TS_ROUTES=10.100.0.0/20,10.200.0.0/16
 - name: run-script
   files:
   - run.sh
 
 images:
 - name: tailscale
-  newName: tailscale/tailscale
+  newName: ghcr.io/tailscale/tailscale
   newTag: v1.26.0
