@@ -11,7 +11,8 @@ spec:
   - fromEndpoints:
     - matchLabels:
         app.kubernetes.io/component: controller
-        io.kubernetes.pod.namespace.labels.app.kubernetes.io/name: ingress-nginx
+        app.kubernetes.io/instance: ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
   egress:
   # DNS
   - toEndpoints:
