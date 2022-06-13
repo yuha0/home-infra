@@ -32,22 +32,6 @@ spec:
         ports:
         - containerPort: 32400
           name: plex-web
-        - containerPort: 32410
-          protocol: UDP
-          hostPort: 32410
-          name: gdm0
-        - containerPort: 32412
-          protocol: UDP
-          hostPort: 32412
-          name: gdm2
-        - containerPort: 32413
-          protocol: UDP
-          hostPort: 32413
-          name: gdm3
-        - containerPort: 32414
-          protocol: UDP
-          hostPort: 32414
-          name: gdm4
         env:
         - name: TZ
           value: "America/Los_Angeles"

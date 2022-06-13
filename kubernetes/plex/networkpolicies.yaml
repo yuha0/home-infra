@@ -1,0 +1,43 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: plex
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: plex
+  # ingress from ingress controllers
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/component: controller
+        io.kubernetes.pod.namespace.labels.app.kubernetes.io/name: ingress-nginx
+  egress:
+  # DNS
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+        - port: "53"
+          protocol: UDP
+      rules:
+        dns:
+          - matchPattern: "*"
+  # nodelocaldns
+  - toCIDRSet:
+    - cidr: 169.254.25.10/32
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
+  # it's hard to make a definitive whitelist since plex uses a lot of 3rd party services.
+  # But at least let's block it from accessing local networks.
+  - toCIDRSet:
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8

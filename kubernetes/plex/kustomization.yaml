@@ -8,3 +8,4 @@ resources:
 - volume.yaml
 - statefulset.yaml
 - ingress.yaml
+- networkpolicies.yaml
