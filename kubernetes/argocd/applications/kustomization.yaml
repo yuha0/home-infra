@@ -1,7 +1,6 @@
 resources:
 - adguardhome.yaml
 - apiserver.yaml
-- arc.yaml
 - argocd.yaml
 - cert-manager.yaml
 - cloudflare-ddns.yaml
@@ -14,7 +13,6 @@ resources:
 - kube-state-metrics.yaml
 - kubegres.yaml
 - loki.yaml
-- metabase.yaml
 - metallb-system.yaml
 - monitoring.yaml
 - nfs-subdir.yaml
