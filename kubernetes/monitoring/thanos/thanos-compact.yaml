@@ -35,6 +35,11 @@ spec:
       - args:
         - compact
         - --wait
+        - --block-meta-fetch-concurrency=4
+        - --compact.cleanup-interval=0s
+        - --compact.concurrency=1
+        - --compact.progress-interval=30m
+        - --delete-delay=0s
         - --retention.resolution-raw=180d
         - --retention.resolution-5m=180d
         - --retention.resolution-1h=180d
