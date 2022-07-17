@@ -19,3 +19,6 @@
 [submodule "kubernetes/logging/loki/helm/helm-charts"]
 	path = kubernetes/logging/loki/helm/helm-charts
 	url = https://github.com/grafana/helm-charts.git
+[submodule "kubernetes/logging/promtail/helm/helm-charts"]
+	path = kubernetes/logging/promtail/helm/helm-charts
+	url = https://github.com/grafana/helm-charts.git

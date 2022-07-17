@@ -6,10 +6,10 @@ metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: promtail/templates/secret.yaml
@@ -19,20 +19,20 @@ metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 stringData:
   promtail.yaml: |
     server:
       log_level: info
       http_listen_port: 3101
-    
-    client:
-      url: http://loki-loki-distributed-gateway.loki.svc/loki/api/v1/push
       
+    
+    clients:
+      - url: http://loki-loki-distributed-gateway.loki.svc/loki/api/v1/push
     
     positions:
       filename: /run/promtail/positions.yaml
@@ -58,6 +58,12 @@ stringData:
             regex: ^;*([^;]+)(;.*)?$
             action: replace
             target_label: app
+          - source_labels:
+              - __meta_kubernetes_pod_label_app_kubernetes_io_instance
+              - __meta_kubernetes_pod_label_release
+            regex: ^;*([^;]+)(;.*)?$
+            action: replace
+            target_label: instance
           - source_labels:
               - __meta_kubernetes_pod_label_app_kubernetes_io_component
               - __meta_kubernetes_pod_label_component
@@ -110,10 +116,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -135,10 +141,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 subjects:
   - kind: ServiceAccount
@@ -156,10 +162,10 @@ metadata:
   name: promtail-metrics
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   clusterIP: None
@@ -179,10 +185,10 @@ metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
@@ -197,7 +203,7 @@ spec:
         app.kubernetes.io/name: promtail
         app.kubernetes.io/instance: promtail
       annotations:
-        checksum/config: 4bd052f25b7b1c5856b317c16a0d5919af51d3a73e5601decbf0ede5d139feb8
+        checksum/config: 15fa26061810e56902084c1a53be5c21355fb6d3af6761a975b440cfe56fdd72
     spec:
       serviceAccountName: promtail
       initContainers:
@@ -215,15 +221,15 @@ spec:
         runAsUser: 0
       containers:
         - name: promtail
-          image: "docker.io/grafana/promtail:2.4.2"
+          image: "docker.io/grafana/promtail:2.6.0"
           imagePullPolicy: IfNotPresent
           args:
             - "-config.file=/etc/promtail/promtail.yaml"
           volumeMounts:
             - name: config
               mountPath: /etc/promtail
-            - name: run
-              mountPath: /run/promtail
+            - mountPath: /run/promtail
+              name: run
             - mountPath: /var/lib/docker/containers
               name: containers
               readOnly: true
@@ -272,9 +278,9 @@ spec:
         - name: config
           secret:
             secretName: promtail
-        - name: run
-          hostPath:
+        - hostPath:
             path: /run/promtail
+          name: run
         - hostPath:
             path: /var/lib/docker/containers
           name: containers
@@ -289,10 +295,10 @@ metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-3.11.0
+    helm.sh/chart: promtail-6.2.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.4.2"
+    app.kubernetes.io/version: "2.6.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
