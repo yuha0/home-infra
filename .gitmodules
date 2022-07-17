@@ -16,3 +16,6 @@
 [submodule "kubernetes/metallb-system/helm/metallb"]
 	path = kubernetes/metallb-system/helm/metallb
 	url = https://github.com/metallb/metallb.git
+[submodule "kubernetes/logging/loki/helm/helm-charts"]
+	path = kubernetes/logging/loki/helm/helm-charts
+	url = https://github.com/grafana/helm-charts.git
