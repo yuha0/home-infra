@@ -13,3 +13,6 @@
 [submodule "kubernetes/kube-system/sealed-secrets/helm/sealed-secrets"]
 	path = kubernetes/kube-system/sealed-secrets/helm/sealed-secrets
 	url = https://github.com/bitnami-labs/sealed-secrets.git
+[submodule "kubernetes/metallb-system/helm/metallb"]
+	path = kubernetes/metallb-system/helm/metallb
+	url = https://github.com/metallb/metallb.git
