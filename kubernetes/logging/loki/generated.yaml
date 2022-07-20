@@ -613,7 +613,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: compactor
-          image: docker.io/grafana/loki:2.6.0
+          image: docker.io/grafana/loki:2.6.1
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -707,7 +707,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: distributor
-          image: docker.io/grafana/loki:2.6.0
+          image: docker.io/grafana/loki:2.6.1
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -918,7 +918,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: query-frontend
-          image: docker.io/grafana/loki:2.6.0
+          image: docker.io/grafana/loki:2.6.1
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1025,7 +1025,7 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
         - name: ingester
-          image: docker.io/grafana/loki:2.6.0
+          image: docker.io/grafana/loki:2.6.1
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1147,7 +1147,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: querier
-          image: docker.io/grafana/loki:2.6.0
+          image: docker.io/grafana/loki:2.6.1
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
