@@ -23,10 +23,6 @@ spec:
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
-      volumes:
-      - name: run-script
-        configMap:
-          name: run-script
       serviceAccountName: subrouter
       containers:
       - name: tailscale
@@ -43,9 +39,6 @@ spec:
             secretKeyRef:
               name: tailscale-auth
               key: AUTH_KEY
-        volumeMounts:
-        - mountPath: /run-script
-          name: run-script
         ports:
         - name: metrics
           containerPort: 8080

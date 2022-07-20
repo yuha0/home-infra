@@ -14,9 +14,7 @@ configMapGenerator:
   - TS_USERSPACE=true
   - TS_KUBE_SECRET=state
   - TS_ROUTES=10.100.0.0/20,10.200.0.0/16
-- name: run-script
-  files:
-  - run.sh
+  - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080"
 
 images:
 - name: tailscale
