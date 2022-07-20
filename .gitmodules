@@ -22,3 +22,6 @@
 [submodule "kubernetes/logging/promtail/helm/helm-charts"]
 	path = kubernetes/logging/promtail/helm/helm-charts
 	url = https://github.com/grafana/helm-charts.git
+[submodule "kubernetes/unifi/mongodb/helm/charts"]
+	path = kubernetes/unifi/mongodb/helm/charts
+	url = https://github.com/bitnami/charts.git
