@@ -27,9 +27,6 @@ spec:
       containers:
       - name: tailscale
         image: tailscale
-        command:
-        - /bin/sh
-        - /run-script/run.sh
         envFrom:
         - configMapRef:
             name: config
