@@ -4,58 +4,24 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: unifi-mongodb
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
 secrets:
   - name: unifi-mongodb
-automountServiceAccountToken: true
----
-# Source: mongodb/templates/common-scripts-cm.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: unifi-mongodb-common-scripts
-  namespace: "unifi"
-  labels:
-    app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
-    app.kubernetes.io/instance: unifi
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/component: mongodb
-data:
-  startup-probe.sh: |
-    #!/bin/bash
-    mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval 'db.hello().isWritablePrimary || db.hello().secondary' | grep -q 'true'
-  readiness-probe.sh: |
-    #!/bin/bash
-    # Run the proper check depending on the version
-    [[ $(mongod -version | grep "db version") =~ ([0-9]+\.[0-9]+\.[0-9]+) ]] && VERSION=${BASH_REMATCH[1]}
-    . /opt/bitnami/scripts/libversion.sh
-    VERSION_MAJOR="$(get_sematic_version "$VERSION" 1)"
-    VERSION_MINOR="$(get_sematic_version "$VERSION" 2)"
-    VERSION_PATCH="$(get_sematic_version "$VERSION" 3)"
-    if [[ ( "$VERSION_MAJOR" -ge 5 ) || ( "$VERSION_MAJOR" -ge 4 && "$VERSION_MINOR" -ge 4 && "$VERSION_PATCH" -ge 2 ) ]]; then
-        mongosh $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval 'db.hello().isWritablePrimary || db.hello().secondary' | grep -q 'true'
-    else
-        mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval 'db.isMaster().ismaster || db.isMaster().secondary' | grep -q 'true'
-    fi
-  ping-mongodb.sh: |
-    #!/bin/bash
-    mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval "db.adminCommand('ping')"
 ---
 # Source: mongodb/templates/replicaset/scripts-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: unifi-mongodb-scripts
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: mongodb
@@ -64,51 +30,19 @@ data:
     #!/bin/bash
 
     . /opt/bitnami/scripts/mongodb-env.sh
-    . /opt/bitnami/scripts/libfs.sh
-    . /opt/bitnami/scripts/liblog.sh
-    . /opt/bitnami/scripts/libvalidations.sh
 
-    if is_empty_value "$MONGODB_ADVERTISED_PORT_NUMBER"; then
-      export MONGODB_ADVERTISED_PORT_NUMBER="$MONGODB_PORT_NUMBER"
-    fi
+    echo "Advertised Hostname: $MONGODB_ADVERTISED_HOSTNAME"
+    echo "Advertised Port: $MONGODB_ADVERTISED_PORT_NUMBER"
 
-    info "Advertised Hostname: $MONGODB_ADVERTISED_HOSTNAME"
-    info "Advertised Port: $MONGODB_ADVERTISED_PORT_NUMBER"
-
-    # Check for existing replica set in case there is no data in the PVC
-    # This is for cases where the PVC is lost or for MongoDB caches without
-    # persistence
-    current_primary=""
-    if is_dir_empty "${MONGODB_DATA_DIR}/db"; then
-      info "Data dir empty, checking if the replica set already exists"
-      current_primary=$(mongosh admin --host "unifi-mongodb-0.unifi-mongodb-headless.unifi.svc.cluster.local:27017,unifi-mongodb-1.unifi-mongodb-headless.unifi.svc.cluster.local:27017" --eval 'db.runCommand("ismaster")' | awk -F\' '/primary/ {print $2}')
-
-      if ! is_empty_value "$current_primary"; then
-        info "Detected existing primary: ${current_primary}"
-      fi
-    fi
-
-    if ! is_empty_value "$current_primary" && [[ "$MONGODB_ADVERTISED_HOSTNAME:$MONGODB_ADVERTISED_PORT_NUMBER" == "$current_primary" ]]; then
-        info "Advertised name matches current primary, configuring node as a primary"
-        export MONGODB_REPLICA_SET_MODE="primary"
-    elif ! is_empty_value "$current_primary" && [[ "$MONGODB_ADVERTISED_HOSTNAME:$MONGODB_ADVERTISED_PORT_NUMBER" != "$current_primary" ]]; then
-        info "Current primary is different from this node. Configuring the node as replica of ${current_primary}"
-        export MONGODB_REPLICA_SET_MODE="secondary"
-        export MONGODB_INITIAL_PRIMARY_HOST="${current_primary%:*}"
-        export MONGODB_INITIAL_PRIMARY_PORT_NUMBER="${current_primary#*:}"
-        export MONGODB_SET_SECONDARY_OK="yes"
-    elif [[ "$MY_POD_NAME" = "unifi-mongodb-0" ]]; then
-        info "Pod name matches initial primary pod name, configuring node as a primary"
+    if [[ "$MY_POD_NAME" = "unifi-mongodb-0" ]]; then
+        echo "Pod name matches initial primary pod name, configuring node as a primary"
         export MONGODB_REPLICA_SET_MODE="primary"
     else
-        info "Pod name doesn't match initial primary pod name, configuring node as a secondary"
+        echo "Pod name doesn't match initial primary pod name, configuring node as a secondary"
         export MONGODB_REPLICA_SET_MODE="secondary"
-        export MONGODB_INITIAL_PRIMARY_PORT_NUMBER="$MONGODB_PORT_NUMBER"
-    fi
-
-    if [[ "$MONGODB_REPLICA_SET_MODE" == "secondary" ]]; then
         export MONGODB_INITIAL_PRIMARY_ROOT_USER="$MONGODB_ROOT_USER"
         export MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD="$MONGODB_ROOT_PASSWORD"
+        export MONGODB_INITIAL_PRIMARY_PORT_NUMBER="$MONGODB_PORT_NUMBER"
         export MONGODB_ROOT_PASSWORD=""
         export MONGODB_EXTRA_USERNAMES=""
         export MONGODB_EXTRA_DATABASES=""
@@ -147,10 +81,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: unifi-mongodb
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
 rules:
@@ -177,10 +111,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: unifi-mongodb
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
 roleRef:
@@ -190,17 +124,17 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: unifi-mongodb
-    namespace: "unifi"
+    namespace: unifi
 ---
 # Source: mongodb/templates/arbiter/headless-svc.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: unifi-mongodb-arbiter-headless
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: arbiter
@@ -245,10 +179,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: unifi-mongodb-headless
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: mongodb
@@ -257,7 +191,7 @@ spec:
   clusterIP: None
   publishNotReadyAddresses: true
   ports:
-    - name: "mongodb"
+    - name: mongodb
       port: 27017
       targetPort: mongodb
   selector:
@@ -270,18 +204,15 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: unifi-mongodb-arbiter
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: arbiter
 spec:
   serviceName: unifi-mongodb-arbiter-headless
-  podManagementPolicy: OrderedReady
-  updateStrategy:
-    type: RollingUpdate
   selector:
     matchLabels:
       app.kubernetes.io/name: mongodb
@@ -291,7 +222,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: mongodb
-        helm.sh/chart: mongodb-12.1.27
+        helm.sh/chart: mongodb-11.0.6
         app.kubernetes.io/instance: unifi
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: arbiter
@@ -322,11 +253,10 @@ spec:
         runAsNonRoot: true
         runAsUser: 1001
         sysctls: []
-      
       initContainers:
       containers:
         - name: mongodb-arbiter
-          image: docker.io/bitnami/mongodb:4.4.15
+          image: docker.io/bitnami/mongodb:4.4.12
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsNonRoot: true
@@ -347,34 +277,32 @@ spec:
             - name: MONGODB_REPLICA_SET_MODE
               value: "arbiter"
             - name: MONGODB_INITIAL_PRIMARY_HOST
-              value: unifi-mongodb-0.unifi-mongodb-headless.$(MY_POD_NAMESPACE).svc.cluster.local
+              value: "unifi-mongodb-0.unifi-mongodb-headless.$(MY_POD_NAMESPACE).svc.cluster.local"
             - name: MONGODB_REPLICA_SET_NAME
               value: "rs0"
             - name: MONGODB_ADVERTISED_HOSTNAME
               value: "$(MY_POD_NAME).$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local"
-            - name: MONGODB_PORT_NUMBER
-              value: "27017"
             - name: ALLOW_EMPTY_PASSWORD
               value: "yes"
           ports:
             - containerPort: 27017
               name: mongodb
           livenessProbe:
-            failureThreshold: 6
+            tcpSocket:
+              port: mongodb
             initialDelaySeconds: 30
-            periodSeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
             successThreshold: 1
-            timeoutSeconds: 10
-            tcpSocket:
-              port: mongodb
-          readinessProbe:
             failureThreshold: 6
-            initialDelaySeconds: 5
-            periodSeconds: 20
-            successThreshold: 1
-            timeoutSeconds: 10
+          readinessProbe:
             tcpSocket:
               port: mongodb
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 6
           resources:
             limits: {}
             requests: {}
@@ -384,10 +312,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: unifi-mongodb
-  namespace: "unifi"
+  namespace: unifi
   labels:
     app.kubernetes.io/name: mongodb
-    helm.sh/chart: mongodb-12.1.27
+    helm.sh/chart: mongodb-11.0.6
     app.kubernetes.io/instance: unifi
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: mongodb
@@ -406,7 +334,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: mongodb
-        helm.sh/chart: mongodb-12.1.27
+        helm.sh/chart: mongodb-11.0.6
         app.kubernetes.io/instance: unifi
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: mongodb
@@ -437,10 +365,9 @@ spec:
         runAsNonRoot: true
         runAsUser: 1001
         sysctls: []
-      
       containers:
         - name: mongodb
-          image: docker.io/bitnami/mongodb:4.4.15
+          image: docker.io/bitnami/mongodb:4.4.12
           imagePullPolicy: "IfNotPresent"
           securityContext:
             runAsNonRoot: true
@@ -465,7 +392,7 @@ spec:
             - name: K8S_SERVICE_NAME
               value: "unifi-mongodb-headless"
             - name: MONGODB_INITIAL_PRIMARY_HOST
-              value: unifi-mongodb-0.$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local
+              value: "unifi-mongodb-0.$(K8S_SERVICE_NAME).$(MY_POD_NAMESPACE).svc.cluster.local"
             - name: MONGODB_REPLICA_SET_NAME
               value: "rs0"
             - name: MONGODB_ADVERTISED_HOSTNAME
@@ -484,33 +411,47 @@ spec:
               value: "no"
             - name: MONGODB_ENABLE_JOURNAL
               value: "yes"
-            - name: MONGODB_PORT_NUMBER
-              value: "27017"
             - name: MONGODB_ENABLE_IPV6
               value: "no"
             - name: MONGODB_ENABLE_DIRECTORY_PER_DB
               value: "no"
           ports:
-            - name: mongodb
-              containerPort: 27017
+            - containerPort: 27017
+              name: mongodb
           livenessProbe:
-            failureThreshold: 6
-            initialDelaySeconds: 30
-            periodSeconds: 20
-            successThreshold: 1
-            timeoutSeconds: 10
             exec:
               command:
-                - /bitnami/scripts/ping-mongodb.sh
-          readinessProbe:
+                - mongo
+                - --disableImplicitSessions
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
             failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - -ec
+                - |
+                  # Run the proper check depending on the version
+                  [[ $(mongo --version | grep "MongoDB shell") =~ ([0-9]+\.[0-9]+\.[0-9]+) ]] && VERSION=${BASH_REMATCH[1]}
+                  . /opt/bitnami/scripts/libversion.sh
+                  VERSION_MAJOR="$(get_sematic_version "$VERSION" 1)"
+                  VERSION_MINOR="$(get_sematic_version "$VERSION" 2)"
+                  VERSION_PATCH="$(get_sematic_version "$VERSION" 3)"
+                  if [[ "$VERSION_MAJOR" -ge 4 ]] && [[ "$VERSION_MINOR" -ge 4 ]] && [[ "$VERSION_PATCH" -ge 2 ]]; then
+                      mongo --disableImplicitSessions $TLS_OPTIONS --eval 'db.hello().isWritablePrimary || db.hello().secondary' | grep -q 'true'
+                  else
+                      mongo --disableImplicitSessions $TLS_OPTIONS --eval 'db.isMaster().ismaster || db.isMaster().secondary' | grep -q 'true'
+                  fi
             initialDelaySeconds: 5
             periodSeconds: 10
-            successThreshold: 1
             timeoutSeconds: 5
-            exec:
-              command:
-                - /bitnami/scripts/readiness-probe.sh
+            successThreshold: 1
+            failureThreshold: 6
           resources:
             limits: {}
             requests: {}
@@ -518,8 +459,6 @@ spec:
             - name: datadir
               mountPath: /bitnami/mongodb
               subPath: 
-            - name: common-scripts
-              mountPath: /bitnami/scripts
             - name: scripts
               mountPath: /scripts/setup.sh
               subPath: setup.sh
@@ -537,10 +476,6 @@ spec:
           imagePullPolicy: Always
           name: mongo-labeler
       volumes:
-        - name: common-scripts
-          configMap:
-            name: unifi-mongodb-common-scripts
-            defaultMode: 0550
         - name: scripts
           configMap:
             name: unifi-mongodb-scripts
