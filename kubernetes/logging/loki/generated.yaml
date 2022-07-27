@@ -1066,7 +1066,12 @@ spec:
             - name: data
               mountPath: /var/loki
           resources:
-            {}
+            limits:
+              cpu: 500m
+              memory: 300Mi
+            requests:
+              cpu: 500m
+              memory: 300Mi
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
