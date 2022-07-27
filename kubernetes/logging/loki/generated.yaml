@@ -153,6 +153,7 @@ data:
       max_transfer_retries: 0
       wal:
         dir: /var/loki/wal
+        replay_memory_ceiling: 290MB
     limits_config:
       enforce_metric_name: false
       max_cache_freshness_per_query: 10m
@@ -597,7 +598,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 45e53cdfc42a18b170acaf7694359706d606ac8feb22e61b1d67b1fd5b5cbbcb
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -690,7 +691,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 45e53cdfc42a18b170acaf7694359706d606ac8feb22e61b1d67b1fd5b5cbbcb
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -902,7 +903,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 45e53cdfc42a18b170acaf7694359706d606ac8feb22e61b1d67b1fd5b5cbbcb
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1008,7 +1009,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 45e53cdfc42a18b170acaf7694359706d606ac8feb22e61b1d67b1fd5b5cbbcb
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1135,7 +1136,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 45e53cdfc42a18b170acaf7694359706d606ac8feb22e61b1d67b1fd5b5cbbcb
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki

@@ -104,6 +104,7 @@ loki:
       max_transfer_retries: 0
       wal:
         dir: /var/loki/wal
+        replay_memory_ceiling: 290MB
 
     limits_config:
       retention_period: 365d
