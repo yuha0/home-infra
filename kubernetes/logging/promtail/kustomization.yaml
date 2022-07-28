@@ -1,3 +1,4 @@
 namespace: promtail
 resources:
 - namespace.yaml
+- generated.yaml
