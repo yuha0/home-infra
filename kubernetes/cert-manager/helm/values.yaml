@@ -63,7 +63,7 @@ image:
 
   # Override the image tag to deploy by setting this variable.
   # If no value is set, the chart's appVersion will be used.
-  tag: v1.8.2
+  tag: v1.9.1
 
   # Setting a digest will override any tag
   # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -73,6 +73,11 @@ image:
 # resources. By default, the same namespace as cert-manager is deployed within is
 # used. This namespace will not be automatically created by the Helm chart.
 clusterResourceNamespace: ""
+
+# This namespace allows you to define where the services will be installed into
+# if not set then they will use the namespace of the release
+# This is helpful when installing cert manager as a chart dependency (sub chart)
+namespace: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -86,6 +91,9 @@ serviceAccount:
   # Optional additional labels to add to the controller's ServiceAccount
   # labels: {}
   automountServiceAccountToken: true
+
+# Automounting API credentials for a particular pod
+# automountServiceAccountToken: true
 
 # Additional command line flags to pass to cert-manager controller binary.
 # To see all available flags run docker run quay.io/jetstack/cert-manager-controller:<version> --help
@@ -108,17 +116,6 @@ resources:
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 securityContext:
   runAsNonRoot: true
-# legacy securityContext parameter format: if enabled is set to true, only fsGroup and runAsUser are supported
-# securityContext:
-#   enabled: false
-#   fsGroup: 1001
-#   runAsUser: 1001
-# to support additional securityContext parameters, omit the `enabled` parameter and simply specify the parameters
-# you want to set, e.g.
-# securityContext:
-#   fsGroup: 1000
-#   runAsUser: 1000
-#   runAsNonRoot: true
 
 # Container Security Context to be set on the controller component container
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -312,7 +309,7 @@ webhook:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    tag: v1.8.2
+    tag: v1.9.1
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -331,6 +328,9 @@ webhook:
     # labels: {}
     # Automount API credentials for a Service Account.
     automountServiceAccountToken: true
+
+  # Automounting API credentials for a particular pod
+  # automountServiceAccountToken: true
 
   # The port that the webhook should listen on for requests.
   # In GKE private clusters, by default kubernetes apiservers are allowed to
@@ -422,7 +422,7 @@ cainjector:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    tag: v1.8.2
+    tag: v1.9.1
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
@@ -441,6 +441,9 @@ cainjector:
     # Optional additional labels to add to the cainjector's ServiceAccount
     # labels: {}
     automountServiceAccountToken: true
+
+  # Automounting API credentials for a particular pod
+  # automountServiceAccountToken: true
 
 # This startupapicheck is a Helm post-install hook that waits for the webhook
 # endpoints to become available.
@@ -491,7 +494,8 @@ startupapicheck:
     #   cpu: 10m
     #   memory: 32Mi
 
-  nodeSelector: {}
+  nodeSelector:
+    kubernetes.io/os: linux
 
   affinity: {}
 
@@ -508,7 +512,7 @@ startupapicheck:
 
     # Override the image tag to deploy by setting this variable.
     # If no value is set, the chart's appVersion will be used.
-    tag: v1.8.2
+    tag: v1.9.1
 
     # Setting a digest will override any tag
     # digest: sha256:0e072dddd1f7f8fc8909a2ca6f65e76c5f0d2fcfb8be47935ae3457e8bbceb20
