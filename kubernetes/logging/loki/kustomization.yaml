@@ -2,4 +2,3 @@ namespace: loki
 resources:
 - namespace.yaml
 - sealed-s3-secret.yaml
-- generated.yaml
