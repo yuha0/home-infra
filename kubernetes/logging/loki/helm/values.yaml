@@ -312,11 +312,11 @@ ingester:
   # -- Resource requests and limits for the ingester
   resources:
     requests:
-      cpu: 500m
-      memory: 800Mi
+      cpu: 700m
+      memory: 1Gi
     limits:
-      cpu: 500m
-      memory: 800Mi
+      cpu: 700m
+      memory: 1Gi
   # -- Containers to add to the ingester pods
   extraContainers: []
   # -- Grace period to allow the ingester to shutdown before it is killed. Especially for the ingestor,
