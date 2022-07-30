@@ -2,6 +2,7 @@ resources:
 - adguardhome.yaml
 - apiserver.yaml
 - argocd.yaml
+- bitcoin.yaml
 - cert-manager.yaml
 - cloudflare-ddns.yaml
 - external-dns.yaml

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: bitcoin
+spec:
+  destinations:
+  - namespace: "bitcoin"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bitcoin
+spec:
+  project: bitcoin
+  source:
+    path: kubernetes/bitcoin
+  destination:
+    namespace: bitcoin
