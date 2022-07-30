@@ -14,7 +14,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: "v2.4.7"
+    tag: "v2.4.8"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
   # -- Annotations for the all deployed pods
@@ -592,7 +592,7 @@ redis:
 
   image:
     # -- Redis repository
-    repository: redis
+    repository: public.ecr.aws/docker/library/redis
     # -- Redis tag
     tag: 7.0.0-alpine
     # -- Redis imagePullPolicy
@@ -709,7 +709,7 @@ redis:
     enabled: false
     image:
       # -- redis-exporter image repository
-      repository: bitnami/redis-exporter
+      repository: public.ecr.aws/bitnami/redis-exporter
       # -- redis-exporter image tag
       tag: 1.26.0-debian-10-r2
       # -- redis-exporter image PullPolicy
@@ -782,12 +782,6 @@ redis-ha:
   exporter:
     # -- If `true`, the prometheus exporter sidecar is enabled
     enabled: true
-    # -- Exporter image
-    # @default -- `nil` (follows subchart default)
-    image: ~
-    # -- Exporter tag
-    # @default -- `nil` (follows subchart default)
-    tag: ~
   persistentVolume:
     # -- Configures persistency on Redis nodes
     enabled: false
@@ -803,20 +797,10 @@ redis-ha:
   haproxy:
     # -- Enabled HAProxy LoadBalancing/Proxy
     enabled: true
-    image:
-      # -- HAProxy Image Repository
-      # @default -- `nil` (follows subchart default)
-      repository: ~
-      # -- HAProxy Image Tag
-      # @default -- `nil` (follows subchart default)
-      tag: ~
     metrics:
       # -- HAProxy enable prometheus metric scraping
       enabled: true
   image:
-    # -- Redis image repository
-    # @default -- `nil` (follows subchart default)
-    repository: ~
     # -- Redis tag
     tag: 7.0.0-alpine
 
