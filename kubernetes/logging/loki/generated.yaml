@@ -203,7 +203,7 @@ data:
         http_config:
           insecure_skip_verify: true
         insecure: false
-        s3forcepathstyle: false
+        s3forcepathstyle: true
       boltdb_shipper:
         active_index_directory: /var/loki/index
         cache_location: /var/loki/cache
@@ -598,7 +598,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 984e47cb6d3a63326dcd3dba4121a64a7193e143e3489fa4143f059a2e235955
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -691,7 +691,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 984e47cb6d3a63326dcd3dba4121a64a7193e143e3489fa4143f059a2e235955
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -903,7 +903,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 984e47cb6d3a63326dcd3dba4121a64a7193e143e3489fa4143f059a2e235955
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1009,7 +1009,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 984e47cb6d3a63326dcd3dba4121a64a7193e143e3489fa4143f059a2e235955
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1136,7 +1136,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 984e47cb6d3a63326dcd3dba4121a64a7193e143e3489fa4143f059a2e235955
+        checksum/config: efa125dcde50548ad29affcfbc3a9ad7095ea2e943bb99f389f5147f43a6187a
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
