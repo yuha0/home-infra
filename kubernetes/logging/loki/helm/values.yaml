@@ -194,7 +194,7 @@ loki:
     aws:
       bucketnames: loki
       endpoint: fred.main.yuha0.com:8010
-      s3forcepathstyle: true
+      s3forcepathstyle: false
       insecure: false
       http_config:
         insecure_skip_verify: true
