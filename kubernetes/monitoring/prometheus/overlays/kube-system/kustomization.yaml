@@ -1,8 +1,0 @@
-nameSuffix: -kube-system
-commonLabels:
-  app.kubernetes.io/instance: prom-kube-system
-bases:
-- ./../../base
-patchesStrategicMerge:
-- prometheus.yaml
-- ingress.yaml

@@ -1,8 +1,0 @@
-nameSuffix: -unifi
-commonLabels:
-  app.kubernetes.io/instance: prom-unifi
-bases:
-- ./../../base
-patchesStrategicMerge:
-- prometheus.yaml
-- ingress.yaml

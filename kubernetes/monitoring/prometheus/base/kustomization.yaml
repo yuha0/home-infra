@@ -1,3 +1,0 @@
-resources:
-- prometheus.yaml
-- service-ingress.yaml

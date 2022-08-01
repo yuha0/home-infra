@@ -1,29 +1,41 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
-  name: prom
+  labels:
+    app.kubernetes.io/instance: prom-ingress-nginx
+  name: k8s
 spec:
   externalLabels:
     cluster: k0
   image: quay.io/prometheus/prometheus:v2.37.0
-  version: v2.37.0
-  retention: 24h
+  replicas: 2
+  shards: 5
+  resources:
+    limits:
+      cpu: 100m
+      memory: 200Mi
+    requests:
+      cpu: 100m
+      memory: 200Mi
+  retention: 12h
   securityContext:
     fsGroup: 65534
     runAsGroup: 65534
     runAsUser: 65534
   serviceAccountName: prometheus
+  serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
   storage:
     volumeClaimTemplate:
       spec:
-        storageClassName: nfs-client
         resources:
           requests:
             storage: 10Gi
+        storageClassName: nfs-client
   thanos:
     image: quay.io/thanos/thanos:v0.27.0
-    version: v0.27.0
     objectStorageConfig:
-      name: thanos-objstore-config
       key: thanos.yaml
+      name: thanos-objstore-config
+    version: v0.27.0
+  version: v2.37.0

@@ -1,8 +1,0 @@
-nameSuffix: -adguardhome
-commonLabels:
-  app.kubernetes.io/instance: prom-adguardhome
-bases:
-- ./../../base
-patchesStrategicMerge:
-- prometheus.yaml
-- ingress.yaml
