@@ -9,7 +9,7 @@ spec:
     cluster: k0
   image: quay.io/prometheus/prometheus:v2.37.0
   replicas: 2
-  shards: 5
+  shards: 7
   resources:
     limits:
       cpu: 200m
