@@ -5,10 +5,10 @@ metadata:
 spec:
   schedule: "0 */12 * * *"
   concurrencyPolicy: Forbid
-  # two weeks failure history
-  failedJobsHistoryLimit: 28
-  # one week success history
-  successfulJobsHistoryLimit: 14
+  # one week failure history
+  failedJobsHistoryLimit: 14
+  # 3 days success history
+  successfulJobsHistoryLimit: 6
   jobTemplate:
     spec:
       template:
