@@ -12,11 +12,11 @@ spec:
   shards: 5
   resources:
     limits:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 200m
+      memory: 300Mi
     requests:
-      cpu: 100m
-      memory: 200Mi
+      cpu: 200m
+      memory: 300Mi
   retention: 12h
   securityContext:
     fsGroup: 65534
