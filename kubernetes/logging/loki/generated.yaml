@@ -747,7 +747,12 @@ spec:
             - name: config
               mountPath: /etc/loki/config
           resources:
-            {}
+            limits:
+              cpu: 200m
+              memory: 80Mi
+            requests:
+              cpu: 200m
+              memory: 80Mi
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -1068,11 +1073,11 @@ spec:
               mountPath: /var/loki
           resources:
             limits:
-              cpu: 700m
-              memory: 1Gi
+              cpu: 200m
+              memory: 700Mi
             requests:
-              cpu: 700m
-              memory: 1Gi
+              cpu: 200m
+              memory: 700Mi
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
