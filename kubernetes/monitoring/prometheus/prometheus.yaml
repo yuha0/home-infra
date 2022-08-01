@@ -8,7 +8,7 @@ spec:
   externalLabels:
     cluster: k0
   image: quay.io/prometheus/prometheus:v2.37.0
-  replicas: 2
+  replicas: 1
   shards: 7
   resources:
     limits:
