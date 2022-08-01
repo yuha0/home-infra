@@ -25,11 +25,11 @@ spec:
           mountPath: /data
         resources:
           requests:
-            cpu: 500m
-            memory: 400Mi
+            cpu: 700m
+            memory: 600Mi
           limits:
-            cpu: 500m
-            memory: 400Mi
+            cpu: 700m
+            memory: 600Mi
   volumeClaimTemplates:
   - metadata:
       name: data
