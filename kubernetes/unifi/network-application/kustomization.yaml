@@ -18,4 +18,4 @@ images:
   newTag: v7.2.92
 - name: rclone
   newName: rclone/rclone
-  newTag: "1.59.0"
+  newTag: "1.59.1"
