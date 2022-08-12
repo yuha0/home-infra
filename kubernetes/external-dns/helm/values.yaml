@@ -5,12 +5,15 @@
 image:
   repository: k8s.gcr.io/external-dns/external-dns
   # Overrides the image tag whose default is v{{ .Chart.AppVersion }}
-  tag: "v0.11.0"
+  tag: "v0.12.2"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
+
 nameOverride: ""
 fullnameOverride: ""
+
+commonLabels: {}
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -24,7 +27,7 @@ serviceAccount:
 rbac:
   # Specifies whether RBAC resources should be created
   create: true
-  additionalPermissions: {}
+  additionalPermissions: []
 
 # Annotations to add to the Deployment
 deploymentAnnotations: {}
@@ -45,6 +48,10 @@ securityContext:
   readOnlyRootFilesystem: true
   capabilities:
     drop: ["ALL"]
+
+# Defaults to `ClusterFirst`.
+# Valid values are: `ClusterFirstWithHostNet`, `ClusterFirst`, `Default` or `None`.
+dnsPolicy:
 
 priorityClassName: ""
 
@@ -135,3 +142,6 @@ provider: cloudflare
 
 extraArgs:
 - --zone-id-filter=$(CF_API_ZONE_ID)
+
+deploymentStrategy:
+  type: Recreate
