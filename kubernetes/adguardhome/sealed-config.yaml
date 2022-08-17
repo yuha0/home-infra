@@ -120,7 +120,8 @@ spec:
           name: EasyList China
           id: 4
         whitelist_filters: []
-        user_rules: []
+        user_rules:
+        - "@@||amp-api-edge.apps.apple.com^$important"
         dhcp:
           enabled: false
           interface_name: ""
