@@ -9737,7 +9737,7 @@ metadata:
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.4.9"
+    app.kubernetes.io/version: "v2.4.10"
 spec:
   selector:
     matchLabels:
@@ -9754,11 +9754,11 @@ spec:
         app.kubernetes.io/component: repo-server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.4.9"
+        app.kubernetes.io/version: "v2.4.10"
     spec:
       containers:
       - name: repo-server
-        image: quay.io/argoproj/argocd:v2.4.9
+        image: quay.io/argoproj/argocd:v2.4.10
         imagePullPolicy: IfNotPresent
         command:
         - entrypoint.sh
@@ -9861,7 +9861,7 @@ spec:
         - -n
         - /usr/local/bin/argocd
         - /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v2.4.9
+        image: quay.io/argoproj/argocd:v2.4.10
         imagePullPolicy: IfNotPresent
         name: copyutil
         resources:
@@ -9887,7 +9887,7 @@ metadata:
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.4.9"
+    app.kubernetes.io/version: "v2.4.10"
 spec:
   selector:
     matchLabels:
@@ -9904,11 +9904,11 @@ spec:
         app.kubernetes.io/component: server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.4.9"
+        app.kubernetes.io/version: "v2.4.10"
     spec:
       containers:
       - name: server
-        image: quay.io/argoproj/argocd:v2.4.9
+        image: quay.io/argoproj/argocd:v2.4.10
         imagePullPolicy: IfNotPresent
         command:
         - argocd-server
@@ -10072,7 +10072,7 @@ metadata:
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.4.9"
+    app.kubernetes.io/version: "v2.4.10"
 spec:
   selector:
     matchLabels:
@@ -10090,7 +10090,7 @@ spec:
         app.kubernetes.io/component: application-controller
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.4.9"
+        app.kubernetes.io/version: "v2.4.10"
     spec:
       containers:
       - command:
@@ -10114,7 +10114,7 @@ spec:
         - --redis
         - argocd-redis:6379
         - --kubectl-parallelism-limit=2
-        image: quay.io/argoproj/argocd:v2.4.9
+        image: quay.io/argoproj/argocd:v2.4.10
         imagePullPolicy: IfNotPresent
         name: application-controller
         securityContext:
