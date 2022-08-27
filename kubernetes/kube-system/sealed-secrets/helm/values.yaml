@@ -15,6 +15,10 @@ namespace: "kube-system"
 ## @param extraDeploy [array] Array of extra objects to deploy with the release
 ##
 extraDeploy: []
+## @param commonAnnotations [object] Annotations to add to all deployed resources
+## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+##
+commonAnnotations: {}
 
 ## @section Sealed Secrets Parameters
 
@@ -29,7 +33,7 @@ extraDeploy: []
 image:
   registry: docker.io
   repository: bitnami/sealed-secrets-controller
-  tag: v0.18.0
+  tag: v0.18.2
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -57,6 +61,15 @@ updateStatus: true
 ## keyrenewperiod: "720h30m"
 ##
 keyrenewperiod: "2160h30m"
+## @param rateLimit Number of allowed sustained request per second for verify endpoint
+##
+rateLimit: ""
+## @param rateLimitBurst Number of requests allowed to exceed the rate limit per second for verify endpoint
+##
+rateLimitBurst: ""
+## @param additionalNamespaces List of namespaces used to manage the Sealed Secrets
+##
+additionalNamespaces: []
 ## @param command Override default container command
 ##
 command: []
@@ -144,6 +157,10 @@ containerSecurityContext:
   readOnlyRootFilesystem: true
   runAsNonRoot: true
   runAsUser: 1001
+
+## @param automountServiceAccountToken whether to automatically mount the service account API-token to a particular pod
+automountServiceAccountToken: ""
+
 ## @param podLabels [object] Extra labels for Sealed Secret pods
 ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
@@ -303,12 +320,17 @@ serviceAccount:
   ## If not set and create is true, a name is generated using the sealed-secrets.fullname template
   ##
   name: ""
+  ## @param serviceAccount.automountServiceAccountToken Specifies, whether to mount the service account API-token
+  automountServiceAccountToken: ""
 ## RBAC configuration
 ##
 rbac:
   ## @param rbac.create Specifies whether RBAC resources should be created
   ##
   create: true
+  ## @param rbac.clusterRole Specifies whether the Cluster Role resource should be created
+  ##
+  clusterRole: true
   ## @param rbac.labels Extra labels to be added to RBAC resources
   ##
   labels: {}
@@ -344,6 +366,9 @@ metrics:
     ## scrapeTimeout: 10s
     ##
     scrapeTimeout: ""
+    ## @param metrics.serviceMonitor.honorLabels Specify if ServiceMonitor endPoints will honor labels
+    ##
+    honorLabels: true
     ## @param metrics.serviceMonitor.metricRelabelings [array] Specify additional relabeling of metrics
     ##
     metricRelabelings: []
