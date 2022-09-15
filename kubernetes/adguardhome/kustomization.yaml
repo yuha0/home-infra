@@ -22,7 +22,7 @@ patches:
 images:
 - name: adguardhome
   newName: adguard/adguardhome
-  newTag: v0.107.12
+  newTag: v0.107.13
 - name: adguard-exporter
   newName: ebrianne/adguard-exporter
   newTag: v1.14
