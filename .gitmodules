@@ -22,3 +22,6 @@
 [submodule "kubernetes/logging/promtail/helm/helm-charts"]
 	path = kubernetes/logging/promtail/helm/helm-charts
 	url = https://github.com/grafana/helm-charts.git
+[submodule "kubernetes/monitoring/node-exporter/helm/helm-charts"]
+	path = kubernetes/monitoring/node-exporter/helm/helm-charts
+	url = https://github.com/prometheus-community/helm-charts.git
