@@ -7,7 +7,7 @@ metadata:
 spec:
   externalLabels:
     cluster: k0
-  image: quay.io/prometheus/prometheus:v2.38.0
+  image: quay.io/prometheus/prometheus:v2.39.0
   replicas: 1
   shards: 12
   resources:
@@ -38,4 +38,4 @@ spec:
       key: thanos.yaml
       name: thanos-objstore-config
     version: v0.28.0
-  version: v2.38.0
+  version: v2.39.0
