@@ -33,9 +33,9 @@ spec:
             storage: 10Gi
         storageClassName: nfs-client
   thanos:
-    image: quay.io/thanos/thanos:v0.28.0
+    image: quay.io/thanos/thanos:v0.28.1
     objectStorageConfig:
       key: thanos.yaml
       name: thanos-objstore-config
-    version: v0.28.0
+    version: v0.28.1
   version: v2.39.0
