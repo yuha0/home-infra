@@ -2,7 +2,7 @@ apiVersion: 1
 datasources:
 - name: thanos
   type: prometheus
-  access: direct
+  access: proxy
   orgId: 1
   url: https://thanos.internal.yuha0.com
   version: 1
