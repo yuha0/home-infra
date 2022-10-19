@@ -1916,13 +1916,13 @@ repoServer:
     readOnlyRootFilesystem: true
 
   # -- Resource limits and requests for the repo server pods
-  resources:
-    limits:
-      cpu: 50m
-      memory: 128Mi
-    requests:
-      cpu: 50m
-      memory: 128Mi
+  resources: {}
+    # limits:
+    #   cpu: 10m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 10m
+    #   memory: 128Mi
 
   ## Repo server service configuration
   service:

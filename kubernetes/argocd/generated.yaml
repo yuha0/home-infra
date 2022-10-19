@@ -9972,13 +9972,6 @@ spec:
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-        resources:
-          limits:
-            cpu: 50m
-            memory: 128Mi
-          requests:
-            cpu: 50m
-            memory: 128Mi
       serviceAccountName: default
       volumes:
       - name: gpg-keys
@@ -10020,13 +10013,6 @@ spec:
         image: quay.io/argoproj/argocd:v2.4.15
         imagePullPolicy: IfNotPresent
         name: copyutil
-        resources:
-          limits:
-            cpu: 50m
-            memory: 128Mi
-          requests:
-            cpu: 50m
-            memory: 128Mi
         securityContext:
           capabilities:
             drop:
