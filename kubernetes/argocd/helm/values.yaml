@@ -1569,6 +1569,9 @@ server:
     resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration: |
       jqPathExpressions:
       - '.webhooks[]?.clientConfig.caBundle'
+    resource.customizations.ignoreDifferences.apiextensions.k8s.io_CustomResourceDefinition: |
+      jqPathExpressions:
+      - '.spec.conversion.webhook.clientConfig.caBundle'
     # Argo CD's externally facing base URL (optional). Required when configuring SSO
     url: https://argocd.yuha0.com
 

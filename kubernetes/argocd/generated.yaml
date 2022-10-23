@@ -170,6 +170,9 @@ data:
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration: |
     jqPathExpressions:
     - '.webhooks[]?.clientConfig.caBundle'
+  resource.customizations.ignoreDifferences.apiextensions.k8s.io_CustomResourceDefinition: |
+    jqPathExpressions:
+    - '.spec.conversion.webhook.clientConfig.caBundle'
   server.rbac.log.enforce.enable: "false"
   statusbadge.enabled: "true"
   timeout.hard.reconciliation: "0"
