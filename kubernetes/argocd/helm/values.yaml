@@ -1563,6 +1563,12 @@ server:
   # @default -- See [values.yaml]
   config:
     statusbadge.enabled: "true"
+    resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
+      jqPathExpressions:
+      - '.webhooks[]?.clientConfig.caBundle'
+    resource.customizations.ignoreDifferences.admissionregistration.k8s.io_ValidatingWebhookConfiguration: |
+      jqPathExpressions:
+      - '.webhooks[]?.clientConfig.caBundle'
     # Argo CD's externally facing base URL (optional). Required when configuring SSO
     url: https://argocd.yuha0.com
 
