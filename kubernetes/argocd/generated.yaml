@@ -4,7 +4,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -29,7 +29,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -66,7 +66,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -88,7 +88,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -127,7 +127,7 @@ automountServiceAccountToken: true
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -141,7 +141,7 @@ automountServiceAccountToken: true
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -154,7 +154,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -177,7 +177,6 @@ data:
   statusbadge.enabled: "true"
   timeout.hard.reconciliation: "0"
   timeout.reconciliation: 180s
-  url: https://argocd.yuha0.com
 ---
 # Source: argo-cd/templates/argocd-configs/argocd-cmd-params-cm.yaml
 apiVersion: v1
@@ -185,7 +184,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cmd-params-cm
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -220,7 +219,7 @@ kind: ConfigMap
 metadata:
   name: argocd-gpg-keys-cm
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-gpg-keys-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -247,12 +246,16 @@ kind: ConfigMap
 metadata:
   name: argocd-rbac-cm
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
+data:
+  policy.csv: ""
+  policy.default: ""
+  scopes: '[groups]'
 ---
 # Source: argo-cd/templates/argocd-configs/argocd-ssh-known-hosts-cm.yaml
 apiVersion: v1
@@ -260,7 +263,7 @@ kind: ConfigMap
 metadata:
   name: argocd-ssh-known-hosts-cm
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -284,7 +287,7 @@ kind: ConfigMap
 metadata:
   name: argocd-tls-certs-cm
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-tls-certs-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -631,8 +634,8 @@ spec:
                           and is only valid for applications sourced from Git.
                         type: string
                       plugin:
-                        description: ConfigManagementPlugin holds config management
-                          plugin specific options
+                        description: Plugin holds config management plugin specific
+                          options
                         properties:
                           env:
                             description: Env is a list of environment variable entries
@@ -977,8 +980,7 @@ spec:
                       and is only valid for applications sourced from Git.
                     type: string
                   plugin:
-                    description: ConfigManagementPlugin holds config management plugin
-                      specific options
+                    description: Plugin holds config management plugin specific options
                     properties:
                       env:
                         description: Env is a list of environment variable entries
@@ -1333,8 +1335,8 @@ spec:
                             and is only valid for applications sourced from Git.
                           type: string
                         plugin:
-                          description: ConfigManagementPlugin holds config management
-                            plugin specific options
+                          description: Plugin holds config management plugin specific
+                            options
                           properties:
                             env:
                               description: Env is a list of environment variable entries
@@ -1705,8 +1707,8 @@ spec:
                                   from Git.
                                 type: string
                               plugin:
-                                description: ConfigManagementPlugin holds config management
-                                  plugin specific options
+                                description: Plugin holds config management plugin
+                                  specific options
                                 properties:
                                   env:
                                     description: Env is a list of environment variable
@@ -2049,8 +2051,8 @@ spec:
                               and is only valid for applications sourced from Git.
                             type: string
                           plugin:
-                            description: ConfigManagementPlugin holds config management
-                              plugin specific options
+                            description: Plugin holds config management plugin specific
+                              options
                             properties:
                               env:
                                 description: Env is a list of environment variable
@@ -2101,6 +2103,10 @@ spec:
                   reconciled using the latest git version
                 format: date-time
                 type: string
+              resourceHealthSource:
+                description: 'ResourceHealthSource indicates where the resource health
+                  status is stored: inline if not set or appTree'
+                type: string
               resources:
                 description: Resources is a list of Kubernetes resources managed by
                   this application
@@ -2137,6 +2143,9 @@ spec:
                       description: SyncStatusCode is a type which represents possible
                         comparison results
                       type: string
+                    syncWave:
+                      format: int64
+                      type: integer
                     version:
                       type: string
                   type: object
@@ -2383,8 +2392,8 @@ spec:
                               and is only valid for applications sourced from Git.
                             type: string
                           plugin:
-                            description: ConfigManagementPlugin holds config management
-                              plugin specific options
+                            description: Plugin holds config management plugin specific
+                              options
                             properties:
                               env:
                                 description: Env is a list of environment variable
@@ -2451,7 +2460,6 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     "helm.sh/resource-policy": keep
-    controller-gen.kubebuilder.io/version: v0.3.0
   labels:
     app.kubernetes.io/name: applicationsets.argoproj.io
     app.kubernetes.io/part-of: argocd
@@ -4823,6 +4831,8 @@ spec:
                                     properties:
                                       api:
                                         type: string
+                                      appSecretName:
+                                        type: string
                                       labels:
                                         items:
                                           type: string
@@ -4844,6 +4854,31 @@ spec:
                                     required:
                                     - owner
                                     - repo
+                                    type: object
+                                  gitlab:
+                                    properties:
+                                      api:
+                                        type: string
+                                      labels:
+                                        items:
+                                          type: string
+                                        type: array
+                                      project:
+                                        type: string
+                                      pullRequestState:
+                                        type: string
+                                      tokenRef:
+                                        properties:
+                                          key:
+                                            type: string
+                                          secretName:
+                                            type: string
+                                        required:
+                                        - key
+                                        - secretName
+                                        type: object
+                                    required:
+                                    - project
                                     type: object
                                   requeueAfterSeconds:
                                     format: int64
@@ -5106,6 +5141,31 @@ spec:
                                 type: object
                               scmProvider:
                                 properties:
+                                  azureDevOps:
+                                    properties:
+                                      accessTokenRef:
+                                        properties:
+                                          key:
+                                            type: string
+                                          secretName:
+                                            type: string
+                                        required:
+                                        - key
+                                        - secretName
+                                        type: object
+                                      allBranches:
+                                        type: boolean
+                                      api:
+                                        type: string
+                                      organization:
+                                        type: string
+                                      teamProject:
+                                        type: string
+                                    required:
+                                    - accessTokenRef
+                                    - organization
+                                    - teamProject
+                                    type: object
                                   bitbucket:
                                     properties:
                                       allBranches:
@@ -5209,6 +5269,8 @@ spec:
                                       allBranches:
                                         type: boolean
                                       api:
+                                        type: string
+                                      appSecretName:
                                         type: string
                                       organization:
                                         type: string
@@ -5505,6 +5567,29 @@ spec:
                                     required:
                                     - metadata
                                     - spec
+                                    type: object
+                                type: object
+                              selector:
+                                properties:
+                                  matchExpressions:
+                                    items:
+                                      properties:
+                                        key:
+                                          type: string
+                                        operator:
+                                          type: string
+                                        values:
+                                          items:
+                                            type: string
+                                          type: array
+                                      required:
+                                      - key
+                                      - operator
+                                      type: object
+                                    type: array
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
                                     type: object
                                 type: object
                             type: object
@@ -6976,6 +7061,8 @@ spec:
                                     properties:
                                       api:
                                         type: string
+                                      appSecretName:
+                                        type: string
                                       labels:
                                         items:
                                           type: string
@@ -6997,6 +7084,31 @@ spec:
                                     required:
                                     - owner
                                     - repo
+                                    type: object
+                                  gitlab:
+                                    properties:
+                                      api:
+                                        type: string
+                                      labels:
+                                        items:
+                                          type: string
+                                        type: array
+                                      project:
+                                        type: string
+                                      pullRequestState:
+                                        type: string
+                                      tokenRef:
+                                        properties:
+                                          key:
+                                            type: string
+                                          secretName:
+                                            type: string
+                                        required:
+                                        - key
+                                        - secretName
+                                        type: object
+                                    required:
+                                    - project
                                     type: object
                                   requeueAfterSeconds:
                                     format: int64
@@ -7259,6 +7371,31 @@ spec:
                                 type: object
                               scmProvider:
                                 properties:
+                                  azureDevOps:
+                                    properties:
+                                      accessTokenRef:
+                                        properties:
+                                          key:
+                                            type: string
+                                          secretName:
+                                            type: string
+                                        required:
+                                        - key
+                                        - secretName
+                                        type: object
+                                      allBranches:
+                                        type: boolean
+                                      api:
+                                        type: string
+                                      organization:
+                                        type: string
+                                      teamProject:
+                                        type: string
+                                    required:
+                                    - accessTokenRef
+                                    - organization
+                                    - teamProject
+                                    type: object
                                   bitbucket:
                                     properties:
                                       allBranches:
@@ -7362,6 +7499,8 @@ spec:
                                       allBranches:
                                         type: boolean
                                       api:
+                                        type: string
+                                      appSecretName:
                                         type: string
                                       organization:
                                         type: string
@@ -7658,6 +7797,29 @@ spec:
                                     required:
                                     - metadata
                                     - spec
+                                    type: object
+                                type: object
+                              selector:
+                                properties:
+                                  matchExpressions:
+                                    items:
+                                      properties:
+                                        key:
+                                          type: string
+                                        operator:
+                                          type: string
+                                        values:
+                                          items:
+                                            type: string
+                                          type: array
+                                      required:
+                                      - key
+                                      - operator
+                                      type: object
+                                    type: array
+                                  matchLabels:
+                                    additionalProperties:
+                                      type: string
                                     type: object
                                 type: object
                             type: object
@@ -7994,6 +8156,8 @@ spec:
                           properties:
                             api:
                               type: string
+                            appSecretName:
+                              type: string
                             labels:
                               items:
                                 type: string
@@ -8015,6 +8179,31 @@ spec:
                           required:
                           - owner
                           - repo
+                          type: object
+                        gitlab:
+                          properties:
+                            api:
+                              type: string
+                            labels:
+                              items:
+                                type: string
+                              type: array
+                            project:
+                              type: string
+                            pullRequestState:
+                              type: string
+                            tokenRef:
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - project
                           type: object
                         requeueAfterSeconds:
                           format: int64
@@ -8277,6 +8466,31 @@ spec:
                       type: object
                     scmProvider:
                       properties:
+                        azureDevOps:
+                          properties:
+                            accessTokenRef:
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                            allBranches:
+                              type: boolean
+                            api:
+                              type: string
+                            organization:
+                              type: string
+                            teamProject:
+                              type: string
+                          required:
+                          - accessTokenRef
+                          - organization
+                          - teamProject
+                          type: object
                         bitbucket:
                           properties:
                             allBranches:
@@ -8380,6 +8594,8 @@ spec:
                             allBranches:
                               type: boolean
                             api:
+                              type: string
+                            appSecretName:
                               type: string
                             organization:
                               type: string
@@ -8678,8 +8894,33 @@ spec:
                           - spec
                           type: object
                       type: object
+                    selector:
+                      properties:
+                        matchExpressions:
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              operator:
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                            required:
+                            - key
+                            - operator
+                            type: object
+                          type: array
+                        matchLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      type: object
                   type: object
                 type: array
+              goTemplate:
+                type: boolean
               syncPolicy:
                 properties:
                   preserveResourcesOnDeletion:
@@ -9240,6 +9481,10 @@ spec:
                       for apps which have orphaned resources
                     type: boolean
                 type: object
+              permitOnlyProjectScopedClusters:
+                description: PermitOnlyProjectScopedClusters determines whether destinations
+                  can only reference clusters which are project-scoped
+                type: boolean
               roles:
                 description: Roles are user defined RBAC roles associated with this
                   project
@@ -9301,6 +9546,12 @@ spec:
                   required:
                   - keyID
                   type: object
+                type: array
+              sourceNamespaces:
+                description: SourceNamespaces defines the namespaces application resources
+                  are allowed to be created in
+                items:
+                  type: string
                 type: array
               sourceRepos:
                 description: SourceRepos contains list of repository URLs which can
@@ -9398,7 +9649,7 @@ kind: ClusterRole
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -9422,7 +9673,7 @@ kind: ClusterRole
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -9450,6 +9701,14 @@ rules:
       - pods/log
     verbs:
       - get
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - applications
+    verbs:
+      - get
+      - list
+      - watch
 ---
 # Source: argo-cd/templates/argocd-application-controller/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -9457,7 +9716,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -9478,7 +9737,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -9499,7 +9758,7 @@ kind: Role
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -9542,7 +9801,7 @@ kind: Role
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -9566,6 +9825,7 @@ rules:
   - argoproj.io
   resources:
   - applications
+  - applicationsets
   - appprojects
   verbs:
   - create
@@ -9589,7 +9849,7 @@ kind: RoleBinding
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -9610,7 +9870,7 @@ kind: RoleBinding
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -9625,61 +9885,40 @@ subjects:
   name: argocd-server
   namespace: argocd
 ---
-# Source: argo-cd/templates/argocd-application-controller/metrics-service.yaml
+# Source: argo-cd/templates/argocd-application-controller/metrics.yaml
 apiVersion: v1
 kind: Service
 metadata:
+  name: argocd-application-controller-metrics
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-  name: argocd-application-controller-metrics
 spec:
   ports:
   - name: http-metrics
     protocol: TCP
     port: 8082
-    targetPort: controller
+    targetPort: metrics
   selector:
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
 ---
-# Source: argo-cd/templates/argocd-application-controller/service.yaml
+# Source: argo-cd/templates/argocd-repo-server/metrics.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: argocd-application-controller
+  name: argocd-repo-server-metrics
   labels:
-    helm.sh/chart: argo-cd-5.6.0
-    app.kubernetes.io/name: argocd-application-controller
-    app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: application-controller
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: argocd
-spec:
-  ports:
-  - name: https-controller
-    port: 8082
-    targetPort: 8082
-  selector:
-    app.kubernetes.io/name: argocd-application-controller
-    app.kubernetes.io/instance: argocd
----
-# Source: argo-cd/templates/argocd-repo-server/metrics-service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-repo-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-  name: argocd-repo-server-metrics
 spec:
   ports:
   - name: http-metrics
@@ -9695,7 +9934,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -9712,18 +9951,18 @@ spec:
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
 ---
-# Source: argo-cd/templates/argocd-server/metrics-service.yaml
+# Source: argo-cd/templates/argocd-server/metrics.yaml
 apiVersion: v1
 kind: Service
 metadata:
+  name: argocd-server-metrics
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-  name: argocd-server-metrics
 spec:
   ports:
   - name: http-metrics
@@ -9740,7 +9979,7 @@ kind: Service
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -9767,7 +10006,7 @@ kind: Service
 metadata:
   name: argocd-redis
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -9788,7 +10027,7 @@ kind: Deployment
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -9804,9 +10043,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5645b376c02b94dc4befc17632eca9055247a0ad5a4bd90063326da080a1cb62
+        checksum/cmd-params: 1be9945b7e8f14b9e6311b31b49fb64f14ea5d09fe0dca4b939ef55993b8c60d
       labels:
-        helm.sh/chart: argo-cd-5.6.0
+        helm.sh/chart: argo-cd-5.8.0
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
@@ -9892,6 +10131,12 @@ spec:
                 name: argocd-cmd-params-cm
                 key: redis.server
                 optional: true
+          - name: REDIS_COMPRESSION
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: redis.compression
+                optional: true
           - name: REDISDB
             valueFrom:
               configMapKeyRef:
@@ -9934,6 +10179,30 @@ spec:
                 name: argocd-cmd-params-cm
                 key: reposerver.plugin.tar.exclusions
                 optional: true
+          - name: ARGOCD_REPO_SERVER_ALLOW_OUT_OF_BOUNDS_SYMLINKS
+            valueFrom:
+              configMapKeyRef:
+                key: reposerver.allow.oob.symlinks
+                name: argocd-cmd-params-cm
+                optional: true
+          - name: ARGOCD_REPO_SERVER_STREAMED_MANIFEST_MAX_TAR_SIZE
+            valueFrom:
+              configMapKeyRef:
+                key: reposerver.streamed.manifest.max.tar.size
+                name: argocd-cmd-params-cm
+                optional: true
+          - name: ARGOCD_REPO_SERVER_STREAMED_MANIFEST_MAX_EXTRACTED_SIZE
+            valueFrom:
+              configMapKeyRef:
+                key: reposerver.streamed.manifest.max.extracted.size
+                name: argocd-cmd-params-cm
+                optional: true
+          - name: ARGOCD_GIT_MODULES_ENABLED
+            valueFrom:
+              configMapKeyRef:
+                key: reposerver.enable.git.submodule
+                name: argocd-cmd-params-cm
+                optional: true
           - name: HELM_CACHE_HOME
             value: /helm-working-dir
           - name: HELM_CONFIG_HOME
@@ -9941,41 +10210,42 @@ spec:
           - name: HELM_DATA_HOME
             value: /helm-working-dir
         volumeMounts:
-        - mountPath: /app/config/gpg/source
-          name: gpg-keys
-        - mountPath: /app/config/gpg/keys
-          name: gpg-keyring
         - mountPath: /app/config/ssh
           name: ssh-known-hosts
         - mountPath: /app/config/tls
           name: tls-certs
+        - mountPath: /app/config/gpg/source
+          name: gpg-keys
+        - mountPath: /app/config/gpg/keys
+          name: gpg-keyring
         - mountPath: /app/config/reposerver/tls
           name: argocd-repo-server-tls
-        - mountPath: /tmp
-          name: tmp-dir
         - mountPath: /helm-working-dir
           name: helm-working-dir
         - mountPath: /home/argocd/cmp-server/plugins
           name: plugins
+        - mountPath: /tmp
+          name: tmp
         ports:
         - name: repo-server
           containerPort: 8081
           protocol: TCP
-        
         - name: metrics
           containerPort: 8084
           protocol: TCP
         livenessProbe:
-          tcpSocket:
-            port: 8081
+          httpGet:
+            path: /healthz?full=true
+            port: metrics
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
         readinessProbe:
-          tcpSocket:
-            port: 8081
+          httpGet:
+            path: /healthz
+            port: metrics
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
@@ -9983,21 +10253,29 @@ spec:
           failureThreshold: 3
       serviceAccountName: default
       volumes:
+      - name: helm-working-dir
+        emptyDir: {}
+      - name: plugins
+        emptyDir: {}
+      - name: var-files
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      - name: ssh-known-hosts
+        configMap:
+          name: argocd-ssh-known-hosts-cm
+      - name: tls-certs
+        configMap:
+          name: argocd-tls-certs-cm
       - name: gpg-keys
         configMap:
           name: argocd-gpg-keys-cm
-      - emptyDir: {}
-        name: gpg-keyring
-      - configMap:
-          name: argocd-ssh-known-hosts-cm
-        name: ssh-known-hosts
-      - configMap:
-          name: argocd-tls-certs-cm
-        name: tls-certs
-      - name: helm-working-dir
+      - name: gpg-keyring
         emptyDir: {}
       - name: argocd-repo-server-tls
         secret:
+          secretName: argocd-repo-server-tls
+          optional: true
           items:
           - key: tls.crt
             path: tls.crt
@@ -10005,14 +10283,6 @@ spec:
             path: tls.key
           - key: ca.crt
             path: ca.crt
-          optional: true
-          secretName: argocd-repo-server-tls
-      - emptyDir: {}
-        name: tmp-dir
-      - emptyDir: {}
-        name: var-files
-      - emptyDir: {}
-        name: plugins
       initContainers:
       - command:
         - cp
@@ -10037,7 +10307,7 @@ kind: Deployment
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -10053,9 +10323,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5645b376c02b94dc4befc17632eca9055247a0ad5a4bd90063326da080a1cb62
+        checksum/cmd-params: 1be9945b7e8f14b9e6311b31b49fb64f14ea5d09fe0dca4b939ef55993b8c60d
       labels:
-        helm.sh/chart: argo-cd-5.6.0
+        helm.sh/chart: argo-cd-5.8.0
         app.kubernetes.io/name: argocd-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: server
@@ -10102,7 +10372,7 @@ spec:
                 name: argocd-cmd-params-cm
                 key: server.log.format
                 optional: true
-          - name: ARGOCD_REPO_SERVER_LOGLEVEL
+          - name: ARGOCD_SERVER_LOG_LEVEL
             valueFrom:
               configMapKeyRef:
                 name: argocd-cmd-params-cm
@@ -10162,6 +10432,18 @@ spec:
                 name: argocd-cmd-params-cm
                 key: server.repo.server.strict.tls
                 optional: true
+          - name: ARGOCD_SERVER_DEX_SERVER_PLAINTEXT
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: server.dex.server.plaintext
+                optional: true
+          - name: ARGOCD_SERVER_DEX_SERVER_STRICT_TLS
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: server.dex.server.strict.tls
+                optional: true
           - name: ARGOCD_TLS_MIN_VERSION
             valueFrom:
               configMapKeyRef:
@@ -10216,6 +10498,12 @@ spec:
                 name: argocd-cmd-params-cm
                 key: redis.server
                 optional: true
+          - name: REDIS_COMPRESSION
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: redis.compression
+                optional: true
           - name: REDISDB
             valueFrom:
               configMapKeyRef:
@@ -10252,6 +10540,12 @@ spec:
                 name: argocd-cmd-params-cm
                 key: otlp.address
                 optional: true
+          - name: ARGOCD_APPLICATION_NAMESPACES
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: application.namespaces
+                optional: true
         volumeMounts:
         - mountPath: /app/config/ssh
           name: ssh-known-hosts
@@ -10259,23 +10553,26 @@ spec:
           name: tls-certs
         - mountPath: /app/config/server/tls
           name: argocd-repo-server-tls
-        - mountPath: /home/argocd/.aws
-          name: aws-config
+        - mountPath: /app/config/dex/tls
+          name: argocd-dex-server-tls
         - mountPath: /home/argocd
           name: plugins-home
+        - mountPath: /home/argocd/.aws
+          name: aws-config
+        - mountPath: /shared/app/custom
+          name: styles
         - mountPath: /tmp
-          name: tmp-dir
+          name: tmp
         ports:
         - name: server
           containerPort: 8080
           protocol: TCP
-        
         - name: metrics
           containerPort: 8083
           protocol: TCP
         livenessProbe:
           httpGet:
-            path: /healthz
+            path: /healthz?full=true
             port: 8080
           initialDelaySeconds: 10
           periodSeconds: 10
@@ -10300,18 +10597,26 @@ spec:
             memory: 64Mi
       serviceAccountName: argocd-server
       volumes:
-      - emptyDir: {}
-        name: tmp-dir
-      - emptyDir: {}
-        name: aws-config
-      - configMap:
+      - name: aws-config
+        emptyDir: {}
+      - name: plugins-home
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      - name: ssh-known-hosts
+        configMap:
           name: argocd-ssh-known-hosts-cm
-        name: ssh-known-hosts
-      - configMap:
+      - name: tls-certs
+        configMap:
           name: argocd-tls-certs-cm
-        name: tls-certs
+      - name: styles
+        configMap:
+          name: argocd-styles-cm
+          optional: true
       - name: argocd-repo-server-tls
         secret:
+          secretName: argocd-repo-server-tls
+          optional: true
           items:
           - key: tls.crt
             path: tls.crt
@@ -10319,10 +10624,15 @@ spec:
             path: tls.key
           - key: ca.crt
             path: ca.crt
+      - name: argocd-dex-server-tls
+        secret:
+          secretName: argocd-dex-server-tls
           optional: true
-          secretName: argocd-repo-server-tls
-      - emptyDir: {}
-        name: plugins-home
+          items:
+          - key: tls.crt
+            path: tls.crt
+          - key: ca.crt
+            path: ca.crt
 ---
 # Source: argo-cd/templates/redis/deployment.yaml
 apiVersion: apps/v1
@@ -10330,7 +10640,7 @@ kind: Deployment
 metadata:
   name: argocd-redis
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -10343,7 +10653,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: argo-cd-5.6.0
+        helm.sh/chart: argo-cd-5.8.0
         app.kubernetes.io/name: argocd-redis
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: redis
@@ -10386,7 +10696,7 @@ kind: StatefulSet
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -10403,9 +10713,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5645b376c02b94dc4befc17632eca9055247a0ad5a4bd90063326da080a1cb62
+        checksum/cmd-params: 1be9945b7e8f14b9e6311b31b49fb64f14ea5d09fe0dca4b939ef55993b8c60d
       labels:
-        helm.sh/chart: argo-cd-5.6.0
+        helm.sh/chart: argo-cd-5.8.0
         app.kubernetes.io/name: argocd-application-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: application-controller
@@ -10503,6 +10813,12 @@ spec:
                 name: argocd-cmd-params-cm
                 key: controller.repo.server.strict.tls
                 optional: true
+          - name: ARGOCD_APPLICATION_CONTROLLER_PERSIST_RESOURCE_HEALTH
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: controller.resource.health.persist
+                optional: true
           - name: ARGOCD_APP_STATE_CACHE_EXPIRATION
             valueFrom:
               configMapKeyRef:
@@ -10514,6 +10830,12 @@ spec:
               configMapKeyRef:
                 name: argocd-cmd-params-cm
                 key: redis.server
+                optional: true
+          - name: REDIS_COMPRESSION
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: redis.compression
                 optional: true
           - name: REDISDB
             valueFrom:
@@ -10545,33 +10867,34 @@ spec:
                 name: argocd-cmd-params-cm
                 key: otlp.address
                 optional: true
+          - name: ARGOCD_APPLICATION_NAMESPACES
+            valueFrom:
+              configMapKeyRef:
+                name: argocd-cmd-params-cm
+                key: application.namespaces
+                optional: true
         ports:
-        - name: controller
+        - name: metrics
           containerPort: 8082
           protocol: TCP
         livenessProbe:
           httpGet:
             path: /healthz
-            port: 8082
+            port: metrics
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
         readinessProbe:
-          tcpSocket:
-            port: 8082
+          httpGet:
+            path: /healthz
+            port: metrics
           initialDelaySeconds: 10
           periodSeconds: 10
           timeoutSeconds: 1
           successThreshold: 1
           failureThreshold: 3
-        workingDir: /home/argocd
-        volumeMounts:
-        - name: argocd-home
-          mountPath: /home/argocd
-        - mountPath: /app/config/controller/tls
-          name: argocd-repo-server-tls
         resources:
           limits:
             cpu: 500m
@@ -10579,12 +10902,20 @@ spec:
           requests:
             cpu: 500m
             memory: 512Mi
+        workingDir: /home/argocd
+        volumeMounts:
+        - mountPath: /app/config/controller/tls
+          name: argocd-repo-server-tls
+        - mountPath: /home/argocd
+          name: argocd-home
       serviceAccountName: argocd-application-controller
       volumes:
-      - emptyDir: {}
-        name: argocd-home
+      - name: argocd-home
+        emptyDir: {}
       - name: argocd-repo-server-tls
         secret:
+          secretName: argocd-repo-server-tls
+          optional: true
           items:
           - key: tls.crt
             path: tls.crt
@@ -10592,8 +10923,6 @@ spec:
             path: tls.key
           - key: ca.crt
             path: ca.crt
-          optional: true
-          secretName: argocd-repo-server-tls
 ---
 # Source: argo-cd/templates/argocd-server/ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -10607,7 +10936,7 @@ metadata:
     nginx.ingress.kubernetes.io/limit-connections: "10"
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -10637,7 +10966,7 @@ kind: ServiceMonitor
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -10663,7 +10992,7 @@ kind: ServiceMonitor
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -10689,12 +11018,13 @@ kind: ServiceMonitor
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.6.0
+    helm.sh/chart: argo-cd-5.8.0
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
+  annotations:
 spec:
   endpoints:
     - port: http-metrics
