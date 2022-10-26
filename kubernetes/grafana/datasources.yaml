@@ -4,7 +4,7 @@ datasources:
   type: prometheus
   access: proxy
   orgId: 1
-  url: https://thanos.internal.yuha0.com
+  url: http://thanos-query.monitoring.svc.cluster.local.:9090
   version: 1
   isDefault: true
   editable: false
