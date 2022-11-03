@@ -122,6 +122,7 @@ spec:
         whitelist_filters: []
         user_rules:
         - "@@||amp-api-edge.apps.apple.com^$important"
+        - "@@||amp-api-search-edge.apps.apple.com^$important"
         dhcp:
           enabled: false
           interface_name: ""
