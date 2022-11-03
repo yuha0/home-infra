@@ -141,7 +141,7 @@ spec:
   # unpoller needs to be scraped by prometheus
   - fromEndpoints:
     - matchLabels:
-        prometheus: prom-unifi
+        prometheus: k8s
         io.kubernetes.pod.namespace: monitoring
   egress:
   # DNS
