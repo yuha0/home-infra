@@ -35,6 +35,11 @@ spec:
     toPorts:
     - ports:
       - port: "443"
+  - toFQDNs:
+    - matchPattern: "*.ui.com"
+    toPorts:
+    - ports:
+      - port: "443"
   # multicast
   - toFQDNs:
     - matchName: "igmp.mcast.net"
