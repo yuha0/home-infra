@@ -10059,7 +10059,7 @@ spec:
         runAsUser: 999
       containers:
       - name: repo-server
-        image: quay.io/argoproj/argocd:v2.5.0
+        image: quay.io/argoproj/argocd:v2.5.1
         imagePullPolicy: IfNotPresent
         command:
         - entrypoint.sh
@@ -10289,7 +10289,7 @@ spec:
         - -n
         - /usr/local/bin/argocd
         - /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v2.5.0
+        image: quay.io/argoproj/argocd:v2.5.1
         imagePullPolicy: IfNotPresent
         name: copyutil
         securityContext:
@@ -10338,7 +10338,7 @@ spec:
         runAsUser: 999
       containers:
       - name: server
-        image: quay.io/argoproj/argocd:v2.5.0
+        image: quay.io/argoproj/argocd:v2.5.1
         imagePullPolicy: IfNotPresent
         command:
         - argocd-server
@@ -10729,7 +10729,7 @@ spec:
       containers:
       - command:
         - argocd-application-controller
-        image: quay.io/argoproj/argocd:v2.5.0
+        image: quay.io/argoproj/argocd:v2.5.1
         imagePullPolicy: IfNotPresent
         name: application-controller
         securityContext:
