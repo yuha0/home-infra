@@ -42,7 +42,9 @@ spec:
         - --grpc-address=0.0.0.0:10901
         - --http-address=0.0.0.0:10902
         - --objstore.config=$(OBJSTORE_CONFIG)
-        - --sync-block-duration=10m
+        - --sync-block-duration=30m
+        - --block-meta-fetch-concurrency=5
+        - --block-sync-concurrency=5
         env:
         - name: OBJSTORE_CONFIG
           valueFrom:
