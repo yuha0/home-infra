@@ -64,7 +64,7 @@ spec:
           cache_size: 4194304
           cache_ttl_min: 0
           cache_ttl_max: 0
-          cache_optimistic: false
+          cache_optimistic: true
           bogus_nxdomain: []
           aaaa_disabled: false
           enable_dnssec: false
