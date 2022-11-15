@@ -121,6 +121,7 @@ spec:
           id: 4
         whitelist_filters: []
         user_rules:
+        - "10.200.0.0 unifi-api.internal.yuha0.com"
         - "10.200.0.1 k0.yuha0.com"
         - "10.200.0.2 adguard.internal.yuha0.com"
         - "10.200.0.2 argocd.internal.yuha0.com"
@@ -132,6 +133,7 @@ spec:
         - "@@||amp-api-edge.apps.apple.com^$important"
         - "@@||amp-api-search-edge.apps.apple.com^$important"
         - "@@||amp-api-edge-lb.itunes-apple.com.akadns.net^$important"
+        - "@@||amp-api-edge.music.apple.com^$important"
         dhcp:
           enabled: false
           interface_name: ""
