@@ -5,18 +5,14 @@ kind: ServiceAccount
 metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
-  labels:     
-    helm.sh/chart: prometheus-node-exporter-4.3.0
+  labels:
+    helm.sh/chart: prometheus-node-exporter-4.7.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/instance: monitoring
     app.kubernetes.io/name: prometheus-node-exporter
-    app.kubernetes.io/version: "1.3.1"
-  annotations:
-    {}
-imagePullSecrets:
-  []
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/version: "1.4.0"
 ---
 # Source: prometheus-node-exporter/templates/service.yaml
 apiVersion: v1
@@ -24,14 +20,14 @@ kind: Service
 metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
-  labels:     
-    helm.sh/chart: prometheus-node-exporter-4.3.0
+  labels:
+    helm.sh/chart: prometheus-node-exporter-4.7.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/instance: monitoring
     app.kubernetes.io/name: prometheus-node-exporter
-    app.kubernetes.io/version: "1.3.1"
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/version: "1.4.0"
   annotations:
     prometheus.io/scrape: "true"
 spec:
@@ -41,9 +37,9 @@ spec:
       targetPort: 9100
       protocol: TCP
       name: metrics
-  selector:    
-    app.kubernetes.io/instance: monitoring
+  selector:
     app.kubernetes.io/name: prometheus-node-exporter
+    app.kubernetes.io/instance: monitoring
 ---
 # Source: prometheus-node-exporter/templates/daemonset.yaml
 apiVersion: apps/v1
@@ -51,46 +47,46 @@ kind: DaemonSet
 metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
-  labels:     
-    helm.sh/chart: prometheus-node-exporter-4.3.0
+  labels:
+    helm.sh/chart: prometheus-node-exporter-4.7.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/instance: monitoring
     app.kubernetes.io/name: prometheus-node-exporter
-    app.kubernetes.io/version: "1.3.1"
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/version: "1.4.0"
 spec:
   selector:
-    matchLabels:      
-      app.kubernetes.io/instance: monitoring
+    matchLabels:
       app.kubernetes.io/name: prometheus-node-exporter
+      app.kubernetes.io/instance: monitoring
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 1
     type: RollingUpdate
   template:
     metadata:
-      labels:         
-        helm.sh/chart: prometheus-node-exporter-4.3.0
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      labels:
+        helm.sh/chart: prometheus-node-exporter-4.7.1
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: prometheus-node-exporter
-        app.kubernetes.io/instance: monitoring
         app.kubernetes.io/name: prometheus-node-exporter
-        app.kubernetes.io/version: "1.3.1"
-      annotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        app.kubernetes.io/instance: monitoring
+        app.kubernetes.io/version: "1.4.0"
     spec:
       automountServiceAccountToken: false
-      serviceAccountName: monitoring-prometheus-node-exporter
       securityContext:
         fsGroup: 65534
         runAsGroup: 65534
         runAsNonRoot: true
         runAsUser: 65534
+      serviceAccountName: monitoring-prometheus-node-exporter
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.4.0
+          image: quay.io/prometheus/node-exporter:v1.5.0
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
@@ -98,8 +94,8 @@ spec:
             - --path.rootfs=/host/root
             - --web.listen-address=[$(HOST_IP)]:9100
           env:
-          - name: HOST_IP
-            value: 0.0.0.0
+            - name: HOST_IP
+              value: 0.0.0.0
           ports:
             - name: metrics
               containerPort: 9100
@@ -166,21 +162,21 @@ kind: ServiceMonitor
 metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
-  labels:     
-    helm.sh/chart: prometheus-node-exporter-4.3.0
+  labels:
+    helm.sh/chart: prometheus-node-exporter-4.7.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/instance: monitoring
     app.kubernetes.io/name: prometheus-node-exporter
-    app.kubernetes.io/version: "1.3.1"
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/version: "1.4.0"
 spec:
   jobLabel: app.kubernetes.io/name
+  
   selector:
     matchLabels:
-            
-      app.kubernetes.io/instance: monitoring
       app.kubernetes.io/name: prometheus-node-exporter
+      app.kubernetes.io/instance: monitoring
   endpoints:
     - port: metrics
       scheme: http
