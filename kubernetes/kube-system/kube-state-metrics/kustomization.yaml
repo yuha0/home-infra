@@ -2,6 +2,7 @@ namespace: kube-system
 resources:
 - cluster-role.yaml
 - deployment.yaml
+- network-policy.yaml
 - service.yaml
 - service-account.yaml
 - cluster-role-binding.yaml
@@ -9,8 +10,8 @@ resources:
 - prometheus-rule.yaml
 images:
 - name: kube-state-metrics
-  newName: k8s.gcr.io/kube-state-metrics/kube-state-metrics
-  newTag: v2.5.0
+  newName: registry.k8s.io/kube-state-metrics/kube-state-metrics
+  newTag: v2.7.0
 - name: kube-rbac-proxy
   newName: quay.io/brancz/kube-rbac-proxy
-  newTag: v0.12.0
+  newTag: v0.13.1
