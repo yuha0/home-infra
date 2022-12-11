@@ -23,7 +23,7 @@ patches:
       value:
         - /nginx-ingress-controller
         - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-internal
-        - --election-id=ingress-controller-leader
+        - --election-id=ingress-nginx-leader
         - --controller-class=k8s.io/ingress-nginx-internal
         - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller-internal
         - --validating-webhook=:8443
