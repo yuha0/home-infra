@@ -10,8 +10,8 @@ resources:
 
 images:
 - name: unpoller
-  newName: golift/unifi-poller
-  newTag: latest
+  newName: ghcr.io/unpoller/unpoller
+  newTag: v2.4.2
 
 configMapGenerator:
 - name: unpoller-config
