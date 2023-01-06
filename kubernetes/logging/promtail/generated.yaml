@@ -6,25 +6,25 @@ metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
 ---
-# Source: promtail/templates/secret.yaml
+# Source: promtail/templates/configmap.yaml
 apiVersion: v1
-kind: Secret
+kind: ConfigMap
 metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
-stringData:
+data:
   promtail.yaml: |
     server:
       log_level: info
@@ -109,6 +109,10 @@ stringData:
             - __meta_kubernetes_pod_annotation_kubernetes_io_config_hash
             - __meta_kubernetes_pod_container_name
             target_label: __path__
+      
+      
+    
+    limits_config:
 ---
 # Source: promtail/templates/clusterrole.yaml
 kind: ClusterRole
@@ -116,10 +120,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -141,10 +145,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
 subjects:
   - kind: ServiceAccount
@@ -162,10 +166,10 @@ metadata:
   name: promtail-metrics
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   clusterIP: None
@@ -185,10 +189,10 @@ metadata:
   name: promtail
   namespace: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
@@ -203,17 +207,18 @@ spec:
         app.kubernetes.io/name: promtail
         app.kubernetes.io/instance: promtail
       annotations:
-        checksum/config: 62599494000945114a068434bdaa4986d95e92b90417db2805796c2390ba2ec1
+        checksum/config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
     spec:
       serviceAccountName: promtail
+      enableServiceLinks: true
       initContainers:
-        - name: init
-          image: "docker.io/busybox:1.33"
+        - command:
+          - sh
+          - -c
+          - sysctl -w fs.inotify.max_user_instances=128
+          image: docker.io/busybox:1.33
           imagePullPolicy: IfNotPresent
-          command:
-            - sh
-            - -c
-            - sysctl -w fs.inotify.max_user_instances=128
+          name: init
           securityContext:
             privileged: true
       securityContext:
@@ -221,7 +226,7 @@ spec:
         runAsUser: 0
       containers:
         - name: promtail
-          image: "docker.io/grafana/promtail:2.6.1"
+          image: "docker.io/grafana/promtail:2.7.1"
           imagePullPolicy: IfNotPresent
           args:
             - "-config.file=/etc/promtail/promtail.yaml"
@@ -254,7 +259,7 @@ spec:
           readinessProbe:
             failureThreshold: 5
             httpGet:
-              path: /ready
+              path: '/ready'
               port: http-metrics
             initialDelaySeconds: 10
             periodSeconds: 10
@@ -276,8 +281,8 @@ spec:
           operator: Exists
       volumes:
         - name: config
-          secret:
-            secretName: promtail
+          configMap:
+            name: promtail
         - hostPath:
             path: /run/promtail
           name: run
@@ -293,12 +298,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: promtail
-  namespace: promtail
   labels:
-    helm.sh/chart: promtail-6.2.2
+    helm.sh/chart: promtail-6.8.1
     app.kubernetes.io/name: promtail
     app.kubernetes.io/instance: promtail
-    app.kubernetes.io/version: "2.6.1"
+    app.kubernetes.io/version: "2.7.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
@@ -307,3 +311,4 @@ spec:
       app.kubernetes.io/instance: promtail
   endpoints:
     - port: http-metrics
+      scheme: http
