@@ -25,3 +25,6 @@
 [submodule "kubernetes/monitoring/node-exporter/helm/helm-charts"]
 	path = kubernetes/monitoring/node-exporter/helm/helm-charts
 	url = https://github.com/prometheus-community/helm-charts.git
+[submodule "kubernetes/garage/helm/garage"]
+	path = kubernetes/garage/helm/garage
+	url = https://git.deuxfleurs.fr/Deuxfleurs/garage.git
