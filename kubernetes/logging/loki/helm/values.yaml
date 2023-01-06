@@ -188,6 +188,7 @@ loki:
       tail_proxy_url: http://{{ include "loki.querierFullname" . }}:3100
 
     compactor:
+      compaction_interval: 10m
       working_directory: /data/retention
       shared_store: s3
       retention_enabled: true

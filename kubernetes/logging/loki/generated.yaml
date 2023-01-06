@@ -129,6 +129,7 @@ data:
     chunk_store_config:
       max_look_back_period: 0s
     compactor:
+      compaction_interval: 10m
       retention_delete_delay: 30m
       retention_delete_worker_count: 10
       retention_enabled: true
@@ -631,7 +632,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: de66be35b4fabe43a2bd9249b7952c2475fcd3dba41d2e589f0325fdf740bb99
+        checksum/config: e409c012a828e4625649b09433f3a7966d6f4245f57ab44ce7834a49c369fd5c
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -733,7 +734,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: de66be35b4fabe43a2bd9249b7952c2475fcd3dba41d2e589f0325fdf740bb99
+        checksum/config: e409c012a828e4625649b09433f3a7966d6f4245f57ab44ce7834a49c369fd5c
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -952,7 +953,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: de66be35b4fabe43a2bd9249b7952c2475fcd3dba41d2e589f0325fdf740bb99
+        checksum/config: e409c012a828e4625649b09433f3a7966d6f4245f57ab44ce7834a49c369fd5c
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1063,7 +1064,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: de66be35b4fabe43a2bd9249b7952c2475fcd3dba41d2e589f0325fdf740bb99
+        checksum/config: e409c012a828e4625649b09433f3a7966d6f4245f57ab44ce7834a49c369fd5c
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1207,7 +1208,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: de66be35b4fabe43a2bd9249b7952c2475fcd3dba41d2e589f0325fdf740bb99
+        checksum/config: e409c012a828e4625649b09433f3a7966d6f4245f57ab44ce7834a49c369fd5c
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
