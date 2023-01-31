@@ -5,7 +5,7 @@
 image:
   repository: k8s.gcr.io/external-dns/external-dns
   # Overrides the image tag whose default is v{{ .Chart.AppVersion }}
-  tag: "v0.13.1"
+  tag: "v0.13.2"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -20,6 +20,8 @@ serviceAccount:
   create: true
   # Annotations to add to the service account
   annotations: {}
+  # Labels to add to the service account
+  labels: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
@@ -127,6 +129,11 @@ triggerLoopOnEvent: true
 sources:
   - service
   - ingress
+
+secretConfiguration:
+  enabled: false
+  mountPath: ""
+  data: {}
 
 policy: upsert-only
 
