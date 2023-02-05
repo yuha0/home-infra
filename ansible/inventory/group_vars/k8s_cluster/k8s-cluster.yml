@@ -2,7 +2,7 @@
 # Kubernetes configuration dirs and system namespace.
 # Those are where all the additional config stuff goes
 # the kubernetes normally puts in /srv/kubernetes.
-# This puts them in a same location and namespace.
+# This puts them in a sane location and namespace.
 # Editing those values will almost surely break something.
 kube_config_dir: /etc/kubernetes
 kube_script_dir: "{{ bin_dir }}/kubernetes-scripts"
@@ -17,7 +17,7 @@ kube_token_dir: "{{ kube_config_dir }}/tokens"
 kube_api_anonymous_auth: true
 
 ## Change this to use another Kubernetes version, e.g. a current beta release
-kube_version: v1.22.8
+kube_version: v1.23.7
 
 # Where the binaries will be downloaded.
 # Note: ensure that you've enough disk space (about 1G)
@@ -62,7 +62,7 @@ credentials_dir: "{{ inventory_dir }}/credentials"
 # kube_webhook_authorization_url: https://...
 # kube_webhook_authorization_url_skip_tls_verify: false
 
-# Choose network plugin (cilium, calico, weave or flannel. Use cni for generic cni plugin)
+# Choose network plugin (cilium, calico, kube-ovn, weave or flannel. Use cni for generic cni plugin)
 # Can also be set to 'cloud', which lets the cloud provider setup appropriate routing
 kube_network_plugin: cilium
 
@@ -146,7 +146,7 @@ kube_proxy_nodeport_addresses: >-
 #   {{ inventory_hostname }}
 #   {%- endif -%}
 
-## Encrypting Secret Data at Rest (experimental)
+## Encrypting Secret Data at Rest
 kube_encrypt_secret_data: false
 
 # Graceful Node Shutdown (Kubernetes >= 1.21.0), see https://kubernetes.io/blog/2021/04/21/graceful-node-shutdown-beta/
@@ -238,6 +238,8 @@ podsecuritypolicy_enabled: false
 
 # Make a copy of kubeconfig on the host that runs Ansible in {{ inventory_dir }}/artifacts
 kubeconfig_localhost: true
+# Use ansible_host as external api ip when copying over kubeconfig.
+# kubeconfig_localhost_ansible_host: false
 # Download kubectl onto the host that runs Ansible in {{ bin_dir }}
 # kubectl_localhost: false
 
@@ -253,6 +255,11 @@ system_cpu_reserved: 300m
 ## Reservation for master hosts
 system_master_memory_reserved: 256Mi
 system_master_cpu_reserved: 250m
+
+## Eviction Thresholds to avoid system OOMs
+# https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#eviction-thresholds
+# eviction_hard: {}
+# eviction_hard_control_plane: {}
 
 # An alternative flexvolume plugin directory
 # kubelet_flexvolumes_plugins_dir: /usr/libexec/kubernetes/kubelet-plugins/volume/exec
