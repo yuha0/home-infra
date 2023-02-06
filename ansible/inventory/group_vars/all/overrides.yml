@@ -5,4 +5,6 @@ cilium_hubble_ui_backend_image_tag: v0.8.5
 cilium_hubble_envoy_image_repo: docker.io/envoyproxy/envoy
 cilium_hubble_envoy_image_tag: v1.16.5
 cilium_hubble_certgen_image_repo: quay.io/cilium/certgen
-cilium_hubble_certgen_image_tag: v0.1.8
+
+# https://github.com/cilium/cilium/issues/18278
+cilium_hubble_certgen_image_tag: v0.1.6
