@@ -17,13 +17,16 @@ kube_token_dir: "{{ kube_config_dir }}/tokens"
 kube_api_anonymous_auth: true
 
 ## Change this to use another Kubernetes version, e.g. a current beta release
-kube_version: v1.23.7
+kube_version: v1.24.6
 
 # Where the binaries will be downloaded.
 # Note: ensure that you've enough disk space (about 1G)
 local_release_dir: "/tmp/releases"
 # Random shifts for retrying failed ops like pushing/downloading
 retry_stagger: 5
+
+# This is the user that owns tha cluster installation.
+kube_owner: kube
 
 # This is the group that the cert creation scripts chgrp the
 # cert files to. Not really changeable...
@@ -116,16 +119,13 @@ kube_network_node_prefix_ipv6: 120
 # The port the API Server will be listening on.
 kube_apiserver_ip: "{{ kube_service_addresses|ipaddr('net')|ipaddr(1)|ipaddr('address') }}"
 kube_apiserver_port: 6443  # (https)
-# kube_apiserver_insecure_port: 8080  # (http)
-# Set to 0 to disable insecure port - Requires RBAC in authorization_modes and kube_api_anonymous_auth: true
-kube_apiserver_insecure_port: 0  # (disabled)
 
 # Kube-proxy proxyMode configuration.
 # Can be ipvs, iptables
 kube_proxy_mode: ipvs
 
 # configure arp_ignore and arp_announce to avoid answering ARP queries from kube-ipvs0 interface
-# must be set to true for MetalLB to work
+# must be set to true for MetalLB, kube-vip(ARP enabled) to work
 kube_proxy_strict_arp: true
 
 # A string slice of values which specify the addresses to use for NodePorts.
@@ -160,6 +160,14 @@ kube_encrypt_secret_data: false
 cluster_name: cluster.local
 # Subdomains of DNS domain to be resolved via /etc/resolv.conf for hostnet pods
 ndots: 2
+# dns_timeout: 2
+# dns_attempts: 2
+# Custom search domains to be added in addition to the default cluster search domains
+# searchdomains:
+#   - svc.{{ cluster_name }}
+#   - default.svc.{{ cluster_name  }}
+# Remove default cluster search domains (``default.svc.{{ dns_domain }}, svc.{{ dns_domain }}``).
+# remove_default_searchdomains: false
 # Can be coredns, coredns_dual, manual or none
 dns_mode: coredns
 # Set manual server if using a custom cluster DNS server
@@ -185,6 +193,13 @@ nodelocaldns_secondary_skew_seconds: 5
 #   nameservers:
 #   - 192.168.0.53
 #   cache: 0
+# - zones:
+#   - mydomain.tld
+#   nameservers:
+#   - 10.233.0.3
+#   cache: 5
+#   rewrite:
+#   - name website.tld website.namespace.svc.cluster.local
 # Enable k8s_external plugin for CoreDNS
 enable_coredns_k8s_external: false
 coredns_k8s_external_zone: k8s_external.local
@@ -216,16 +231,9 @@ k8s_image_pull_policy: IfNotPresent
 # audit log for kubernetes
 kubernetes_audit: true
 
-# dynamic kubelet configuration
-# Note: Feature DynamicKubeletConfig is deprecated in 1.22 and will not move to GA.
-# It is planned to be removed from Kubernetes in the version 1.23.
-# Please use alternative ways to update kubelet configuration.
-dynamic_kubelet_configuration: false
-
 # define kubelet config dir for dynamic kubelet
 # kubelet_config_dir:
 default_kubelet_config_dir: "{{ kube_config_dir }}/dynamic_kubelet_dir"
-dynamic_kubelet_configuration_dir: "{{ kubelet_config_dir | default(default_kubelet_config_dir) }}"
 
 # pod security policy (RBAC must be enabled either by having 'RBAC' in authorization_modes or kubeadm enabled)
 podsecuritypolicy_enabled: false
@@ -252,9 +260,11 @@ system_reserved: true
 ## Uncomment to override default values
 system_memory_reserved: 256Mi
 system_cpu_reserved: 300m
+# system_ephemeral_storage_reserved: 2Gi
 ## Reservation for master hosts
 system_master_memory_reserved: 256Mi
 system_master_cpu_reserved: 250m
+# system_master_ephemeral_storage_reserved: 2Gi
 
 ## Eviction Thresholds to avoid system OOMs
 # https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#eviction-thresholds
@@ -293,7 +303,7 @@ persistent_volumes_enabled: false
 # nvidia_driver_install_centos_container: atzedevries/nvidia-centos-driver-installer:2
 # nvidia_driver_install_ubuntu_container: gcr.io/google-containers/ubuntu-nvidia-driver-installer@sha256:7df76a0f0a17294e86f691c81de6bbb7c04a1b4b3d4ea4e7e2cccdc42e1f6d63
 ## NVIDIA GPU device plugin image.
-# nvidia_gpu_device_plugin_container: "k8s.gcr.io/nvidia-gpu-device-plugin@sha256:0842734032018be107fa2490c98156992911e3e1f2a21e059ff0105b07dd8e9e"
+# nvidia_gpu_device_plugin_container: "registry.k8s.io/nvidia-gpu-device-plugin@sha256:0842734032018be107fa2490c98156992911e3e1f2a21e059ff0105b07dd8e9e"
 
 ## Support tls min version, Possible values: VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13.
 # tls_min_version: ""

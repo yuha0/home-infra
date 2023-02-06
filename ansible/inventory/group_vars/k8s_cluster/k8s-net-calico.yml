@@ -19,7 +19,7 @@ calico_cni_name: k8s-pod-network
 # calico_pool_name: "default-pool"
 
 # add default ippool blockSize (defaults kube_network_node_prefix)
-# calico_pool_blocksize: 24
+calico_pool_blocksize: 26
 
 # add default ippool CIDR (must be inside kube_pods_subnet, defaults to kube_pods_subnet otherwise)
 # calico_pool_cidr: 1.2.3.4/5
@@ -60,7 +60,7 @@ calico_cni_name: k8s-pod-network
 # - x.x.x.x/24
 # - y.y.y.y/32
 
-# Adveritse Service LoadBalancer IPs
+# Advertise Service LoadBalancer IPs
 # calico_advertise_service_loadbalancer_ips:
 # - x.x.x.x/24
 # - y.y.y.y/16
@@ -99,7 +99,7 @@ calico_cni_name: k8s-pod-network
 # calico_vxlan_vni: 4096
 # calico_vxlan_port: 4789
 
-# Cenable eBPF mode
+# Enable eBPF mode
 # calico_bpf_enabled: false
 
 # If you want to use non default IP_AUTODETECTION_METHOD, IP6_AUTODETECTION_METHOD for calico node set this option to one of:
