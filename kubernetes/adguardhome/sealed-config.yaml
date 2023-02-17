@@ -30,10 +30,6 @@ spec:
           bind_hosts:
           - 0.0.0.0
           port: 53
-          querylog_enabled: true
-          querylog_file_enabled: true
-          querylog_interval: 2160h
-          querylog_size_memory: 1000
           anonymize_client_ip: false
           protection_enabled: true
           blocking_mode: default
@@ -166,6 +162,11 @@ spec:
         log_file: ""
         statistics:
           interval: 1
+        querylog:
+          enabled: true
+          file_enabled: true
+          interval: 2160h
+          size_memory: 1000
         verbose: false
         os:
           group: ""
