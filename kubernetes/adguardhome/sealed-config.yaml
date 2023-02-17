@@ -30,7 +30,6 @@ spec:
           bind_hosts:
           - 0.0.0.0
           port: 53
-          statistics_interval: 1
           querylog_enabled: true
           querylog_file_enabled: true
           querylog_interval: 2160h
@@ -165,12 +164,14 @@ spec:
         log_max_size: 100
         log_max_age: 3
         log_file: ""
+        statistics:
+          interval: 1
         verbose: false
         os:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 14
+        schema_version: 16
     metadata:
       creationTimestamp: null
       name: config
