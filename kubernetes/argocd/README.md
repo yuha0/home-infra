@@ -5,7 +5,7 @@
 ```bash
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
-helm template -f helm/values.yaml --include-crds --kube-version 1.22.5 -n argocd argocd argo/argo-cd > generated.yaml
+helm template -f helm/values.yaml --include-crds --kube-version 1.24 -n argocd argocd argo/argo-cd > generated.yaml
 ```
 
 ## Update `helm/values.yaml` to a newer commit
