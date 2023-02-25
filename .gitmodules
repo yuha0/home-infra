@@ -1,6 +1,6 @@
 [submodule "ansible/kubespray"]
 	path = ansible/kubespray
-	url = https://github.com/kubernetes-sigs/kubespray.git
+	url = https://github.com/yuha0/kubespray.git
 [submodule "kubernetes/argocd/helm/argocd-helm"]
 	path = kubernetes/argocd/helm/argocd-helm
 	url = https://github.com/argoproj/argo-helm.git
@@ -25,6 +25,3 @@
 [submodule "kubernetes/monitoring/node-exporter/helm/helm-charts"]
 	path = kubernetes/monitoring/node-exporter/helm/helm-charts
 	url = https://github.com/prometheus-community/helm-charts.git
-[submodule "kubernetes/garage/helm/garage"]
-	path = kubernetes/garage/helm/garage
-	url = https://git.deuxfleurs.fr/Deuxfleurs/garage.git
