@@ -4,7 +4,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -29,7 +29,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -66,7 +66,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -88,7 +88,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -127,7 +127,7 @@ automountServiceAccountToken: true
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -141,7 +141,7 @@ automountServiceAccountToken: true
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -154,7 +154,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -185,7 +185,7 @@ kind: ConfigMap
 metadata:
   name: argocd-cmd-params-cm
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -225,7 +225,7 @@ kind: ConfigMap
 metadata:
   name: argocd-gpg-keys-cm
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-gpg-keys-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -253,7 +253,7 @@ kind: ConfigMap
 metadata:
   name: argocd-rbac-cm
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -270,7 +270,7 @@ kind: ConfigMap
 metadata:
   name: argocd-ssh-known-hosts-cm
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -293,7 +293,7 @@ kind: ConfigMap
 metadata:
   name: argocd-tls-certs-cm
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-tls-certs-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -4647,7 +4647,7 @@ kind: ClusterRole
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4671,7 +4671,7 @@ kind: ClusterRole
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -4695,7 +4695,7 @@ kind: ClusterRole
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4739,7 +4739,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4760,7 +4760,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -4781,7 +4781,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4802,7 +4802,7 @@ kind: Role
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4845,7 +4845,7 @@ kind: Role
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4893,7 +4893,7 @@ kind: RoleBinding
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4914,7 +4914,7 @@ kind: RoleBinding
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4935,7 +4935,7 @@ kind: Service
 metadata:
   name: argocd-application-controller-metrics
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4957,7 +4957,7 @@ kind: Service
 metadata:
   name: argocd-repo-server-metrics
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -4978,7 +4978,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -5001,7 +5001,7 @@ kind: Service
 metadata:
   name: argocd-server-metrics
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -5023,7 +5023,7 @@ kind: Service
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -5050,7 +5050,7 @@ kind: Service
 metadata:
   name: argocd-redis
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -5071,7 +5071,7 @@ kind: Deployment
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -5087,23 +5087,23 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: b7a2ffb1e720f21a04be58d3bb0b20255be221cca1dff9ef0d9aedc7363209bc
+        checksum/cmd-params: 1e8baf94c4b3a1ec1dc8c2348298aba712b44c57af5728db9e172f0a52964bc5
       labels:
-        helm.sh/chart: argo-cd-5.22.0
+        helm.sh/chart: argo-cd-5.24.1
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
     spec:
-      automountServiceAccountToken: true
       securityContext:
         fsGroup: 999
         runAsGroup: 999
         runAsUser: 999
+      serviceAccountName: default
       containers:
       - name: repo-server
-        image: quay.io/argoproj/argocd:v2.6.2
+        image: quay.io/argoproj/argocd:v2.6.3
         imagePullPolicy: IfNotPresent
         command:
         - entrypoint.sh
@@ -5309,7 +5309,7 @@ spec:
         - -n
         - /usr/local/bin/argocd
         - /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v2.6.2
+        image: quay.io/argoproj/argocd:v2.6.3
         imagePullPolicy: IfNotPresent
         name: copyutil
         securityContext:
@@ -5333,7 +5333,6 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: argocd-repo-server
               topologyKey: kubernetes.io/hostname
-      serviceAccountName: default
       volumes:
       - name: helm-working-dir
         emptyDir: {}
@@ -5374,7 +5373,7 @@ kind: Deployment
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -5390,9 +5389,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: b7a2ffb1e720f21a04be58d3bb0b20255be221cca1dff9ef0d9aedc7363209bc
+        checksum/cmd-params: 1e8baf94c4b3a1ec1dc8c2348298aba712b44c57af5728db9e172f0a52964bc5
       labels:
-        helm.sh/chart: argo-cd-5.22.0
+        helm.sh/chart: argo-cd-5.24.1
         app.kubernetes.io/name: argocd-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: server
@@ -5403,9 +5402,10 @@ spec:
         fsGroup: 999
         runAsGroup: 999
         runAsUser: 999
+      serviceAccountName: argocd-server
       containers:
       - name: server
-        image: quay.io/argoproj/argocd:v2.6.2
+        image: quay.io/argoproj/argocd:v2.6.3
         imagePullPolicy: IfNotPresent
         command:
         - argocd-server
@@ -5681,7 +5681,6 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: argocd-server
               topologyKey: kubernetes.io/hostname
-      serviceAccountName: argocd-server
       volumes:
       - name: plugins-home
         emptyDir: {}
@@ -5726,7 +5725,7 @@ kind: Deployment
 metadata:
   name: argocd-redis
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -5741,7 +5740,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: argo-cd-5.22.0
+        helm.sh/chart: argo-cd-5.24.1
         app.kubernetes.io/name: argocd-redis
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: redis
@@ -5796,7 +5795,7 @@ kind: StatefulSet
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -5814,9 +5813,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: b7a2ffb1e720f21a04be58d3bb0b20255be221cca1dff9ef0d9aedc7363209bc
+        checksum/cmd-params: 1e8baf94c4b3a1ec1dc8c2348298aba712b44c57af5728db9e172f0a52964bc5
       labels:
-        helm.sh/chart: argo-cd-5.22.0
+        helm.sh/chart: argo-cd-5.24.1
         app.kubernetes.io/name: argocd-application-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: application-controller
@@ -5827,11 +5826,12 @@ spec:
         fsGroup: 999
         runAsGroup: 999
         runAsUser: 999
+      serviceAccountName: argocd-application-controller
       containers:
       - command:
         - argocd-application-controller
         - --metrics-port=8082
-        image: quay.io/argoproj/argocd:v2.6.2
+        image: quay.io/argoproj/argocd:v2.6.3
         imagePullPolicy: IfNotPresent
         name: application-controller
         env:
@@ -6013,7 +6013,6 @@ spec:
                 matchLabels:
                   app.kubernetes.io/name: argocd-application-controller
               topologyKey: kubernetes.io/hostname
-      serviceAccountName: argocd-application-controller
       volumes:
       - name: argocd-home
         emptyDir: {}
@@ -6037,7 +6036,7 @@ kind: Ingress
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -6073,7 +6072,7 @@ kind: ServiceMonitor
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -6099,7 +6098,7 @@ kind: ServiceMonitor
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -6125,7 +6124,7 @@ kind: ServiceMonitor
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.22.0
+    helm.sh/chart: argo-cd-5.24.1
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
