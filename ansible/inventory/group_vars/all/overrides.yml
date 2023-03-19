@@ -1,4 +1,0 @@
-cilium_hubble_certgen_image_repo: quay.io/cilium/certgen
-
-# https://github.com/cilium/cilium/issues/18278
-cilium_hubble_certgen_image_tag: v0.1.6
