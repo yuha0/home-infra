@@ -1622,13 +1622,7 @@ spec:
             mountPath: /etc/ml_secret_key
       nodeSelector:
         "kubernetes.io/os": linux
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        effect: NoSchedule
-        operator: Exists
-      - key: node-role.kubernetes.io/control-plane
-        effect: NoSchedule
-        operator: Exists
+        kubernetes.io/arch: amd64
 ---
 # Source: metallb/templates/controller.yaml
 apiVersion: apps/v1
