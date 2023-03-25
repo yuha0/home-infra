@@ -152,7 +152,7 @@ cilium_hubble_metrics:
 - icmp
 - http
 ### Enable Hubble install
-cilium_hubble_install: true
+cilium_hubble_install: false
 ### Enable auto generate certs if cilium_hubble_install: true
 cilium_hubble_tls_generate: true
 
