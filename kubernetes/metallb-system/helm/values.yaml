@@ -287,8 +287,6 @@ speaker:
     # limits:
       # cpu: 100m
       # memory: 100Mi
-  nodeSelector:
-    kubernetes.io/arch: amd64
   tolerations: []
   priorityClassName: ""
   affinity: {}

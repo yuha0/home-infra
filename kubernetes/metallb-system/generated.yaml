@@ -1622,7 +1622,6 @@ spec:
             mountPath: /etc/ml_secret_key
       nodeSelector:
         "kubernetes.io/os": linux
-        kubernetes.io/arch: amd64
 ---
 # Source: metallb/templates/controller.yaml
 apiVersion: apps/v1
