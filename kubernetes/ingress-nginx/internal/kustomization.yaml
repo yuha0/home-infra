@@ -12,7 +12,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/loadBalancerIP
-      value: 10.200.0.2
+      value: 10.101.0.10
 - target:
     group: apps
     kind: Deployment

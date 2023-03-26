@@ -11,7 +11,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/loadBalancerIP
-      value: 10.200.0.3
+      value: 10.101.0.11
 - target:
     group: apps
     kind: Deployment
@@ -39,7 +39,7 @@ patches:
           memory: 200Mi
     - op: add
       path: /spec/replicas
-      value: 2
+      value: 0
 - target:
     group: batch
     kind: Job
