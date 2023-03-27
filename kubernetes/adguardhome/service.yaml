@@ -24,7 +24,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: adguardhome
 spec:
-  loadBalancerIP: 10.200.0.4
+  loadBalancerIP: 10.106.0.31
   type: LoadBalancer
   ports:
   - name: dns-tcp
@@ -41,7 +41,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: adguardhome
 spec:
-  loadBalancerIP: 10.200.0.4
+  loadBalancerIP: 10.106.0.30
   type: LoadBalancer
   ports:
   - name: dns-udp
