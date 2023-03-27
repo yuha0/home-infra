@@ -8,8 +8,7 @@ resources:
 - external-service-accounts.yaml
 - grafana.yaml
 - hubble.yaml
-- ingress-nginx-external.yaml
-- ingress-nginx-internal.yaml
+- ingress-nginx.yaml
 - kube-state-metrics.yaml
 - kubegres.yaml
 - loki.yaml

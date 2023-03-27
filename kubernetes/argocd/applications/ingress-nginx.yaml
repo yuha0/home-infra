@@ -1,9 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: ingress-nginx-external
+  name: ingress-nginx
 spec:
   destinations:
+  - namespace: "ingress-nginx-internal"
   - namespace: "ingress-nginx-external"
   clusterResourceWhitelist:
   - group: ''
@@ -20,10 +21,10 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx-external
+  name: ingress-nginx
 spec:
-  project: ingress-nginx-external
+  project: ingress-nginx
   source:
-    path: kubernetes/ingress-nginx/external
+    path: kubernetes/ingress-nginx
   destination:
-    namespace: ingress-nginx-external
+    namespace: ingress-nginx-internal
