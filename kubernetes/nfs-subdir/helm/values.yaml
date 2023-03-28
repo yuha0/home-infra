@@ -8,7 +8,7 @@ image:
 imagePullSecrets: []
 
 nfs:
-  server: fred.main.yuha0.com
+  server: fred.lab.yuha0.com
   path: /k8s
   mountOptions:
   volumeName: nfs-subdir-external-provisioner-root
