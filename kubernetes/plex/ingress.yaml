@@ -17,13 +17,13 @@ metadata:
 spec:
   ingressClassName: nginx-internal
   rules:
-    - host: "plex.internal.yuha0.com"
-      http:
-        paths:
-        - path: "/"
-          pathType: Prefix
-          backend:
-            service:
-              name: plex
-              port:
-                number: 32400
+  - host: "plex.internal.yuha0.com"
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: plex
+            port:
+              number: 32400
