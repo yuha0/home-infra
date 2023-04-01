@@ -1,3 +1,0 @@
-namespace: kubegres-system
-resources:
-- kubegres.yaml

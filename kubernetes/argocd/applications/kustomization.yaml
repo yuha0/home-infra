@@ -10,7 +10,6 @@ resources:
 - hubble.yaml
 - ingress-nginx.yaml
 - kube-state-metrics.yaml
-- kubegres.yaml
 - loki.yaml
 - metallb-system.yaml
 - monitoring.yaml
