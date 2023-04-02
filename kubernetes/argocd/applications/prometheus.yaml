@@ -1,7 +1,8 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: monitoring
+  name: prometheus
 spec:
   destinations:
   - namespace: "monitoring"
@@ -18,22 +19,11 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: node-exporter
-spec:
-  project: monitoring
-  source:
-    path: kubernetes/monitoring/node-exporter
-  destination:
-    namespace: monitoring
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
   name: prometheus-operator
 spec:
-  project: monitoring
+  project: prometheus
   source:
-    path: kubernetes/monitoring/prometheus-operator
+    path: kubernetes/prometheus-operator
   destination:
     namespace: monitoring
 ---
@@ -42,19 +32,8 @@ kind: Application
 metadata:
   name: prometheus
 spec:
-  project: monitoring
+  project: prometheus
   source:
-    path: kubernetes/monitoring/prometheus
-  destination:
-    namespace: monitoring
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: thanos
-spec:
-  project: monitoring
-  source:
-    path: kubernetes/monitoring/thanos
+    path: kubernetes/prometheus
   destination:
     namespace: monitoring

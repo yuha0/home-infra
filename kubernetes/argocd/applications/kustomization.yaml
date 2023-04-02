@@ -12,9 +12,9 @@ resources:
 - kube-state-metrics.yaml
 - loki.yaml
 - metallb-system.yaml
-- monitoring.yaml
 - nfs-subdir.yaml
 - plex.yaml
+- prometheus.yaml
 - promtail.yaml
 - sealed-secrets.yaml
 - system-service-monitors.yaml

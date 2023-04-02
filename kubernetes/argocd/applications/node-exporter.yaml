@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: node-exporter
+spec:
+  destinations:
+  - namespace: "adguardhome"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: node-exporter
+spec:
+  project: node-exporter
+  source:
+    path: kubernetes/monitoring/node-exporter
+  destination:
+    namespace: monitoring

@@ -3,3 +3,4 @@ resources:
 - rbac.yaml
 - servicemonitor.yaml
 - prometheus.yaml
+- thanos
