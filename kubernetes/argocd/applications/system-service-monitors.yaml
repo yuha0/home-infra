@@ -16,6 +16,6 @@ metadata:
 spec:
   project: system-service-monitors
   source:
-    path: kubernetes/kube-system/system-service-monitors
+    path: kubernetes/system-service-monitors
   destination:
     namespace: kube-system

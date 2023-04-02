@@ -18,6 +18,6 @@ metadata:
 spec:
   project: kube-state-metrics
   source:
-    path: kubernetes/kube-system/kube-state-metrics
+    path: kubernetes/kube-state-metrics
   destination:
     namespace: kube-system
