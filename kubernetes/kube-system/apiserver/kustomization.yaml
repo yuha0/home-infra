@@ -1,4 +1,0 @@
-namespace: kube-system
-resources:
-- endpoint.yaml
-- service.yaml
