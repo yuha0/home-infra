@@ -13,7 +13,7 @@ configMapGenerator:
   literals:
   - TS_USERSPACE=true
   - TS_KUBE_SECRET=state
-  - TS_ROUTES=10.100.0.0/20,10.200.0.0/16
+  - TS_ROUTES=10.0.0.0/8
   - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080"
 
 images:
