@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: grafana-admin
-  namespace: grafana
-stringData:
-  username: zzyzxd
-  password: &GyZ?9.(=NbHV$ovjqu6typspEFfr6aZz9FA3ic3
