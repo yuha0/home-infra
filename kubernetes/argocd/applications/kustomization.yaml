@@ -9,7 +9,6 @@ resources:
 - hubble.yaml
 - ingress-nginx.yaml
 - kube-state-metrics.yaml
-- loki.yaml
 - metallb-system.yaml
 - nfs-subdir.yaml
 - plex.yaml
