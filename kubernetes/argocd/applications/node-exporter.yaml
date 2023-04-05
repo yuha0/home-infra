@@ -13,6 +13,6 @@ metadata:
 spec:
   project: node-exporter
   source:
-    path: kubernetes/monitoring/node-exporter
+    path: kubernetes/node-exporter
   destination:
     namespace: monitoring

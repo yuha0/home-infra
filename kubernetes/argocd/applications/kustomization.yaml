@@ -1,6 +1,5 @@
 resources:
 - adguardhome.yaml
-- apiserver.yaml
 - argocd.yaml
 - cert-manager.yaml
 - cloudflare-ddns.yaml

@@ -1,7 +1,2 @@
 namespace: unifi
-resources:
-- namespace.yaml
-- networkpolicies.yaml
-- mongodb
-- network-application
-- unpoller
+resources: []
