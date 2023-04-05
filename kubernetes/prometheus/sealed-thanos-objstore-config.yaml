@@ -1,0 +1,30 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: thanos-objstore-config
+  namespace: monitoring
+spec:
+  encryptedData:
+    access-key: AgC8SKaVTngvapmRno3rnUbtMpGcHcqGgCsIltmrG/jVbET/Bu9l+/LHagWBxOkEWjniFZsTpPZmZORoLzVD3cZ8lofoO56q36lOEa/tii7I4AF3CuRBjZggYHNn0ClCRwcRwkJxA/5735jeGY2x0ni5B94T08u76hlP2/EXl6pg63Uw4oOgliRIyT2PdKA0cB0VAcBoja7KJKIJRZJmVqTmYPhfSlxXYQoKYcTcrjS4xrhsi4Y0JiQNf9SSuJ/7lUDarvlgFtzeqVqNC1C5KvneAhb979acFT7Pi50HpNKB0L/XotGQt2HPbIcphyV04DCZcIF1jpaJ2Rk/jBddwZXG39hF6cz0hC0/A+qyZzD5HKAwNZEk92kXymR+xFQMWW2CHZ4WWoanRpZxBr93xOwiyII1W3gDxzSRLDJcOMT/zK7xlgcpbqmW16OBDlpXK8HtyWW9kNh7vKFN8hg6jj6hjuD6dZ4jjPhE4uP+B6swwIMkY6NGh35AxzIXju88YL0QfdYCIQklhFeLmfwadfSBb8y/1qdy8M7mAB8NwE9hCrslyveoi/GRWZsbOYdClevqaBofGqLYCz4lEqMgLm8XiBPrZ1vvFOPHgHbCrNwGmXp6FknKXTOu7X4pfFfb6fogmfDtjNvKkG7CkoptYHkCukzbwnuj0LtfIjrfqwLbMXAsXVd3GXnZQUIa84LhMmX1LFsvxqus4fhyhCiA1sIBmqFf4DoPrQ==
+    secret-key: AgCMMepuCX+mAzOIfdWfmjCedPMm3RKOFOkstb+fGQmkczg44wFtiskFlha7z2RIr7HePakNF07Op5+m8YLOUQGOF8fl7uKCKfoQru/gQhPLWR0jKwDk6jEDBfUFAdVNKbRzHHlh+dBztGZi6dXhoXF+xJSHuxqPnLqRnaQk0Waoo2ImEbYB1POSsLXZgXZ4kXHLIs3x+g1W0oH7GeKjzurArga/wpKOqra0DdKTZ7ijIE2E3kChFZIbEHhDOHnlWBjjiMHa3FCEsSWDcVhe4dZ2zTFArsoHVew4q4TmtAoY5lSf9sd6ukbs9j2A562tTVqAmYKp/sFbLNbKFz8cXy4Ds317uCr3sg0WHhN1pXG4xx3LK7FDdNFZGU1scLXLpp9n2a+b6fXyyY+pl4tCK/e412tFRgkwbUoWGrXMGRXMkygfwkN63kKQC8MHAVRzc+i36g3r9/YNIiXLbO2+o9c42aD9jER6Qncjs4ZNT2p3QXdn2iTWanwhKdxqATltpj2VXNvWXUvgGCwqm8ZrZrx0sXEGuKW+R3APQzpxrV97x2zO91+uM1XX6IOFCjxNYuTf8g4EJG06wHWGMIzSD9m9Y6TJohX8QyOUfoS6NsOFaTdTSccokeLr2pueV4BiucLVe89jGnrkrG4tFcd3CWSp/xd5MTEdGcO20w+yRIim5u3iUFXHWCZdsWpHKAFZd+sff6KehLQnJnSMqjEKI/t8R6KlrbXm2Hg0vu8/U4yskg==
+  template:
+    data:
+      thanos.yaml: |
+        type: S3
+        config:
+          bucket: "thanos"
+          endpoint: "fred.lab.yuha0.com:8010"
+          insecure: false
+          signature_version2: true
+          access_key: {{ index . "access-key" }}
+          secret_key: {{ index . "secret-key" }}
+          http_config:
+            insecure_skip_verify: true
+            tls_config:
+              insecure_skip_verify: true
+    metadata:
+      creationTimestamp: null
+      name: thanos-objstore-config
+      namespace: monitoring
+

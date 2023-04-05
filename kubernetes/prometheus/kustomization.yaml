@@ -3,4 +3,5 @@ resources:
 - rbac.yaml
 - servicemonitor.yaml
 - prometheus.yaml
+- sealed-thanos-objstore-config.yaml
 - thanos
