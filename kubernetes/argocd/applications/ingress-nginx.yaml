@@ -5,7 +5,9 @@ metadata:
 spec:
   destinations:
   - namespace: "ingress-nginx-internal"
+    server: https://kubernetes.default.svc
   - namespace: "ingress-nginx-external"
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
