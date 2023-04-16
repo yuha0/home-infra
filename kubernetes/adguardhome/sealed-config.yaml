@@ -72,7 +72,8 @@ spec:
           filtering_enabled: true
           filters_update_interval: 24
           parental_enabled: false
-          safesearch_enabled: false
+          safe_search:
+            enabled: false
           safebrowsing_enabled: false
           safebrowsing_cache_size: 1048576
           safesearch_cache_size: 1048576
@@ -162,7 +163,7 @@ spec:
         log_max_age: 3
         log_file: ""
         statistics:
-          interval: 1
+          interval: 24h
         querylog:
           enabled: true
           file_enabled: true
@@ -173,7 +174,7 @@ spec:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 17
+        schema_version: 20
     metadata:
       creationTimestamp: null
       name: config
