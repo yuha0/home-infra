@@ -5,15 +5,6 @@ metadata:
   name: plex
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: 100m
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      send_timeout 100m;
-      gzip on;
-      gzip_vary on;
-      gzip_min_length 1000;
-      gzip_proxied any;
-      gzip_types text/plain text/css text/xml application/xml text/javascript application/x-javascript image/svg+xml;
-      gzip_disable "MSIE [1-6]\.";
 spec:
   ingressClassName: nginx-internal
   rules:
