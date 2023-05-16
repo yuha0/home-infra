@@ -53,7 +53,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: "v2.6.7"
+    tag: "v2.7.2"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
 
@@ -131,14 +131,6 @@ global:
     # - maxSkew: 1
     #   topologyKey: topology.kubernetes.io/zone
     #   whenUnsatisfiable: DoNotSchedule
-
-  # POD entrypoint configuration
-  entrypoint:
-    # -- Implicitly use the docker image's entrypoint. This requires the image to have
-    # ENTRYPOINT set properly
-    useImplicit: false
-    # -- The entrypoint to use for the containers.
-    entrypoint: "entrypoint.sh"
 
   # -- Deployment strategy for the all deployed Deployments
   deploymentStrategy:
@@ -940,7 +932,7 @@ dex:
     # -- Dex image repository
     repository: ghcr.io/dexidp/dex
     # -- Dex image tag
-    tag: v2.35.3
+    tag: v2.36.0
     # -- Dex imagePullPolicy
     # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
@@ -1131,6 +1123,13 @@ dex:
     #   maxSurge: 25%
     #   maxUnavailable: 25%
 
+  # -- Dex log format. Either `text` or `json`
+  # @default -- `""` (defaults to global.logging.format)
+  logFormat: ""
+  # -- Dex log level. One of: `debug`, `info`, `warn`, `error`
+  # @default -- `""` (defaults to global.logging.level)
+  logLevel: ""
+
 ## Redis
 redis:
   # -- Enable redis
@@ -1159,7 +1158,7 @@ redis:
     # -- Redis repository
     repository: public.ecr.aws/docker/library/redis
     # -- Redis tag
-    tag: 7.0.7-alpine
+    tag: 7.0.11-alpine
     # -- Redis image pull policy
     # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
@@ -1402,7 +1401,7 @@ redis-ha:
       enabled: true
   image:
     # -- Redis tag
-    tag: 7.0.7-alpine
+    tag: 7.0.11-alpine
 
   ## https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
   topologySpreadConstraints:

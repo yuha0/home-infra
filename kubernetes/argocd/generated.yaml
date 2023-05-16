@@ -4,13 +4,14 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
   name: argocd-application-controller
+  namespace: "argocd"
 spec:
   ingress:
   - from:
@@ -29,13 +30,14 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
   name: argocd-repo-server
+  namespace: "argocd"
 spec:
   ingress:
   - from:
@@ -66,13 +68,14 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
   name: argocd-server
+  namespace: "argocd"
 spec:
   ingress:
   - {}
@@ -88,13 +91,14 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
   name: argocd-redis
+  namespace: "argocd"
 spec:
   ingress:
   - from:
@@ -126,8 +130,9 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: argocd-application-controller
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -140,8 +145,9 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -153,8 +159,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-cm
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -184,8 +191,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-cmd-params-cm
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -224,8 +232,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-gpg-keys-cm
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-gpg-keys-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -252,8 +261,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-rbac-cm
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -269,8 +279,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-ssh-known-hosts-cm
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -292,8 +303,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: argocd-tls-certs-cm
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-tls-certs-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
@@ -606,6 +618,10 @@ spec:
                             description: CommonAnnotations is a list of additional
                               annotations to add to rendered manifests
                             type: object
+                          commonAnnotationsEnvsubst:
+                            description: CommonAnnotationsEnvsubst specifies whether
+                              to apply env variables substitution for annotation values
+                            type: boolean
                           commonLabels:
                             additionalProperties:
                               type: string
@@ -637,6 +653,29 @@ spec:
                             description: NameSuffix is a suffix appended to resources
                               for Kustomize apps
                             type: string
+                          namespace:
+                            description: Namespace sets the namespace that Kustomize
+                              adds to all resources
+                            type: string
+                          replicas:
+                            description: Replicas is a list of Kustomize Replicas
+                              override specifications
+                            items:
+                              properties:
+                                count:
+                                  anyOf:
+                                  - type: integer
+                                  - type: string
+                                  description: Number of replicas
+                                  x-kubernetes-int-or-string: true
+                                name:
+                                  description: Name of Deployment or StatefulSet
+                                  type: string
+                              required:
+                              - count
+                              - name
+                              type: object
+                            type: array
                           version:
                             description: Version controls which version of Kustomize
                               to use for rendering manifests
@@ -868,6 +907,11 @@ spec:
                               description: CommonAnnotations is a list of additional
                                 annotations to add to rendered manifests
                               type: object
+                            commonAnnotationsEnvsubst:
+                              description: CommonAnnotationsEnvsubst specifies whether
+                                to apply env variables substitution for annotation
+                                values
+                              type: boolean
                             commonLabels:
                               additionalProperties:
                                 type: string
@@ -900,6 +944,29 @@ spec:
                               description: NameSuffix is a suffix appended to resources
                                 for Kustomize apps
                               type: string
+                            namespace:
+                              description: Namespace sets the namespace that Kustomize
+                                adds to all resources
+                              type: string
+                            replicas:
+                              description: Replicas is a list of Kustomize Replicas
+                                override specifications
+                              items:
+                                properties:
+                                  count:
+                                    anyOf:
+                                    - type: integer
+                                    - type: string
+                                    description: Number of replicas
+                                    x-kubernetes-int-or-string: true
+                                  name:
+                                    description: Name of Deployment or StatefulSet
+                                    type: string
+                                required:
+                                - count
+                                - name
+                                type: object
+                              type: array
                             version:
                               description: Version controls which version of Kustomize
                                 to use for rendering manifests
@@ -1246,6 +1313,10 @@ spec:
                         description: CommonAnnotations is a list of additional annotations
                           to add to rendered manifests
                         type: object
+                      commonAnnotationsEnvsubst:
+                        description: CommonAnnotationsEnvsubst specifies whether to
+                          apply env variables substitution for annotation values
+                        type: boolean
                       commonLabels:
                         additionalProperties:
                           type: string
@@ -1276,6 +1347,29 @@ spec:
                         description: NameSuffix is a suffix appended to resources
                           for Kustomize apps
                         type: string
+                      namespace:
+                        description: Namespace sets the namespace that Kustomize adds
+                          to all resources
+                        type: string
+                      replicas:
+                        description: Replicas is a list of Kustomize Replicas override
+                          specifications
+                        items:
+                          properties:
+                            count:
+                              anyOf:
+                              - type: integer
+                              - type: string
+                              description: Number of replicas
+                              x-kubernetes-int-or-string: true
+                            name:
+                              description: Name of Deployment or StatefulSet
+                              type: string
+                          required:
+                          - count
+                          - name
+                          type: object
+                        type: array
                       version:
                         description: Version controls which version of Kustomize to
                           use for rendering manifests
@@ -1499,6 +1593,10 @@ spec:
                           description: CommonAnnotations is a list of additional annotations
                             to add to rendered manifests
                           type: object
+                        commonAnnotationsEnvsubst:
+                          description: CommonAnnotationsEnvsubst specifies whether
+                            to apply env variables substitution for annotation values
+                          type: boolean
                         commonLabels:
                           additionalProperties:
                             type: string
@@ -1530,6 +1628,29 @@ spec:
                           description: NameSuffix is a suffix appended to resources
                             for Kustomize apps
                           type: string
+                        namespace:
+                          description: Namespace sets the namespace that Kustomize
+                            adds to all resources
+                          type: string
+                        replicas:
+                          description: Replicas is a list of Kustomize Replicas override
+                            specifications
+                          items:
+                            properties:
+                              count:
+                                anyOf:
+                                - type: integer
+                                - type: string
+                                description: Number of replicas
+                                x-kubernetes-int-or-string: true
+                              name:
+                                description: Name of Deployment or StatefulSet
+                                type: string
+                            required:
+                            - count
+                            - name
+                            type: object
+                          type: array
                         version:
                           description: Version controls which version of Kustomize
                             to use for rendering manifests
@@ -1900,6 +2021,11 @@ spec:
                               description: CommonAnnotations is a list of additional
                                 annotations to add to rendered manifests
                               type: object
+                            commonAnnotationsEnvsubst:
+                              description: CommonAnnotationsEnvsubst specifies whether
+                                to apply env variables substitution for annotation
+                                values
+                              type: boolean
                             commonLabels:
                               additionalProperties:
                                 type: string
@@ -1932,6 +2058,29 @@ spec:
                               description: NameSuffix is a suffix appended to resources
                                 for Kustomize apps
                               type: string
+                            namespace:
+                              description: Namespace sets the namespace that Kustomize
+                                adds to all resources
+                              type: string
+                            replicas:
+                              description: Replicas is a list of Kustomize Replicas
+                                override specifications
+                              items:
+                                properties:
+                                  count:
+                                    anyOf:
+                                    - type: integer
+                                    - type: string
+                                    description: Number of replicas
+                                    x-kubernetes-int-or-string: true
+                                  name:
+                                    description: Name of Deployment or StatefulSet
+                                    type: string
+                                required:
+                                - count
+                                - name
+                                type: object
+                              type: array
                             version:
                               description: Version controls which version of Kustomize
                                 to use for rendering manifests
@@ -2165,6 +2314,11 @@ spec:
                                 description: CommonAnnotations is a list of additional
                                   annotations to add to rendered manifests
                                 type: object
+                              commonAnnotationsEnvsubst:
+                                description: CommonAnnotationsEnvsubst specifies whether
+                                  to apply env variables substitution for annotation
+                                  values
+                                type: boolean
                               commonLabels:
                                 additionalProperties:
                                   type: string
@@ -2197,6 +2351,29 @@ spec:
                                 description: NameSuffix is a suffix appended to resources
                                   for Kustomize apps
                                 type: string
+                              namespace:
+                                description: Namespace sets the namespace that Kustomize
+                                  adds to all resources
+                                type: string
+                              replicas:
+                                description: Replicas is a list of Kustomize Replicas
+                                  override specifications
+                                items:
+                                  properties:
+                                    count:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      description: Number of replicas
+                                      x-kubernetes-int-or-string: true
+                                    name:
+                                      description: Name of Deployment or StatefulSet
+                                      type: string
+                                  required:
+                                  - count
+                                  - name
+                                  type: object
+                                type: array
                               version:
                                 description: Version controls which version of Kustomize
                                   to use for rendering manifests
@@ -2575,6 +2752,11 @@ spec:
                                     description: CommonAnnotations is a list of additional
                                       annotations to add to rendered manifests
                                     type: object
+                                  commonAnnotationsEnvsubst:
+                                    description: CommonAnnotationsEnvsubst specifies
+                                      whether to apply env variables substitution
+                                      for annotation values
+                                    type: boolean
                                   commonLabels:
                                     additionalProperties:
                                       type: string
@@ -2607,6 +2789,29 @@ spec:
                                     description: NameSuffix is a suffix appended to
                                       resources for Kustomize apps
                                     type: string
+                                  namespace:
+                                    description: Namespace sets the namespace that
+                                      Kustomize adds to all resources
+                                    type: string
+                                  replicas:
+                                    description: Replicas is a list of Kustomize Replicas
+                                      override specifications
+                                    items:
+                                      properties:
+                                        count:
+                                          anyOf:
+                                          - type: integer
+                                          - type: string
+                                          description: Number of replicas
+                                          x-kubernetes-int-or-string: true
+                                        name:
+                                          description: Name of Deployment or StatefulSet
+                                          type: string
+                                      required:
+                                      - count
+                                      - name
+                                      type: object
+                                    type: array
                                   version:
                                     description: Version controls which version of
                                       Kustomize to use for rendering manifests
@@ -2858,6 +3063,11 @@ spec:
                                         additional annotations to add to rendered
                                         manifests
                                       type: object
+                                    commonAnnotationsEnvsubst:
+                                      description: CommonAnnotationsEnvsubst specifies
+                                        whether to apply env variables substitution
+                                        for annotation values
+                                      type: boolean
                                     commonLabels:
                                       additionalProperties:
                                         type: string
@@ -2890,6 +3100,29 @@ spec:
                                       description: NameSuffix is a suffix appended
                                         to resources for Kustomize apps
                                       type: string
+                                    namespace:
+                                      description: Namespace sets the namespace that
+                                        Kustomize adds to all resources
+                                      type: string
+                                    replicas:
+                                      description: Replicas is a list of Kustomize
+                                        Replicas override specifications
+                                      items:
+                                        properties:
+                                          count:
+                                            anyOf:
+                                            - type: integer
+                                            - type: string
+                                            description: Number of replicas
+                                            x-kubernetes-int-or-string: true
+                                          name:
+                                            description: Name of Deployment or StatefulSet
+                                            type: string
+                                        required:
+                                        - count
+                                        - name
+                                        type: object
+                                      type: array
                                     version:
                                       description: Version controls which version
                                         of Kustomize to use for rendering manifests
@@ -3241,6 +3474,11 @@ spec:
                                 description: CommonAnnotations is a list of additional
                                   annotations to add to rendered manifests
                                 type: object
+                              commonAnnotationsEnvsubst:
+                                description: CommonAnnotationsEnvsubst specifies whether
+                                  to apply env variables substitution for annotation
+                                  values
+                                type: boolean
                               commonLabels:
                                 additionalProperties:
                                   type: string
@@ -3273,6 +3511,29 @@ spec:
                                 description: NameSuffix is a suffix appended to resources
                                   for Kustomize apps
                                 type: string
+                              namespace:
+                                description: Namespace sets the namespace that Kustomize
+                                  adds to all resources
+                                type: string
+                              replicas:
+                                description: Replicas is a list of Kustomize Replicas
+                                  override specifications
+                                items:
+                                  properties:
+                                    count:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      description: Number of replicas
+                                      x-kubernetes-int-or-string: true
+                                    name:
+                                      description: Name of Deployment or StatefulSet
+                                      type: string
+                                  required:
+                                  - count
+                                  - name
+                                  type: object
+                                type: array
                               version:
                                 description: Version controls which version of Kustomize
                                   to use for rendering manifests
@@ -3517,6 +3778,11 @@ spec:
                                   description: CommonAnnotations is a list of additional
                                     annotations to add to rendered manifests
                                   type: object
+                                commonAnnotationsEnvsubst:
+                                  description: CommonAnnotationsEnvsubst specifies
+                                    whether to apply env variables substitution for
+                                    annotation values
+                                  type: boolean
                                 commonLabels:
                                   additionalProperties:
                                     type: string
@@ -3549,6 +3815,29 @@ spec:
                                   description: NameSuffix is a suffix appended to
                                     resources for Kustomize apps
                                   type: string
+                                namespace:
+                                  description: Namespace sets the namespace that Kustomize
+                                    adds to all resources
+                                  type: string
+                                replicas:
+                                  description: Replicas is a list of Kustomize Replicas
+                                    override specifications
+                                  items:
+                                    properties:
+                                      count:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        description: Number of replicas
+                                        x-kubernetes-int-or-string: true
+                                      name:
+                                        description: Name of Deployment or StatefulSet
+                                        type: string
+                                    required:
+                                    - count
+                                    - name
+                                    type: object
+                                  type: array
                                 version:
                                   description: Version controls which version of Kustomize
                                     to use for rendering manifests
@@ -3898,6 +4187,11 @@ spec:
                                 description: CommonAnnotations is a list of additional
                                   annotations to add to rendered manifests
                                 type: object
+                              commonAnnotationsEnvsubst:
+                                description: CommonAnnotationsEnvsubst specifies whether
+                                  to apply env variables substitution for annotation
+                                  values
+                                type: boolean
                               commonLabels:
                                 additionalProperties:
                                   type: string
@@ -3930,6 +4224,29 @@ spec:
                                 description: NameSuffix is a suffix appended to resources
                                   for Kustomize apps
                                 type: string
+                              namespace:
+                                description: Namespace sets the namespace that Kustomize
+                                  adds to all resources
+                                type: string
+                              replicas:
+                                description: Replicas is a list of Kustomize Replicas
+                                  override specifications
+                                items:
+                                  properties:
+                                    count:
+                                      anyOf:
+                                      - type: integer
+                                      - type: string
+                                      description: Number of replicas
+                                      x-kubernetes-int-or-string: true
+                                    name:
+                                      description: Name of Deployment or StatefulSet
+                                      type: string
+                                  required:
+                                  - count
+                                  - name
+                                  type: object
+                                type: array
                               version:
                                 description: Version controls which version of Kustomize
                                   to use for rendering manifests
@@ -4174,6 +4491,11 @@ spec:
                                   description: CommonAnnotations is a list of additional
                                     annotations to add to rendered manifests
                                   type: object
+                                commonAnnotationsEnvsubst:
+                                  description: CommonAnnotationsEnvsubst specifies
+                                    whether to apply env variables substitution for
+                                    annotation values
+                                  type: boolean
                                 commonLabels:
                                   additionalProperties:
                                     type: string
@@ -4206,6 +4528,29 @@ spec:
                                   description: NameSuffix is a suffix appended to
                                     resources for Kustomize apps
                                   type: string
+                                namespace:
+                                  description: Namespace sets the namespace that Kustomize
+                                    adds to all resources
+                                  type: string
+                                replicas:
+                                  description: Replicas is a list of Kustomize Replicas
+                                    override specifications
+                                  items:
+                                    properties:
+                                      count:
+                                        anyOf:
+                                        - type: integer
+                                        - type: string
+                                        description: Number of replicas
+                                        x-kubernetes-int-or-string: true
+                                      name:
+                                        description: Name of Deployment or StatefulSet
+                                        type: string
+                                    required:
+                                    - count
+                                    - name
+                                    type: object
+                                  type: array
                                 version:
                                   description: Version controls which version of Kustomize
                                     to use for rendering manifests
@@ -4323,7 +4668,7 @@ metadata:
     "helm.sh/resource-policy": keep
   labels:
     app.kubernetes.io/name: appprojects.argoproj.io
-    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/part-of: argocd 
   name: appprojects.argoproj.io
 spec:
   group: argoproj.io
@@ -4647,7 +4992,7 @@ kind: ClusterRole
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4671,7 +5016,7 @@ kind: ClusterRole
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -4695,7 +5040,7 @@ kind: ClusterRole
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4739,7 +5084,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4760,7 +5105,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-repo-server
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -4781,7 +5126,7 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4801,8 +5146,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: argocd-application-controller
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4844,8 +5190,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4892,8 +5239,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: argocd-application-controller
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -4913,8 +5261,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -4934,14 +5283,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-application-controller-metrics
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
 spec:
+  type: ClusterIP
   ports:
   - name: http-metrics
     protocol: TCP
@@ -4956,14 +5307,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-repo-server-metrics
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
 spec:
+  type: ClusterIP
   ports:
   - name: http-metrics
     protocol: TCP
@@ -4978,13 +5331,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
   name: argocd-repo-server
+  namespace: "argocd"
 spec:
   ports:
   - name: https-repo-server
@@ -5000,14 +5354,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-server-metrics
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
 spec:
+  type: ClusterIP
   ports:
   - name: http-metrics
     protocol: TCP
@@ -5022,8 +5378,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -5049,8 +5406,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: argocd-redis
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -5070,8 +5428,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-repo-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -5092,9 +5451,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5513f6ac319e4783242ff220f0c4db930e9fb2e8839c5eebad303aa2a4d4ccc7
+        checksum/cmd-params: 8faf4af41f0ba374823d2ea55be7e66906cae5c82f4221e21c77216549892779
       labels:
-        helm.sh/chart: argo-cd-5.28.1
+        helm.sh/chart: argo-cd-5.33.3
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
@@ -5108,12 +5467,10 @@ spec:
       serviceAccountName: default
       containers:
       - name: repo-server
-        image: quay.io/argoproj/argocd:v2.6.7
+        image: quay.io/argoproj/argocd:v2.7.2
         imagePullPolicy: IfNotPresent
-        command:
-          - "entrypoint.sh"
         args:
-        - argocd-repo-server
+        - /usr/local/bin/argocd-repo-server
         - --port=8081
         - --metrics-port=8084
         env:
@@ -5310,11 +5667,11 @@ spec:
             type: RuntimeDefault
       initContainers:
       - command:
-        - cp
+        - /bin/cp
         - -n
         - /usr/local/bin/argocd
         - /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v2.6.7
+        image: quay.io/argoproj/argocd:v2.7.2
         imagePullPolicy: IfNotPresent
         name: copyutil
         securityContext:
@@ -5376,8 +5733,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -5398,9 +5756,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5513f6ac319e4783242ff220f0c4db930e9fb2e8839c5eebad303aa2a4d4ccc7
+        checksum/cmd-params: 8faf4af41f0ba374823d2ea55be7e66906cae5c82f4221e21c77216549892779
       labels:
-        helm.sh/chart: argo-cd-5.28.1
+        helm.sh/chart: argo-cd-5.33.3
         app.kubernetes.io/name: argocd-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: server
@@ -5414,10 +5772,10 @@ spec:
       serviceAccountName: argocd-server
       containers:
       - name: server
-        image: quay.io/argoproj/argocd:v2.6.7
+        image: quay.io/argoproj/argocd:v2.7.2
         imagePullPolicy: IfNotPresent
-        command:
-        - argocd-server
+        args:
+        - /usr/local/bin/argocd-server
         - --port=8080
         - --metrics-port=8083
         env:
@@ -5732,8 +6090,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: argocd-redis
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
@@ -5748,7 +6107,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: argo-cd-5.28.1
+        helm.sh/chart: argo-cd-5.33.3
         app.kubernetes.io/name: argocd-redis
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: redis
@@ -5763,7 +6122,7 @@ spec:
       serviceAccountName: default
       containers:
       - name: redis
-        image: public.ecr.aws/docker/library/redis:7.0.7-alpine
+        image: public.ecr.aws/docker/library/redis:7.0.11-alpine
         imagePullPolicy: IfNotPresent
         args:
         - --save
@@ -5802,8 +6161,9 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: argocd-application-controller
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -5821,9 +6181,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5513f6ac319e4783242ff220f0c4db930e9fb2e8839c5eebad303aa2a4d4ccc7
+        checksum/cmd-params: 8faf4af41f0ba374823d2ea55be7e66906cae5c82f4221e21c77216549892779
       labels:
-        helm.sh/chart: argo-cd-5.28.1
+        helm.sh/chart: argo-cd-5.33.3
         app.kubernetes.io/name: argocd-application-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: application-controller
@@ -5836,10 +6196,10 @@ spec:
         runAsUser: 999
       serviceAccountName: argocd-application-controller
       containers:
-      - command:
-        - argocd-application-controller
+      - args:
+        - /usr/local/bin/argocd-application-controller
         - --metrics-port=8082
-        image: quay.io/argoproj/argocd:v2.6.7
+        image: quay.io/argoproj/argocd:v2.7.2
         imagePullPolicy: IfNotPresent
         name: application-controller
         env:
@@ -6042,8 +6402,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
@@ -6078,8 +6439,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: argocd-application-controller
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
@@ -6104,8 +6466,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: argocd-repo-server
+  namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
@@ -6130,8 +6493,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: argocd-server
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-5.28.1
+    helm.sh/chart: argo-cd-5.33.3
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
