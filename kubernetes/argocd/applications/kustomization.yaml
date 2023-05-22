@@ -2,6 +2,7 @@ resources:
 - adguardhome.yaml
 - argocd.yaml
 - cert-manager.yaml
+- chat-ui.yaml
 - cloudflare-ddns.yaml
 - external-dns.yaml
 - external-service-accounts.yaml
