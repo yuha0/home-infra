@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: basic-auth
+  namespace: chat-ui
+spec:
+  encryptedData:
+    auth: AgCr4ndNjv9tqdtDx8MJwlFOwgttzABFbnikqYCxECUC+C5sGyKUrCtE05kqjjejMTMsNhivxBMesASWynlQ5p9w0HlNb03gZCqDq6shZSUQgh5tYREEby3ip5opwmF8Ap/Xm0x4EuDnzz2qfkh7GCTeRJ0o3o4s+kZ57O2MBydh7/vwNjOL2c7sUtUnqCF/hjJ5CLUMk/9SAc2usAE+Fdcjd5B7pwI8OhXP9NMAK5VphO6XgLa6aYH567SSnN/kuP9IhrYH3VN45VZXQ9YqmTPCTpwzfuUw0tNW9vhqqWkYeaCXvN5MUbnwe1K27NTZb2olFiBjW9lXzbBzICWzl9AZt9y8AahkM7+mLUyniILLeLChcmuH2WxyII83AP+dsTtN40rYoRFEQlkKH4DourF/srL/vhr3wUdi7d1vQ14p1frLhz9D/AsCFWwtTPPgHb/gGkPm2Its4W22K8BrZpzMyN5TvLGQEaV1xJL10UGa7Y/IW2B2No1mTBwJKj9J7cdJ16PM4FZ+W3qLeyJ6LDeslT4CAtxsa1jIl+JJqmsoaa8XV6jJMnkT8mUv8jd8z3cZo4Xq9DQxcHHfLkHyVXveHwzbpXW/jHy6ysJBGWi86P0dgHdOKzy6sD5Xjv+3vp67wVMvJnCojXfQ4uuzVWey283xuixSjRTgMX7kRZigre3347Xaiy5y2MnO/JRMQj9emdAuJQJqUXaIzIFjAfNREOw4TY5p7ZH/xhJ0A0Vd+zNAParHw8UIy8/nHQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: basic-auth
+      namespace: chat-ui
+
