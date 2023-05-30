@@ -5,7 +5,7 @@
 ```
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
-helm template --kube-version 1.22.5 -f helm/values.yaml cert-manager jetstack/cert-manager --namespace cert-manager > generated.yaml
+helm template --kube-version 1.25.6 -f helm/values.yaml cert-manager jetstack/cert-manager --namespace cert-manager > generated.yaml
 ```
 
 ## Update `helm/values.yaml` to a newer commit
