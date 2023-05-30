@@ -19,4 +19,4 @@ configMapGenerator:
 images:
 - name: tailscale
   newName: docker.io/tailscale/tailscale
-  newTag: v1.40.1
+  newTag: v1.42.0
