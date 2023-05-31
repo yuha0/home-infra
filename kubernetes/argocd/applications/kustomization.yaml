@@ -12,6 +12,7 @@ resources:
 - kube-state-metrics.yaml
 - metallb-system.yaml
 - nfs-subdir.yaml
+- node-exporter.yaml
 - plex.yaml
 - prometheus.yaml
 - promtail.yaml
