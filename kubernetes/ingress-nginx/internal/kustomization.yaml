@@ -18,6 +18,16 @@ patches:
     kind: Deployment
     name: ingress-nginx-controller
   patch: |-
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
     - op: replace
       path: /spec/template/spec/containers/0/args
       value:
@@ -41,7 +51,7 @@ patches:
           memory: 200Mi
     - op: add
       path: /spec/replicas
-      value: 3
+      value: 1
 - target:
     group: batch
     kind: Job
