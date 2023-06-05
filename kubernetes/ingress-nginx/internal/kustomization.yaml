@@ -23,11 +23,13 @@ patches:
       value:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - matchExpressions:
-            - key: kubernetes.io/arch
-              operator: In
-              values:
-              - amd64
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
     - op: replace
       path: /spec/template/spec/containers/0/args
       value:
