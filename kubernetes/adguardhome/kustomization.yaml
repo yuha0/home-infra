@@ -2,27 +2,25 @@ namespace: adguardhome
 commonLabels:
   app.kubernetes.io/name: adguardhome
 resources:
-- namespace.yaml
-- sealed-config.yaml
-- service.yaml
-- deploy.yaml
-- ingress.yaml
-- servicemonitor.yaml
-
+  - namespace.yaml
+  - sealed-config.yaml
+  - service.yaml
+  - deploy.yaml
+  - ingress.yaml
+  - servicemonitor.yaml
 patches:
-- target:
-    group: apps
-    kind: Deployment
-    name: adguardhome
-  patch: |-
-    - op: add
-      path: /spec/replicas
-      value: 1
-
+  - target:
+      group: apps
+      kind: Deployment
+      name: adguardhome
+    patch: |-
+      - op: add
+        path: /spec/replicas
+        value: 1
 images:
-- name: adguardhome
-  newName: adguard/adguardhome
-  newTag: v0.107.29
-- name: adguard-exporter
-  newName: ebrianne/adguard-exporter
-  newTag: v1.14
+  - name: adguardhome
+    newName: adguard/adguardhome
+    newTag: v0.107.31
+  - name: adguard-exporter
+    newName: ebrianne/adguard-exporter
+    newTag: v1.14
