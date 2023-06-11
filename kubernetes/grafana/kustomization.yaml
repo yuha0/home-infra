@@ -2,28 +2,26 @@ namespace: grafana
 commonLabels:
   app.kubernetes.io/name: grafana
 resources:
-- namespace.yaml
-- sealed-grafana-admin.yaml
-- service.yaml
-- rbac.yaml
-- ingress.yaml
-- deployment.yaml
-- dashboards/adguardhome
-- dashboards/kubernetes
-- dashboards/unifi
-
+  - namespace.yaml
+  - sealed-grafana-admin.yaml
+  - service.yaml
+  - rbac.yaml
+  - ingress.yaml
+  - deployment.yaml
+  - dashboards/adguardhome
+  - dashboards/kubernetes
+  - dashboards/unifi
 configMapGenerator:
-- name: grafana-provisioning-datasources
-  files:
-  - datasources.yaml
-- name: grafana-provisioning-providers
-  files:
-  - providers.yaml
-
+  - name: grafana-provisioning-datasources
+    files:
+      - datasources.yaml
+  - name: grafana-provisioning-providers
+    files:
+      - providers.yaml
 images:
-- name: grafana
-  newName: grafana/grafana
-  newTag: 9.5.2
-- name: k8s-sidecar
-  newName: kiwigrid/k8s-sidecar
-  newTag: 1.24.4
+  - name: grafana
+    newName: grafana/grafana
+    newTag: 9.5.3
+  - name: k8s-sidecar
+    newName: kiwigrid/k8s-sidecar
+    newTag: 1.24.4
