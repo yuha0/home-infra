@@ -1,0 +1,10 @@
+namespace: homebridge
+resources:
+- namespace.yaml
+- deployment.yaml
+- ingress.yaml
+configMapGenerator:
+- name: homebridge
+  files:
+  - config.json
+  - package.json

@@ -1,0 +1,31 @@
+{
+  "bridge": {
+    "name": "Homebridge",
+    "username": "37:9B:7D:13:EC:2D",
+    "port": 51826,
+    "pin": "784-81-438"
+  },
+  "accessories": [
+    {
+      "accessory": "DummySwitch",
+      "name": "dummy1"
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "config",
+      "name": "Config",
+      "port": 8081,
+      "auth": "none",
+      "theme": "dark-mode",
+      "log": {
+        "method": "file",
+        "path": "/dev/stdout"
+      }
+    },
+    {
+      "platform": "TplinkSmarthome",
+      "name": "TplinkSmarthome"
+    }
+  ]
+}
