@@ -263,7 +263,7 @@ configs:
 
     ## Repo-server properties
     # -- Limit on number of concurrent manifests generate requests. Any value less the 1 means no limit.
-    reposerver.parallelism.limit: 3
+    reposerver.parallelism.limit: 1
 
     ## ApplicationSet Properties
     # -- Modify how application is synced between the generator and the cluster. One of: `sync`, `create-only`, `create-update`, `create-delete`
