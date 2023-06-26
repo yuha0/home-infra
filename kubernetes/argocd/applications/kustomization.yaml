@@ -43,10 +43,6 @@ patches:
     - op: add
       path: /spec/destinations/0/server
       value: https://kubernetes.default.svc
-    - op: add
-      path: /spec/signatureKeys
-      value:
-      - keyID: CD67D78AC53D68C5
 # Peg source repository for all applications, only sync `main` branch
 # Force sync policy
 - target:
