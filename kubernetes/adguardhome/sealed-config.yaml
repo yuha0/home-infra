@@ -14,9 +14,9 @@ spec:
   template:
     data:
       AdGuardHome.yaml: |
-        bind_host: 0.0.0.0
-        bind_port: 80
-        beta_bind_port: 0
+        http:
+          address: 0.0.0.0:80
+          session_ttl: 720h
         users:
         - name: #ADGUARD_USERNAME#
           password: #ADGUARD_PASSWORD#
@@ -25,7 +25,6 @@ spec:
         http_proxy: ""
         language: ""
         debug_pprof: false
-        web_session_ttl: 720
         dns:
           bind_hosts:
           - 0.0.0.0
@@ -80,7 +79,6 @@ spec:
           parental_cache_size: 1048576
           cache_time: 30
           rewrites: []
-          blocked_services: []
           upstream_timeout: 10s
           private_networks: []
           use_private_ptr_resolvers: true
@@ -174,7 +172,7 @@ spec:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 20
+        schema_version: 23
     metadata:
       creationTimestamp: null
       name: config
