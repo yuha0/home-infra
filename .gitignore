@@ -3,4 +3,5 @@ ansible/inventory/artifacts
 ansible/.env
 **/*.orig
 **/*.rej
+**/*secret*.yaml
 .DS_Store
