@@ -47,7 +47,7 @@ patches:
       path: /spec/signatureKeys
       value:
       - keyID: CD67D78AC53D68C5
-# Peg source repository for all applications, only sync `main` branch
+# Peg source repository for all applications, only sync with HEAD of default branch.
 # Force sync policy
 - target:
     group: argoproj.io
@@ -58,7 +58,7 @@ patches:
       value: "https://github.com/yuha0/home-infra.git"
     - op: add
       path: /spec/source/targetRevision
-      value: main
+      value: HEAD
     - op: add
       path: /spec/destination/server
       value: https://kubernetes.default.svc
