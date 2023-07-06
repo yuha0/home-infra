@@ -1,10 +1,17 @@
 namespace: homebridge
+commonLabels:
+  app.kubernetes.io/name: homebridge
 resources:
 - namespace.yaml
 - deployment.yaml
 - ingress.yaml
+- sealed-config.yaml
 configMapGenerator:
-- name: homebridge
+- name: package
   files:
-  - config.json
   - package.json
+
+images:
+- name: homebridge
+  newName: oznu/homebridge
+  newTag: "2023-01-08"

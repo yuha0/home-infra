@@ -1,22 +1,19 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    kubernetes.io/ingress.class: internal
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    cert-manager.io/cluster-issuer: letsencrypt
-  labels:
-    app: homebridge
   name: homebridge
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
+  ingressClassName: nginx-internal
   rules:
-  - host: homebridge.yuha0.com
+  - host: homebridge.internal.yuha0.com
     http:
       paths:
       - backend:
-          serviceName: homebridge-ui
-          servicePort: 8081
+          service:
+            name: homebridge-ui
+            port:
+              number: 8581
         path: /
-  tls:
-  - hosts:
-    - homebridge.yuha0.com
+        pathType: Prefix

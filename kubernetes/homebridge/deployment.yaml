@@ -2,71 +2,63 @@ apiVersion: v1
 kind: Service
 metadata:
   name: homebridge-ui
-  labels:
-    app: homebridge
 spec:
-  selector:
-    app: homebridge
   ports:
     - name: ui
-      port: 8081
-      targetPort: 8081
+      port: 8581
+      targetPort: 8581
 
 ---
 
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: homebridge
-  labels:
-    app: homebridge
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: homebridge
-  strategy:
-    type: Recreate
   template:
-    metadata:
-      labels:
-        app: homebridge
     spec:
       hostNetwork: true
       volumes:
-      - name: config
+      - name: package
         configMap:
-          name: homebridge
-      - name: data
-        hostPath:
-          path: /home/zzyzxd/homebridge
+          name: package
+      - name: config
+        secret:
+          secretName: config
       containers:
       - name: homebridge
-        image: oznu/homebridge:latest
+        image: homebridge
         imagePullPolicy: Always
         env:
         - name: TZ
-          value: America/Chicago
+          value: America/Los_Angeles
         - name: HOMEBRIDGE_CONFIG_UI
           value: "1"
         ports:
         - name: ui
-          containerPort: 8081
+          containerPort: 8581
         - name: bonjour
           containerPort: 5353
           hostPort: 5353
         - name: bridge
-          containerPort: 51826
-          hostPort: 51826
-        - name: tplink
-          containerPort: 9999
-          hostPort: 9999
+          containerPort: 51272
+          hostPort: 51272
         volumeMounts:
         - name: config
           mountPath: /homebridge/config.json
           subPath: config.json
-        - name: config
+        - name: package
           mountPath: /homebridge/package.json
           subPath: package.json
         - name: data
           mountPath: /homebridge
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      storageClassName: "nfs-client"
+      resources:
+        requests:
+          storage: 5Gi
