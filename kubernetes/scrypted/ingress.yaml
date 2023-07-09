@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: scrypted
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  ingressClassName: nginx-internal
+  rules:
+  - host: scrypted.internal.yuha0.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: scrypted-ui
+            port:
+              number: 10443
+        path: /
+        pathType: Prefix

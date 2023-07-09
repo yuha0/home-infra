@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: scrypted
+spec:
+  destinations:
+  - namespace: "scrypted"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: scrypted
+spec:
+  project: scrypted
+  source:
+    path: kubernetes/scrypted
+  destination:
+    namespace: scrypted

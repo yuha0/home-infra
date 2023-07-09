@@ -7,6 +7,7 @@ resources:
 - external-dns.yaml
 - external-service-accounts.yaml
 - grafana.yaml
+- homebridge.yaml
 - hubble.yaml
 - ingress-nginx.yaml
 - kube-state-metrics.yaml
@@ -16,6 +17,7 @@ resources:
 - plex.yaml
 - prometheus.yaml
 - promtail.yaml
+- scrypted.yaml
 - sealed-secrets.yaml
 - system-service-monitors.yaml
 - tailscale.yaml

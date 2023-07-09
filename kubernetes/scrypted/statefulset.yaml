@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: scrypted-ui
+spec:
+  ports:
+  - name: ui
+    port: 10443
+    targetPort: 10443
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: scrypted
+spec:
+  replicas: 1
+  template:
+    spec:
+      hostNetwork: true
+      volumes:
+      - name: package
+        configMap:
+          name: package
+      - name: config
+        secret:
+          secretName: config
+      containers:
+      - name: scrypted
+        image: scrypted
+        imagePullPolicy: Always
+        ports:
+        - name: ui
+          containerPort: 10443
+        volumeMounts:
+        - name: data
+          mountPath: /scrypted
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      storageClassName: "nfs-client"
+      resources:
+        requests:
+          storage: 10Gi
