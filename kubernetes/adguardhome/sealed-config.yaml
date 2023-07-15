@@ -154,12 +154,14 @@ spec:
             dhcp: true
             hosts: true
           persistent: []
-        log_compress: false
-        log_localtime: false
-        log_max_backups: 0
-        log_max_size: 100
-        log_max_age: 3
-        log_file: ""
+        log:
+          compress: false
+          localtime: false
+          max_backups: 0
+          max_size: 100
+          max_age: 3
+          file: ""
+          verbose: false
         statistics:
           interval: 24h
         querylog:
@@ -167,12 +169,11 @@ spec:
           file_enabled: true
           interval: 2160h
           size_memory: 1000
-        verbose: false
         os:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 23
+        schema_version: 24
     metadata:
       creationTimestamp: null
       name: config
