@@ -1,5 +1,5 @@
 ---
-# cilium_version: "v1.12.1"
+cilium_version: "v1.13.4"
 
 # Log-level
 # cilium_debug: false
@@ -52,7 +52,7 @@ cilium_enable_prometheus: true
 # Only effective when monitor aggregation is set to "medium" or higher.
 # cilium_monitor_aggregation_flags: "all"
 # Kube Proxy Replacement mode (strict/partial)
-# cilium_kube_proxy_replacement: partial
+cilium_kube_proxy_replacement: disabled
 
 # If upgrading from Cilium < 1.5, you may want to override some of these options
 # to prevent service disruptions. See also:
@@ -178,7 +178,11 @@ cilium_hubble_tls_generate: true
 ##  cilium_config_extra_vars:
 ##    var1: "value1"
 ##    var2: "value2"
-# cilium_config_extra_vars: {}
+cilium_config_extra_vars:
+  kube-proxy-replacement-healthz-bind-address: ""
+  enable-host-port: "false"
+  enable-external-ips: "true"
+  enable-node-port: "true"
 
 # For adding and mounting extra volumes to the cilium operator
 # cilium_operator_extra_volumes: []
