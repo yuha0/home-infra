@@ -1,7 +1,7 @@
 # Ansible Server configuration
 
-![kubespray](https://img.shields.io/badge/kubespray-v2.18.0-green.svg)
-![kubernetes](https://img.shields.io/badge/kubernetes-v1.22.5-green.svg)
+![kubespray](https://img.shields.io/badge/kubespray-v2.22.0-green.svg)
+![kubernetes](https://img.shields.io/badge/kubernetes-v1.26.5-green.svg)
 
 Ansible playbook for basic server setup and then bootstrap a [kubernetes-sigs/kubespray] cluster.
 
