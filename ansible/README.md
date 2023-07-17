@@ -18,7 +18,7 @@ Ansible playbook for basic server setup and then bootstrap a [kubernetes-sigs/ku
 
 ## Operations
 
-Create a Python environment and then `pip install kubespray/requirements.txt`.
+Create a Python environment and then `pip install -r kubespray/requirements.txt`.
 
 See [official documentation site] for common operations like create/modify/delete clusters.
 
