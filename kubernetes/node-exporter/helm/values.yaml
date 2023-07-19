@@ -5,7 +5,7 @@ image:
   registry: quay.io
   repository: prometheus/node-exporter
   # Overrides the image tag whose default is {{ printf "v%s" .Chart.AppVersion }}
-  tag: "v1.6.0"
+  tag: "v1.6.1"
   pullPolicy: IfNotPresent
   digest: ""
 
@@ -341,9 +341,9 @@ dnsConfig: {}
 
 ## Assign a nodeSelector if operating a hybrid cluster
 ##
-nodeSelector: {}
-#   beta.kubernetes.io/arch: amd64
-#   beta.kubernetes.io/os: linux
+nodeSelector:
+  kubernetes.io/os: linux
+  #  kubernetes.io/arch: amd64
 
 tolerations:
   - effect: NoSchedule
@@ -432,8 +432,17 @@ readinessProbe:
 # Enable vertical pod autoscaler support for prometheus-node-exporter
 verticalPodAutoscaler:
   enabled: false
+
+  # Recommender responsible for generating recommendation for the object.
+  # List should be empty (then the default recommender will generate the recommendation)
+  # or contain exactly one recommender.
+  # recommenders:
+  # - name: custom-recommender-performance
+
   # List of resources that the vertical pod autoscaler can control. Defaults to cpu and memory
   controlledResources: []
+  # Specifies which resource values should be controlled: RequestsOnly or RequestsAndLimits.
+  # controlledValues: RequestsAndLimits
 
   # Define the max allowed resources for the pod
   maxAllowed: {}
@@ -445,6 +454,17 @@ verticalPodAutoscaler:
   # memory: 100Mi
 
   # updatePolicy:
+    # Specifies minimal number of replicas which need to be alive for VPA Updater to attempt pod eviction
+    # minReplicas: 1
     # Specifies whether recommended updates are applied when a Pod is started and whether recommended updates
     # are applied during the life of a Pod. Possible values are "Off", "Initial", "Recreate", and "Auto".
     # updateMode: Auto
+
+# Extra manifests to deploy as an array
+extraManifests: []
+  # - apiVersion: v1
+  #   kind: ConfigMap
+  #   metadata:
+  #     name: prometheus-extra
+  #   data:
+  #     extra-data: "value"

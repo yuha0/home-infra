@@ -6,13 +6,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.17.3
+    helm.sh/chart: prometheus-node-exporter-4.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.5.0"
+    app.kubernetes.io/version: "1.6.0"
   annotations:
     prometheus.io/scrape: "true"
 spec:
@@ -34,13 +34,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.17.3
+    helm.sh/chart: prometheus-node-exporter-4.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.5.0"
+    app.kubernetes.io/version: "1.6.0"
 ---
 # Source: prometheus-node-exporter/templates/service.yaml
 apiVersion: v1
@@ -49,13 +49,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.17.3
+    helm.sh/chart: prometheus-node-exporter-4.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.5.0"
+    app.kubernetes.io/version: "1.6.0"
   annotations:
     prometheus.io/scrape: "true"
 spec:
@@ -76,13 +76,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.17.3
+    helm.sh/chart: prometheus-node-exporter-4.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.5.0"
+    app.kubernetes.io/version: "1.6.0"
 spec:
   selector:
     matchLabels:
@@ -97,13 +97,13 @@ spec:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
-        helm.sh/chart: prometheus-node-exporter-4.17.3
+        helm.sh/chart: prometheus-node-exporter-4.20.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: prometheus-node-exporter
         app.kubernetes.io/name: prometheus-node-exporter
         app.kubernetes.io/instance: monitoring
-        app.kubernetes.io/version: "1.5.0"
+        app.kubernetes.io/version: "1.6.0"
     spec:
       automountServiceAccountToken: false
       securityContext:
@@ -114,7 +114,7 @@ spec:
       serviceAccountName: monitoring-prometheus-node-exporter
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.6.0
+          image: quay.io/prometheus/node-exporter:v1.6.1
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
@@ -173,6 +173,8 @@ spec:
               readOnly: true
       hostNetwork: true
       hostPID: true
+      nodeSelector:
+        kubernetes.io/os: linux
       tolerations:
         - effect: NoSchedule
           operator: Exists
@@ -194,13 +196,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.17.3
+    helm.sh/chart: prometheus-node-exporter-4.20.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.5.0"
+    app.kubernetes.io/version: "1.6.0"
 spec:
   jobLabel: app.kubernetes.io/name
   
