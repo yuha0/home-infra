@@ -15,11 +15,20 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: subrouter
+  labels:
+    app.kubernetes.io/component: subrouter
 spec:
-  replicas: 1
+  replicas: 5
   serviceName: subrouter
   template:
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - topologyKey: "kubernetes.io/hostname"
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: subrouter
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
