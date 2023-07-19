@@ -18,7 +18,7 @@ metadata:
   labels:
     app.kubernetes.io/component: subrouter
 spec:
-  replicas: 1
+  replicas: 5
   serviceName: subrouter
   template:
     spec:
@@ -40,6 +40,10 @@ spec:
         - configMapRef:
             name: config
         env:
+        - name: TS_KUBE_SECRET
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         - name: TS_AUTHKEY
           valueFrom:
             secretKeyRef:

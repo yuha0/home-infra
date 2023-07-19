@@ -1,7 +1,6 @@
 namespace: tailscale
 commonLabels:
   app.kubernetes.io/name: tailscale
-  app.kubernetes.io/component: subrouter
 resources:
 - namespace.yaml
 - rbac.yaml
@@ -12,7 +11,6 @@ configMapGenerator:
 - name: config
   literals:
   - TS_USERSPACE=true
-  - TS_KUBE_SECRET=state
   - TS_ROUTES=10.0.0.0/8
   - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080"
 
