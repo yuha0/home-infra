@@ -18,7 +18,7 @@ metadata:
   labels:
     app.kubernetes.io/component: subrouter
 spec:
-  replicas: 5
+  replicas: 1
   serviceName: subrouter
   template:
     spec:
