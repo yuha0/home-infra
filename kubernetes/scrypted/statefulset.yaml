@@ -35,7 +35,7 @@ spec:
           containerPort: 10443
         volumeMounts:
         - name: data
-          mountPath: /scrypted
+          mountPath: /server/volume
   volumeClaimTemplates:
   - metadata:
       name: data
