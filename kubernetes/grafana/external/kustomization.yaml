@@ -1,4 +1,6 @@
 nameSuffix: -external
+commonLabels:
+  app.kubernetes.io/instance: grafana-external
 resources:
 - ../base
 - ingress.yaml
