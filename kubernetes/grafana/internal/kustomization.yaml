@@ -1,0 +1,15 @@
+nameSuffix: -internal
+resources:
+- ../base
+- ingress.yaml
+patches:
+- target:
+    group: apps
+    kind: Deployment
+    name: grafana
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: GF_SERVER_ROOT_URL
+        value: https://grafana.internal.yuha0.com   

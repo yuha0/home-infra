@@ -4,10 +4,9 @@ commonLabels:
 resources:
   - namespace.yaml
   - sealed-grafana-admin.yaml
-  - service.yaml
   - rbac.yaml
-  - ingress.yaml
-  - deployment.yaml
+  - internal
+  - external
   - dashboards/adguardhome
   - dashboards/kubernetes
   - dashboards/unifi
