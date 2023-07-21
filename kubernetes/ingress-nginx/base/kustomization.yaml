@@ -13,3 +13,20 @@ patches:
     - op: add
       path: /metadata/annotations/argocd.argoproj.io~1hook-delete-policy
       value: BeforeHookCreation
+- target:
+    group: apps
+    kind: Deployment
+    name: ingress-nginx-controller
+  patch: |-
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
