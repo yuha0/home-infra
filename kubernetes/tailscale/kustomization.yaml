@@ -18,3 +18,13 @@ images:
 - name: tailscale
   newName: docker.io/tailscale/tailscale
   newTag: v1.44.0
+
+patches:
+- target:
+    group: apps
+    kind: StatefulSet
+    name: subrouter
+  patch: |-
+    - op: add
+      path: /spec/replicas
+      value: 5
