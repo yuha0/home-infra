@@ -1,6 +1,5 @@
 resources:
 - deploy.yaml
-- clusterip.yaml
 
 patches:
 - target:
