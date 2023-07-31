@@ -52,7 +52,7 @@ cilium_enable_prometheus: true
 # Only effective when monitor aggregation is set to "medium" or higher.
 # cilium_monitor_aggregation_flags: "all"
 # Kube Proxy Replacement mode (strict/partial)
-cilium_kube_proxy_replacement: disabled
+cilium_kube_proxy_replacement: partial
 
 # If upgrading from Cilium < 1.5, you may want to override some of these options
 # to prevent service disruptions. See also:
@@ -152,7 +152,7 @@ cilium_hubble_metrics:
 - icmp
 - http
 ### Enable Hubble install
-cilium_hubble_install: false
+cilium_hubble_install: true
 ### Enable auto generate certs if cilium_hubble_install: true
 cilium_hubble_tls_generate: true
 
