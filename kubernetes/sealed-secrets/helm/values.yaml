@@ -2,7 +2,7 @@
 
 ## @param kubeVersion Override Kubernetes version
 ##
-kubeVersion: "1.22"
+kubeVersion: "1.26"
 ## @param nameOverride String to partially override sealed-secrets.fullname
 ##
 nameOverride: ""
@@ -33,7 +33,7 @@ commonAnnotations: {}
 image:
   registry: docker.io
   repository: bitnami/sealed-secrets-controller
-  tag: v0.22.0
+  tag: v0.23.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -76,6 +76,15 @@ rateLimitBurst: ""
 ## @param additionalNamespaces List of namespaces used to manage the Sealed Secrets
 ##
 additionalNamespaces: []
+## @param privateKeyAnnotations Map of annotations to be set on the sealing keypairs
+## 
+privateKeyAnnotations: {}
+## @param privateKeyLabels Map of labels to be set on the sealing keypairs
+## 
+privateKeyLabels: {}
+## @param logInfoStdout Specifies whether the Sealed Secrets controller will log info to stdout
+##
+logInfoStdout: false
 ## @param command Override default container command
 ##
 command: []
@@ -324,6 +333,18 @@ networkPolicy:
   ## @param networkPolicy.enabled Specifies whether a NetworkPolicy should be created
   ##
   enabled: true
+  ## NetworkPolicy Egress configuration
+  ##
+  egress:
+    ## @param networkPolicy.egress.enabled Specifies wheter a egress is set in the NetworkPolicy
+    ##
+    enabled: false
+    ## @param networkPolicy.egress.kubeapiCidr Specifies the kubeapiCidr, which is the only egress allowed. If not set, kubeapiCidr will be found using Helm lookup
+    ##
+    kubeapiCidr: ""
+    ## @param networkPolicy.egress.kubeapiPort Specifies the kubeapiPort, which is the only egress allowed. If not set, kubeapiPort will be found using Helm lookup
+    ##
+    kubeapiPort: ""
 
 ## @section Other Parameters
 
@@ -356,6 +377,12 @@ rbac:
   ## @param rbac.clusterRoleName Specifies the name for the Cluster Role resource
   ##
   clusterRoleName: "secrets-unsealer"
+  ## @param rbac.namespacedRoles Specifies whether the namespaced Roles should be created (in each of the specified additionalNamespaces)
+  ##
+  namespacedRoles: false
+  ## @param rbac.namespacedRolesName Specifies the name for the namesapced Role resource
+  ##
+  namespacedRolesName: "secrets-unsealer"
   ## @param rbac.labels Extra labels to be added to RBAC resources
   ##
   labels: {}
