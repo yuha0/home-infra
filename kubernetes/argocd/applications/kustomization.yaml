@@ -13,6 +13,7 @@ resources:
 - metallb-system.yaml
 - nfs-subdir.yaml
 - node-exporter.yaml
+- nut-exporter.yaml
 - plex.yaml
 - prometheus.yaml
 - promtail.yaml

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nut-exporter
+spec:
+  template:
+    spec:
+      nodeSelector:
+        nodepool.yuha0.com/usb: ups
+      containers:
+      - name: nut-client
+        image: nut-client
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: usb-ups
+          mountPath: /dev/usb/ups
+          readOnly: true
+        env:
+        - name: NUT_CLIENT_DRIVER
+          value: "usbhid-ups"
+        - name: NUT_CLIENT_NAME
+          value: "ups"
+        - name: NUT_CLIENT_PORT
+          value: "auto"
+        envFrom:
+        - secretRef:
+            name: nut-client-secrets
+      - name: nut-exporter
+        image: nut-exporter
+        ports:
+        - containerPort: 9199
+      volumes:
+      - name: usb-ups
+        hostPath:
+          path: /dev/usb/hiddev0
+          type: CharDevice

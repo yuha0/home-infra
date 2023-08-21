@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: nut-exporter
+spec:
+  destinations:
+  - namespace: "nut-exporter"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nut-exporter
+spec:
+  project: nut-exporter
+  source:
+    path: kubernetes/nut-exporter
+  destination:
+    namespace: nut-exporter
