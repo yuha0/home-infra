@@ -8,6 +8,7 @@ resources:
   - internal
   - external
   - dashboards/adguardhome
+  - dashboards/hardware
   - dashboards/kubernetes
   - dashboards/unifi
 configMapGenerator:
