@@ -8,6 +8,11 @@ spec:
   - interval: 5s
     port: metrics
     path: /ups_metrics
+    params:
+      ups: ["ups"]
+    relabelings:
+    - targetLabel: ups
+      replacement: ups
   - interval: 30s
     port: metrics
     path: /metrics
