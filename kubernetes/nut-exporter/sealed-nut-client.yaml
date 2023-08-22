@@ -1,0 +1,16 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: nut-client-secrets
+  namespace: nut-exporter
+spec:
+  encryptedData:
+    NUT_CLIENT_PASSWORD: AgBXm+9tcT7Zzwe5U8sll0v4XNUcTQB8xQL4qO2PI7+v2FRrFmQ+b1fFqLUuOWagGkQH5yJs+1EEwjBXCl85ZvOpnVALodRB0hCxbUgJ9/De+ZZJYy3kDLk5yeQHUFUqqfmRRW8YaDzepzuJ07u19zwXxERkhZezmlduOnlIn7bBw5DU0ZGK/NwdzH4r+hXn1sNc/qwjVcJjCRxQNnJAVVVYFPeb56LDRoNSzWPZkvXWssnLmzHsXHPzRj79qlGtLJMqiZLd/6vBKB3roSU44LEPcHamowwM6lu87onUk+2bXUZU9oFXoaipiatA3hyngRsaR0HbzKz9xENfAGIUnY36wNIcZ8k289LhgTnG8BuaSPe1UWgGu8vMcftddBHuvt/HDzZYQLSWA6PAb6WsZpm/mO1bmhLX4D1k6zJNvQePrE+4kIF2uv/BPQa5TR/ynDO2lFeZQDwfZXyr3ZBxCWhz01BYUFGitbEjvegVS49BDFrgR51WTcCrXYmpRefSJoEh0SqInLZkSkccu/dv+BhbVMLGTGXxBxEMgUl4JvJjWN/pmwrJzi0/tYNk8RXlC6ltwdNLF2VSddJm/F1eg2TJhjBW5teJx2B7Jpp7UcplAjmH3xDBX5TUMQh0dcvdvcGUwBllxwjziSrUSrGIayzg81Zq7BraOoRDMudntHwBGU+aBx5Kmto9Fh6rLbEzGGOw3aYJHleCFBfZyjc8Oed/gB7zlujPsxogVfRX6/AzTN0IBh1Q8L5p
+  template:
+    metadata:
+      creationTimestamp: null
+      name: nut-client-secrets
+      namespace: nut-exporter
+    type: Opaque
+

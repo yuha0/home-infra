@@ -6,7 +6,7 @@ resources:
 - namespace.yaml
 - service.yaml
 - daemonset.yaml
-- sealed-nut-client-secrets.yaml
+- sealed-nut-client.yaml
 - servicemonitor.yaml
 images:
 - name: nut-client
