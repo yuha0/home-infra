@@ -23,6 +23,10 @@ spec:
           value: "ups"
         - name: NUT_CLIENT_PORT
           value: "auto"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["upsdrvctl", "stop"]
         envFrom:
         - secretRef:
             name: nut-client-secrets
