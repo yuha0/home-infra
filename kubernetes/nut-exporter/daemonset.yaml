@@ -30,6 +30,9 @@ spec:
         image: nut-exporter
         ports:
         - containerPort: 9199
+        args:
+        - --nut.vars_enable
+        - ""
       volumes:
       - name: usb-ups
         hostPath:
