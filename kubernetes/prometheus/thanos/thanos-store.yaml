@@ -25,7 +25,7 @@ metadata:
     app.kubernetes.io/component: store
   name: thanos-store
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: store
