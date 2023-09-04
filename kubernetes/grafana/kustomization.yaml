@@ -21,7 +21,7 @@ configMapGenerator:
 images:
   - name: grafana
     newName: grafana/grafana
-    newTag: 10.1.0
+    newTag: 10.1.1
   - name: k8s-sidecar
     newName: kiwigrid/k8s-sidecar
     newTag: 1.25.1
