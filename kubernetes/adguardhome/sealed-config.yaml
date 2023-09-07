@@ -17,6 +17,8 @@ spec:
         http:
           address: 0.0.0.0:80
           session_ttl: 720h
+          pprof:
+            enabled: false
         users:
         - name: #ADGUARD_USERNAME#
           password: #ADGUARD_PASSWORD#
@@ -24,12 +26,17 @@ spec:
         block_auth_min: 15
         http_proxy: ""
         language: ""
-        debug_pprof: false
-        dns:
-          bind_hosts:
-          - 0.0.0.0
-          port: 53
-          anonymize_client_ip: false
+        filtering:
+          filtering_enabled: true
+          filters_update_interval: 24
+          parental_enabled: false
+          safebrowsing_enabled: false
+          safebrowsing_cache_size: 1048576
+          safesearch_cache_size: 1048576
+          parental_cache_size: 1048576
+          safe_search:
+            enabled: false
+          rewrites: []
           protection_enabled: true
           blocking_mode: default
           blocking_ipv4: ""
@@ -37,6 +44,11 @@ spec:
           blocked_response_ttl: 10
           parental_block_host: family-block.dns.adguard.com
           safebrowsing_block_host: standard-block.dns.adguard.com
+        dns:
+          bind_hosts:
+          - 0.0.0.0
+          port: 53
+          anonymize_client_ip: false
           ratelimit: 20
           ratelimit_whitelist: []
           refuse_any: true
@@ -68,17 +80,7 @@ spec:
             custom_ip: ''
           max_goroutines: 300
           ipset: []
-          filtering_enabled: true
-          filters_update_interval: 24
-          parental_enabled: false
-          safe_search:
-            enabled: false
-          safebrowsing_enabled: false
-          safebrowsing_cache_size: 1048576
-          safesearch_cache_size: 1048576
-          parental_cache_size: 1048576
           cache_time: 30
-          rewrites: []
           upstream_timeout: 10s
           private_networks: []
           use_private_ptr_resolvers: true
@@ -173,7 +175,7 @@ spec:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 24
+        schema_version: 27
     metadata:
       creationTimestamp: null
       name: config
