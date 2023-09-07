@@ -9,9 +9,7 @@ resources:
 - service-monitor.yaml
 - prometheus-rule.yaml
 images:
-- name: kube-state-metrics
-  newName: registry.k8s.io/kube-state-metrics/kube-state-metrics
-  newTag: v2.9.1
-- name: kube-rbac-proxy
-  newName: quay.io/brancz/kube-rbac-proxy
-  newTag: v0.14.1
+- name: registry.k8s.io/kube-state-metrics/kube-state-metrics
+  newTag: v2.10.0
+- name: quay.io/brancz/kube-rbac-proxy
+  newTag: v0.14.2
