@@ -5,7 +5,7 @@
 image:
   repository: registry.k8s.io/external-dns/external-dns
   # Overrides the image tag whose default is v{{ .Chart.AppVersion }}
-  tag: "v0.13.6"
+  tag: "v0.14.0"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -31,6 +31,8 @@ rbac:
   create: true
   additionalPermissions: []
 
+initContainers: []
+
 # Annotations to add to the Deployment
 deploymentAnnotations: {}
 
@@ -43,8 +45,11 @@ shareProcessNamespace: false
 
 podSecurityContext:
   fsGroup: 65534
+  seccompProfile:
+    type: RuntimeDefault
 
 securityContext:
+  allowPrivilegeEscalation: false
   runAsNonRoot: true
   runAsUser: 65534
   readOnlyRootFilesystem: true
@@ -184,9 +189,15 @@ secretConfiguration:
 
 policy: upsert-only
 
+# Specifies the registry for storing ownership and labels.
+# Valid values are "aws-sd", "noop", "dynamodb", and "txt".
 registry: txt
+# When using a registry other than "noop", specifies a name that
+# uniquely identifies this instance of external-dns.
 txtOwnerId: ""
+# Specifies a prefix for the domain names of TXT records created by the "txt" registry. Optional. Mutually exclusive with `txtSuffix`.
 txtPrefix: ""
+# Specifies a suffix for the domain names of TXT records created by the "txt" registry. Optional. Mutually exclusive with `txtPrefix`.
 txtSuffix: ""
 
 domainFilters:
