@@ -160,10 +160,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 spec:
   podSelector:
@@ -182,10 +182,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 ---
 # Source: sealed-secrets/templates/cluster-role.yaml
@@ -195,10 +195,10 @@ metadata:
   name: secrets-unsealer
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 rules:
   - apiGroups:
@@ -241,10 +241,10 @@ metadata:
   name: sealed-secrets-controller
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -264,10 +264,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 rules:
   - apiGroups:
@@ -294,10 +294,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 rules:
   - apiGroups:
@@ -328,10 +328,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -351,10 +351,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -373,10 +373,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 spec:
   type: ClusterIP
@@ -397,10 +397,10 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.2
+    helm.sh/chart: sealed-secrets-2.13.3
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/version: v0.24.3
+    app.kubernetes.io/version: v0.24.4
     app.kubernetes.io/part-of: sealed-secrets
 spec:
   replicas: 1
@@ -427,7 +427,7 @@ spec:
             - "2160h30m"
             - --key-prefix
             - "sealed-secrets-key"
-          image: docker.io/bitnami/sealed-secrets-controller:v0.24.3
+          image: docker.io/bitnami/sealed-secrets-controller:v0.24.4
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
