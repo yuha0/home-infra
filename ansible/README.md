@@ -42,7 +42,11 @@ git diff --relative v1 v2 group_vars > /tmp/group_vars.diff
 cd ../../../inventory
 patch -s -p1 < /tmp/group_vars.diff
 
-# 4. Follow official docs instruction to upgrade the cluster
+# 4. Upgrade the ansible python environment
+cd ..
+pip install --upgrade -r kubespray/requirements.txt
+
+# 5. Follow official docs instruction to upgrade the cluster
 ```
 
 [kubernetes-sigs/kubespray]: https://github.com/kubernetes-sigs/kubespray
