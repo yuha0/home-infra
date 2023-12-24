@@ -93,6 +93,10 @@ spec:
                     description: Used to facilitate programmatic handling of secret
                       data.
                     type: string
+                  immutable:
+                    description: 'Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified).
+                      If not set to true, the field can be modified at any time. Defaulted to nil.'
+                    type: boolean
                 type: object
             required:
             - encryptedData
@@ -160,7 +164,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -182,7 +186,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -195,7 +199,7 @@ metadata:
   name: secrets-unsealer
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -241,7 +245,7 @@ metadata:
   name: sealed-secrets-controller
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -264,7 +268,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -294,7 +298,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -328,7 +332,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -351,7 +355,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -373,7 +377,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -397,7 +401,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
@@ -405,9 +409,9 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: http
+    - name: metrics
       port: 8081
-      targetPort: http
+      targetPort: metrics
       nodePort: null
   selector:
     app.kubernetes.io/name: sealed-secrets
@@ -421,7 +425,7 @@ metadata:
   namespace: kube-system
   labels:
     app.kubernetes.io/name: sealed-secrets
-    helm.sh/chart: sealed-secrets-2.13.4
+    helm.sh/chart: sealed-secrets-2.14.1
     app.kubernetes.io/instance: sealed-secrets-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: v0.24.5
