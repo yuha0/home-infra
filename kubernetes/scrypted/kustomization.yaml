@@ -8,4 +8,4 @@ resources:
 images:
 - name: scrypted
   newName: koush/scrypted
-  newTag: "18-jammy-lite-v0.68.0"
+  newTag: "18-jammy-lite-v0.72.0"
