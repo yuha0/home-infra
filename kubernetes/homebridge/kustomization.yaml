@@ -14,4 +14,4 @@ configMapGenerator:
 images:
 - name: homebridge
   newName: homebridge/homebridge
-  newTag: "2023-11-28"
+  newTag: "2023-12-28"
