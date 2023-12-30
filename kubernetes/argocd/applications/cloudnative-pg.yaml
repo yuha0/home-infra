@@ -28,4 +28,4 @@ spec:
   source:
     path: kubernetes/cloudnative-pg
   destination:
-    namespace: cloudnative-pg
+    namespace: cnpg-system
