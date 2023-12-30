@@ -1,0 +1,19 @@
+namespace: cnpg-system
+resources:
+- base
+- rbac.yaml
+patches:
+- target:
+    group: apps
+    kind: Deployment
+    name: cnpg-controller-manager
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 3
+configMapGenerator:
+- name: cnpg-controller-manager-config
+  literals:
+  - WATCH_NAMESPACE=cnpg-system
+generatorOptions:
+ disableNameSuffixHash: true

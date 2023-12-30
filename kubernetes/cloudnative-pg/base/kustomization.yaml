@@ -1,0 +1,15 @@
+resources:
+- cnpg.yaml
+patches:
+- patch: |-
+    $patch: delete
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRole
+    metadata:
+      name: cnpg-manager
+- patch: |-
+    $patch: delete
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: cnpg-manager-rolebinding
