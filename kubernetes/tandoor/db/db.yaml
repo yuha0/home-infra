@@ -6,14 +6,17 @@ spec:
   description: "database for tandoor recipes"
   inheritedMetadata:
     labels:
-      app.kubernetes.io/name: cnpg
+      app.kubernetes.io/name: cnpg-tandoor
       app.kubernetes.io/part-of: tandoor
   imageName: ghcr.io/cloudnative-pg/postgresql:16.1
   instances: 3
   primaryUpdateStrategy: unsupervised
-  enableSuperuserAccess: true
-  superuserSecret:
-    name: superuser-tandoor
+  bootstrap:
+    initdb:
+      database: recipes
+      owner: recipes
+      secret:
+        name: tandoor-user-secret
   storage:
     size: 10Gi
   startDelay: 300

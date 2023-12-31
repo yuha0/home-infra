@@ -1,0 +1,20 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: tandoor-user-secret
+  namespace: cnpg-system
+spec:
+  encryptedData:
+    password: AgAVc50tbW5Kn77bm+fzH9GivveaAnHW2DGpxJeK6sctF1E+sdaN71D29B9UqXYnmyr2dC2vW5+dTTlER1UNeyB3ImjuKTg+FDhKsrjCBXocEFRyU44CweAlzjRzD+dFZ9G4t/e4SQ5zbNqCxaZW1wawQmFx6Fg1bY0D3yrN+VeCed8OH/PxJyvVXfKgJugMszgL/LDi/H1gnJi0Uo1argPy8T59h6MIhc2ztXK67bUqnKllPQrg1L1gueB7Fki9ct5A3OAL6/2RYPhZb34pYGd4DwvTtjVS9yAWh3Mtz8DVo0ZAfUsEMH/6/7XjVDCmH9MXaa/FDJBcuztR220zDyTPVgO7H6Dyeg3UHlM81OjRJpQ+B4OERU+XoqtXLFB7QpP3mow47c2d9IxeWF+EVBQ/9IeocDbg8tHfU4cbt0fzJxIP/oJNk3GG0sZAzR7fmLNoJoKrg50MTKEX/Dh5Xl8Ypo0ytFktwDeTdCTcCpytMQypHJBLLPu4hWIJPRVVUzjPoP4GlgFEQCLS05d7djtCAH+9pe1tyHxIZin7GkMjhCmZwqt3WE+phgV2ew3IMNrs8yGQ1N+NhO6P50obgx2a2kVWslsCZ9bi7GDAf7w/rp/Czp52rqypezhUGY1dmPcYd0QVREpjX6U2yB1JelgBLIAONHNjru1rTDozkC40A/D6ENugQbZqdv9xUnfZ+7unxN+bzMlxMwahv+esCfYUogEbCQU+mN1yQewrYbc=
+    username: AgCh13T52P8yeBoZIF+8mFAVz2xl5I3TaHVSRhIFc8KuSP0J5/QBCSuQ6UPaRC1uhxN1yhlQM2KXRldlu0ZVPzWZuCNWIU8XtVXCdLQilCvWX1EHYMXEGbcu/wza8EqI8473ah+pXE/cktiEzqt1VxFF0zYmLJxZ29Ghk11B2RhS2Wnq/IWcJPS3pyzdEgYjYfSBQ/RaVJI3cW7mMnsbB8gORbp/hkGZo1OO5McZwxHj4KMiH/bOnqY+f/Roq09MJriTpobQHtdELDVUB4C/h9Pr6sybmAURJYPRIYGDj5TcGndUyYWHQ+fE2dpRgZG+SjuXRtvFhDPmR94rfUAkeBX7ivQP/4AtADVYsPN7hGQRiSBeS9DqO3vPw9BLHDJr/TqPe4tIe8x1ionpoqbrbPwNOwCu3Z3Xnw2l+8AVu6vwdcwao6MWHs1DaIsATlVB8fcCz6gHNAwrDgtPCF3GDfSoM+MBGxSVodLfGIDQlcmKr5rRdgU6ABOKSu1/O9vpd7saiaoke2GUakheGhDXdn9NtLDxyhXRypFk2AKwjsMsMAJZSE2Ul4G0fvdaSYGHI4A1IvsqsXyw7g2KoFLBJGs4k+R6idLOfgiuOTpXmXAUyzn3V/XxUKJj4cHglz1p4Gr4LcSkkgAEenX11HgcJ9eyIOSpHfKs+ukWFSE2R39qWI4a/Zbji639hwAQMEvs7AJnEX0FURoO
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: cnpg-tandoor
+        app.kubernetes.io/part-of: tandoor
+      name: tandoor-user-secret
+      namespace: cnpg-system
+    type: kubernetes.io/basic-auth
