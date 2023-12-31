@@ -13,14 +13,16 @@ spec:
         envFrom:
         - secretRef:
             name: db
+        - secretRef:
+            name: email
+        - configMapRef:
+            name: app-config
         env:
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: django-secret-key
               key: secret-key
-        - name: DB_ENGINE
-          value: django.db.backends.postgresql
         image: recipes
         imagePullPolicy: Always
         resources:
@@ -124,20 +126,16 @@ spec:
         envFrom:
         - secretRef:
             name: db
+        - secretRef:
+            name: email
+        - configMapRef:
+            name: app-config
         env:
-        - name: DEBUG
-          value: "0"
-        - name: ALLOWED_HOSTS
-          value: '*'
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: django-secret-key
               key: secret-key
-        - name: GUNICORN_MEDIA
-          value: "0"
-        - name: DB_ENGINE
-          value: django.db.backends.postgresql
         securityContext:
           runAsUser: 65534
       volumes:

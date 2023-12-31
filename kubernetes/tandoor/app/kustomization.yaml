@@ -10,7 +10,27 @@ resources:
 - ingress.yaml
 - sealed-db.yaml
 - sealed-django-key.yaml
+- sealed-email.yaml
 configMapGenerator:
+- name: app-config
+  literals:
+  - ALLOWED_HOSTS="*"
+  - COMMENT_PREF_DEFAULT="1"
+  - DB_ENGINE=django.db.backends.postgresql
+  - DEBUG="0"
+  - DEBUG_TOOLBAR="0"
+  - ENABLE_METRICS="1"
+  - ENABLE_PDF_EXPORT="1"
+  - ENABLE_SIGNUP="0"
+  - EXPORT_FILE_CACHE_DURATION="600"
+  - FRACTION_PREF_DEFAULT="0"
+  - GUNICORN_LOG_LEVEL="info"
+  - GUNICORN_MEDIA="0"
+  - GUNICORN_WORKERS="4"
+  - REMOTE_USER_AUTH="0"
+  - SQL_DEBUG="0"
+  - STICKY_NAV_PREF_DEFAULT="1"
+  - TZ=America/Los_Angeles
 - name: nginx-config
   files:
   - nginx.conf
