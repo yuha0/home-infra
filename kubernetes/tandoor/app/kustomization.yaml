@@ -1,0 +1,23 @@
+commonLabels:
+  app.kubernetes.io/name: recipes
+  app.kubernetes.io/part-of: tandoor
+namespace: tandoor
+resources:
+- namespace.yaml
+- volumes.yaml
+- service.yaml
+- deployment.yaml
+- ingress.yaml
+- sealed-db.yaml
+- sealed-django-secret-key.yaml
+configMapGenerator:
+- name: nginx-config
+  files:
+  - nginx.conf
+images:
+- name: nginx
+  newName: docker.io/nginx
+  newTag: 1.24.0-bullseye
+- name: recipes
+  newName: docker.io/vabene1111/recipes
+  newTag: "1.5.10"

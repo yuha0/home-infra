@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: tandoor
+spec:
+  destinations:
+  - namespace: "tandoor"
+  - namespace: "cnpg-system"
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tandoor
+spec:
+  project: tandoor
+  source:
+    path: kubernetes/tandoor
+  destination:
+    namespace: tandoor

@@ -1,0 +1,24 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: db
+  namespace: tandoor
+spec:
+  encryptedData:
+    POSTGRES_PASSWORD: AgBUkyRVV8/raF3jjGfjABag1mv4QDP53/NQ4PGwnbZ4izZeBmoN4ZNyrWkMalBy6ICgcBNSNfPjdEPUM3bWJU2w6qArNkSILE/F5dZPlcCrNc2h6oV7wrFGjvd7YRT4RLY7Z2Sb2ld7bh6GrCzsiEhi3YdQWqb8869RoYtL3qtqJ5UE5hnK02W3fXtc8XIm9P3q0pAyxkiXLOSwL5st3sS23YJjUWhegZXUN3KAwj34uhuJkHXBKstQhSXh5GWWMAH35H4rnnQUcZjShNEcYczJ7VLo4efJ753CpvxQlpR3bwGzqPyJxwT9jKb9UhvgkF3XEi8HVwDlZjxKGsEn1p8P4iD/0elq6MqD+qlSLrewrdjQFDqq36d2/IM6EcU8Ayxb5hZ/YKtmAGolWl195eDm4xlgn4oPb0WnEg2f2DK/BV8FRwAossW8Yj12T8lt3xlpeGs0CHb8R2h24tm2NJ+5jg24AROCANmhjuontHoX1sup9fCAxEj6U8WphinleKKHfMbcvEnfiaGK+8C8xQbOcQORLlj3mi9vGfO4+huJF5MMvuNMy++t3nSxIu8fSxe02m+dnHBI/BGd2Ek1zOM/IGil/GaVHRECht4UmOB9VTX5damBXKXHVkDx5vAy3nQDQ6mz9qAQXxgtbLq5vAQPDtKKT9QUaSDpkAFCX0JAcoP0IzoHSIBFGtlvcRDUcXPcF0wLOYIsQQ/A2/5tRg46665EfVBdS36NLrDYEl4=
+  template:
+    data:
+      POSTGRES_DB: recipes
+      POSTGRES_HOST: tandoor-rw.cnpg-system.svc.cluster.local
+      POSTGRES_PORT: "5432"
+      POSTGRES_USER: recipes
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: recipes
+        app.kubernetes.io/part-of: tandoor
+      name: db
+      namespace: tandoor
+    type: Opaque

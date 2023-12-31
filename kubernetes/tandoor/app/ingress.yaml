@@ -1,0 +1,75 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: recipes-internal
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx-internal
+  rules:
+  - host: tandoor.internal.yuha0.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: recipes
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+      - backend:
+          service:
+            name: recipes
+            port:
+              number: 80
+        path: /media
+        pathType: Prefix
+      - backend:
+          service:
+            name: recipes
+            port:
+              number: 80
+        path: /static
+        pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: recipes-external
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.alpha.kubernetes.io/target: "ddns.yuha0.com"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/limit-connections: "10"
+spec:
+  ingressClassName: nginx-external
+  rules:
+  - host: tandoor.yuha0.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: recipes
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+      - backend:
+          service:
+            name: recipes
+            port:
+              number: 80
+        path: /media
+        pathType: Prefix
+      - backend:
+          service:
+            name: recipes
+            port:
+              number: 80
+        path: /static
+        pathType: Prefix
+  tls:
+    - hosts:
+      - tandoor.yuha0.com
+      secretName: tandoor-tls-certificate
