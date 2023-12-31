@@ -1,7 +1,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: tandoor-client
+  name: tandoor
   namespace: cnpg-system
 spec:
   endpointSelector:
@@ -9,6 +9,7 @@ spec:
       app.kubernetes.io/name: cnpg
       app.kubernetes.io/part-of: tandoor
       cnpg.io/cluster: tandoor
+      cnpg.io/podRole: instance
   ingress:
   - fromEndpoints:
     - matchLabels:
