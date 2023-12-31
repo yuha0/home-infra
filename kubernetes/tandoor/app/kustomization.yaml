@@ -9,7 +9,7 @@ resources:
 - deployment.yaml
 - ingress.yaml
 - sealed-db.yaml
-- sealed-django-secret-key.yaml
+- sealed-django-key.yaml
 configMapGenerator:
 - name: nginx-config
   files:

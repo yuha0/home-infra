@@ -1,0 +1,19 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: django-secret-key
+  namespace: tandoor
+spec:
+  encryptedData:
+    secret-key: AgAjPWSGmL7hH8oRigSuJyotTfFPFPiOW62j16hFd0ixR423qNl5JBq9HrRddL8+8884pI3F9IQFt55ywXtslMZ3MBy5Zol9fdtII/e4wvCMlWJ8qDMlAQF60QYOf0M+7sz3R/glwG4swdckgi+3qjTQEH/Uk+GxeeRy0yp02/G89qsZFkWOkJ13l6ZXUyvhc4rpYYBwhiUUUhKOSqy/VffvKltb0tTyr4qbESMapDbRF5KUprDLmmLdkKGBLOOIRLbJk8lJEMdvv3vCdhlnANCKSEI8xxNnI7oZNF6APPUrXTTOZNg9EBxqwCTYB9wAs1YQu968bVxUE+vLDijB7UYFmBvNRBeK8t3/B9Ux3F0jmJfmCVb/uCrI9h53dt4RN1Wmk4nNcImElfQnh0Dv2OiZCqRCKDHGy8wkbLWRy4shSdiT6B62MicU3wjrNXWSm/SapzP4MIctqUxSAI2LBlxAf8mJkzLvLNb4aMrUbXY73aJdEIRQLKbdQfsKC+69zTaCHtDu4oP+owsVszreg9hRa3/0aVqFByYH6CYabF00B/h1w88nXPMs3CZkcAGIinsZpg56dz7a1XyxSxxed9ulEM+2q6rvtzRVfpH3mQGmsJ8rvtJPCJusk7whDTAWo8xTvw/XAJl5LrJi1G6eooWfYqsECN5XWIF2h6Jslhm3kFnCfrPnaxwJBans2PgX5dhSXbg1tTbyCW3p7HCicvKrlBGz6RdkgWqrjFy3vsQy17Wbg0v0jhE6B7NQm0it/STHAy3Vki1ydLNIwB4JXotqeXC/Oy28GBtsrnb6AqJBTxWXJPmYe2C6LOdTUFTKvtkUAijsDo+8Ozsy3DeQT9zVxMjZ91bLoMQT/15vVMh6lMMVs3RRgB8PCVYf2oxXiuNzg9CAV4Fi2J89aVOLbIodUkTX8qoUAg4fY96ghRp2+zgfyn90Pm6MaX+FxKgijptUKsmcb+MgzA==
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/name: recipes
+        app.kubernetes.io/part-of: tandoor
+      name: django-secret-key
+      namespace: tandoor
+    type: Opaque
