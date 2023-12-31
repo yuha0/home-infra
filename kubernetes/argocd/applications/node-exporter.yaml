@@ -5,6 +5,7 @@ metadata:
 spec:
   destinations:
   - namespace: "monitoring"
+    server: https://kubernetes.default.svc
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application

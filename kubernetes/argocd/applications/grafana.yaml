@@ -5,6 +5,7 @@ metadata:
 spec:
   destinations:
   - namespace: "grafana"
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace

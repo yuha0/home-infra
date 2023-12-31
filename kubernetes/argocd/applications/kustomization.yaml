@@ -33,8 +33,7 @@ patches:
       path: /metadata/finalizers
       value:
       - resources-finalizer.argocd.argoproj.io
-# Peg allowed repositories for all projects
-# Peg destination server
+# Peg allowed repositories/signature for all projects
 - target:
     group: argoproj.io
     kind: AppProject
@@ -43,9 +42,6 @@ patches:
       path: /spec/sourceRepos
       value:
       - "https://github.com/yuha0/home-infra.git"
-    - op: add
-      path: /spec/destinations/0/server
-      value: https://kubernetes.default.svc
     - op: add
       path: /spec/signatureKeys
       value:

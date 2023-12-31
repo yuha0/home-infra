@@ -5,7 +5,9 @@ metadata:
 spec:
   destinations:
   - namespace: "tandoor"
+    server: https://kubernetes.default.svc
   - namespace: "cnpg-system"
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace

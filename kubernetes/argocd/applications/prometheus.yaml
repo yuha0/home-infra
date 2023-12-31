@@ -6,6 +6,7 @@ metadata:
 spec:
   destinations:
   - namespace: "monitoring"
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace

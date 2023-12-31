@@ -5,6 +5,7 @@ metadata:
 spec:
   destinations:
   - namespace: "kube-system"
+    server: https://kubernetes.default.svc
   namespaceResourceWhitelist:
   - group: 'networking.k8s.io'
     kind: Ingress
