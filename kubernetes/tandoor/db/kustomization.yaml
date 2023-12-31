@@ -1,0 +1,8 @@
+commonLabels:
+  app.kubernetes.io/name: cnpg
+  app.kubernetes.io/part-of: tandoor
+namespace: cnpg-system
+resources:
+- db.yaml
+- sealed-superuser.yaml
+- network-policy.yaml

@@ -1,0 +1,35 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: tandoor-client
+  namespace: cnpg-system
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: cnpg
+      app.kubernetes.io/part-of: tandoor
+      cnpg.io/cluster: tandoor
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: tandoor
+    toPorts:
+    - ports:
+      - port: "5432"
+  - fromEndpoints:
+    - {}
+  egress:
+  - toEndpoints:
+    - {}
+  - toServices:
+    - k8sService:
+        serviceName: kubernetes
+        namespace: default
+    toPorts:
+    - ports:
+      - port: "443"
+  - toCIDRSet:
+    - cidr: 169.254.25.10/32
+    toPorts:
+    - ports:
+      - port: "53"

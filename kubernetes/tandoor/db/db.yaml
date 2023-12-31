@@ -1,0 +1,32 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: tandoor
+spec:
+  description: "database for tandoor recipes"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: cnpg
+      app.kubernetes.io/part-of: tandoor
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.1
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: superuser-tandoor
+  storage:
+    size: 10Gi
+  startDelay: 300
+  stopDelay: 300
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: 500m
+    limits:
+      memory: "1Gi"
+      cpu: "1"
