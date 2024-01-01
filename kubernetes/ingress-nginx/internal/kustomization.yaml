@@ -35,11 +35,11 @@ patches:
       path: /spec/template/spec/containers/0/resources
       value:
         requests:
-          cpu: 120m
-          memory: 200Mi
+          cpu: 500m
+          memory: 500Mi
         limits:
-          cpu: 120m
-          memory: 200Mi
+          cpu: 500m
+          memory: 500Mi
     - op: add
       path: /spec/replicas
       value: 2
