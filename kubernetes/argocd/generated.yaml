@@ -6633,10 +6633,10 @@ spec:
           failureThreshold: 3
         resources:
           limits:
-            cpu: 100m
+            cpu: 200m
             memory: 128Mi
           requests:
-            cpu: 100m
+            cpu: 200m
             memory: 128Mi
         securityContext:
           allowPrivilegeEscalation: false
@@ -6980,11 +6980,11 @@ spec:
           failureThreshold: 3
         resources:
           limits:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 1000m
+            memory: 1024Mi
           requests:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 1000m
+            memory: 1024Mi
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
