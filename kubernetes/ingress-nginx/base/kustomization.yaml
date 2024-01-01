@@ -46,3 +46,13 @@ patches:
             app.kubernetes.io/instance: ingress-nginx
         matchLabelKeys:
         - pod-template-hash
+- target:
+    group: ""
+    kind: ConfigMap
+    name: ingress-nginx-controller
+  patch: |-
+    - op: replace
+      path: /data
+      value:
+        allow-snippet-annotations: "false"
+        force-ssl-redirect: "true"

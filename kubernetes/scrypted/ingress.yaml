@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: scrypted
   annotations:
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: nginx-internal
