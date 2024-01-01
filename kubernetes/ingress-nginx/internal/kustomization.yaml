@@ -41,7 +41,7 @@ patches:
           memory: 200Mi
     - op: add
       path: /spec/replicas
-      value: 1
+      value: 2
 - target:
     group: batch
     kind: Job
