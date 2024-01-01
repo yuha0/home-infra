@@ -1,0 +1,4 @@
+- name: common
+  import_playbook: common.yml
+- name: Deploy cluster
+  import_playbook: kubespray/scale.yml
