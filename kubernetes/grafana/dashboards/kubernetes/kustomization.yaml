@@ -19,6 +19,12 @@ configMapGenerator:
 - name: controller-manager
   files:
   - controller-manager.json
+- name: ingress-nginx
+  files:
+  - ingress-nginx.json
+- name: ingress-nginx-requests
+  files:
+  - ingress-nginx-requests.json
 - name: k8s-resources-cluster
   files:
   - k8s-resources-cluster.json
