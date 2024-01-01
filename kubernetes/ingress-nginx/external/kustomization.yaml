@@ -2,6 +2,7 @@ nameSuffix: -external
 namespace: ingress-nginx-external
 resources:
 - ../base
+- servicemonitor.yaml
 
 patches:
 - target:

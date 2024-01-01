@@ -3,6 +3,7 @@ namespace: ingress-nginx-internal
 resources:
 - ../base
 - certificate.yaml
+- servicemonitor.yaml
 
 patches:
 - target:

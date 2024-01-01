@@ -1,5 +1,6 @@
 resources:
 - deploy.yaml
+- metrics-service.yaml
 
 patches:
 - target:
