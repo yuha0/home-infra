@@ -149,7 +149,7 @@ spec:
           claimName: static
       - name: pyppeteer
         persistentVolumeClaim:
-          claimName: static
+          claimName: pyppeteer
       - name: nginx-config
         configMap:
           name: nginx-config
