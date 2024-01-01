@@ -123,6 +123,8 @@ spec:
           name: static
           # mount as subPath due to lost+found on ext4 pvc
           subPath: files
+        - mountPath: /pyppeteer
+          name: pyppeteer
         envFrom:
         - secretRef:
             name: db
@@ -143,6 +145,9 @@ spec:
         persistentVolumeClaim:
           claimName: media
       - name: static
+        persistentVolumeClaim:
+          claimName: static
+      - name: pyppeteer
         persistentVolumeClaim:
           claimName: static
       - name: nginx-config

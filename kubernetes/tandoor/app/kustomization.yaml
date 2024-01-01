@@ -27,7 +27,7 @@ configMapGenerator:
   - GUNICORN_LOG_LEVEL="info"
   - GUNICORN_MEDIA="0"
   - GUNICORN_WORKERS="4"
-  - PYPPETEER_HOME="/static/pyppeteer/"
+  - PYPPETEER_HOME="/pyppeteer/"
   - REMOTE_USER_AUTH="0"
   - SQL_DEBUG="0"
   - STICKY_NAV_PREF_DEFAULT="1"
