@@ -56,33 +56,6 @@ spec:
           # mount as subPath due to lost+found on ext4 pvc
           subPath: files
       containers:
-      - name: recipes-nginx
-        image: nginx
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-          protocol: TCP
-          name: http
-        - containerPort: 8080
-          protocol: TCP
-          name: gunicorn
-        resources:
-          requests:
-            cpu: 250m
-            memory: 64Mi
-        volumeMounts:
-        - mountPath: /media
-          name: media
-          # mount as subPath due to lost+found on ext4 pvc
-          subPath: files
-        - mountPath: /static
-          name: static
-          # mount as subPath due to lost+found on ext4 pvc
-          subPath: files
-        - name: nginx-config
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
-          readOnly: true
       - name: recipes
         image: recipes
         imagePullPolicy: IfNotPresent
@@ -140,6 +113,33 @@ spec:
               key: secret-key
         securityContext:
           runAsUser: 65534
+      - name: recipes-nginx
+        image: nginx
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          protocol: TCP
+          name: http
+        - containerPort: 8080
+          protocol: TCP
+          name: gunicorn
+        resources:
+          requests:
+            cpu: 250m
+            memory: 64Mi
+        volumeMounts:
+        - mountPath: /media
+          name: media
+          # mount as subPath due to lost+found on ext4 pvc
+          subPath: files
+        - mountPath: /static
+          name: static
+          # mount as subPath due to lost+found on ext4 pvc
+          subPath: files
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          readOnly: true
       volumes:
       - name: media
         persistentVolumeClaim:
