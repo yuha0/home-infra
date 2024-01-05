@@ -11,4 +11,4 @@ resources:
 images:
 - name: cloudflare-ddns
   newName: ghcr.io/yuha0/cloudflare-ddns
-  newTag: v0.0.2
+  newTag: sha-0059f1e2e9c70fe767183eac2b38892ee765d56e
