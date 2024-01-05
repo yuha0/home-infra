@@ -7,8 +7,10 @@ resources:
 - sealed-cf-api.yaml
 - rbac.yaml
 - deploy.yaml
+- service.yaml
+- servicemonitor.yaml
 
 images:
 - name: cloudflare-ddns
   newName: ghcr.io/yuha0/cloudflare-ddns
-  newTag: sha-d725710875bd0f7e9504e1ae9f6e17e62f8a3c9e
+  newTag: v0.0.3

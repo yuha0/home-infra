@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cloudflare-ddns
 spec:
-  replicas: 2
+  replicas: 3
   revisionHistoryLimit: 2
   strategy:
     type: RollingUpdate
@@ -42,6 +42,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        ports:
+        - containerPort: 2157
         envFrom:
         - secretRef:
             name: cf-api

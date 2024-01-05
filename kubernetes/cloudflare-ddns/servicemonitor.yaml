@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cloudflare-ddns
+spec:
+  endpoints:
+  - interval: 60s
+    port: metrics
+    path: /metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cloudflare-ddns
