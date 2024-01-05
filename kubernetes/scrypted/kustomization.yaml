@@ -7,5 +7,5 @@ resources:
 - ingress.yaml
 images:
 - name: scrypted
-  newName: koush/scrypted
-  newTag: "18-jammy-lite-v0.72.0"
+  newName: ghcr.io/koush/scrypted
+  newTag: "18-jammy-lite-v0.80.0"
