@@ -4,7 +4,6 @@ commonLabels:
 namespace: tandoor
 resources:
 - namespace.yaml
-- volumes.yaml
 - service.yaml
 - deployment.yaml
 - ingress.yaml
