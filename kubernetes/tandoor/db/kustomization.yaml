@@ -3,6 +3,5 @@ commonLabels:
   app.kubernetes.io/part-of: tandoor
 namespace: cnpg-system
 resources:
-- db.yaml
 - sealed-tandoor-user.yaml
 - network-policy.yaml
