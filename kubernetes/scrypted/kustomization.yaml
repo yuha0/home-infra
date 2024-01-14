@@ -8,4 +8,4 @@ resources:
 images:
 - name: scrypted
   newName: ghcr.io/koush/scrypted
-  newTag: "18-jammy-lite-v0.80.0"
+  newTag: "18-jammy-lite-v0.85.0"
