@@ -42,6 +42,8 @@ patches:
                 operator: In
                 values:
                 - amd64
+    - op: remove
+      path: /spec/minReadySeconds
 - target:
     group: ""
     kind: ConfigMap
