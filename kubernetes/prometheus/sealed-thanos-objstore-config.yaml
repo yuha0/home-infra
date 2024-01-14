@@ -14,7 +14,7 @@ spec:
       thanos.yaml: |
         type: S3
         config:
-          bucket: "thanos"
+          bucket: "prometheus"
           endpoint: "fred.lab.yuha0.com:8010"
           insecure: false
           signature_version2: true
