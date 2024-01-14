@@ -9,8 +9,8 @@ spec:
     cluster: k0
     prom_shard: "$(SHARD)"
   image: quay.io/prometheus/prometheus:v2.48.1
-  replicas: 0
-  shards: 0
+  replicas: 1
+  shards: 15
   resources:
     limits:
       cpu: 300m
