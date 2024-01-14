@@ -4,6 +4,8 @@ commonLabels:
 resources:
 - ingress.yaml
 - thanos-query.yaml
+- thanos-store.yaml
+- thanos-compact.yaml
 
 images:
 - name: thanos
