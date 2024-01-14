@@ -3,6 +3,7 @@ commonLabels:
   app.kubernetes.io/name: homebridge
 resources:
 - namespace.yaml
+- statefulset.yaml
 - ingress.yaml
 - sealed-config.yaml
 configMapGenerator:
