@@ -19,23 +19,6 @@ patches:
     name: ingress-nginx-controller
   patch: |-
     - op: add
-      path: /spec/template/spec/affinity
-      value:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-              - key: kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-- target:
-    group: apps
-    kind: Deployment
-    name: ingress-nginx-controller
-  patch: |-
-    - op: add
       path: /spec/template/spec/topologySpreadConstraints
       value:
       - maxSkew: 1
@@ -47,6 +30,18 @@ patches:
             app.kubernetes.io/instance: ingress-nginx
         matchLabelKeys:
         - pod-template-hash
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
 - target:
     group: ""
     kind: ConfigMap
