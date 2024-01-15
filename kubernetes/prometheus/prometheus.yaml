@@ -8,7 +8,7 @@ spec:
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
-  image: quay.io/prometheus/prometheus:v2.49.0
+  image: quay.io/prometheus/prometheus:v2.49.1
   replicas: 1
   shards: 15
   resources:
@@ -39,4 +39,4 @@ spec:
       key: thanos.yaml
       name: thanos-objstore-config
     version: v0.33.0
-  version: v2.49.0
+  version: v2.49.1
