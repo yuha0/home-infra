@@ -1,0 +1,13 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-qnap
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: fred.lab.yuha0.com
+  share: /k8s-volumes
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+mountOptions:
+- nfsvers=4.1

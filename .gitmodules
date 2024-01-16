@@ -34,3 +34,6 @@
 [submodule "kubernetes/velero/helm/helm-charts"]
 	path = kubernetes/velero/helm/helm-charts
 	url = https://github.com/vmware-tanzu/helm-charts.git
+[submodule "kubernetes/csi-driver-nfs/helm/csi-driver-nfs"]
+	path = kubernetes/csi-driver-nfs/helm/csi-driver-nfs
+	url = https://github.com/kubernetes-csi/csi-driver-nfs.git

@@ -4,6 +4,7 @@ resources:
 - cert-manager.yaml
 - cloudflare-ddns.yaml
 - cloudnative-pg.yaml
+- csi-driver-nfs.yaml
 - external-dns.yaml
 - external-service-accounts.yaml
 - grafana.yaml

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: csi-driver-nfs
+spec:
+  destinations:
+  - namespace: "kube-system"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: storage.k8s.io
+    kind: StorageClass
+  - group: storage.k8s.io
+    kind: CSIDriver
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: csi-driver-nfs
+spec:
+  project: csi-driver-nfs
+  source:
+    path: kubernetes/csi-driver-nfs
+  destination:
+    namespace: kube-system
