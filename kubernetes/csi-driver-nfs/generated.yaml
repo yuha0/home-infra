@@ -1081,7 +1081,7 @@ spec:
           type: RuntimeDefault
       nodeSelector:
         kubernetes.io/os: linux
-        node-role.kubernetes.io/node: null
+        node-role.kubernetes.io/node: ""
       tolerations:
         - operator: Exists
       containers:

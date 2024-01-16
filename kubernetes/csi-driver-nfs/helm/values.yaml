@@ -96,7 +96,7 @@ node:
     healthPort: 29653
   affinity: {}
   nodeSelector:
-    node-role.kubernetes.io/node:
+    node-role.kubernetes.io/node: ''
   priorityClassName: system-cluster-critical
   tolerations:
     - operator: "Exists"
