@@ -4,7 +4,6 @@ commonLabels:
   app.kubernetes.io/instance: plex
 resources:
 - namespace.yaml
-- sealed-claim.yaml
 - volume.yaml
 - statefulset.yaml
 - ingress.yaml

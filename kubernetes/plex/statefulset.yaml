@@ -46,6 +46,7 @@ spec:
             secretKeyRef:
               name: claim-code
               key: code
+              optional: true
         volumeMounts:
         - name: config
           mountPath: /config
