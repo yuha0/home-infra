@@ -13,10 +13,10 @@ spec:
   shards: 15
   resources:
     limits:
-      cpu: 300m
-      memory: 400Mi
+      cpu: 600m
+      memory: 600Mi
     requests:
-      cpu: 300m
+      cpu: 400m
       memory: 400Mi
   retention: 12h
   securityContext:
