@@ -24,6 +24,8 @@ spec:
       nodeSelector:
         kubernetes.io/arch: amd64
       securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
         fsGroup: 1000
       containers:
       - name: plex
@@ -41,6 +43,10 @@ spec:
           value: "1000"
         - name: ADVERTISE_IP
           value: https://plex.internal.yuha0.com
+        - name: CHANGE_CONFIG_DIR_OWNERSHIP
+          value: "false"
+        - name: ALLOWED_NETWORKS
+          value: "10.0.0.0/8,100.64.0.0/16"
         - name: PLEX_CLAIM
           valueFrom:
             secretKeyRef:
