@@ -24,7 +24,8 @@ spec:
       nodeSelector:
         kubernetes.io/arch: amd64
       securityContext:
-        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
       - name: plex
         image: plexinc/pms-docker
@@ -56,9 +57,7 @@ spec:
           mountPath: /media
       volumes:
       - name: transcode
-        hostPath:
-          path: /var/opt/plex-transcode
-          type: DirectoryOrCreate
+        emptyDir: {}
       - name: config
         hostPath:
           path: /var/opt/plex
@@ -66,3 +65,12 @@ spec:
       - name: media
         persistentVolumeClaim:
           claimName: media
+  volumeClaimTemplates:
+  - metadata:
+      name: config
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "nfs-qnap"
+      resources:
+        requests:
+          storage: 1Gi
