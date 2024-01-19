@@ -2,3 +2,4 @@ namespace: kube-system
 resources:
 - generated.yaml
 - storageclass.yaml
+- snapshotclass.yaml
