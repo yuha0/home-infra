@@ -2,16 +2,6 @@ apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
   creationTimestamp: null
-  name: default
-  namespace: metallb-system
-spec:
-  addresses:
-  - 10.106.0.30-10.106.0.45
----
-apiVersion: metallb.io/v1beta1
-kind: IPAddressPool
-metadata:
-  creationTimestamp: null
   name: k0
   namespace: metallb-system
 spec:
@@ -25,5 +15,4 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - default
   - k0
