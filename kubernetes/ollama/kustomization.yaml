@@ -1,0 +1,24 @@
+commonLabels:
+  app.kubernetes.io/part-of: ollama
+namespace: ollama
+resources:
+- namespace.yaml
+- models
+- webui
+
+images:
+- name: ollama
+  newName: docker.io/ollama/ollama
+  newTag: "0.1.20"
+- name: ollama-webui
+  newName: ghcr.io/ollama-webui/ollama-webui
+  newTag: main@sha256:12dc564a8d2f1c9dc5505bac7ba2de69483763068541da1d60fef233cba480d4
+
+patches:
+- target:
+    group: apps
+  patch: |-
+    - op: add
+      path: /spec/template/spec/nodeSelector
+      value:
+        kubernetes.io/arch: amd64

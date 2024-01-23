@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webui
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: ollama-webui
+        image: ollama-webui
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
+        env:
+        - name: OLLAMA_API_BASE_URL
+          value: http://models:11434/api
+        volumeMounts:
+        - name: data
+          mountPath: /app/backend/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: webui

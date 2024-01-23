@@ -16,6 +16,7 @@ resources:
 - nfs-subdir.yaml
 - node-exporter.yaml
 - nut-exporter.yaml
+- ollama.yaml
 - plex.yaml
 - prometheus.yaml
 - promtail.yaml
