@@ -1,6 +1,7 @@
 namespace: homebridge
 commonLabels:
   app.kubernetes.io/name: homebridge
+  app.kubernetes.io/component: mdns
 resources:
 - namespace.yaml
 - statefulset.yaml
@@ -15,3 +16,20 @@ images:
 - name: homebridge
   newName: homebridge/homebridge
   newTag: "2024-01-08"
+
+patches:
+- target:
+    group: apps
+  patch: |-
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - mdns
+            topologyKey: kubernetes.io/hostname

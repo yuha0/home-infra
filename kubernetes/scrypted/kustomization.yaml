@@ -1,6 +1,7 @@
 namespace: scrypted
 commonLabels:
   app.kubernetes.io/name: scrypted
+  app.kubernetes.io/component: mdns
 resources:
 - namespace.yaml
 - statefulset.yaml
@@ -9,3 +10,20 @@ images:
 - name: scrypted
   newName: ghcr.io/koush/scrypted
   newTag: "18-jammy-lite-v0.88.0"
+
+patches:
+- target:
+    group: apps
+  patch: |-
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - mdns
+            topologyKey: kubernetes.io/hostname
