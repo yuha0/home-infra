@@ -54,7 +54,8 @@ spec:
         image: thanos
         resources:
           requests:
-            memory: 300Mi
+            cpu: 120m
+            memory: 100Mi
         livenessProbe:
           failureThreshold: 4
           httpGet:
