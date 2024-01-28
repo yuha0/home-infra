@@ -40,8 +40,8 @@ spec:
         - --compact.concurrency=1
         - --compact.progress-interval=30m
         - --delete-delay=0s
-        - --retention.resolution-raw=180d
-        - --retention.resolution-5m=180d
+        - --retention.resolution-raw=30d
+        - --retention.resolution-5m=60d
         - --retention.resolution-1h=180d
         - --objstore.config=$(OBJSTORE_CONFIG)
         - --data-dir=/var/thanos/compactor
