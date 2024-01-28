@@ -6,11 +6,12 @@ metadata:
   name: external-dns
   namespace: external-dns
   labels:
-    helm.sh/chart: external-dns-1.13.1
+    helm.sh/chart: external-dns-1.14.3
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.13.6"
+    app.kubernetes.io/version: "0.14.0"
     app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken:
 ---
 # Source: external-dns/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -18,10 +19,10 @@ kind: ClusterRole
 metadata:
   name: external-dns
   labels:
-    helm.sh/chart: external-dns-1.13.1
+    helm.sh/chart: external-dns-1.14.3
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.13.6"
+    app.kubernetes.io/version: "0.14.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups: [""]
@@ -43,10 +44,10 @@ kind: ClusterRoleBinding
 metadata:
   name: external-dns-viewer
   labels:
-    helm.sh/chart: external-dns-1.13.1
+    helm.sh/chart: external-dns-1.14.3
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.13.6"
+    app.kubernetes.io/version: "0.14.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -64,10 +65,10 @@ metadata:
   name: external-dns
   namespace: external-dns
   labels:
-    helm.sh/chart: external-dns-1.13.1
+    helm.sh/chart: external-dns-1.14.3
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.13.6"
+    app.kubernetes.io/version: "0.14.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -87,10 +88,10 @@ metadata:
   name: external-dns
   namespace: external-dns
   labels:
-    helm.sh/chart: external-dns-1.13.1
+    helm.sh/chart: external-dns-1.14.3
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
-    app.kubernetes.io/version: "0.13.6"
+    app.kubernetes.io/version: "0.14.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -109,6 +110,7 @@ spec:
       serviceAccountName: external-dns
       securityContext:
         fsGroup: 65534
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       containers:
@@ -118,9 +120,11 @@ spec:
             capabilities:
               drop:
               - ALL
+            privileged: false
             readOnlyRootFilesystem: true
+            runAsGroup: 65532
             runAsNonRoot: true
-            runAsUser: 65534
+            runAsUser: 65532
           image: registry.k8s.io/external-dns/external-dns:v0.14.0
           imagePullPolicy: IfNotPresent
           env:
