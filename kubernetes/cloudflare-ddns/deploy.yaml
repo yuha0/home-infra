@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cloudflare-ddns
 spec:
-  replicas: 3
+  replicas: 0
   revisionHistoryLimit: 2
   strategy:
     type: RollingUpdate
