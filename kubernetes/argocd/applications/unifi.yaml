@@ -5,6 +5,7 @@ metadata:
 spec:
   destinations:
   - namespace: "unifi"
+    server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
     kind: Namespace
