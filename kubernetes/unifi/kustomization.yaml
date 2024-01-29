@@ -1,2 +1,5 @@
 namespace: unifi
-resources: []
+resources:
+- namespace.yaml
+- networkpolicies.yaml
+- unpoller

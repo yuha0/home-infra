@@ -11,7 +11,7 @@ spec:
         image: unpoller
         envFrom:
         - secretRef:
-            name: unpoller
+            name: unpoller-user
         args:
         - --config
         - /config/up.conf
