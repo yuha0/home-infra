@@ -26,6 +26,7 @@ resources:
 - system-service-monitors.yaml
 - tailscale.yaml
 - tandoor.yaml
+- unifi.yaml
 
 patches:
 # Both Project and Application should have resource finalizer
