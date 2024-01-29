@@ -1,4 +1,4 @@
-namespace: loki
+namespace: logging
 resources:
-- namespace.yaml
+- generated.yaml
 - sealed-s3-secret.yaml
