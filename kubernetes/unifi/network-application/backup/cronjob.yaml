@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup
+spec:
+  schedule: "0 */12 * * *"
+  concurrencyPolicy: Forbid
+  # one week failure history
+  failedJobsHistoryLimit: 14
+  # 3 days success history
+  successfulJobsHistoryLimit: 6
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          terminationGracePeriodSeconds: 5
+          volumes:
+          - name: unifi-data
+            persistentVolumeClaim:
+              claimName: unifi-unifi-data
+          containers:
+          - name: rclone
+            image: rclone
+            envFrom:
+            - configMapRef:
+                name: config
+            - secretRef:
+                name: rclone-b2
+            args:
+            - sync
+            - --log-level=INFO
+            - /unifi/data/backup/autobackup
+            - b2:zzyzxd-backup/unifi
+            volumeMounts:
+            - mountPath: /unifi
+              name: unifi-data
+              readOnly: true
+          restartPolicy: Never

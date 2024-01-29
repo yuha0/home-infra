@@ -1,0 +1,3 @@
+resources:
+- networkpolicy.yaml
+- generated.yaml
