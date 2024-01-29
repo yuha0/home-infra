@@ -3,17 +3,14 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
         "type": "dashboard"
       }
     ]
@@ -23,8 +20,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 11312,
   "graphTooltip": 1,
-  "id": 23,
-  "iteration": 1646683932383,
+  "id": 27,
   "links": [
     {
       "asDropdown": true,
@@ -74,6 +70,14 @@
       },
       "id": 137,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_UNIFI_POLLER}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Aggregate Graphs",
       "type": "row"
     },
@@ -94,7 +98,6 @@
         "y": 1
       },
       "id": 2297,
-      "isNew": true,
       "links": [],
       "scroll": false,
       "showHeader": true,
@@ -324,7 +327,11 @@
       ],
       "targets": [
         {
-          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unifipoller_device_info{site_name=~\"$Site\", name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_info{site_name=~\"$Site\", name=~\"$Switch\"})",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -332,7 +339,11 @@
           "refId": "A"
         },
         {
-          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unifipoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$Switch\"})",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -340,7 +351,11 @@
           "refId": "B"
         },
         {
-          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unifipoller_device_bytes_total{site_name=~\"$Site\", name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version,source) (unpoller_device_bytes_total{site_name=~\"$Site\", name=~\"$Switch\"})",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -368,7 +383,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -402,7 +418,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -418,13 +434,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (name,temp_area,temp_type) (unifipoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,temp_area,temp_type) (unpoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"})",
           "interval": "$Smooth",
           "legendFormat": "{{name}} {{temp_area}} {{temp_type}} C ",
           "refId": "A"
         },
         {
-          "expr": "sum by (name,temp_area,temp_type) (unifipoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"}*9/5+32)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,temp_area,temp_type) (unpoller_device_temperature_celsius{site_name=~\"$Site\",name=~\"$Switch\"}*9/5+32)",
           "hide": false,
           "instant": false,
           "interval": "$Smooth",
@@ -484,7 +508,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -518,7 +543,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -528,7 +553,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_memory_utilization_ratio{type=\"usw\", site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_memory_utilization_ratio{type=\"usw\", site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -586,7 +615,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -600,7 +630,6 @@
       },
       "hiddenSeries": false,
       "id": 1857,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -620,7 +649,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -643,20 +672,32 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_load_average_1{site_name=~\"$Site\",name=~\"$Switch\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_load_average_1{site_name=~\"$Site\",name=~\"$Switch\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} load1",
           "refId": "A"
         },
         {
-          "expr": "unifipoller_device_load_average_5{site_name=~\"$Site\",name=~\"$Switch\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_load_average_5{site_name=~\"$Site\",name=~\"$Switch\"}",
           "hide": true,
           "interval": "$Smooth",
           "legendFormat": "{{name}} load5",
           "refId": "B"
         },
         {
-          "expr": "unifipoller_device_load_average_15{site_name=~\"$Site\",name=~\"$Switch\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_load_average_15{site_name=~\"$Site\",name=~\"$Switch\"}",
           "hide": false,
           "interval": "$Smooth",
           "legendFormat": "{{name}} load15",
@@ -712,7 +753,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -746,7 +788,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -756,7 +798,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$Switch\",type=~\"usw|udm|udmp\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -797,10 +843,6 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PC96415006F908B67"
@@ -808,101 +850,147 @@
       "description": "Shows data transferred for selected switch ports.",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "Bytes Per Second",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps",
+          "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Rx$/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsNull",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 17,
         "w": 24,
         "x": 0,
         "y": 22
       },
-      "hiddenSeries": false,
       "id": 135,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "hideZero": false,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.4.3",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/Rx$/",
-          "transform": "negative-Y"
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "rate(unifipoller_device_port_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[1m])",
           "interval": "$Smooth",
           "legendFormat": "{{port_id}} {{port_name}} Tx",
+          "range": true,
           "refId": "A"
         },
         {
-          "expr": "rate(unifipoller_device_port_receive_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[$__interval])",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", name=~\"$Switch\", port_id=~\"$Port\"}[1m])",
           "interval": "$Smooth",
           "legendFormat": "{{port_id}} {{port_name}} Rx",
+          "range": true,
           "refId": "B"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Data Transfer",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "Bps",
-          "label": "Bytes Per Second",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "columns": [],
@@ -1299,90 +1387,142 @@
       ],
       "targets": [
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_receive_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "instant": true,
           "refId": "A"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_transmit_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "B"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_receive_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "D"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_transmit_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_dropped_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "C"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_receive_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "F"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_transmit_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_broadcast_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "E"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_receive_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "H"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_transmit_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_errors_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "G"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_receive_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_receive_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "J"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_transmit_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_transmit_packets_total{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "I"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_poe_amperes{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_amperes{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "K"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_poe_volts{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_volts{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
           "refId": "L"
         },
         {
-          "expr": "sum by (name,port_num,port_name,site_name,source) (unifipoller_device_port_poe_watts{site_name=~\"$Site\",name=~\"$Switch\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (name,port_num,port_name,site_name,source) (unpoller_device_port_poe_watts{site_name=~\"$Site\",name=~\"$Switch\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1414,12 +1554,6 @@
             "uid": "PC96415006F908B67"
           },
           "description": "These are total \"lifetime\" counters.",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {}
-            },
-            "overrides": []
-          },
           "fontSize": "90%",
           "gridPos": {
             "h": 3,
@@ -1586,7 +1720,11 @@
           ],
           "targets": [
             {
-              "expr": "unifipoller_device_port_port_speed_bps{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_port_speed_bps{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1594,7 +1732,11 @@
               "refId": "A"
             },
             {
-              "expr": "unifipoller_device_port_poe_amperes{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_poe_amperes{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1603,7 +1745,11 @@
               "refId": "B"
             },
             {
-              "expr": "unifipoller_device_port_poe_volts{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_poe_volts{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1612,7 +1758,11 @@
               "refId": "C"
             },
             {
-              "expr": "unifipoller_device_port_poe_watts{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_poe_watts{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1621,7 +1771,11 @@
               "refId": "D"
             },
             {
-              "expr": "unifipoller_device_port_transmit_broadcast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_transmit_broadcast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1629,7 +1783,11 @@
               "refId": "E"
             },
             {
-              "expr": "unifipoller_device_port_transmit_multicast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_transmit_multicast_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1637,7 +1795,11 @@
               "refId": "F"
             },
             {
-              "expr": "unifipoller_device_port_receive_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_receive_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1645,7 +1807,11 @@
               "refId": "G"
             },
             {
-              "expr": "unifipoller_device_port_transmit_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_transmit_dropped_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1653,7 +1819,11 @@
               "refId": "N"
             },
             {
-              "expr": "unifipoller_device_port_transmit_errors_total+unifipoller_device_port_receive_errors_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_transmit_errors_total+unpoller_device_port_receive_errors_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1661,7 +1831,11 @@
               "refId": "H"
             },
             {
-              "expr": "unifipoller_device_port_receive_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_receive_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "instant": true,
               "interval": "$Smooth",
@@ -1669,7 +1843,11 @@
               "refId": "I"
             },
             {
-              "expr": "unifipoller_device_port_transmit_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_transmit_packets_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1678,7 +1856,11 @@
               "refId": "J"
             },
             {
-              "expr": "unifipoller_device_port_receive_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_receive_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1687,7 +1869,11 @@
               "refId": "K"
             },
             {
-              "expr": "unifipoller_device_port_transmit_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_transmit_bytes_total{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1696,7 +1882,11 @@
               "refId": "L"
             },
             {
-              "expr": "unifipoller_device_port_satisfaction_percent{port_id=\"$Port\", site_name=~\"$Site\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_satisfaction_percent{port_id=\"$Port\", site_name=~\"$Site\"}",
               "format": "time_series",
               "hide": false,
               "instant": true,
@@ -1710,10 +1900,6 @@
           "type": "table-old"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -1721,101 +1907,130 @@
           "description": "Shows data transfer rate per second for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Bytes / Second",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "Bps",
+              "unitScale": true
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/Rx$/"
+                },
+                "properties": [
+                  {
+                    "id": "custom.transform",
+                    "value": "negative-Y"
+                  }
+                ]
+              }
+            ]
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 24,
             "x": 0,
             "y": 64
           },
-          "hiddenSeries": false,
           "id": 1396,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "null",
           "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/Rx$/",
-              "transform": "negative-Y"
+            "legend": {
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          },
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "rate(unifipoller_device_port_receive_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_receive_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": " {{port_id}} ({{port_name}}) Rx",
+              "range": true,
               "refId": "A"
             },
             {
-              "expr": "rate(unifipoller_device_port_transmit_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_transmit_bytes_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": " {{port_id}} ({{port_name}}) Tx",
+              "range": true,
               "refId": "B"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "Data Transfer: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "Bps",
-              "label": "Bytes / Second",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -1823,113 +2038,154 @@
           "description": "Shows broadcast and multicast packets per second for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "PPS",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "pps",
+              "unitScale": true
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/Rx$/"
+                },
+                "properties": [
+                  {
+                    "id": "custom.transform",
+                    "value": "negative-Y"
+                  }
+                ]
+              }
+            ]
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 12,
             "x": 0,
             "y": 73
           },
-          "hiddenSeries": false,
           "id": 594,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "null",
           "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/Rx$/",
-              "transform": "negative-Y"
+            "legend": {
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max",
+                "min"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          },
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "rate(unifipoller_device_port_receive_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_receive_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Broadcast Rx",
+              "range": true,
               "refId": "A"
             },
             {
-              "expr": "rate(unifipoller_device_port_transmit_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_transmit_broadcast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Broadcast Tx",
+              "range": true,
               "refId": "B"
             },
             {
-              "expr": "rate(unifipoller_device_port_receive_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_receive_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Multicast Rx",
+              "range": true,
               "refId": "C"
             },
             {
-              "expr": "rate(unifipoller_device_port_transmit_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_transmit_multicast_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Multicast Tx",
+              "range": true,
               "refId": "D"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "Multicast & Broadcast: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "pps",
-              "label": "PPS",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -1937,116 +2193,171 @@
           "description": "Shows errors and dropped packets for Switch $Port. RX on negative axis.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "packets per second",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "pps",
+              "unitScale": true
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/Rx$/"
+                },
+                "properties": [
+                  {
+                    "id": "custom.transform",
+                    "value": "negative-Y"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byValue",
+                  "options": {
+                    "op": "gte",
+                    "reducer": "allIsNull",
+                    "value": 0
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": true,
+                      "tooltip": true,
+                      "viz": false
+                    }
+                  }
+                ]
+              }
+            ]
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 12,
             "x": 12,
             "y": 73
           },
-          "hiddenSeries": false,
           "id": 367,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "hideEmpty": true,
-            "max": true,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "null",
           "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/Rx$/",
-              "transform": "negative-Y"
+            "legend": {
+              "calcs": [
+                "max"
+              ],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
             }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          },
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "rate(unifipoller_device_port_receive_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_receive_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Drops Rx",
+              "range": true,
               "refId": "A"
             },
             {
-              "expr": "rate(unifipoller_device_port_transmit_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_transmit_dropped_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Drops Tx",
+              "range": true,
               "refId": "B"
             },
             {
-              "expr": "rate(unifipoller_device_port_transmit_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_transmit_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Errors Tx",
+              "range": true,
               "refId": "C"
             },
             {
-              "expr": "rate(unifipoller_device_port_receive_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_receive_errors_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Errors Rx",
+              "range": true,
               "refId": "D"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "Errors and Drops: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:4320",
-              "format": "pps",
-              "label": "packets per second",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:4321",
-              "format": "short",
-              "logBase": 1,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -2054,101 +2365,131 @@
           "description": "Shows packet counters for Switch $Port. TX on positive axis and RX on negative axis.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "PPS",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "pps",
+              "unitScale": true
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "/Rx$/"
+                },
+                "properties": [
+                  {
+                    "id": "custom.transform",
+                    "value": "negative-Y"
+                  }
+                ]
+              }
+            ]
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 12,
             "x": 0,
             "y": 80
           },
-          "hiddenSeries": false,
           "id": 468,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": true,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "null",
           "options": {
-            "dataLinks": []
-          },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/Rx$/",
-              "transform": "negative-Y"
+            "legend": {
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max",
+                "min",
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
             }
-          ],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          },
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "rate(unifipoller_device_port_receive_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_receive_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Rx",
+              "range": true,
               "refId": "A"
             },
             {
-              "expr": "rate(unifipoller_device_port_transmit_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[$__interval])",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "editorMode": "code",
+              "expr": "rate(unpoller_device_port_transmit_packets_total{site_name=~\"$Site\", port_id=~\"$Port\"}[1m])",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} ({{port_name}}) Tx",
+              "range": true,
               "refId": "B"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "Packets Per Second: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "pps",
-              "label": "PPS",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -2156,91 +2497,101 @@
           "description": "Display POE Power for Switch $Port.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Watts",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "watt",
+              "unitScale": true
             },
             "overrides": []
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 12,
             "y": 80
           },
-          "hiddenSeries": false,
           "id": 745,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
           },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "unifipoller_device_port_poe_watts{site_name=~\"$Site\", port_id=~\"$Port\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_poe_watts{site_name=~\"$Site\", port_id=~\"$Port\"}",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}}  Watts",
               "refId": "A"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "POE Power: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "watt",
-              "label": "Watts",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "watt",
-              "label": "Watts",
-              "logBase": 1,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -2248,92 +2599,122 @@
           "description": "Display POE Voltage for Switch $Port.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Volts",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "volt",
+              "unitScale": true
             },
-            "overrides": []
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byValue",
+                  "options": {
+                    "op": "gte",
+                    "reducer": "allIsNull",
+                    "value": 0
+                  }
+                },
+                "properties": [
+                  {
+                    "id": "custom.hideFrom",
+                    "value": {
+                      "legend": true,
+                      "tooltip": true,
+                      "viz": false
+                    }
+                  }
+                ]
+              }
+            ]
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 16,
             "y": 80
           },
-          "hiddenSeries": false,
           "id": 921,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "hideEmpty": true,
-            "max": true,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
           },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "unifipoller_device_port_poe_volts{site_name=~\"$Site\", port_id=~\"$Port\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_poe_volts{site_name=~\"$Site\", port_id=~\"$Port\"}",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} Volts",
               "refId": "A"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "POE Voltage: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "volt",
-              "label": "Volts",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "watt",
-              "label": "Watts",
-              "logBase": 1,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         },
         {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
           "datasource": {
             "type": "prometheus",
             "uid": "PC96415006F908B67"
@@ -2341,88 +2722,111 @@
           "description": "Display POE Current for Switch $Port.",
           "fieldConfig": {
             "defaults": {
-              "custom": {}
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "Amps",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": true,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "mamp",
+              "unitScale": true
             },
             "overrides": []
           },
-          "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 4,
             "x": 20,
             "y": 80
           },
-          "hiddenSeries": false,
           "id": 922,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": true,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
           "links": [],
-          "nullPointMode": "connected",
           "options": {
-            "dataLinks": []
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
           },
-          "percentage": false,
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
+          "pluginVersion": "10.3.1",
           "targets": [
             {
-              "expr": "unifipoller_device_port_poe_amperes{site_name=~\"$Site\", port_id=~\"$Port\"}",
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
+              },
+              "expr": "unpoller_device_port_poe_amperes{site_name=~\"$Site\", port_id=~\"$Port\"}",
               "interval": "$Smooth",
               "legendFormat": "{{port_id}} Amps",
               "refId": "A"
             }
           ],
-          "thresholds": [],
-          "timeRegions": [],
           "title": "POE Current: Switch $Port",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "mamp",
-              "label": "Amps",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "format": "watt",
-              "label": "Watts",
-              "logBase": 1,
-              "show": false
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
+          "type": "timeseries"
         }
       ],
       "repeat": "Port",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_UNIFI_POLLER}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Switch $Port",
       "type": "row"
     },
@@ -2435,17 +2839,24 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 75
+        "y": 85
       },
       "id": 2299,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_UNIFI_POLLER}"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Purposely Empty Row",
       "type": "row"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 35,
-  "style": "dark",
+  "refresh": "",
+  "schemaVersion": 39,
   "tags": [
     "unifi",
     "usw",
@@ -2464,16 +2875,13 @@
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_info,source)",
+        "definition": "label_values(unpoller_device_info,source)",
         "hide": 2,
         "includeAll": true,
         "multi": true,
         "name": "Controller",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_info,source)",
-          "refId": "thanos-Controller-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_info,source)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2487,8 +2895,9 @@
         "allValue": "",
         "current": {
           "selected": true,
-          "tags": [],
-          "text": "All",
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
@@ -2535,16 +2944,13 @@
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_info{source=~\"$Controller\"},site_name)",
+        "definition": "label_values(unpoller_device_info{source=~\"$Controller\"},site_name)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "Site",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_info{source=~\"$Controller\"},site_name)",
-          "refId": "thanos-Site-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_info{source=~\"$Controller\"},site_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2565,16 +2971,13 @@
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
+        "definition": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "Switch",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
-          "refId": "thanos-Switch-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"$Devices\"},name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2595,16 +2998,13 @@
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
+        "definition": "label_values(unpoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "Port",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
-          "refId": "thanos-Port-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_port_port_speed_bps{site_name=~\"$Site\", name=~\"$Switch\"},port_id)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2616,7 +3016,7 @@
       },
       {
         "current": {
-          "tags": [],
+          "selected": false,
           "text": "2m",
           "value": "2m"
         },
@@ -2695,7 +3095,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "UniFi-Poller: USW Insights - Prometheus",
+  "title": "UniFi-Poller: USW Insights",
   "uid": "unifi-usw-insights",
   "version": 1,
   "weekStart": ""

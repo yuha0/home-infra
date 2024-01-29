@@ -4,17 +4,14 @@
       {
         "$$hashKey": "object:69",
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
         "type": "dashboard"
       }
     ]
@@ -23,9 +20,8 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "gnetId": 11314,
-  "graphTooltip": 1,
-  "id": 21,
-  "iteration": 1646683821496,
+  "graphTooltip": 2,
+  "id": 25,
   "links": [
     {
       "asDropdown": true,
@@ -76,10 +72,23 @@
       "id": 34,
       "links": [],
       "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
         "content": "<br>\n<br>\n<center><b><font size=\"6px\">Unifi UAP</font></b></center>\n",
         "mode": "html"
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_UNIFI_POLLER}"
+          },
+          "refId": "A"
+        }
+      ],
       "transparent": true,
       "type": "text"
     },
@@ -100,6 +109,23 @@
       },
       "decimals": 0,
       "description": "Visualize wireless channel usage w/ wired client counts.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unitScale": true
+        },
+        "overrides": []
+      },
       "fontSize": "70%",
       "format": "short",
       "gridPos": {
@@ -121,11 +147,34 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
       "pieType": "pie",
       "strokeWidth": "3",
       "targets": [
         {
-          "expr": "count by (channel) (unifipoller_client_roam_count_total{site_name=~\"$Site\", ap_name=~\"$AP\"})\n",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "count by (channel) (unpoller_client_roam_count_total{site_name=~\"$Site\", ap_name=~\"$AP\"})\n",
           "instant": false,
           "interval": "$Smooth",
           "legendFormat": "Ch {{channel}}",
@@ -134,7 +183,7 @@
       ],
       "title": "Clients / Channel",
       "transparent": true,
-      "type": "grafana-piechart-panel",
+      "type": "piechart",
       "valueName": "current"
     },
     {
@@ -155,6 +204,23 @@
       },
       "decimals": 0,
       "description": "Visualize how many clients are connected to which radios/APs.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unitScale": true
+        },
+        "overrides": []
+      },
       "fontSize": "70%",
       "format": "short",
       "gridPos": {
@@ -177,11 +243,34 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
       "pieType": "pie",
       "strokeWidth": "3",
       "targets": [
         {
-          "expr": "count by (radio_desc) (unifipoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "count by (radio_desc) (unpoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\"})",
           "instant": false,
           "interval": "$Smooth",
           "legendFormat": "{{radio_desc}}",
@@ -190,7 +279,7 @@
       ],
       "title": "Clients / AP Radio",
       "transparent": true,
-      "type": "grafana-piechart-panel",
+      "type": "piechart",
       "valueName": "current"
     },
     {
@@ -206,6 +295,23 @@
       },
       "decimals": 0,
       "description": "This shows an OUI breakdown from Unifi's perspective.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unitScale": true
+        },
+        "overrides": []
+      },
       "fontSize": "70%",
       "format": "short",
       "gridPos": {
@@ -228,11 +334,34 @@
       "links": [],
       "maxDataPoints": 3,
       "nullPointMode": "connected",
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
       "pieType": "pie",
       "strokeWidth": 1,
       "targets": [
         {
-          "expr": "count by (oui) (unifipoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "count by (oui) (unpoller_client_uptime_seconds{site_name=~\"$Site\", ap_name=~\"$AP\"})",
           "instant": false,
           "interval": "$Smooth",
           "legendFormat": "e {{oui}}",
@@ -241,7 +370,7 @@
       ],
       "title": "Client / MAC OUI",
       "transparent": true,
-      "type": "grafana-piechart-panel",
+      "type": "piechart",
       "valueName": "current"
     },
     {
@@ -269,7 +398,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -294,12 +424,18 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum(unifipoller_device_stations{site_name=~\"$Site\", name=~\"$AP\", station_type=\"user\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum(unpoller_device_stations{site_name=~\"$Site\", name=~\"$AP\", station_type=\"user\"})",
           "instant": true,
           "refId": "A"
         }
@@ -332,7 +468,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -357,12 +494,18 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum(unifipoller_device_stations{site_name=~\"$Site\", name=~\"$AP\", station_type=\"guest\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum(unpoller_device_stations{site_name=~\"$Site\", name=~\"$AP\", station_type=\"guest\"})",
           "instant": true,
           "refId": "A"
         }
@@ -403,7 +546,7 @@
           "endText": "00:00:00"
         },
         "countupSettings": {
-          "beginCountupTime": "2022-03-07T18:10:21-08:00",
+          "beginCountupTime": "2024-01-29T02:53:23-08:00",
           "beginText": "00:00:00"
         },
         "dateSettings": {
@@ -413,6 +556,7 @@
           "locale": "",
           "showDate": false
         },
+        "fontMono": false,
         "mode": "time",
         "refresh": "sec",
         "timeSettings": {
@@ -427,10 +571,18 @@
           "zoneFormat": "offsetAbbv"
         }
       },
-      "pluginVersion": "1.3.0",
+      "pluginVersion": "2.1.3",
       "refreshSettings": {
         "syncWithDashboard": false
       },
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${DS_UNIFI_POLLER}"
+          },
+          "refId": "A"
+        }
+      ],
       "timeSettings": {
         "customFormat": "HH:mm:ss",
         "fontSize": "30px",
@@ -461,7 +613,6 @@
         "y": 10
       },
       "id": 1,
-      "isNew": true,
       "links": [],
       "scroll": false,
       "showHeader": true,
@@ -691,7 +842,11 @@
       ],
       "targets": [
         {
-          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version) (unifipoller_device_info{site_name=~\"$Site\", name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version) (unpoller_device_info{site_name=~\"$Site\", name=~\"$AP\"})",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -699,7 +854,11 @@
           "refId": "A"
         },
         {
-          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version) (unifipoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version) (unpoller_device_uptime_seconds{site_name=~\"$Site\", name=~\"$AP\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -708,7 +867,11 @@
           "refId": "B"
         },
         {
-          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version) (unifipoller_device_bytes_total{site_name=~\"$Site\", name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (ip,mac,model,name,serial,site_name,type,version) (unpoller_device_bytes_total{site_name=~\"$Site\", name=~\"$AP\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -738,7 +901,6 @@
         "y": 16
       },
       "id": 49,
-      "isNew": true,
       "links": [],
       "scroll": false,
       "showHeader": true,
@@ -1165,14 +1327,22 @@
       ],
       "targets": [
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_ccq_ratio{site_name=~\"$Site\", name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_ccq_ratio{site_name=~\"$Site\", name=~\"$AP\"})",
           "format": "table",
           "instant": true,
           "interval": "",
           "refId": "A"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_average_client_signal{site_name=~\"$Site\", name=~\"$AP\"})",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_average_client_signal{site_name=~\"$Site\", name=~\"$AP\"})",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1180,7 +1350,11 @@
           "refId": "B"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_receive_dropped_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_receive_dropped_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1188,7 +1362,11 @@
           "refId": "C"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_transmit_dropped_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_transmit_dropped_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1196,7 +1374,11 @@
           "refId": "E"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_transmit_bytes_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_transmit_bytes_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1204,7 +1386,11 @@
           "refId": "F"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_receive_bytes_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_receive_bytes_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1212,7 +1398,11 @@
           "refId": "G"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_receive_packets_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_receive_packets_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1220,7 +1410,11 @@
           "refId": "H"
         },
         {
-          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unifipoller_device_vap_transmit_packets_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum by (bssid,essid,ap_name,name,radio,radio_name,vap_name,site_name,usage,source) (unpoller_device_vap_transmit_packets_total{site_name=~\"$Site\", name=~\"$AP\"}) ",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1248,7 +1442,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1282,7 +1477,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1292,7 +1487,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_cpu_utilization_ratio{site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -1344,7 +1543,8 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1378,7 +1578,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1388,7 +1588,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_memory_utilization_ratio{site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_memory_utilization_ratio{site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}}",
           "refId": "A"
@@ -1443,7 +1647,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1457,7 +1662,6 @@
       },
       "hiddenSeries": false,
       "id": 3,
-      "isNew": true,
       "legend": {
         "alignAsTable": false,
         "avg": false,
@@ -1479,7 +1683,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1497,20 +1701,32 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_load_average_1{site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_load_average_1{site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} load1",
           "refId": "A"
         },
         {
-          "expr": "unifipoller_device_load_average_5{site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_load_average_5{site_name=~\"$Site\",name=~\"$AP\"}",
           "hide": true,
           "interval": "$Smooth",
           "legendFormat": "{{name}} load5",
           "refId": "B"
         },
         {
-          "expr": "unifipoller_device_load_average_15{site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_load_average_15{site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} load15",
           "refId": "C"
@@ -1562,7 +1778,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1576,7 +1793,6 @@
       },
       "hiddenSeries": false,
       "id": 46,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -1600,7 +1816,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1610,7 +1826,11 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "unifipoller_device_stations{site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_stations{site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} users",
           "refId": "A"
@@ -1661,7 +1881,8 @@
       "description": "Devices TX / RX bytes per second grouped by OUI. RX on negative axis.",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1697,7 +1918,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1712,13 +1933,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (unifipoller_client_receive_rate_bytes{site_name=~\"$Site\",ap_name=~\"$AP\"}) by (oui)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (unpoller_client_receive_rate_bytes{site_name=~\"$Site\",ap_name=~\"$AP\"}) by (oui)",
           "interval": "$Smooth",
           "legendFormat": "{{oui}} Rx",
           "refId": "A"
         },
         {
-          "expr": "sum (unifipoller_client_transmit_rate_bytes{site_name=~\"$Site\",ap_name=~\"$AP\"}) by (oui)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (unpoller_client_transmit_rate_bytes{site_name=~\"$Site\",ap_name=~\"$AP\"}) by (oui)",
           "interval": "$Smooth",
           "legendFormat": "{{oui}} Tx",
           "refId": "B"
@@ -1768,7 +1997,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1782,7 +2012,6 @@
       },
       "hiddenSeries": false,
       "id": 19,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -1804,7 +2033,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1814,27 +2043,43 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (unifipoller_device_radio_stations{radio=\"ng\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"guest\"}) by  (radio,name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (unpoller_device_radio_stations{radio=\"ng\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"guest\"}) by  (radio,name)",
           "hide": false,
           "interval": "$Smooth",
           "legendFormat": "{{name}} Guests 2,4GHz",
           "refId": "A"
         },
         {
-          "expr": "sum (unifipoller_device_radio_stations{radio=\"ng\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"user\"}) by (radio,name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (unpoller_device_radio_stations{radio=\"ng\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"user\"}) by (radio,name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Users  2.4GHz",
           "refId": "B"
         },
         {
-          "expr": "sum (unifipoller_device_radio_stations{radio=\"na\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"user\"}) by (radio,name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (unpoller_device_radio_stations{radio=\"na\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"user\"}) by (radio,name)",
           "hide": false,
           "interval": "$Smooth",
           "legendFormat": "{{name}} Users 5GHz",
           "refId": "C"
         },
         {
-          "expr": "sum (unifipoller_device_radio_stations{radio=\"na\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"guest\"}) by (radio,name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (unpoller_device_radio_stations{radio=\"na\", site_name=~\"$Site\",name=~\"$AP\", station_type=\"guest\"}) by (radio,name)",
           "hide": false,
           "interval": "$Smooth",
           "legendFormat": "{{name}} Guests 5GHz",
@@ -1885,7 +2130,8 @@
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1918,8 +2164,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1929,7 +2178,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_vap_average_client_signal{name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_vap_average_client_signal{name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} {{vap_name}} {{radio}}",
           "refId": "A"
@@ -1980,7 +2233,8 @@
       "decimals": 0,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2013,8 +2267,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2024,7 +2281,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(unifipoller_client_rssi_db{ap_name=~\"$AP\"}) by (ap_name, radio_name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "avg(unpoller_client_rssi_db{ap_name=~\"$AP\"}) by (ap_name, radio_name)",
           "interval": "$Smooth",
           "legendFormat": "{{ap_name}}  {{radio_name}}",
           "refId": "A"
@@ -2076,7 +2337,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2090,7 +2352,6 @@
       },
       "hiddenSeries": false,
       "id": 18,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -2107,8 +2368,11 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2118,7 +2382,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_vap_ccq_ratio{site_name=~\"$Site\",name=~\"$AP\", radio=\"na\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_vap_ccq_ratio{site_name=~\"$Site\",name=~\"$AP\", radio=\"na\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} {{vap_name}}",
           "refId": "A"
@@ -2170,7 +2438,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2184,7 +2453,6 @@
       },
       "hiddenSeries": false,
       "id": 58,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -2202,8 +2470,11 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2213,7 +2484,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_vap_ccq_ratio{site_name=~\"$Site\",name=~\"$AP\", radio=\"ng\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_vap_ccq_ratio{site_name=~\"$Site\",name=~\"$AP\", radio=\"ng\"}",
           "interval": "1m",
           "legendFormat": "{{name}} {{vap_name}}",
           "refId": "A"
@@ -2266,7 +2541,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2280,7 +2556,6 @@
       },
       "hiddenSeries": false,
       "id": 8,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -2299,8 +2574,11 @@
       "linewidth": 3,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2314,13 +2592,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_radio_channel_utilization_receive_ratio{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_radio_channel_utilization_receive_ratio{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Rx",
           "refId": "B"
         },
         {
-          "expr": "unifipoller_device_radio_channel_utilization_transmit_ratio{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_radio_channel_utilization_transmit_ratio{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Tx",
           "refId": "C"
@@ -2373,7 +2659,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2387,7 +2674,6 @@
       },
       "hiddenSeries": false,
       "id": 27,
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -2404,8 +2690,11 @@
       "linewidth": 3,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2419,13 +2708,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "unifipoller_device_radio_channel_utilization_receive_ratio{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_radio_channel_utilization_receive_ratio{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} {{radio}} Rx",
           "refId": "B"
         },
         {
-          "expr": "unifipoller_device_radio_channel_utilization_transmit_ratio{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "unpoller_device_radio_channel_utilization_transmit_ratio{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}",
           "interval": "$Smooth",
           "legendFormat": "{{name}} {{radio}} Tx",
           "refId": "C"
@@ -2476,7 +2773,8 @@
       "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "links": [],
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2491,7 +2789,6 @@
       "hiddenSeries": false,
       "id": 20,
       "interval": "",
-      "isNew": true,
       "legend": {
         "alignAsTable": true,
         "avg": false,
@@ -2511,8 +2808,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pluginVersion": "8.4.3",
+      "pluginVersion": "10.3.1",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -2527,13 +2827,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_bytes_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[5m])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (rate(unpoller_device_vap_transmit_bytes_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[5m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Tx",
           "refId": "A"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_bytes_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[5m])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "expr": "sum (rate(unpoller_device_vap_receive_bytes_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[5m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}}  Rx",
           "refId": "B"
@@ -2572,623 +2880,911 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PC96415006F908B67"
       },
       "description": "RX is on the negative Axis.",
-      "editable": true,
-      "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/Rx$/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsNull",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 72
       },
-      "hiddenSeries": false,
       "id": 24,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "8.4.3",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/Rx$/",
-          "transform": "negative-Y"
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_bytes_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[5m])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_bytes_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Tx",
+          "range": true,
           "refId": "A"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_bytes_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[5m])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_bytes_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Rx",
+          "range": true,
           "refId": "B"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "2.4 GHz Traffic",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bps",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "pps",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PC96415006F908B67"
       },
-      "decimals": 0,
       "description": "PPS on the na band. In is on the negative Axis.",
-      "editable": true,
-      "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "PPS",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/In$/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsNull",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 79
       },
-      "hiddenSeries": false,
       "id": 22,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "8.4.3",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/In$/",
-          "transform": "negative-Y"
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_packets_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum (rate(unpoller_device_vap_transmit_packets_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "hide": false,
+          "instant": false,
           "interval": "$Smooth",
           "legendFormat": "{{name}} Out",
+          "range": true,
           "refId": "A"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_packets_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_packets_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} In",
+          "range": true,
           "refId": "B"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "5 GHz Packets",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "pps",
-          "label": "PPS",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "pps",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PC96415006F908B67"
       },
-      "decimals": 0,
       "description": "PPS on the ng band calculated in 30 second buckets. In is on the negative Axis.",
-      "editable": true,
-      "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "PPS",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/In$/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsNull",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 79
       },
-      "hiddenSeries": false,
       "id": 25,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "max",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "8.4.3",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/In$/",
-          "transform": "negative-Y"
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_packets_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_packets_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Out",
+          "range": true,
           "refId": "A"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_packets_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_packets_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} In",
+          "range": true,
           "refId": "B"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "2.4 GHz Packets",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "pps",
-          "label": "PPS",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "pps",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PC96415006F908B67"
       },
-      "decimals": 0,
       "description": "Visualize packet errors (several types)  per second in the 5GHz band.",
-      "editable": true,
-      "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/In$/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsNull",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 86
       },
-      "hiddenSeries": false,
       "id": 57,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "max",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pluginVersion": "8.4.3",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/In$/",
-          "transform": "negative-Y"
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_dropped_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_dropped_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Drops Rx",
+          "range": true,
           "refId": "A"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_dropped_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_dropped_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Drops Tx",
+          "range": true,
           "refId": "B"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_errors_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_errors_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Errors Rx",
+          "range": true,
           "refId": "C"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_errors_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_errors_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Errors Tx",
+          "range": true,
           "refId": "D"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_crypts_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_crypts_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Crypts Rx",
+          "range": true,
           "refId": "E"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_frags_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_frags_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Frags Rx",
+          "range": true,
           "refId": "F"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_nwids_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_nwids_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Nwids Rx",
+          "range": true,
           "refId": "G"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_retries_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_retries_total{radio=\"na\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Retries Tx",
+          "range": true,
           "refId": "H"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "5 GHz Drops/Errors",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "pps",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PC96415006F908B67"
       },
-      "decimals": 0,
       "description": "In is on the negative axis.",
-      "editable": true,
-      "error": false,
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/In$/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byValue",
+              "options": {
+                "op": "gte",
+                "reducer": "allIsNull",
+                "value": 0
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": true,
+                  "tooltip": true,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
-      "fill": 0,
-      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 86
       },
-      "hiddenSeries": false,
       "id": 26,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "hideEmpty": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "max",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "8.4.3",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/In$/",
-          "transform": "negative-Y"
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Max",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
         }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
+      },
+      "pluginVersion": "10.3.1",
       "targets": [
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_dropped_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_dropped_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Drops Rx",
+          "range": true,
           "refId": "A"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_dropped_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_dropped_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Drops Tx",
+          "range": true,
           "refId": "B"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_errors_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_errors_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Errors Rx",
+          "range": true,
           "refId": "C"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_errors_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_errors_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Errors Tx",
+          "range": true,
           "refId": "D"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_crypts_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_crypts_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Crypts Rx",
+          "range": true,
           "refId": "E"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_frags_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_frags_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Frags Rx",
+          "range": true,
           "refId": "F"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_receive_nwids_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_receive_nwids_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Nwids Rx",
+          "range": true,
           "refId": "G"
         },
         {
-          "expr": "sum (rate(unifipoller_device_vap_transmit_retries_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[$__interval])) by (name)",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PC96415006F908B67"
+          },
+          "editorMode": "code",
+          "expr": "sum (rate(unpoller_device_vap_transmit_retries_total{radio=\"ng\",site_name=~\"$Site\",name=~\"$AP\"}[1m])) by (name)",
           "interval": "$Smooth",
           "legendFormat": "{{name}} Retries Tx",
+          "range": true,
           "refId": "H"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "2.4 GHz Drops/Errors",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 2,
-        "value_type": "cumulative"
-      },
       "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 1,
-          "format": "pps",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
-  "refresh": "1m",
-  "schemaVersion": 35,
-  "style": "dark",
+  "refresh": "",
+  "schemaVersion": 39,
   "tags": [
     "unifi",
     "uap",
@@ -3200,24 +3796,25 @@
         "allValue": ".*",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_info{type=\"uap\"},source)",
+        "definition": "label_values(unpoller_device_info{type=\"uap\"},source)",
         "hide": 2,
         "includeAll": true,
         "label": "",
         "multi": true,
         "name": "Controller",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_info{type=\"uap\"},source)",
-          "refId": "thanos-Controller-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_info{type=\"uap\"},source)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3229,24 +3826,25 @@
         "allValue": "",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "Default (default)"
+          ],
+          "value": [
+            "Default (default)"
+          ]
         },
         "datasource": {
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_info{source=~\"$Controller\", type=\"uap\"},site_name)",
+        "definition": "label_values(unpoller_device_info{source=~\"$Controller\", type=\"uap\"},site_name)",
         "hide": 0,
         "includeAll": true,
         "label": "",
         "multi": true,
         "name": "Site",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_info{source=~\"$Controller\", type=\"uap\"},site_name)",
-          "refId": "thanos-Site-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_info{source=~\"$Controller\", type=\"uap\"},site_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3258,24 +3856,25 @@
         "allValue": "",
         "current": {
           "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
           "uid": "PC96415006F908B67"
         },
-        "definition": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"uap|udm\",model!=\"UDMPRO\"},name)",
+        "definition": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"uap|udm\",model!=\"UDMPRO\"},name)",
         "hide": 0,
         "includeAll": true,
         "label": "UniFi AP:",
         "multi": true,
         "name": "AP",
         "options": [],
-        "query": {
-          "query": "label_values(unifipoller_device_info{site_name=~\"$Site\", type=~\"uap|udm\",model!=\"UDMPRO\"},name)",
-          "refId": "thanos-AP-Variable-Query"
-        },
+        "query": "label_values(unpoller_device_info{site_name=~\"$Site\", type=~\"uap|udm\",model!=\"UDMPRO\"},name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3285,8 +3884,7 @@
       },
       {
         "current": {
-          "selected": true,
-          "tags": [],
+          "selected": false,
           "text": "2m",
           "value": "2m"
         },
@@ -3370,8 +3968,8 @@
     ]
   },
   "timezone": "browser",
-  "title": "UniFi-Poller: UAP Insights - Prometheus",
+  "title": "UniFi-Poller: UAP Insights",
   "uid": "unifi-uap-insights",
-  "version": 1,
+  "version": 3,
   "weekStart": ""
 }
