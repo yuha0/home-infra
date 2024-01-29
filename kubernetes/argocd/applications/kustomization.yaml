@@ -20,7 +20,6 @@ resources:
 - ollama.yaml
 - plex.yaml
 - prometheus.yaml
-- promtail.yaml
 - scrypted.yaml
 - sealed-secrets.yaml
 - system-service-monitors.yaml
