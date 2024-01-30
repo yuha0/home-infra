@@ -379,6 +379,35 @@ data:
     
     {}
 ---
+# Source: loki-distributed/templates/compactor/service-compactor.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-loki-distributed-compactor
+  namespace: logging
+  labels:
+    helm.sh/chart: loki-distributed-0.78.2
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "2.9.2"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: compactor
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3100
+      targetPort: http
+      protocol: TCP
+    - name: grpc
+      port: 9095
+      targetPort: grpc
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/component: compactor
+---
 # Source: loki-distributed/templates/distributor/service-distributor.yaml
 apiVersion: v1
 kind: Service
@@ -1119,6 +1148,138 @@ spec:
           configMap:
             name: loki-loki-distributed-runtime
 ---
+# Source: loki-distributed/templates/compactor/statefulset-compactor.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: loki-loki-distributed-compactor
+  namespace: logging
+  labels:
+    helm.sh/chart: loki-distributed-0.78.2
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "2.9.2"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: compactor
+    app.kubernetes.io/part-of: memberlist
+spec:
+  replicas: 1
+  podManagementPolicy: Parallel
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+  serviceName: loki-loki-distributed-compactor-headless
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: loki-distributed
+      app.kubernetes.io/instance: loki
+      app.kubernetes.io/component: compactor
+  template:
+    metadata:
+      annotations:
+        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+      labels:
+        app.kubernetes.io/name: loki-distributed
+        app.kubernetes.io/instance: loki
+        app.kubernetes.io/component: compactor
+        app.kubernetes.io/part-of: memberlist
+    spec:
+      serviceAccountName: loki-loki-distributed
+      
+      securityContext:
+        fsGroup: 10001
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: compactor
+          image: docker.io/grafana/loki:2.9.4
+          imagePullPolicy: IfNotPresent
+          args:
+            - -config.file=/etc/loki/config/config.yaml
+            - -target=compactor
+          ports:
+            - name: http
+              containerPort: 3100
+              protocol: TCP
+            - name: grpc
+              containerPort: 9095
+              protocol: TCP
+            - name: http-memberlist
+              containerPort: 7946
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: s3-secret
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+          
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 300
+          volumeMounts:
+            - name: temp
+              mountPath: /tmp
+            - name: config
+              mountPath: /etc/loki/config
+            - name: runtime-config
+              mountPath: /var/loki-distributed-runtime
+            - name: data
+              mountPath: /var/loki
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: loki-distributed
+                  app.kubernetes.io/instance: loki
+                  app.kubernetes.io/component: compactor
+              topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: loki-distributed
+                    app.kubernetes.io/instance: loki
+                    app.kubernetes.io/component: compactor
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+        
+      volumes:
+        - name: temp
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: loki-loki-distributed
+        - name: runtime-config
+          configMap:
+            name: loki-loki-distributed-runtime
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: nfs-qnap
+        resources:
+          requests:
+            storage: "10Gi"
+---
 # Source: loki-distributed/templates/ingester/statefulset-ingester.yaml
 apiVersion: apps/v1
 kind: StatefulSet
@@ -1401,6 +1562,28 @@ spec:
         resources:
           requests:
             storage: "10Gi"
+---
+# Source: loki-distributed/templates/compactor/servicemonitor-compactor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: loki-loki-distributed-compactor
+  labels:
+    helm.sh/chart: loki-distributed-0.78.2
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "2.9.2"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: compactor
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: loki-distributed
+      app.kubernetes.io/instance: loki
+      app.kubernetes.io/component: compactor
+  endpoints:
+    - port: http
+      scheme: http
 ---
 # Source: loki-distributed/templates/distributor/servicemonitor-distributor.yaml
 apiVersion: monitoring.coreos.com/v1

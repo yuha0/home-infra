@@ -214,7 +214,6 @@ loki:
       tail_proxy_url: http://{{ include "loki.querierFullname" . }}:3100
 
     compactor:
-      shared_store: filesystem
       compaction_interval: 30m
       working_directory: /data/retention
       shared_store: s3
@@ -1372,7 +1371,7 @@ compactor:
   # -- Number of replicas for the compactor
   replicas: 1
   # -- Specifies whether compactor should be enabled
-  enabled: false
+  enabled: true
   # -- hostAliases to add
   hostAliases: []
   #  - ip: 1.2.3.4
