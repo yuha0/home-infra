@@ -185,6 +185,7 @@ data:
           kvstore:
             store: memberlist
           replication_factor: 1
+      max_chunk_age: 2h
       max_transfer_retries: 0
       wal:
         dir: /var/loki/wal
@@ -198,6 +199,7 @@ data:
       reject_old_samples_max_age: 168h
       retention_period: 365d
       split_queries_by_interval: 15m
+      unordered_writes: true
     memberlist:
       join_members:
       - loki-loki-distributed-memberlist
@@ -699,7 +701,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
+        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -919,7 +921,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
+        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1033,7 +1035,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
+        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1147,7 +1149,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
+        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1292,7 +1294,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
+        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
