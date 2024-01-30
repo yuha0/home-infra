@@ -215,7 +215,7 @@ loki:
 
     compactor:
       compaction_interval: 30m
-      working_directory: /data/retention
+      working_directory: /var/loki/retention
       shared_store: s3
       retention_enabled: true
       retention_delete_delay: 5m

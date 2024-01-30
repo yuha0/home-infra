@@ -163,7 +163,7 @@ data:
       retention_delete_worker_count: 10
       retention_enabled: true
       shared_store: s3
-      working_directory: /data/retention
+      working_directory: /var/loki/retention
     distributor:
       ring:
         kvstore:
@@ -730,7 +730,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+        checksum/config: 692457b593ea4d8f8205dd30330836e6cc06668b9b8230ebfa1cbeb52622211d
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -950,7 +950,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+        checksum/config: 692457b593ea4d8f8205dd30330836e6cc06668b9b8230ebfa1cbeb52622211d
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1064,7 +1064,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+        checksum/config: 692457b593ea4d8f8205dd30330836e6cc06668b9b8230ebfa1cbeb52622211d
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1178,7 +1178,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+        checksum/config: 692457b593ea4d8f8205dd30330836e6cc06668b9b8230ebfa1cbeb52622211d
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1310,7 +1310,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+        checksum/config: 692457b593ea4d8f8205dd30330836e6cc06668b9b8230ebfa1cbeb52622211d
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1455,7 +1455,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 4ecd836bb9d04dbe1cd1943dbb8f8b36bcdf9f7bb066bab249d85e16eff6e302
+        checksum/config: 692457b593ea4d8f8205dd30330836e6cc06668b9b8230ebfa1cbeb52622211d
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
