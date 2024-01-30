@@ -254,7 +254,7 @@ loki:
       directory: /var/loki/chunks
     aws:
       bucketnames: loki
-      endpoint: fred.main.yuha0.com:8010
+      endpoint: fred.lab.yuha0.com:8010
       s3forcepathstyle: true
       insecure: false
       http_config:

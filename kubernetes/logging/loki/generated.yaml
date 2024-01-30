@@ -237,7 +237,7 @@ data:
     storage_config:
       aws:
         bucketnames: loki
-        endpoint: fred.main.yuha0.com:8010
+        endpoint: fred.lab.yuha0.com:8010
         http_config:
           insecure_skip_verify: true
         insecure: false
@@ -699,7 +699,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 09e3a380e6e53777480b87ff30b9ea4d3bda9843b94a3cfb6c89df28de1d5834
+        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -919,7 +919,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 09e3a380e6e53777480b87ff30b9ea4d3bda9843b94a3cfb6c89df28de1d5834
+        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1033,7 +1033,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 09e3a380e6e53777480b87ff30b9ea4d3bda9843b94a3cfb6c89df28de1d5834
+        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1147,7 +1147,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 09e3a380e6e53777480b87ff30b9ea4d3bda9843b94a3cfb6c89df28de1d5834
+        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
@@ -1292,7 +1292,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 09e3a380e6e53777480b87ff30b9ea4d3bda9843b94a3cfb6c89df28de1d5834
+        checksum/config: 64c9f0926f0bc7eff3263aab5860cbc1ca715a869846c71f153d40bd2a3b7cb3
       labels:
         app.kubernetes.io/name: loki-distributed
         app.kubernetes.io/instance: loki
