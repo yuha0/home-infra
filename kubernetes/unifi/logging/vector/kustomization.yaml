@@ -1,0 +1,12 @@
+commonLabels:
+  app.kubernetes.io/component: vector
+
+resources:
+- deployment.yaml
+- ingress.yaml
+- service.yaml
+
+configMapGenerator:
+- name: vector
+  files:
+  - vector.yaml

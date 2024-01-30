@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: geoipupdate
+spec:
+  schedule: "0 8 * * *"
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 7
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: geoipupdate
+            image: geoipupdate
+            env:
+            - name: GEOIPUPDATE_DB_DIR
+              value: /mnt/db
+            - name: GEOIPUPDATE_PRESERVE_FILE_TIMES
+              value: "1"
+            - name: GEOIPUPDATE_EDITION_IDS
+              value: GeoLite2-City
+            envFrom:
+            - secretRef:
+                name: geoipupdate
+            volumeMounts:
+            - name: db
+              mountPath: /mnt/db
+          restartPolicy: OnFailure
+          volumes:
+          - name: db
+            persistentVolumeClaim:
+              claimName: geoip

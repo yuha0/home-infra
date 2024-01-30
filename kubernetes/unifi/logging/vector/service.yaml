@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vector
+spec:
+  ports:
+  - name: vector
+    port: 80
+    protocol: TCP
+  type: ClusterIP

@@ -1,0 +1,6 @@
+commonLabels:
+  app.kubernetes.io/component: geoipupdate
+
+resources:
+- sealed-geoipupdate.yaml
+- geoipupdate.yaml

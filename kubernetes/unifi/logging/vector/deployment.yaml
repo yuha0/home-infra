@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vector
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: vector
+        image: vector
+        args:
+        - --config-dir
+        - /etc/vector/
+        ports:
+        - name: vector
+          containerPort: 6000
+          protocol: TCP
+        volumeMounts:
+        - name: data
+          mountPath: /vector-data-dir
+        - name: geoip
+          mountPath: /geoip
+        - name: config
+          mountPath: "/etc/vector/"
+          readOnly: true
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: geoip
+        persistentVolumeClaim:
+          claimName: geoip
+      - name: data
+        emptyDir: {}
+      - name: config
+        projected:
+          sources:
+          - configMap:
+              name: vector

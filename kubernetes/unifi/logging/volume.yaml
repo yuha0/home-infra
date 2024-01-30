@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: geoip
+spec:
+  storageClassName: nfs-qnap
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

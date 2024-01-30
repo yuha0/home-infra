@@ -1,0 +1,71 @@
+data_dir: /vector-data-dir
+expire_metrics_secs: 3600
+timezone: America/Los_Angeles
+
+
+enrichment_tables:
+  geoip_table:
+    path: /geoip/GeoLite2-City.mmdb
+    type: geoip
+
+sources:
+  unifi_ulog_syslogemu:
+    address: 0.0.0.0:80
+    type: http_server
+    decoding:
+      codec: json
+
+transforms:
+  parse_unifi_ulog_syslogemu:
+    type: "remap"
+    inputs:
+    - unifi_ulog_syslogemu
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    source: |
+      parsed_message = parse_regex!(.message, r'^(?P<timestamp>\w+\s\d+\s\d+:\d+:\d+)\s(?P<host>.+)\s\[(?P<rule_type>[A-Z_]+)\-(?P<rule_result>\w+)\-(?P<rule_id>\d+)\]\s(?P<rule_event>.+)')
+
+      parsed_time = string(parsed_message.timestamp)
+      year = format_timestamp!(now(),"%Y")
+      time_with_year = "{{ year }} {{ parsed_time }}"
+      .timestamp = parse_timestamp!(time_with_year, "%Y %b %e %T")
+
+      .host = parsed_message.host
+      .rule_type = parsed_message.rule_type
+      .rule_result = parsed_message.rule_result
+      .rule_id = to_int!(parsed_message.rule_id)
+
+      parsed_kv = parse_key_value!(parsed_message.rule_event)
+      .rule_desc = parsed_kv.DESCR
+      .mac = parsed_kv.MAC
+      .dst_ip = parsed_kv.DST
+
+      if starts_with!(parsed_kv.SRC, "10.") {
+        .src_ip = parsed_kv.SRC
+      } else {
+        .src_location = get_enrichment_table_record!("geoip_table",
+          {
+            "ip": parsed_kv.SRC
+          }
+        )
+        .src_location.ip = parsed_kv.SRC
+      }
+
+sinks:
+  loki:
+    type: "loki"
+    inputs:
+    - parse_unifi_ulog_syslogemu
+    endpoint: http://loki-loki-distributed-gateway.logging.svc.cluster.local.:80
+    encoding:
+      codec: json
+    labels:
+      host: "{{ .host }}"
+      type: "firewall"
+      rule_type: "{{ .rule_type }}"
+      rule_result: "{{ .rule_result }}"
+      rule_desc: "{{ .rule_desc }}"
+      # dst: "{{ .dst_ip }}"
+      # src: "{{ .src_ip }}"
+      # src_location: "{{ .src_location }}"
