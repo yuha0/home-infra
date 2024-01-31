@@ -22,3 +22,6 @@ configMapGenerator:
 - name: usw-insights
   files:
   - usw-insights.json
+- name: firewall
+  files:
+  - firewall.json
