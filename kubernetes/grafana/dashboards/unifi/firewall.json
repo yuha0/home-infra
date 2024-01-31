@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 26,
+  "id": 27,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -122,12 +122,12 @@
             "uid": "P982945308D3682D1"
           },
           "editorMode": "code",
-          "expr": "{type=\"firewall\"}",
+          "expr": "{rule_result=\"D\",rule_type=\"WAN_IN\",type=\"firewall\"}",
           "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "WAN-IN Blocked Source Map",
+      "title": "WAN-IN Drops Map",
       "transformations": [
         {
           "id": "extractFields",
@@ -251,13 +251,13 @@
             "uid": "P982945308D3682D1"
           },
           "editorMode": "code",
-          "expr": "sum by (src_location_country_name) (count_over_time({type=\"firewall\"} | json [$__range]))",
+          "expr": "sum by (src_location_country_name) (count_over_time({rule_result=\"D\",rule_type=\"WAN_IN\",type=\"firewall\"} | json [$__range]))",
           "legendFormat": "{{ src_location_country_name }}",
           "queryType": "instant",
           "refId": "A"
         }
       ],
-      "title": "Blocked WAN-IN by Country",
+      "title": "WAN_IN Drops by Country",
       "transformations": [],
       "type": "table"
     }
@@ -276,6 +276,6 @@
   "timezone": "",
   "title": "Firewall Overview",
   "uid": "unifi-firewall",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
