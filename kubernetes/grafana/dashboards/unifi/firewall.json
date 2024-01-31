@@ -275,7 +275,7 @@
   "timepicker": {},
   "timezone": "",
   "title": "Firewall Overview",
-  "uid": "Unifi Firewall Overview",
+  "uid": "unifi-firewall",
   "version": 4,
   "weekStart": ""
 }
