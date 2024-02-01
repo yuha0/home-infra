@@ -32,7 +32,7 @@ spec:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: nfs-client
+        storageClassName: nfs-qnap
   thanos:
     image: quay.io/thanos/thanos:v0.34.0
     objectStorageConfig:

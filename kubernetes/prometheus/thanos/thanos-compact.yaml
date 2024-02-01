@@ -84,7 +84,7 @@ spec:
       name: data
     spec:
       accessModes: [ "ReadWriteMany" ]
-      storageClassName: "nfs-client"
+      storageClassName: "nfs-qnap"
       resources:
         requests:
           storage: 30Gi
