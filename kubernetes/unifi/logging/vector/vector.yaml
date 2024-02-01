@@ -24,7 +24,7 @@ transforms:
     drop_on_error: true
     reroute_dropped: true
     source: |
-      parsed_message = parse_regex!(.message, r'^(?P<timestamp>\w+\s\d+\s\d+:\d+:\d+)\s(?P<host>.+)\s\[(?P<rule_type>[A-Z_]+)\-(?P<rule_result>\w+)\-(?P<rule_id>\d+)\]\s(?P<rule_event>.+)')
+      parsed_message = parse_regex!(.message, r'^(?P<timestamp>\w+\s+\d+\s\d+:\d+:\d+)\s(?P<host>.+)\s\[(?P<rule_type>[A-Z_]+)\-(?P<rule_result>\w+)\-(?P<rule_id>\d+)\]\s(?P<rule_event>.+)')
 
       parsed_time = string(parsed_message.timestamp)
       year = format_timestamp!(now(),"%Y")
