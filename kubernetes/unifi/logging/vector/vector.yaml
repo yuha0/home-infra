@@ -22,7 +22,7 @@ transforms:
     - unifi_ulog_syslogemu
     drop_on_abort: true
     drop_on_error: true
-    reroute_dropped: false
+    reroute_dropped: true
     source: |
       parsed_message = parse_regex!(.message, r'^(?P<timestamp>\w+\s\d+\s\d+:\d+:\d+)\s(?P<host>.+)\s\[(?P<rule_type>[A-Z_]+)\-(?P<rule_result>\w+)\-(?P<rule_id>\d+)\]\s(?P<rule_event>.+)')
 
@@ -53,7 +53,7 @@ transforms:
       }
 
 sinks:
-  loki:
+  loki_parse_unifi_ulog_syslogemu:
     type: "loki"
     inputs:
     - parse_unifi_ulog_syslogemu
@@ -67,6 +67,14 @@ sinks:
       rule_type: "{{ .rule_type }}"
       rule_result: "{{ .rule_result }}"
       rule_desc: "{{ .rule_desc }}"
-      # dst: "{{ .dst_ip }}"
-      # src: "{{ .src_ip }}"
-      # src_location: "{{ .src_location }}"
+  dropped:
+    type: "loki"
+    inputs:
+    - parse_unifi_ulog_syslogemu.dropped
+    endpoint: http://loki-loki-distributed-gateway.logging.svc.cluster.local.:80
+    encoding:
+      codec: json
+    out_of_order_action: accept
+    labels:
+      type: "firewall"
+      deadletter: "true"
