@@ -338,5 +338,4 @@ speaker:
 
 crds:
   enabled: true
-  # https://github.com/metallb/metallb/issues/1597
-  validationFailurePolicy: Ignore
+  validationFailurePolicy: Fail
