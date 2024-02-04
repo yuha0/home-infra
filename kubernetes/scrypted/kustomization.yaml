@@ -9,7 +9,7 @@ resources:
 images:
 - name: scrypted
   newName: ghcr.io/koush/scrypted
-  newTag: "18-jammy-lite-v0.88.0"
+  newTag: "18-jammy-lite-v0.93.0"
 
 patches:
 - target:
