@@ -55,6 +55,7 @@ spec:
           upstream_dns:
           - {{ index . "nextdns-upstream" }}
           upstream_dns_file: ""
+          upstream_mode: fastest_addr
           bootstrap_dns:
           - {{ index . "nextdns-bootstrap-1" }}
           - {{ index . "nextdns-bootstrap-2" }}
@@ -177,7 +178,7 @@ spec:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 27
+        schema_version: 28
     metadata:
       creationTimestamp: null
       name: config
