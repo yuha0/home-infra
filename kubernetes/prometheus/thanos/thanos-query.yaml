@@ -42,7 +42,7 @@ spec:
         - --store=dnssrv+_grpc._tcp.thanos-store.monitoring.svc.cluster.local
         - --store=dnssrv+_grpc._tcp.prometheus-operated.monitoring.svc.cluster.local
         - --query.timeout=10m
-        - --query.auto-downsampling=true
+        - --query.auto-downsampling
         image: thanos
         resources:
           requests:
