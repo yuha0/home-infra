@@ -1,0 +1,35 @@
+resources:
+- github.com/ansible/awx-operator/config/crd?ref=2.12.0
+- github.com/ansible/awx-operator/config/manager?ref=2.12.0
+- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/service_account.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/role.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/role_binding.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/leader_election_role.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/leader_election_role_binding.yaml
+
+patches:
+- patch: |-
+    $patch: delete
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: system
+- target:
+    group: apps
+  # https://github.com/ansible/awx-operator/issues/1711
+  patch: |-
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+images:
+- name: quay.io/ansible/awx-operator
+  newTag: "2.12.0"

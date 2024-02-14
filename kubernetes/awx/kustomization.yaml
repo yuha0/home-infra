@@ -1,0 +1,4 @@
+namespace: awx
+resources:
+- namespace.yaml
+- operator
