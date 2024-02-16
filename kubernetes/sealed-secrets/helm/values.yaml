@@ -39,7 +39,7 @@ commonLabels: {}
 image:
   registry: docker.io
   repository: bitnami/sealed-secrets-controller
-  tag: 0.25.0
+  tag: 0.26.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -74,6 +74,7 @@ skipRecreate: false
 ## @param keyrenewperiod Specifies key renewal period. Default 30 days
 ## e.g
 ## keyrenewperiod: "720h30m"
+## To disable use "0", with quotes!
 ##
 keyrenewperiod: "2160h30m"
 ## @param rateLimit Number of allowed sustained request per second for verify endpoint
@@ -94,6 +95,12 @@ privateKeyLabels: {}
 ## @param logInfoStdout Specifies whether the Sealed Secrets controller will log info to stdout
 ##
 logInfoStdout: false
+## @param logLevel Specifies log level of controller (INFO,ERROR)
+##
+logLevel: ""
+## @param logFormat Specifies log format (text,json)
+##
+logFormat: ""
 ## @param command Override default container command
 ##
 command: []
@@ -398,6 +405,22 @@ rbac:
   ## @param rbac.pspEnabled PodSecurityPolicy
   ##
   pspEnabled: false
+  ## "Proxier" RBAC Role configuration
+  ##
+  serviceProxier:
+    ## @param rbac.serviceProxier.create Specifies whether to create the "proxier" role, to allow external users to access the SealedSecret API
+    ##
+    create: true
+    ## @param rbac.serviceProxier.bind Specifies whether to create a RoleBinding for the "proxier" role
+    ##
+    bind: true
+    ## @param rbac.serviceProxier.subjects Specifies the RBAC subjects to grant the "proxier" role to, in the created RoleBinding
+    ## It is best to change this to something narrower, as the default binding gives `system:authenticated` access, which is very broad
+    ##
+    subjects: |
+      - apiGroup: rbac.authorization.k8s.io
+        kind: Group
+        name: system:authenticated
 
 ## @section Metrics parameters
 
