@@ -9,7 +9,7 @@ resources:
 images:
 - name: ollama
   newName: docker.io/ollama/ollama
-  newTag: "0.1.24"
+  newTag: "0.1.25"
 - name: ollama-webui
   newName: ghcr.io/ollama-webui/ollama-webui
   newTag: main@sha256:447ef97fe2afde6d6b24e3158d62cb13d615a136d5d33f2a71d69a7091a45f13
