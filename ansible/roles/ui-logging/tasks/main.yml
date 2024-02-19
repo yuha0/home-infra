@@ -23,6 +23,7 @@
     checksum: "sha256:https://github.com/vectordotdev/vector/releases/download/v{{ vector_version }}/vector-{{ vector_version }}-SHA256SUMS"
     mode: '0640'
   when: vector_version_current is undefined or vector_version_current.stdout != vector_version
+  register: vector_downloads
 
 - name: Extract vector archive
   ansible.builtin.unarchive:
@@ -36,16 +37,17 @@
     src: "/var/log/vector/archive/vector-{{ ansible_architecture }}-unknown-linux-gnu/bin/vector"
     dest: /usr/bin/vector
     remote_src: yes
+    mode: "0755"
   when: vector_version_current is undefined or vector_version_current.stdout != vector_version
 
 - name: Delete downloads
   ansible.builtin.file:
-    path: "{{ items }}"
+    path: "{{ item }}"
     state: absent
   with_items:
   - "/var/log/vector/archive/vector-{{ vector_version }}-{{ ansible_architecture }}-unknown-linux-gnu.tar.gz"
   - "/var/log/vector/archive/vector-{{ ansible_architecture }}-unknown-linux-gnu"
-  when: vector_version_current is undefined or vector_version_current.stdout != vector_version
+  when: vector_downloads is defined
 
 - name: Add vector config file
   ansible.builtin.template:
