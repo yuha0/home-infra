@@ -96,6 +96,10 @@ loki:
   config: |
     auth_enabled: false
 
+    analytics:
+      reporting_enabled: false
+      usage_stats_url: ""
+
     server:
       {{- toYaml .Values.loki.server | nindent 6 }}
 
