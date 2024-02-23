@@ -8,7 +8,12 @@ spec:
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
-  image: quay.io/prometheus/prometheus:v2.49.1
+  enableFeatures:
+  - auto-gomemlimit
+  additionalArgs:
+  - name: auto-gomemlimit.ratio
+    value: 0.9
+  image: quay.io/prometheus/prometheus:v2.50.0
   replicas: 1
   shards: 15
   resources:
@@ -39,4 +44,4 @@ spec:
       key: thanos.yaml
       name: thanos-objstore-config
     version: v0.34.0
-  version: v2.49.1
+  version: v2.50.0
