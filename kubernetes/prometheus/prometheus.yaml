@@ -12,7 +12,7 @@ spec:
   - auto-gomemlimit
   additionalArgs:
   - name: auto-gomemlimit.ratio
-    value: 0.9
+    value: "0.9"
   image: quay.io/prometheus/prometheus:v2.50.0
   replicas: 1
   shards: 15
