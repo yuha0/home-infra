@@ -25,6 +25,7 @@ patches:
         - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller-external
         - --election-id=ingress-nginx-leader
         - --controller-class=k8s.io/ingress-nginx-external
+        - --ingress-class=nginx-external
         - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller-external
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
