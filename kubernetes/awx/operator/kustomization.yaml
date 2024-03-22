@@ -1,11 +1,11 @@
 resources:
-- github.com/ansible/awx-operator/config/crd?ref=2.12.0
-- github.com/ansible/awx-operator/config/manager?ref=2.12.0
-- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/service_account.yaml
-- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/role.yaml
-- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/role_binding.yaml
-- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/leader_election_role.yaml
-- https://raw.githubusercontent.com/ansible/awx-operator/2.12.0/config/rbac/leader_election_role_binding.yaml
+- github.com/ansible/awx-operator/config/crd?ref=2.13.1
+- github.com/ansible/awx-operator/config/manager?ref=2.13.1
+- https://raw.githubusercontent.com/ansible/awx-operator/2.13.1/config/rbac/service_account.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.13.1/config/rbac/role.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.13.1/config/rbac/role_binding.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.13.1/config/rbac/leader_election_role.yaml
+- https://raw.githubusercontent.com/ansible/awx-operator/2.13.1/config/rbac/leader_election_role_binding.yaml
 
 patches:
 - patch: |-
@@ -32,4 +32,4 @@ patches:
                 - amd64
 images:
 - name: quay.io/ansible/awx-operator
-  newTag: "2.12.0"
+  newTag: "2.13.1"
