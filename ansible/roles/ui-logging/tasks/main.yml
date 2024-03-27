@@ -67,14 +67,20 @@
     mode: '0644'
   register: vector_systemd
 
-- name: Reload vector if config changed
-  ansible.builtin.systemd_service:
-    name: vector
-    state: reloaded
-  when: vector_config.changed or vector_systemd.changed
-
 - name: Enable and start vector systemd unit
   ansible.builtin.systemd_service:
     name: vector
     state: started
     enabled: true
+
+- name: Reload vector if systemd service is changed
+  ansible.builtin.systemd_service:
+    name: vector
+    state: reloaded
+  when: vector_systemd.changed
+
+- name: Restart vector if vector binary or config is changed
+  ansible.builtin.systemd_service:
+    name: vector
+    state: restarted
+  when: vector_config.changed or vector_downloads is defined
