@@ -9,7 +9,7 @@ resources:
 images:
 - name: geoipupdate
   newName: ghcr.io/maxmind/geoipupdate
-  newTag: v6.1.0
+  newTag: v7.0.1
 - name: vector
   newName: docker.io/timberio/vector
   newTag: 0.37.1-distroless-libc
