@@ -5,6 +5,7 @@ resources:
 - namespace.yaml
 - models
 - webui
+- networkpolicies.yaml
 
 images:
 - name: ollama

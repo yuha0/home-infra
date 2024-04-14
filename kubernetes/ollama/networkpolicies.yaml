@@ -1,0 +1,45 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ollama
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/part-of: ollama
+  ingress:
+  - fromEndpoints:
+    - {}
+  - fromEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace.labels.app.kubernetes.io/name: ingress-nginx
+        app.kubernetes.io/name: ingress-nginx
+        app.kubernetes.io/component: controller
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+        - port: "53"
+          protocol: UDP
+      rules:
+        dns:
+          - matchPattern: "*"
+  - toCIDRSet:
+    - cidr: 169.254.25.10/32
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
+  egress:
+  - toCIDRSet:
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8
+    toPorts:
+    - ports:
+      - port: "443"
