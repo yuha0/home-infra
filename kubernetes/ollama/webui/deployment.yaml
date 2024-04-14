@@ -16,8 +16,8 @@ spec:
             cpu: "500m"
             memory: "500Mi"
         env:
-        - name: OLLAMA_API_BASE_URL
-          value: http://models:11434/api
+        - name: OLLAMA_BASE_URL
+          value: http://models:11434
         volumeMounts:
         - name: data
           mountPath: /app/backend/data
