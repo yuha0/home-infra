@@ -11,10 +11,15 @@ spec:
     - {}
   - fromEndpoints:
     - matchLabels:
-        io.kubernetes.pod.namespace.labels.app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/component: controller
+        io.cilium.k8s.namespace.labels.app.kubernetes.io/name: ingress-nginx
+      matchExpressions:
+      - key: io.kubernetes.pod.namespace
+        operator: Exists
   egress:
+  - toEndpoints:
+    - {}
   - toEndpoints:
     - matchLabels:
         io.kubernetes.pod.namespace: kube-system
