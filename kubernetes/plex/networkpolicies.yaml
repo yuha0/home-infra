@@ -38,7 +38,6 @@ spec:
         - matchPattern: "*"
   # it's hard to make a definitive whitelist since plex uses a lot of 3rd party services.
   # But at least let's block it from accessing local networks.
-  egress:
   - toCIDRSet:
     - cidr: 0.0.0.0/0
       except:

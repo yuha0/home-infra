@@ -35,7 +35,6 @@ spec:
       rules:
         dns:
         - matchPattern: "*"
-  egress:
   - toCIDRSet:
     - cidr: 0.0.0.0/0
       except:
