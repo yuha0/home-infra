@@ -10,10 +10,9 @@ spec:
   ingress:
   - fromEndpoints:
     - matchLabels:
-        app.kubernetes.io/component: controller
-        app.kubernetes.io/instance: ingress-nginx
+        io.kubernetes.pod.namespace.labels.app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/name: ingress-nginx
-        io.kubernetes.pod.namespace: ingress-nginx-internal
+        app.kubernetes.io/component: controller
   egress:
   # DNS
   - toEndpoints:
@@ -39,7 +38,13 @@ spec:
         - matchPattern: "*"
   # it's hard to make a definitive whitelist since plex uses a lot of 3rd party services.
   # But at least let's block it from accessing local networks.
+  egress:
   - toCIDRSet:
     - cidr: 0.0.0.0/0
       except:
       - 10.0.0.0/8
+      - 100.64.0.0/16
+      - 100.65.0.0/16
+    toPorts:
+    - ports:
+      - port: "443"
