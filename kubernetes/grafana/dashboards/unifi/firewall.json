@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 31,
+  "id": 21,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -38,30 +38,16 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 80,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
             "lineWidth": 1,
-            "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -80,8 +66,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -93,10 +78,13 @@
       },
       "id": 3,
       "options": {
+        "barRadius": 0,
+        "barWidth": 1,
+        "fullHighlight": false,
+        "groupWidth": 1,
         "legend": {
           "calcs": [
-            "max",
-            "lastNotNull"
+            "max"
           ],
           "displayMode": "table",
           "placement": "right",
@@ -104,10 +92,15 @@
           "sortBy": "Max",
           "sortDesc": true
         },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "normal",
         "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -117,15 +110,15 @@
             "uid": "P982945308D3682D1"
           },
           "editorMode": "code",
-          "expr": "sum by (src_location_country_name) (count_over_time({rule_result=\"D\",rule_type=\"WAN_IN\",type=\"firewall\"} | json [$__range]))",
+          "expr": "sum by (src_location_country_name) (count_over_time({rule_result=\"D\",rule_type=\"WAN_IN\",type=\"firewall\"} | json [1h]))",
           "legendFormat": "{{ src_location_country_name }}",
           "queryType": "range",
-          "refId": "A"
+          "refId": "A",
+          "step": ""
         }
       ],
       "title": "WAN_IN Drops by Country",
-      "transformations": [],
-      "type": "timeseries"
+      "type": "barchart"
     },
     {
       "datasource": {
@@ -157,8 +150,7 @@
                 "value": 80
               }
             ]
-          },
-          "unitScale": true
+          }
         },
         "overrides": []
       },
@@ -219,7 +211,7 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "10.3.1",
+      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
@@ -259,13 +251,13 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Firewall Overview",
   "uid": "unifi-firewall",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
