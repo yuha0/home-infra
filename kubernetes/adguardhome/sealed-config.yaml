@@ -172,8 +172,8 @@ spec:
         querylog:
           enabled: true
           file_enabled: true
-          interval: 2160h
-          size_memory: 1000
+          interval: 48h
+          size_memory: 100
         os:
           group: ""
           user: ""
