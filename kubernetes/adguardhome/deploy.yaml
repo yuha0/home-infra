@@ -45,6 +45,8 @@ spec:
           mountPath: /opt/adguardhome/work
         - name: conf-dir
           mountPath: /opt/adguardhome/conf
+        - name: logs
+          mountPath: /logs
         ports:
         - name: dns-tcp
           containerPort: 53
@@ -101,6 +103,9 @@ spec:
         emptyDir: {}
       - name: conf-dir
         emptyDir: {}
+      - name: logs
+        emptyDir:
+          medium: Memory
       - name: conf
         secret:
           secretName: config
