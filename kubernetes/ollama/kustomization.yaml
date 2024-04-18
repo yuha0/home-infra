@@ -13,7 +13,7 @@ images:
   newTag: "0.1.32"
 - name: webui
   newName: ghcr.io/open-webui/open-webui
-  digest: sha256:6c0a3c8042c568415cb97b0c33a4c5aff6420b497c63c4bd84479692970e7027
+  digest: sha256:4faf3431828b31f6a8b76eee6da96daa2e780aee80564c7979a38c5e07944cfb
 
 patches:
 - target:
