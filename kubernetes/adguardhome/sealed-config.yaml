@@ -172,7 +172,7 @@ spec:
         querylog:
           enabled: true
           file_enabled: true
-          interval: 24h
+          interval: 1h
           size_memory: 0
           dir_path: "/logs"
         os:
