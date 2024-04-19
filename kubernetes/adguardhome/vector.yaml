@@ -1,0 +1,50 @@
+data_dir: /vector-data-dir
+expire_metrics_secs: 3600
+
+sources:
+  adguardhome_querylog:
+    type: file
+    include:
+    - /querylog.json*
+    line_delimiter: "\n"
+
+transforms:
+  parse_adguardhome_querylog_json:
+    type: "remap"
+    inputs:
+    - adguardhome_querylog
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    source: |
+      . = parse_json!(.message)
+      .timestamp = .T
+      del(.T)
+      .pod, err = get_env_var("POD_NAME")
+      if err != null {
+        .pod = ""
+      }
+      if !exists(.CID) {
+        .CID = ""
+      }
+      if !exists(.Result.IsFiltered) {
+        .IsFiltered = false
+      } else {
+        .IsFiltered = .Result.IsFiltered
+      }
+
+sinks:
+  loki_parse_adguardhome_querylog_json:
+    type: "loki"
+    inputs:
+    - parse_adguardhome_querylog_json
+    endpoint: http://loki-loki-distributed-gateway.logging.svc.cluster.local.:80
+    encoding:
+      codec: json
+    out_of_order_action: accept
+    labels:
+      app_name: "adguardhome"
+      CID: "{{ .CID }}"
+      IP: "{{ .IP }}"
+      IsFiltered: "{{ .IsFiltered }}"
+      CP: "{{ .CP }}"

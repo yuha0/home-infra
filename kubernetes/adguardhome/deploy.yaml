@@ -98,6 +98,22 @@ spec:
               key: password
         - name: server_port
           value: "9617"
+      - name: vector
+        image: vector
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: vector-config
+          mountPath: "/etc/vector/"
+          readOnly: true
+        - name: logs
+          mountPath: /logs
+          readOnly: true
+        - name: vector-data
+          mountPath: /vector-data-dir
       volumes:
       - name: work-dir
         emptyDir: {}
@@ -106,6 +122,14 @@ spec:
       - name: logs
         emptyDir:
           medium: Memory
+      - name: vector-data
+        emptyDir:
+          medium: Memory
+      - name: vector-config
+        projected:
+          sources:
+          - configMap:
+              name: vector
       - name: conf
         secret:
           secretName: config

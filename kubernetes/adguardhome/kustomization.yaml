@@ -24,3 +24,11 @@ images:
   - name: adguard-exporter
     newName: ebrianne/adguard-exporter
     newTag: v1.14
+  - name: vector
+    newName: docker.io/timberio/vector
+    newTag: 0.37.1-distroless-libc
+
+configMapGenerator:
+- name: vector
+  files:
+  - vector.yaml
