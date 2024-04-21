@@ -11,7 +11,7 @@ resources:
 images:
 - name: unpoller
   newName: ghcr.io/unpoller/unpoller
-  newTag: v2.11.1
+  newTag: v2.11.2
 
 configMapGenerator:
 - name: unpoller-config
