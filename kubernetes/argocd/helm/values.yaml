@@ -11,8 +11,7 @@ kubeVersionOverride: ""
 # Override APIVersions
 # If you want to template helm charts but cannot access k8s API server
 # you can set api versions here
-apiVersionOverrides:
-  monitoring: monitoring.coreos.com/v1
+apiVersionOverrides: {}
 
 # -- Create aggregated roles that extend existing cluster roles to interact with argo-cd resources
 ## Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles
