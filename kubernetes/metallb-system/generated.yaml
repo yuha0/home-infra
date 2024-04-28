@@ -6,10 +6,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
 ---
@@ -20,10 +20,10 @@ metadata:
   name: metallb-speaker
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: speaker
 ---
@@ -34,10 +34,10 @@ metadata:
   name: metallb-webhook-cert
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: metallb/templates/exclude-l2-config.yaml
@@ -47,10 +47,10 @@ metadata:
   name: metallb-excludel2
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 data:
   excludel2.yaml: |
@@ -1243,10 +1243,10 @@ kind: ClusterRole
 metadata:
   name: metallb:controller
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1283,10 +1283,10 @@ kind: ClusterRole
 metadata:
   name: metallb:speaker
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1308,10 +1308,10 @@ kind: ClusterRoleBinding
 metadata:
   name: metallb:controller
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -1328,10 +1328,10 @@ kind: ClusterRoleBinding
 metadata:
   name: metallb:speaker
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -1349,10 +1349,10 @@ metadata:
   name: metallb-pod-lister
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1390,10 +1390,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1436,10 +1436,10 @@ metadata:
   name: metallb-pod-lister
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1456,10 +1456,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1476,10 +1476,10 @@ metadata:
   name: metallb-webhook-service
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 spec:
   ports:
@@ -1497,10 +1497,10 @@ metadata:
   name: metallb-speaker
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: speaker
 spec:
@@ -1532,7 +1532,7 @@ spec:
             name: metallb-excludel2
       containers:
       - name: speaker
-        image: quay.io/metallb/speaker:v0.14.4
+        image: quay.io/metallb/speaker:v0.14.5
         args:
         - --port=7472
         - --log-level=info
@@ -1606,10 +1606,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
 spec:
@@ -1635,7 +1635,7 @@ spec:
         runAsUser: 65534
       containers:
       - name: controller
-        image: quay.io/metallb/controller:v0.14.4
+        image: quay.io/metallb/controller:v0.14.5
         args:
         - --port=7472
         - --log-level=info
@@ -1693,10 +1693,10 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: metallb-webhook-configuration
   labels:
-    helm.sh/chart: metallb-0.14.4
+    helm.sh/chart: metallb-0.14.5
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.4"
+    app.kubernetes.io/version: "v0.14.5"
     app.kubernetes.io/managed-by: Helm
 webhooks:
 - admissionReviewVersions:
