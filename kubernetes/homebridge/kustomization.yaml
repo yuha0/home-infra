@@ -15,7 +15,7 @@ configMapGenerator:
 images:
 - name: homebridge
   newName: homebridge/homebridge
-  newTag: "2024-01-08"
+  newTag: "2024-05-02"
 
 patches:
 - target:
