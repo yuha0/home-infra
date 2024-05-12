@@ -12,9 +12,12 @@ spec:
         ports:
         - containerPort: 8080
         resources:
+          requests:
+            cpu: "500m"
+            memory: "800Mi"
           limits:
             cpu: "500m"
-            memory: "500Mi"
+            memory: "800Mi"
         env:
         - name: OLLAMA_BASE_URL
           value: http://models:11434
