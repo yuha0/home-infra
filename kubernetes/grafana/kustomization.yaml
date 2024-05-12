@@ -20,8 +20,8 @@ configMapGenerator:
       - providers.yaml
 images:
   - name: grafana
-    newName: grafana/grafana
+    newName: docker.io/grafana/grafana
     newTag: 10.4.2
   - name: k8s-sidecar
-    newName: kiwigrid/k8s-sidecar
+    newName: docker.io/kiwigrid/k8s-sidecar
     newTag: 1.26.2

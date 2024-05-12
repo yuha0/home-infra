@@ -27,7 +27,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: plex
-        image: plexinc/pms-docker
+        image: docker.io/plexinc/pms-docker
         imagePullPolicy: Always
         ports:
         - containerPort: 32400
