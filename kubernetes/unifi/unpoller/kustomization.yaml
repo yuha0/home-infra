@@ -8,11 +8,6 @@ resources:
 - deployment.yaml
 - sealed-unpoller-user.yaml
 
-images:
-- name: unpoller
-  newName: ghcr.io/unpoller/unpoller
-  newTag: v2.11.2
-
 configMapGenerator:
 - name: unpoller-config
   files:
