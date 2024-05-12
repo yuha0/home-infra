@@ -24,4 +24,4 @@ images:
     newTag: 10.4.2
   - name: k8s-sidecar
     newName: kiwigrid/k8s-sidecar
-    newTag: 1.26.0
+    newTag: 1.26.2
