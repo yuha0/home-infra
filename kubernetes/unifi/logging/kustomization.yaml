@@ -12,4 +12,4 @@ images:
   newTag: v7.0.1
 - name: vector
   newName: docker.io/timberio/vector
-  newTag: 0.37.1-distroless-libc
+  newTag: 0.38.0-distroless-libc
