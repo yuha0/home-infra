@@ -10,7 +10,7 @@ resources:
 images:
 - name: ollama
   newName: docker.io/ollama/ollama
-  newTag: "0.1.32"
+  newTag: "0.1.37"
 - name: webui
   newName: ghcr.io/open-webui/open-webui
   digest: sha256:7cfbfe2719844c9f00d0d35c87c04186d03b206f26784e16225f8aa18489ea64
