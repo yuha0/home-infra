@@ -5,7 +5,7 @@ image:
   registry: quay.io
   repository: prometheus/node-exporter
   # Overrides the image tag whose default is {{ printf "v%s" .Chart.AppVersion }}
-  tag: "v1.8.0"
+  tag: "v1.8.1"
   pullPolicy: IfNotPresent
   digest: ""
 
@@ -98,6 +98,7 @@ service:
     enabled: false
     ipFamilies: ["IPv6", "IPv4"]
     ipFamilyPolicy: "PreferDualStack"
+  externalTrafficPolicy: ""
 
 # Set a NetworkPolicy with:
 # ingress only on service.port
