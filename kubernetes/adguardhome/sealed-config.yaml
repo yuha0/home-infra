@@ -1,3 +1,4 @@
+---
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
@@ -6,6 +7,9 @@ metadata:
   namespace: adguardhome
 spec:
   encryptedData:
+    client1: AgAXVJHkdvFzY7GR10w2OY2qM0j/jDJ/vz3KnIWFplonpG3TvDg79uFEUpYurbHDDEs+yziZHO7jAESRXgpJKc4mLFtPz3pGlbnPOqNYU60WBvQjTTtbT0NTfRHBcQZxKZVjbgA4JOWSJAV4gSm9qw+Q46Z5xAzKa+6un/oH/AVv71MuHjiYAqAC/ROz42pRiK3FAh0v9OVEyA/xg7iAFzJsY6bKYvPkQGiG37qVJQNDwhYCWN8R4FoDhJIG+So6/Q9r52SgheYLSRl+Z+6jUxmgafDFflRnZNd4sIjIYf4JZIJXbLAerb7wSvnVlMGlMFpCw9qkFnp6A9aER71r8Jswb0K8L1sjIFnK4JYRtX+eVPf1S5BBjS8YdprMgQcw5fwwdqp3wrtZuGuELomFnnrXsv+lH++4/01jksqVgCSQQKUw6b+z5NiS2Exb+DQjFlpvwRHUJ6XH8T2dXzcT5wmVceAvrfb6u4/B17gzOgeG4PgmdkRls7YPoOUTmKeSCyGHJzmZLYf2dZHBO04cTjc4I0G/wUtHOpKjJax2sS2bNHa+YmIKi8AH+A69LUjt4d4RV1apwVgoO2JICZarnR78UQHRPQdQKZ53lRGNrRLOzPVL1F8q3yDJ9+8ONRJ47rwDLs10xouBfCOFJi/ZBWt3nkZYLWGGbSUhq5XeFD2yC7VAeAg9twaAiUpa61Fm7iJy/t4gPGRTZjQFEKBMr22XO/4ohza7QtA=
+    client2: AgAZE36161uHTOQbr3r+EFDbMTXSzNOJ5GrMjGL/s9SfkOWOZeogE7sIf3SGjaliJvXoYkzaDzCDu10+IJatRKyvq0KjDBd/6bGqEn7jTaH9LE8lEdDtGe2oqRDfmtajU7Vbro4AJXE58oHQsv0Rh5k7Oij6PjaAJ4tXEWjDklZ66ieBtTZgq9Z0QadhCVDz4AIAa5r2lZ0dBBaQJwfZxdn5pIsrf2SlrWSWgwuHyat3Cfl1bUN88FLdi6tyUZGDMhq7ubUrrs1gQDNq4u9YnA3qnMf/mTkbPOkmdPxu40ddSLKR49iJQp7YuUaPX2FU5KV+b06hTvHkKI/tW83ddisxAQ1EZBLO/N3MzzYYFVuapJs2fF81o/G6LeW3iv9b+K8XIZn4d6q54NT3Cdg9Uhy7tQZZfvpsv3q0RHxje66lNL3LmU0Ld3Jh18GGpNXYBt53mW1cMwpD9KyRTjiZRxyrZWcuz2FoIH8xP9cVE2O1VMgfGYa9R0v3mQVZgAJ2nyMPnknnnNxNpLz68imW4PkZI+QyejlzmJLFIrTPT8J5zl+fXzBqL2hQPcevSqjyUKKPDaHv2IUR1K6SPrdS+3uGsj0WeW1yymc7nccdLE3MoE96XB+ybLbDt2BYAi7rfbP5NVejpdPCgVzzT+e4h1euwd86+v0HnOoHVOrF+qE1Kgaff6Fv8fWTQiXeCAQvb7cBGpHglyGrnz/hvAgdXeWZxHmnvyR0tdGLPO0=
+    client3: AgAoWpAQaR4Ln/k7R91V1fznXaaetjwzMUkZGAwTeRBqtFwcH3ALuP35DiXrsdnj4hUwXVIajHy0KPpHM69IM+PrOaUbq6nuEi+wdAQa1uIQgGnV+ZVfiLem2xxmIoLWnkJru4BCLtORVQgFI4DKybwpeHe6cjHf2RV7r4/MCyUv+7lEsG7YIPUqZU09DXWojvcEpqniqPFjUf/sW/hoAZFbO/tq011DBCgQA5Z3iHQreQ/chzejkFPlXB5xCRXdYg4ISrs1lM5rY5vJgCFV/vFTSVvuCUrpAHiyhTdJVZqTUHawNYokWnbwXjk1wjDXRY4hVlRIFxFmW23umXts92smjoPjT+TFCe4+tpp1uAZA8fzEwAh7eI/FYFrtmAogJb+sNR3OnfMgWntD3glxMhIHjs2VtK4OgFBeh5GVNKmLAORbaa7phJ+o/KOTlBGOZqRtbF5Sibcw7nBJwWpEpRDz7RMUETRwVDDcrjEkImdkEn9rhImcy97iXkctZ+9xKxgik2fHnON7Br5wgz5WCpDKZETsUNctwun2xqZk1gQ+1UEDGho9LKo07ycnYNkf8gbySbq4ka2pqLjTO55MFMGzVk4xkXoK/VYp2Uy2tRe2LWUXlrrgLZTqBg4yRdyttZnpM3P1jOio1Ol7CCOaowdFooyHMDtqYxlFsxNIK1GLxyVrhkvEG1QX9iRhBO95JUvArO5Ve8bgL2tYqQUSZfURYyq4kTKL0JMo
     nextdns-bootstrap-1: AgBbDwR28BXCaJhShmia85W37ELYH79cca+zUo4UFRTjwFqiCO9aTPvbX2HXkZ9+ha2AVB4LTkZVB/DXtOnyvsH10uQ1bLlh5Xl+HO4MKOPyq0txeSNJnTCC8M4xMZgWsQZ91cfKJPTlUWtEN68NxRx8UWuENvXHhc37Yza6VAbEF7Bx4LRk/pDYs1xhliBCvAylDVP87t0PNy/AcrTDv8Z9tutUadlMeq2SHoRzGPEtvGNhW5nJ16yrlFYRIjRUgsCfYf51Yj0fycPd+Fc9J/Copfz5X4mCtEbqkmaBVH8ShCbedY9TpazzAkE+0oltrGCqovFr0cy06GeYcrLKhHyxInFkvIXhEorzqhHfrg1kOV47K04/gL1vMqoKCU5gPV0ozmiTVi9Mk8in9NkpOIgEPSOGsm7UWPa9/lOT4TzwnnBCtXREO/jYPjCdy96xgt2k5qdB2FqIKut1vlSWNhAdsNIBeXHymauNLdtVd9B1R8v6wdA9gJbBs/JXPj09TeERLFjss6PKAzTcBFOGpK7CsgGyYEYL2onZJW/p0oXHptF2753Tx01hNJyhbI1TE0I2rxI1cEJMK5ODrddKnr5KCiGSra5/vr0XCtJonioAHHG4ZMFaAUtyKSQaasi5ZeQDWkkZxdjcewyZKmhGwn4sY76A3lo9M4VlTbNKQMwF9vUkxmuPJure3GvXpEgkadzjc5vQTdLPtrjyIg==
     nextdns-bootstrap-2: AgAmJHyD76rTBprGKJ572yOJvbg5ebEXBxzOy7ZC+NsoWUr5OiiWEXiXu7/wyiLzdkxNlwADpOHqQnU8MH0vAtEgHBwTewKWWZV3dswHQzYxBdIYMz2/JRstp0ZKBHjd8/BO/9KcCtFXezbeHCndh/mTBoIkVyzqskuqA48rhDEb8atEMJa5/9VnjyyQSarpSdJ1YvuOA+JbFhqbi7AJ2KjbsR1nH9UTY1wf1FmfxQrWeEPEn/oDX1NZgTunc40taPWb8iFHwWTofScJ24WhPh2G4bim5sEa0LabGAjxJDUWitYtUw+xhwmtdq0d9IFQ69kq+VNrrflFzcBxOToFD27yvawzxUA2i113YDb1WKPI9JGKZmns8awi/GS1yXVPY45Tb/YT0dkqpypbELl1IC+/wowxW9+84KTtEzhbcS82vmEw4hEpkU967US7J5DeR+Ym1wZWWWdbBCVQwo7iJY1Gv+brPqVNkBcoSkupzVS+sax7YLJBYGZLLasCZVJP+eYrrIMhbDD9oYH3ZS58iH1uIEHv0Y4QZnW18NwnaFq6Q4r1JTARfuB5UcjwvvwROg96MMgDnRlr97eCvsnG2fa5zbvtPtWVOvcVoxWvN3jF2yQ8UYI2Y1qTMIQPnBO6vJzHQrDHBPTqWX1HE+URs+8ClMLl/dLTffq7rAW5HybZ+OeAqeXIAca4OSnMSX8Ht64NTyhGhoTzU9mqOA==
     nextdns-upstream: AgAJc3c1KUCj6nqb2BlkQn4UvGZlz+oQ8jg/2KF0URds6kQ55IRvz1QvzI6ZO6X8EbgNaT4Iv4gxbPoe3DjYuvUqs7x6faYRV+gI7QKhM4nyrukxUYLA3iHrTxyb+cgY/YLMkMxYCKj7PWCc5IV/pmBWdvcZJipzTe0nbUpCKdeLCvOdtQqS1YGO4AF3LQM8Ogh2KAnAxl2+EBTgbRVJrMuI/iOZjni95GvuCA0tWlMU6pk0p6rmoZUYRDrnOlflg4t1ydfb0/T60jnL5hLvr00fLLFEVRqkvoWLgH6/v1fc7ohFZXPNd4oflIOZYn43Grgdt2my8U28PvGb1M3TX6uLfK8pSRKdpOygqvfxPUM3jzJ25FWKUc3NMkBxlTCEEfx7agy6N4wFTAcPKFmhWMV999m+FV1Nr7VeO6ku1wpL6xkjO8Pf9bVsQxK8ZqaGKz67TBqPqBnLSodQZd6lRbYo40chfguIouvCeY0X7psXhFJA6GnwLPaqwT3+uSq7jjeBcQxkBMScxhSQqxIRVGoR6Vu3KrrTcVIQmlTTwb3IkvYGLD2TF6bPmvAJvZ+Gj+lXbBjsYVD31uUPLFp8quz9o/bdkFg46X7MPjqUnh10UCXdm7g2cZuh/s/GBZFw2p5LAMvkgO+E9RBGYEBlXMqNsniHMejPRc0N2Oi/Ro+SGa4RtvzirChb1zSpwMpOu7mUyNTmWNJrOueV4Q/Nl9hhgmL8Sg8IQiA5nE/g1A==
@@ -62,7 +66,12 @@ spec:
           all_servers: false
           fastest_addr: false
           fastest_timeout: 1s
-          allowed_clients: []
+          allowed_clients:
+          - 10.0.0.0/8
+          - 100.64.0.0/16
+          - {{ index . "client1" }}
+          - {{ index . "client2" }}
+          - {{ index . "client3" }}
           disallowed_clients: []
           blocked_hosts: []
           trusted_proxies:
@@ -184,4 +193,3 @@ spec:
       creationTimestamp: null
       name: config
       namespace: adguardhome
-
