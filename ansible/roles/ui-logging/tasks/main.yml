@@ -2,6 +2,7 @@
   ansible.builtin.shell: "/usr/bin/vector --version | cut -d' ' -f2"
   ignore_errors: yes
   register: vector_version_current
+  changed_when: vector_version_current is undefined or vector_version_current.stdout != vector_version
 
 - name: ensure vector directories
   ansible.builtin.file:
@@ -47,7 +48,6 @@
   with_items:
   - "/var/log/vector/archive/vector-{{ vector_version }}-{{ ansible_architecture }}-unknown-linux-gnu.tar.gz"
   - "/var/log/vector/archive/vector-{{ ansible_architecture }}-unknown-linux-gnu"
-  when: vector_downloads is defined
 
 - name: Add vector config file
   ansible.builtin.template:
@@ -83,4 +83,4 @@
   ansible.builtin.systemd_service:
     name: vector
     state: restarted
-  when: vector_config.changed or vector_downloads is defined
+  when: vector_config.changed or vector_downloads.changed
