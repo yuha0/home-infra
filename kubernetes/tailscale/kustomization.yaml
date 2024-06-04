@@ -4,7 +4,7 @@ commonLabels:
 resources:
 - namespace.yaml
 - rbac.yaml
-- sealed-auth-key.yaml
+- sealed-tailscale-auth.yaml
 - statefulset.yaml
 
 configMapGenerator:
@@ -12,7 +12,7 @@ configMapGenerator:
   literals:
   - TS_USERSPACE=true
   - TS_ROUTES=10.0.0.0/8
-  - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080 --accept-dns=false --stateful-filtering"
+  - TS_EXTRA_ARGS="--stateful-filtering=false"
 
 images:
 - name: tailscale
