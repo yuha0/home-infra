@@ -6,7 +6,7 @@ image:
   # -- Image repository for the `external-dns` container.
   repository: registry.k8s.io/external-dns/external-dns
   # -- (string) Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
-  tag: "v0.14.0"
+  tag: "v0.14.2"
   # -- Image pull policy for the `external-dns` container.
   pullPolicy: IfNotPresent
 
@@ -88,6 +88,9 @@ terminationGracePeriodSeconds:
 
 # -- (string) [DNS policy](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy) for the pod, if not set the default will be used.
 dnsPolicy:
+
+# -- (object) [DNS config](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config) for the pod, if not set the default will be used.
+dnsConfig:
 
 # -- [Init containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) to add to the `Pod` definition.
 initContainers: []
