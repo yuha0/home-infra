@@ -10,7 +10,7 @@ resources:
 configMapGenerator:
 - name: config
   literals:
-  - TS_USERSPACE=false
+  - TS_USERSPACE=true
   - TS_ROUTES=10.0.0.0/8
   - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080"
   - TS_DEBUG_FIREWALL_MODE=auto
