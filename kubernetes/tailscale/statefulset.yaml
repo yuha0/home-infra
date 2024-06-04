@@ -29,9 +29,8 @@ spec:
                 matchLabels:
                   app.kubernetes.io/component: subrouter
       securityContext:
-        capabilities:
-          add:
-          - NET_ADMIN
+        runAsUser: 1000
+        runAsGroup: 1000
       serviceAccountName: subrouter
       containers:
       - name: tailscale
