@@ -12,8 +12,7 @@ configMapGenerator:
   literals:
   - TS_USERSPACE=true
   - TS_ROUTES=10.0.0.0/8
-  - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080"
-  - TS_DEBUG_FIREWALL_MODE=auto
+  - TS_TAILSCALED_EXTRA_ARGS="--debug 0.0.0.0:8080 --accept-dns=false --stateful-filtering"
 
 images:
 - name: tailscale
