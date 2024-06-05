@@ -6,8 +6,6 @@ metadata:
   namespace: adguardhome
 spec:
   encryptedData:
-    nextdns-bootstrap-1: AgBbDwR28BXCaJhShmia85W37ELYH79cca+zUo4UFRTjwFqiCO9aTPvbX2HXkZ9+ha2AVB4LTkZVB/DXtOnyvsH10uQ1bLlh5Xl+HO4MKOPyq0txeSNJnTCC8M4xMZgWsQZ91cfKJPTlUWtEN68NxRx8UWuENvXHhc37Yza6VAbEF7Bx4LRk/pDYs1xhliBCvAylDVP87t0PNy/AcrTDv8Z9tutUadlMeq2SHoRzGPEtvGNhW5nJ16yrlFYRIjRUgsCfYf51Yj0fycPd+Fc9J/Copfz5X4mCtEbqkmaBVH8ShCbedY9TpazzAkE+0oltrGCqovFr0cy06GeYcrLKhHyxInFkvIXhEorzqhHfrg1kOV47K04/gL1vMqoKCU5gPV0ozmiTVi9Mk8in9NkpOIgEPSOGsm7UWPa9/lOT4TzwnnBCtXREO/jYPjCdy96xgt2k5qdB2FqIKut1vlSWNhAdsNIBeXHymauNLdtVd9B1R8v6wdA9gJbBs/JXPj09TeERLFjss6PKAzTcBFOGpK7CsgGyYEYL2onZJW/p0oXHptF2753Tx01hNJyhbI1TE0I2rxI1cEJMK5ODrddKnr5KCiGSra5/vr0XCtJonioAHHG4ZMFaAUtyKSQaasi5ZeQDWkkZxdjcewyZKmhGwn4sY76A3lo9M4VlTbNKQMwF9vUkxmuPJure3GvXpEgkadzjc5vQTdLPtrjyIg==
-    nextdns-bootstrap-2: AgAmJHyD76rTBprGKJ572yOJvbg5ebEXBxzOy7ZC+NsoWUr5OiiWEXiXu7/wyiLzdkxNlwADpOHqQnU8MH0vAtEgHBwTewKWWZV3dswHQzYxBdIYMz2/JRstp0ZKBHjd8/BO/9KcCtFXezbeHCndh/mTBoIkVyzqskuqA48rhDEb8atEMJa5/9VnjyyQSarpSdJ1YvuOA+JbFhqbi7AJ2KjbsR1nH9UTY1wf1FmfxQrWeEPEn/oDX1NZgTunc40taPWb8iFHwWTofScJ24WhPh2G4bim5sEa0LabGAjxJDUWitYtUw+xhwmtdq0d9IFQ69kq+VNrrflFzcBxOToFD27yvawzxUA2i113YDb1WKPI9JGKZmns8awi/GS1yXVPY45Tb/YT0dkqpypbELl1IC+/wowxW9+84KTtEzhbcS82vmEw4hEpkU967US7J5DeR+Ym1wZWWWdbBCVQwo7iJY1Gv+brPqVNkBcoSkupzVS+sax7YLJBYGZLLasCZVJP+eYrrIMhbDD9oYH3ZS58iH1uIEHv0Y4QZnW18NwnaFq6Q4r1JTARfuB5UcjwvvwROg96MMgDnRlr97eCvsnG2fa5zbvtPtWVOvcVoxWvN3jF2yQ8UYI2Y1qTMIQPnBO6vJzHQrDHBPTqWX1HE+URs+8ClMLl/dLTffq7rAW5HybZ+OeAqeXIAca4OSnMSX8Ht64NTyhGhoTzU9mqOA==
     nextdns-upstream: AgAJc3c1KUCj6nqb2BlkQn4UvGZlz+oQ8jg/2KF0URds6kQ55IRvz1QvzI6ZO6X8EbgNaT4Iv4gxbPoe3DjYuvUqs7x6faYRV+gI7QKhM4nyrukxUYLA3iHrTxyb+cgY/YLMkMxYCKj7PWCc5IV/pmBWdvcZJipzTe0nbUpCKdeLCvOdtQqS1YGO4AF3LQM8Ogh2KAnAxl2+EBTgbRVJrMuI/iOZjni95GvuCA0tWlMU6pk0p6rmoZUYRDrnOlflg4t1ydfb0/T60jnL5hLvr00fLLFEVRqkvoWLgH6/v1fc7ohFZXPNd4oflIOZYn43Grgdt2my8U28PvGb1M3TX6uLfK8pSRKdpOygqvfxPUM3jzJ25FWKUc3NMkBxlTCEEfx7agy6N4wFTAcPKFmhWMV999m+FV1Nr7VeO6ku1wpL6xkjO8Pf9bVsQxK8ZqaGKz67TBqPqBnLSodQZd6lRbYo40chfguIouvCeY0X7psXhFJA6GnwLPaqwT3+uSq7jjeBcQxkBMScxhSQqxIRVGoR6Vu3KrrTcVIQmlTTwb3IkvYGLD2TF6bPmvAJvZ+Gj+lXbBjsYVD31uUPLFp8quz9o/bdkFg46X7MPjqUnh10UCXdm7g2cZuh/s/GBZFw2p5LAMvkgO+E9RBGYEBlXMqNsniHMejPRc0N2Oi/Ro+SGa4RtvzirChb1zSpwMpOu7mUyNTmWNJrOueV4Q/Nl9hhgmL8Sg8IQiA5nE/g1A==
     password: AgCyLIt6tCS+b/++lQM3pL/A+YT5vEwxp7fWKugLyksj6w0OOWDOSIL/sj/14OsqusAUvrQzVyzb3qGFt7J3xXi4BeWhSHD2QQtiH0d9/0TTkjvt8APQQa8z0zGLcCrGWcoO+2FJbmCmbWPrtQiul/kYvL/cefjEcZvTnV6jTSrydWjjQNQ95gRdMzFNSLfywYV3l2f1wuVGQ9PgwBdWsUuW5DgaewomGnVEjT6t95AfIuDLxtgiMgX8I3FG84OLzjpNlEeUs7rCCDRGg8l3R/2JUUlp6S/gbohXvhtc/+mnJIU7usw1TMfm4m2Fw+z7evlWVQ96RLZi7WJMYRqzxep6Og9y/DEb8J12aUhm8XlY5fZ8eMTpXZWsR3QizHMyF2e4SMXlcRFOfGRu+5kzv9qfMoqhRjdvguNLOfDGrrsk5NX1skWMhsRiYw4dnM4mz231fMxdx4hCKeLgq0zStNEiRoJEkyt2CMqI+lYvYQFW0ZjpClKtOr2KKgV/M1I+/ukGgDIifRwrf/KBPFZzMCmJQc8X32pj/SWkiqBpFyijPSgyWRO6pIvo58eezdzKjykkdN7Xn79RLNRP+/Wgs6N4PFyu3CH1LRfaa0eECNRWuUpmGY2RNQ3q1nNGu/ShI8dd6ObrY4g20xtcztx+EjMMnwOihgjhGQRPgg8ykzlmmOCOIicck9iEOVSHLtMNAhFzr6RhWNhq6HK3lSGrl/HJFTNYKXVslCVFT1zES4Vx7im6mujQIXXJdsYy
     username: AgBROvaEOuH1wDPEK/rXjygbWsPh/wDGen9tIxaYJsZyBQjWgX6ODhyi4hNWAfP+51sOwdWuDnqQ4ae8TgvbCRk/kZvUvbTrSjG5zUpkRbeI/XbqTeDgPJyQUIIBinNjsimqR85haFnSagjzL1HNENyiX7mJ/QmNRnwG0VynOmHMukg2bekm/DXc/6Vd9VmFyTmExg0SfmI+qL+mZFUK+PXLhHSDTCF1VtQT+rSZmEWzhrOS4DS5wq3jFvQUBFVvMo1mjZIV+dXYSmWBj7LRNKHITGtbL+P6jbdArrOndwPaQBidchwRd8OChT4CkZLXIHeWHaMQPY6dR9RQAeOonxVAZtGlLmOlJ3nSE/CiuhkBGYTbRI1v9W+mhppz8G5AmfXt6yfItkTDg7ZdvEH9i9R/Mh2nh9uyy5cD9c8xx2d9ULfyTQDS9+uIsXj9zEILtgtz68iIIvDNYfrU4ZBvnwkMLKRnZyCMV1Dq5WkmybjlbHncFe3xp/TubPUuEUWD3NatDFucTYVofVPVaa8iNyFpZ+jVKLiskS7ijjWny/Uhmo/qk62RttkNUujFRTmO0Ap+XsPpD4LT1cDksfetvQuXO4kht62j7W1Kh2IRLqyFR0EepzIACNfHIxySjk9R3ZUcwWvZnGaqT3srnM0kOBeFfLl/0SEm332i6RBBDsoLQa9mvXivu/xJ/9u5uafaEscApzj8RbM=
@@ -57,8 +55,8 @@ spec:
           upstream_dns_file: ""
           upstream_mode: fastest_addr
           bootstrap_dns:
-          - {{ index . "nextdns-bootstrap-1" }}
-          - {{ index . "nextdns-bootstrap-2" }}
+          - 9.9.9.9
+          - 1.1.1.1
           all_servers: false
           fastest_addr: false
           fastest_timeout: 1s
@@ -104,21 +102,13 @@ spec:
           private_key_path: ""
         filters:
         - enabled: true
-          url: https://block.energized.pro/ultimate/formats/hosts.txt
-          name: Energized Ultimate
+          url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+          name: AdGuard DNS filter
           id: 1
         - enabled: true
           url: https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
           name: Steven Black
           id: 2
-        - enabled: true
-          url: https://raw.githubusercontent.com/notracking/hosts-blocklists/master/hostnames.txt
-          name: notracking
-          id: 3
-        - enabled: true
-          url: https://easylist-downloads.adblockplus.org/easylistchina.txt
-          name: EasyList China
-          id: 4
         whitelist_filters: []
         user_rules:
         - "10.110.0.10 adguard.internal.yuha0.com"
