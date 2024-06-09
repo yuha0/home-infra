@@ -24,6 +24,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: adguardhome
 spec:
+  externalTrafficPolicy: Local
   loadBalancerIP: 10.110.0.12
   type: LoadBalancer
   ports:
@@ -41,6 +42,7 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: adguardhome
 spec:
+  externalTrafficPolicy: Local
   loadBalancerIP: 10.110.0.12
   type: LoadBalancer
   ports:
