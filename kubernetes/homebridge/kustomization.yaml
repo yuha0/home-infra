@@ -1,7 +1,6 @@
 namespace: homebridge
 commonLabels:
   app.kubernetes.io/name: homebridge
-  app.kubernetes.io/component: mdns
 resources:
 - namespace.yaml
 - volume.yaml
