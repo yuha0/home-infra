@@ -4,7 +4,8 @@ commonLabels:
   app.kubernetes.io/component: mdns
 resources:
 - namespace.yaml
-- statefulset.yaml
+- volume.yaml
+- deployment.yaml
 - ingress.yaml
 - sealed-config.yaml
 configMapGenerator:

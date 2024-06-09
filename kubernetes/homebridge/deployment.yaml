@@ -11,7 +11,7 @@ spec:
 ---
 
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: homebridge
 spec:
@@ -20,12 +20,9 @@ spec:
     spec:
       hostNetwork: true
       volumes:
-      - name: package
-        configMap:
-          name: package
-      - name: config
-        secret:
-          secretName: config
+      - name: data
+        persistentVolumeClaim:
+          claimName: homebridge
       containers:
       - name: homebridge
         image: homebridge
@@ -45,20 +42,5 @@ spec:
           containerPort: 51272
           hostPort: 51272
         volumeMounts:
-        - name: config
-          mountPath: /homebridge/config.json
-          subPath: config.json
-        - name: package
-          mountPath: /homebridge/package.json
-          subPath: package.json
         - name: data
           mountPath: /homebridge
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteMany" ]
-      storageClassName: "nfs-client"
-      resources:
-        requests:
-          storage: 5Gi
