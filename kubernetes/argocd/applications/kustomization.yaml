@@ -15,7 +15,6 @@ resources:
 - kube-state-metrics.yaml
 - logging.yaml
 - metallb-system.yaml
-- nfs-subdir.yaml
 - node-exporter.yaml
 - nut-exporter.yaml
 - ollama.yaml
