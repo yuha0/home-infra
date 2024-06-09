@@ -7,10 +7,6 @@ resources:
 - volume.yaml
 - deployment.yaml
 - ingress.yaml
-configMapGenerator:
-- name: package
-  files:
-  - package.json
 
 images:
 - name: homebridge
