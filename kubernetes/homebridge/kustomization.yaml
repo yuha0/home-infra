@@ -7,7 +7,6 @@ resources:
 - volume.yaml
 - deployment.yaml
 - ingress.yaml
-- sealed-config.yaml
 configMapGenerator:
 - name: package
   files:
