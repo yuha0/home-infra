@@ -1,11 +1,11 @@
 namespace: scrypted
 commonLabels:
   app.kubernetes.io/name: scrypted
-  app.kubernetes.io/component: mdns
 resources:
 - namespace.yaml
-- statefulset.yaml
 - ingress.yaml
+- volume.yaml
+- deployment.yaml
 images:
 - name: scrypted
   newName: ghcr.io/koush/scrypted

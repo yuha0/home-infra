@@ -11,7 +11,7 @@ spec:
 ---
 
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: scrypted
 spec:
@@ -20,12 +20,9 @@ spec:
     spec:
       hostNetwork: true
       volumes:
-      - name: package
-        configMap:
-          name: package
-      - name: config
-        secret:
-          secretName: config
+      - name: data
+        persistentVolumeClaim:
+          claimName: scrypted
       containers:
       - name: scrypted
         image: scrypted
@@ -36,12 +33,3 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /server/volume
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteMany" ]
-      storageClassName: "nfs-client"
-      resources:
-        requests:
-          storage: 10Gi
