@@ -84,7 +84,7 @@ spec:
           private_networks: []
           use_private_ptr_resolvers: true
           local_ptr_upstreams:
-          - 10.100.0.1
+          - 10.106.0.1
         tls:
           enabled: true
           server_name: adguard.internal.yuha0.com
