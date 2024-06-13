@@ -20,27 +20,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dns-tcp
-  annotations:
-    metallb.universe.tf/allow-shared-ip: adguardhome
-spec:
-  externalTrafficPolicy: Local
-  loadBalancerIP: 10.110.0.12
-  type: LoadBalancer
-  ports:
-  - name: dns-tcp
-    targetPort: dns-tcp
-    port: 53
-    protocol: TCP
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: dns-udp
-  annotations:
-    metallb.universe.tf/allow-shared-ip: adguardhome
 spec:
   externalTrafficPolicy: Local
   loadBalancerIP: 10.110.0.12
