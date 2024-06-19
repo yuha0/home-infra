@@ -1,5 +1,5 @@
 ---
-cilium_version: "v1.13.4"
+cilium_version: "v1.15.4"
 
 # Log-level
 # cilium_debug: false
@@ -7,6 +7,9 @@ cilium_version: "v1.13.4"
 # cilium_mtu: ""
 # cilium_enable_ipv4: true
 # cilium_enable_ipv6: false
+
+# Enable l2 announcement from cilium to replace Metallb Ref: https://docs.cilium.io/en/v1.14/network/l2-announcements/
+cilium_l2announcements: false
 
 # Cilium agent health port
 # cilium_agent_health_port: "9879"
@@ -40,6 +43,10 @@ cilium_version: "v1.13.4"
 
 # Overlay Network Mode
 # cilium_tunnel_mode: vxlan
+
+# LoadBalancer Mode (snat/dsr/hybrid) Ref: https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#dsr-mode
+# cilium_loadbalancer_mode: snat
+
 # Optional features
 cilium_enable_prometheus: true
 # Enable if you want to make use of hostPort mappings
@@ -65,7 +72,7 @@ cilium_kube_proxy_replacement: partial
 # `cilium_enable_legacy_services` is deprecated in 1.6, removed in 1.9
 # cilium_enable_legacy_services: false
 
-# Unique ID of the cluster. Must be unique across all conneted clusters and
+# Unique ID of the cluster. Must be unique across all connected clusters and
 # in the range of 1 and 255. Only relevant when building a mesh of clusters.
 # This value is not defined by default
 # cilium_cluster_id:
@@ -75,7 +82,7 @@ cilium_kube_proxy_replacement: partial
 # cilium_deploy_additionally: false
 
 # Auto direct nodes routes can be used to advertise pods routes in your cluster
-# without any tunelling (with `cilium_tunnel_mode` sets to `disabled`).
+# without any tunneling (with `cilium_tunnel_mode` sets to `disabled`).
 # This works only if you have a L2 connectivity between all your nodes.
 # You wil also have to specify the variable `cilium_native_routing_cidr` to
 # make this work. Please refer to the cilium documentation for more
