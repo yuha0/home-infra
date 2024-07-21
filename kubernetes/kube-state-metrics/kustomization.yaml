@@ -10,6 +10,6 @@ resources:
 - prometheus-rule.yaml
 images:
 - name: registry.k8s.io/kube-state-metrics/kube-state-metrics
-  newTag: v2.12.0
+  newTag: v2.13.0
 - name: quay.io/brancz/kube-rbac-proxy
   newTag: v0.14.2
