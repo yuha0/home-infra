@@ -4,13 +4,13 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-application-controller
   namespace: argocd
 spec:
@@ -31,13 +31,13 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-repo-server
   namespace: argocd
 spec:
@@ -74,13 +74,13 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-server
   namespace: argocd
 spec:
@@ -98,13 +98,13 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-redis
   namespace: argocd
 spec:
@@ -140,13 +140,13 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 ---
 # Source: argo-cd/templates/argocd-applicationset/serviceaccount.yaml
 apiVersion: v1
@@ -156,13 +156,13 @@ metadata:
   name: argocd-applicationset-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-applicationset-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: applicationset-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 ---
 # Source: argo-cd/templates/argocd-server/serviceaccount.yaml
 apiVersion: v1
@@ -172,13 +172,13 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 ---
 # Source: argo-cd/templates/argocd-configs/argocd-cm.yaml
 apiVersion: v1
@@ -187,13 +187,13 @@ metadata:
   name: argocd-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 data:
   admin.enabled: "true"
   application.instanceLabelKey: argocd.argoproj.io/instance
@@ -221,13 +221,13 @@ metadata:
   name: argocd-cmd-params-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 data:
   application.namespaces: ""
   applicationsetcontroller.enable.leader.election: "false"
@@ -266,12 +266,12 @@ metadata:
   name: argocd-gpg-keys-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-gpg-keys-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 data:
   CD67D78AC53D68C5: |
     -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -295,13 +295,13 @@ metadata:
   name: argocd-rbac-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 data:
   policy.csv: ""
   policy.default: ""
@@ -315,12 +315,12 @@ metadata:
   name: argocd-ssh-known-hosts-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 data:
   ssh_known_hosts: |
     [ssh.github.com]:443 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
@@ -345,12 +345,12 @@ metadata:
   name: argocd-tls-certs-cm
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-tls-certs-cm
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 ---
 # Source: argo-cd/templates/redis/health-configmap.yaml
 apiVersion: v1
@@ -359,13 +359,13 @@ metadata:
   name: argocd-redis-health-configmap
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 data:
   redis_liveness.sh: |
     response=$(
@@ -21076,13 +21076,13 @@ kind: ClusterRole
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 rules:
   - apiGroups:
     - '*'
@@ -21101,13 +21101,13 @@ kind: ClusterRole
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 rules:
   - apiGroups:
       - '*'
@@ -21161,13 +21161,13 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-application-controller
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -21183,13 +21183,13 @@ kind: ClusterRoleBinding
 metadata:
   name: argocd-server
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -21206,13 +21206,13 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 rules:
 - apiGroups:
   - ""
@@ -21259,13 +21259,13 @@ metadata:
   name: argocd-applicationset-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-applicationset-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: applicationset-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 rules:
   - apiGroups:
     - argoproj.io
@@ -21354,13 +21354,13 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 rules:
 - apiGroups:
   - ""
@@ -21404,13 +21404,13 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -21427,13 +21427,13 @@ metadata:
   name: argocd-applicationset-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-applicationset-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: applicationset-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -21450,13 +21450,13 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -21473,15 +21473,15 @@ metadata:
   name: argocd-application-controller-metrics
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
-  type: ClusterIP
+  type: ClusterIP  
   ports:
   - name: http-metrics
     protocol: TCP
@@ -21498,15 +21498,15 @@ metadata:
   name: argocd-applicationset-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-applicationset-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: applicationset-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
-  type: ClusterIP
+  type: ClusterIP  
   ports:
   - name: http-webhook
     port: 7000
@@ -21522,15 +21522,15 @@ metadata:
   name: argocd-repo-server-metrics
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-repo-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
-  type: ClusterIP
+  type: ClusterIP  
   ports:
   - name: http-metrics
     protocol: TCP
@@ -21545,16 +21545,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-repo-server
   namespace: argocd
-spec:
+spec:  
   ports:
   - name: tcp-repo-server
     protocol: TCP
@@ -21571,15 +21571,15 @@ metadata:
   name: argocd-server-metrics
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server-metrics
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
-  type: ClusterIP
+  type: ClusterIP  
   ports:
   - name: http-metrics
     protocol: TCP
@@ -21596,15 +21596,15 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
-  type: ClusterIP
+  type: ClusterIP  
   sessionAffinity: None
   ports:
   - name: http
@@ -21626,14 +21626,14 @@ metadata:
   name: argocd-redis
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
-spec:
+    app.kubernetes.io/version: "v2.11.5"
+spec:  
   ports:
   - name: redis
     port: 6379
@@ -21649,13 +21649,13 @@ metadata:
   name: argocd-applicationset-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-applicationset-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: applicationset-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   replicas: 0
   revisionHistoryLimit: 3
@@ -21666,15 +21666,15 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 047f9f90ffbd4b64d9de55d9237a8d90bb3fcf210c1f588364438a4c16cd0a73
+        checksum/cmd-params: daa09a12b315519b9499c7817914f49fe23ab7635d5946ec4fa9dd10926fe539
       labels:
-        helm.sh/chart: argo-cd-6.11.1
+        helm.sh/chart: argo-cd-7.3.9
         app.kubernetes.io/name: argocd-applicationset-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: applicationset-controller
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.11.2"
+        app.kubernetes.io/version: "v2.11.5"
     spec:
       securityContext:
         fsGroup: 999
@@ -21685,7 +21685,7 @@ spec:
       automountServiceAccountToken: true
       containers:
         - name: applicationset-controller
-          image: quay.io/argoproj/argocd:v2.11.2
+          image: quay.io/argoproj/argocd:v2.11.5
           imagePullPolicy: IfNotPresent
           args:
             - /usr/local/bin/argocd-applicationset-controller
@@ -21900,13 +21900,13 @@ metadata:
   name: argocd-repo-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   replicas: 2
   revisionHistoryLimit: 3
@@ -21917,16 +21917,16 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 047f9f90ffbd4b64d9de55d9237a8d90bb3fcf210c1f588364438a4c16cd0a73
-        checksum/cm: e39678a822b97f2bd09e9d40e3ee6d843181b64f8614f0a49fc5143b06374ee8
+        checksum/cmd-params: daa09a12b315519b9499c7817914f49fe23ab7635d5946ec4fa9dd10926fe539
+        checksum/cm: 78e9d101f2a5af65271b53c22e2f6a4b3aeaf4c81d45a6903db119c6f677f2bc
       labels:
-        helm.sh/chart: argo-cd-6.11.1
+        helm.sh/chart: argo-cd-7.3.9
         app.kubernetes.io/name: argocd-repo-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: repo-server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.11.2"
+        app.kubernetes.io/version: "v2.11.5"
     spec:
       securityContext:
         fsGroup: 999
@@ -21937,7 +21937,7 @@ spec:
       automountServiceAccountToken: true
       containers:
       - name: repo-server
-        image: quay.io/argoproj/argocd:v2.11.2
+        image: quay.io/argoproj/argocd:v2.11.5
         imagePullPolicy: IfNotPresent
         args:
         - /usr/local/bin/argocd-repo-server
@@ -22040,7 +22040,20 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: argocd-redis
+                optional: true
                 key: auth
+          - name: REDIS_SENTINEL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: argocd-redis
+                key: redis-sentinel-username
+                optional: true
+          - name: REDIS_SENTINEL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: argocd-redis
+                key: redis-sentinel-password
+                optional: true
           - name: ARGOCD_DEFAULT_CACHE_EXPIRATION
             valueFrom:
               configMapKeyRef:
@@ -22196,9 +22209,11 @@ spec:
         - -n
         - /usr/local/bin/argocd
         - /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v2.11.2
+        image: quay.io/argoproj/argocd:v2.11.5
         imagePullPolicy: IfNotPresent
         name: copyutil
+        resources:
+          {}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -22260,13 +22275,13 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   replicas: 2
   revisionHistoryLimit: 3
@@ -22277,16 +22292,16 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 047f9f90ffbd4b64d9de55d9237a8d90bb3fcf210c1f588364438a4c16cd0a73
-        checksum/cm: e39678a822b97f2bd09e9d40e3ee6d843181b64f8614f0a49fc5143b06374ee8
+        checksum/cmd-params: daa09a12b315519b9499c7817914f49fe23ab7635d5946ec4fa9dd10926fe539
+        checksum/cm: 78e9d101f2a5af65271b53c22e2f6a4b3aeaf4c81d45a6903db119c6f677f2bc
       labels:
-        helm.sh/chart: argo-cd-6.11.1
+        helm.sh/chart: argo-cd-7.3.9
         app.kubernetes.io/name: argocd-server
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: server
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.11.2"
+        app.kubernetes.io/version: "v2.11.5"
     spec:
       securityContext:
         fsGroup: 999
@@ -22297,7 +22312,7 @@ spec:
       automountServiceAccountToken: true
       containers:
       - name: server
-        image: quay.io/argoproj/argocd:v2.11.2
+        image: quay.io/argoproj/argocd:v2.11.5
         imagePullPolicy: IfNotPresent
         args:
         - /usr/local/bin/argocd-server
@@ -22478,7 +22493,20 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: argocd-redis
+                optional: true
                 key: auth
+          - name: REDIS_SENTINEL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: argocd-redis
+                key: redis-sentinel-username
+                optional: true
+          - name: REDIS_SENTINEL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: argocd-redis
+                key: redis-sentinel-password
+                optional: true
           - name: ARGOCD_DEFAULT_CACHE_EXPIRATION
             valueFrom:
               configMapKeyRef:
@@ -22660,13 +22688,13 @@ metadata:
   name: argocd-redis
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   replicas: 1
   revisionHistoryLimit: 3
@@ -22676,13 +22704,13 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: argo-cd-6.11.1
+        helm.sh/chart: argo-cd-7.3.9
         app.kubernetes.io/name: argocd-redis
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: redis
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.11.2"
+        app.kubernetes.io/version: "v2.11.5"
     spec:
       securityContext:
         runAsNonRoot: true
@@ -22751,13 +22779,13 @@ metadata:
   name: argocd-application-controller
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   replicas: 2
   revisionHistoryLimit: 5
@@ -22769,16 +22797,16 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 047f9f90ffbd4b64d9de55d9237a8d90bb3fcf210c1f588364438a4c16cd0a73
-        checksum/cm: e39678a822b97f2bd09e9d40e3ee6d843181b64f8614f0a49fc5143b06374ee8
+        checksum/cmd-params: daa09a12b315519b9499c7817914f49fe23ab7635d5946ec4fa9dd10926fe539
+        checksum/cm: 78e9d101f2a5af65271b53c22e2f6a4b3aeaf4c81d45a6903db119c6f677f2bc
       labels:
-        helm.sh/chart: argo-cd-6.11.1
+        helm.sh/chart: argo-cd-7.3.9
         app.kubernetes.io/name: argocd-application-controller
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: application-controller
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.11.2"
+        app.kubernetes.io/version: "v2.11.5"
     spec:
       securityContext:
         fsGroup: 999
@@ -22791,7 +22819,7 @@ spec:
       - args:
         - /usr/local/bin/argocd-application-controller
         - --metrics-port=8082
-        image: quay.io/argoproj/argocd:v2.11.2
+        image: quay.io/argoproj/argocd:v2.11.5
         imagePullPolicy: IfNotPresent
         name: application-controller
         env:
@@ -22924,6 +22952,19 @@ spec:
               secretKeyRef:
                 name: argocd-redis
                 key: auth
+                optional: true
+          - name: REDIS_SENTINEL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: argocd-redis
+                key: redis-sentinel-username
+                optional: true
+          - name: REDIS_SENTINEL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: argocd-redis
+                key: redis-sentinel-password
+                optional: true
           - name: ARGOCD_DEFAULT_CACHE_EXPIRATION
             valueFrom:
               configMapKeyRef:
@@ -23057,13 +23098,13 @@ metadata:
   name: argocd-server
   namespace: argocd
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
@@ -23094,13 +23135,13 @@ metadata:
   name: argocd-application-controller
   namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   endpoints:
     - port: http-metrics
@@ -23120,15 +23161,15 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: argocd-repo-server
-  namespace: argocd
+  namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   endpoints:
     - port: http-metrics
@@ -23150,13 +23191,13 @@ metadata:
   name: argocd-server
   namespace: "argocd"
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: server
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   endpoints:
     - port: http-metrics
@@ -23182,13 +23223,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis-secret-init
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis-secret-init
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 ---
 # Source: argo-cd/templates/redis-secret-init/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -23198,13 +23239,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis-secret-init
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis-secret-init
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-redis-secret-init
   namespace: "argocd"
 rules:
@@ -23231,13 +23272,13 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis-secret-init
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis-secret-init
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
   name: argocd-redis-secret-init
   namespace: "argocd"
 roleRef:
@@ -23258,31 +23299,31 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
   labels:
-    helm.sh/chart: argo-cd-6.11.1
+    helm.sh/chart: argo-cd-7.3.9
     app.kubernetes.io/name: argocd-redis-secret-init
     app.kubernetes.io/instance: argocd
     app.kubernetes.io/component: redis-secret-init
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v2.11.2"
+    app.kubernetes.io/version: "v2.11.5"
 spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: argo-cd-6.11.1
+        helm.sh/chart: argo-cd-7.3.9
         app.kubernetes.io/name: argocd-redis-secret-init
         app.kubernetes.io/instance: argocd
         app.kubernetes.io/component: redis-secret-init
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v2.11.2"
+        app.kubernetes.io/version: "v2.11.5"
     spec:
       containers:
       - command:
           - argocd
           - admin
           - redis-initial-password
-        image: quay.io/argoproj/argocd:v2.11.2
+        image: quay.io/argoproj/argocd:v2.11.5
         imagePullPolicy: IfNotPresent
         name: secret-init
         resources:
