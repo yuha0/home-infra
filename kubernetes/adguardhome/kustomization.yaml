@@ -26,7 +26,7 @@ images:
     newTag: v1.14
   - name: vector
     newName: docker.io/timberio/vector
-    newTag: 0.39.0-distroless-libc
+    newTag: 0.40.0-distroless-libc
 
 configMapGenerator:
 - name: vector

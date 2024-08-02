@@ -11,7 +11,7 @@ images:
   newTag: v7.0.1
 - name: vector
   newName: docker.io/timberio/vector
-  newTag: 0.39.0-distroless-libc
+  newTag: 0.40.0-distroless-libc
 - name: unpoller
   newName: ghcr.io/unpoller/unpoller
   newTag: v2.11.2
