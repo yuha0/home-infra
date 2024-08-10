@@ -13,7 +13,7 @@ spec:
   additionalArgs:
   - name: auto-gomemlimit.ratio
     value: "0.9"
-  image: quay.io/prometheus/prometheus:v2.53.1
+  image: quay.io/prometheus/prometheus:v2.54.0
   replicas: 1
   shards: 15
   resources:
@@ -44,4 +44,4 @@ spec:
       key: thanos.yaml
       name: thanos-objstore-config
     version: v0.36.0
-  version: v2.53.1
+  version: v2.54.0
