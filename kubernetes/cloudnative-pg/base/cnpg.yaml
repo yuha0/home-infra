@@ -14961,11 +14961,12 @@ spec:
               method:
                 default: barmanObjectStore
                 description: |-
-                  The backup method to be used, possible options are `barmanObjectStore`
-                  and `volumeSnapshot`. Defaults to: `barmanObjectStore`.
+                  The backup method to be used, possible options are `barmanObjectStore`,
+                  `volumeSnapshot` or `plugin`. Defaults to: `barmanObjectStore`.
                 enum:
                 - barmanObjectStore
                 - volumeSnapshot
+                - plugin
                 type: string
               online:
                 description: |-
@@ -15205,18 +15206,14 @@ rules:
   - mutatingwebhookconfigurations
   verbs:
   - get
-  - list
   - patch
-  - update
 - apiGroups:
   - admissionregistration.k8s.io
   resources:
   - validatingwebhookconfigurations
   verbs:
   - get
-  - list
   - patch
-  - update
 - apiGroups:
   - apiextensions.k8s.io
   resources:
@@ -15514,6 +15511,7 @@ data:
           , pg_catalog.age(datfrozenxid) AS xid_age
           , pg_catalog.mxid_age(datminmxid) AS mxid_age
         FROM pg_catalog.pg_database
+        WHERE datallowconn
       metrics:
         - datname:
             usage: "LABEL"
@@ -15677,6 +15675,71 @@ data:
         - buffers_alloc:
             usage: "COUNTER"
             description: "Number of buffers allocated"
+
+    pg_stat_bgwriter_17:
+      runonserver: ">=17.0.0"
+      name: pg_stat_bgwriter
+      query: |
+        SELECT buffers_clean
+          , maxwritten_clean
+          , buffers_alloc
+          , EXTRACT(EPOCH FROM stats_reset) AS stats_reset_time
+        FROM pg_catalog.pg_stat_bgwriter
+      metrics:
+        - buffers_clean:
+            usage: "COUNTER"
+            description: "Number of buffers written by the background writer"
+        - maxwritten_clean:
+            usage: "COUNTER"
+            description: "Number of times the background writer stopped a cleaning scan because it had written too many buffers"
+        - buffers_alloc:
+            usage: "COUNTER"
+            description: "Number of buffers allocated"
+        - stats_reset_time:
+            usage: "GAUGE"
+            description: "Time at which these statistics were last reset"
+
+    pg_stat_checkpointer:
+      runonserver: ">=17.0.0"
+      query: |
+        SELECT num_timed AS checkpoints_timed
+          , num_requested AS checkpoints_req
+          , restartpoints_timed
+          , restartpoints_req
+          , restartpoints_done
+          , write_time
+          , sync_time
+          , buffers_written
+          , EXTRACT(EPOCH FROM stats_reset) AS stats_reset_time
+        FROM pg_catalog.pg_stat_checkpointer
+      metrics:
+        - checkpoints_timed:
+            usage: "COUNTER"
+            description: "Number of scheduled checkpoints that have been performed"
+        - checkpoints_req:
+            usage: "COUNTER"
+            description: "Number of requested checkpoints that have been performed"
+        - restartpoints_timed:
+            usage: "COUNTER"
+            description: "Number of scheduled restartpoints due to timeout or after a failed attempt to perform it"
+        - restartpoints_req:
+            usage: "COUNTER"
+            description: "Number of requested restartpoints that have been performed"
+        - restartpoints_done:
+            usage: "COUNTER"
+            description: "Number of restartpoints that have been performed"
+        - write_time:
+            usage: "COUNTER"
+            description: "Total amount of time that has been spent in the portion of processing checkpoints and restartpoints where files are written to disk, in milliseconds"
+        - sync_time:
+            usage: "COUNTER"
+            description: "Total amount of time that has been spent in the portion of processing checkpoints and restartpoints where files are synchronized to disk, in milliseconds"
+        - buffers_written:
+            usage: "COUNTER"
+            description: "Number of buffers written during checkpoints and restartpoints"
+        - stats_reset_time:
+            usage: "GAUGE"
+            description: "Time at which these statistics were last reset"
 
     pg_stat_database:
       query: |
@@ -15866,14 +15929,14 @@ spec:
         - /manager
         env:
         - name: OPERATOR_IMAGE_NAME
-          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.23.2
+          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.23.3
         - name: OPERATOR_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MONITORING_QUERIES_CONFIGMAP
           value: cnpg-default-monitoring
-        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.23.2
+        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.23.3
         livenessProbe:
           httpGet:
             path: /readyz
