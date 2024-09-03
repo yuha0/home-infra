@@ -1,7 +1,0 @@
-namespace: nfs-subdir
-commonLabels:
-  app: nfs-subdir-external-provisioner
-
-resources:
-- namespace.yaml
-- generated.yaml
