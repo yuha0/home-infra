@@ -13,7 +13,7 @@ images:
   newTag: "0.3.6"
 - name: webui
   newName: ghcr.io/open-webui/open-webui
-  newTag: "v0.3.12"
+  newTag: "v0.3.16"
 
 patches:
 - target:
