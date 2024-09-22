@@ -63,17 +63,8 @@ spec:
         emptyDir: {}
       - name: config
         hostPath:
-          path: /var/opt/plex
+          path: /var/pv/plex-0
           type: DirectoryOrCreate
       - name: media
         persistentVolumeClaim:
           claimName: media
-  volumeClaimTemplates:
-  - metadata:
-      name: config
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "nfs-qnap"
-      resources:
-        requests:
-          storage: 1Gi
