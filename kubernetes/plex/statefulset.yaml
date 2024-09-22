@@ -23,6 +23,7 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
+        kubernetes.io/hostname: mini0
       securityContext:
         fsGroup: 1000
       containers:
