@@ -22,9 +22,6 @@
 [submodule "kubernetes/monitoring/node-exporter/helm/helm-charts"]
 	path = kubernetes/monitoring/node-exporter/helm/helm-charts
 	url = https://github.com/prometheus-community/helm-charts.git
-[submodule "kubernetes/nfs-subdir/helm/nfs-subdir-external-provisioner"]
-	path = kubernetes/nfs-subdir/helm/nfs-subdir-external-provisioner
-	url = https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner.git
 [submodule "kubernetes/node-exporter/helm/helm-charts"]
 	path = kubernetes/node-exporter/helm/helm-charts
 	url = https://github.com/prometheus-community/helm-charts.git
