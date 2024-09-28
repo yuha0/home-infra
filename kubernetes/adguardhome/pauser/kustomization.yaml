@@ -1,0 +1,12 @@
+resources:
+- deploy.yaml
+- service.yaml
+- ingress.yaml
+commonLabels:
+  app.kubernetes.io/component: pauser
+configMapGenerator:
+- name: pauser-scripts
+  files:
+  - scripts/__init__.py
+  - scripts/app.py
+  - scripts/httpserver.py

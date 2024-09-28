@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pauser
+spec:
+  revisionHistoryLimit: 1
+  template:
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: pauser
+        image: python
+        command:
+        - python
+        - -m
+        - app.app
+        - -s
+        - discovery
+        - -p
+        - "80"
+        - -l
+        - "8080"
+        volumeMounts:
+        - name: scripts
+          mountPath: /app
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /healthz/ready
+            port: 8080
+          initialDelaySeconds: 1
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz/live
+            port: 8080
+          initialDelaySeconds: 1
+          timeoutSeconds: 5
+      volumes:
+      - name: scripts
+        configMap:
+          name: pauser-scripts

@@ -4,6 +4,7 @@ commonLabels:
 resources:
 - namespace.yaml
 - adguardhome
+- pauser
 patches:
 - target:
     group: apps
@@ -13,6 +14,14 @@ patches:
     - op: add
       path: /spec/replicas
       value: 5
+- target:
+    group: apps
+    kind: Deployment
+    name: pauser
+  patch: |-
+    - op: add
+      path: /spec/replicas
+      value: 3
 images:
 - name: adguardhome
   newName: adguard/adguardhome
@@ -26,3 +35,5 @@ images:
 - name: vector
   newName: docker.io/timberio/vector
   newTag: 0.40.0-distroless-libc
+- name: python
+  newName: gcr.io/distroless/python3-debian12

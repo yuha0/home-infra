@@ -9,11 +9,7 @@ What I get from this setup:
 - Configuration as code and GitOps.
 - Prometheus metrics (thanks to [ebrianne/adguard-exporter](https://github.com/ebrianne/adguard-exporter).
 - DoH.
-
-## TODOs
-
-- An easy-to-trigger adhoc job to temporarily disable filter for a given period of time.
-- Forward query logs to loki
+- Persistent query log in Loki.
 
 ## Details
 
@@ -29,12 +25,23 @@ To make configuration consistent across multiple instances, I use a configmap to
 
 Now whenever you change the configmap and do a `kubectl apply -k .`, All AdGuard instances will be bounced and receive the change, in a rolling update fashion with zero downtime. Note that this approach does not prevent an admin user from making changes on the web GUI, but if you do, you will face some weirdness because the change is only applied to one of the many instances.
 
-## Secret Generation
+### Pauser
+
+A DNS query will hit one of the adguardhome replicas, randomly. This means if you want to temporarily pause ad-blocking, you need to pause it on every replica. In [./pauser](./pauser) there's a simple python script. It runs a webserver that replicates the request it receives and send to all known upstream adguardhome instances. For instance, you do:
+
+```
+$ curl -X POST -u "username:password" -H "Content-Type:application/json" -d '{"enabled":false, "duration":60000}' "https://adguard-pauser.internal.yuha0.com/control/protection"
+OK
+```
+
+to pause ad-blocking for 60 seconds on all instances. Create an iOS shortcut for this request to make it even easier!
+
+### Secret Generation
 
 For the following reasons, the configuration file has to be a secret instead of a configmap:
 
-- Although the password is BCrypt-encrypted in config file, it needs to be consumed by the exporter as plaintext. I don't want to define the same password in two different places.
-- My DOH bootstrap DNS are paid NextDNS account, which I agree to not to expose to the public when I signed up. In my area it is faster than CloudFlare, Google, or Quad9.
+- Although the password is BCrypt-encrypted in config file, it needs to be consumed by the exporter and pauser as plaintext. I don't want to define the same password in multiple places.
+- My DOH bootstrap DNS are paid NextDNS account, which I agreed to not to expose to the public when I signed up.
 
 Obviously, I can't check in my secret as base64 encoded plaintext. All the secrets in my cluster are encrypted by sealed secrets controller. Here's how I managed to check in nonsensitive information as plaintext, while still keep sensitive information encrypted:
 
@@ -84,7 +91,7 @@ The web GUI's query log page no long makes sense.
 
 There's a load balancer that round-robins your reuqest to a random instance, and each instance manages its own query log file.
 
-However, you can run a log forwarder as a sidecar container, and forward query logs to an Elasticsearch instance. I might implement this one day, because visualize my queries on a [geo map](https://www.elastic.co/guide/en/kibana/current/maps.html) is interesting.
+However, you can run a log forwarder as a sidecar container, and forward query logs to some database. I use vector to forward the logs, enrich metadata with geoip info, send to loki, and visualize in grafana.
 
 ## Result
 
