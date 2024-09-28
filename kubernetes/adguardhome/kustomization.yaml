@@ -2,33 +2,27 @@ namespace: adguardhome
 commonLabels:
   app.kubernetes.io/name: adguardhome
 resources:
-  - namespace.yaml
-  - sealed-config.yaml
-  - service.yaml
-  - deploy.yaml
-  - ingress.yaml
-  - servicemonitor.yaml
+- namespace.yaml
+- adguardhome
 patches:
-  - target:
-      group: apps
-      kind: Deployment
-      name: adguardhome
-    patch: |-
-      - op: add
-        path: /spec/replicas
-        value: 5
+- target:
+    group: apps
+    kind: Deployment
+    name: adguardhome
+  patch: |-
+    - op: add
+      path: /spec/replicas
+      value: 5
 images:
-  - name: adguardhome
-    newName: adguard/adguardhome
-    newTag: v0.107.52
-  - name: adguard-exporter
-    newName: ebrianne/adguard-exporter
-    newTag: v1.14
-  - name: vector
-    newName: docker.io/timberio/vector
-    newTag: 0.40.0-distroless-libc
-
-configMapGenerator:
+- name: adguardhome
+  newName: adguard/adguardhome
+  newTag: v0.107.52
+- name: adguard-exporter
+  newName: ebrianne/adguard-exporter
+  newTag: v1.14
 - name: vector
-  files:
-  - vector.yaml
+  newName: docker.io/timberio/vector
+  newTag: 0.40.0-distroless-libc
+- name: vector
+  newName: docker.io/timberio/vector
+  newTag: 0.40.0-distroless-libc

@@ -1,0 +1,13 @@
+commonLabels:
+  app.kubernetes.io/component: adguardhome
+resources:
+- sealed-config.yaml
+- service.yaml
+- deploy.yaml
+- ingress.yaml
+- servicemonitor.yaml
+
+configMapGenerator:
+- name: vector
+  files:
+  - vector.yaml
