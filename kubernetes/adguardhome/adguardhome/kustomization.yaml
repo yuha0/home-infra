@@ -6,6 +6,7 @@ resources:
 - deploy.yaml
 - ingress.yaml
 - servicemonitor.yaml
+- networkpolicies.yaml
 
 configMapGenerator:
 - name: vector

@@ -1,0 +1,64 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: adguardhome
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: adguardhome
+      app.kubernetes.io/component: adguardhome
+  ingress:
+  - fromCIDRSet:
+    - cidr: 10.0.0.0/8
+    - cidr: 100.64.0.0/16
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: ingress-nginx
+        app.kubernetes.io/component: controller
+        io.cilium.k8s.namespace.labels.app.kubernetes.io/name: ingress-nginx
+      matchExpressions:
+      - key: io.kubernetes.pod.namespace
+        operator: Exists
+    toPorts:
+    - ports:
+      - port: "80"
+      - port: "3000"
+  - fromEndpoints:
+      - matchLabels:
+          app.kubernetes.io/instance: k8s
+          app.kubernetes.io/name: prometheus
+          io.kubernetes.pod.namespace: monitoring
+    toPorts:
+      - ports:
+          - port: "9617"
+  egress:
+  - toCIDRSet:
+  # upstreams
+    - cidr: 169.254.25.10/32
+    - cidr: 1.1.1.1/32
+    - cidr: 9.9.9.9/32
+    - cidr: 10.106.0.1/32
+    toPorts:
+    - ports:
+      - port: "53"
+  - toCIDRSet:
+  # should not have any egress to homelab
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8
+      - 100.64.0.0/15
+    toPorts:
+    - ports:
+      - port: "443"
+  - toServices:
+  # send logs to loki
+    - k8sService:
+        serviceName: loki-loki-distributed-gateway
+        namespace: logging
+    toPorts:
+    - ports:
+      - port: "8080"
