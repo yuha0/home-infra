@@ -13,7 +13,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/replicas
-      value: 1
+      value: 5
 - target:
     group: apps
     kind: Deployment
