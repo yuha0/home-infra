@@ -6,7 +6,7 @@ image:
   # -- Image repository for the `external-dns` container.
   repository: registry.k8s.io/external-dns/external-dns
   # -- (string) Image tag for the `external-dns` container, this will default to `.Chart.AppVersion` if not set.
-  tag: "v0.14.2"
+  tag: "v0.15.0"
   # -- Image pull policy for the `external-dns` container.
   pullPolicy: IfNotPresent
 
@@ -52,6 +52,9 @@ rbac:
 
 # -- Annotations to add to the `Deployment`.
 deploymentAnnotations: {}
+
+# -- Extra containers to add to the `Deployment`.
+extraContainers: {}
 
 # -- [Deployment Strategy](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy).
 deploymentStrategy:
@@ -235,6 +238,9 @@ txtSuffix: ""
 domainFilters:
 - yuha0.com
 
+## -- Intentionally exclude domains from being managed.
+excludeDomains: []
+
 provider:
   # -- _ExternalDNS_ provider name; for the available providers and how to configure them see [README](https://github.com/kubernetes-sigs/external-dns/blob/master/charts/external-dns/README.md#providers).
   name: cloudflare
@@ -279,6 +285,9 @@ provider:
       timeoutSeconds: 5
       failureThreshold: 6
       successThreshold: 1
+    service:
+      # -- Webhook exposed HTTP port for the service.
+      port: 8080
     # -- Optional [Service Monitor](https://prometheus-operator.dev/docs/operator/design/#servicemonitor) configuration for the `webhook` container.
     # @default -- See _values.yaml_
     serviceMonitor:
