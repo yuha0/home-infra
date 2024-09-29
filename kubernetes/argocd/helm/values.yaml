@@ -44,6 +44,9 @@ global:
   ## Used for ingresses, certificates, SSO, notifications, etc.
   domain: argocd.yuha0.com
 
+  # -- Runtime class name for all components
+  runtimeClassName: ""
+
   # -- Common labels for the all resources
   additionalLabels: {}
     # app: argo-cd
@@ -56,7 +59,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: "v2.12.3"
+    tag: "v2.12.4"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
 
@@ -284,6 +287,8 @@ configs:
     applicationsetcontroller.policy: sync
     # -- Enables use of the Progressive Syncs capability
     applicationsetcontroller.enable.progressive.syncs: false
+    # -- A list of glob patterns specifying where to look for ApplicationSet resources. (e.g. `"namespace1, namespace2"`)
+    applicationsetcontroller.namespaces: ""
 
     # -- Enables [Applications in any namespace]
     ## List of additional namespaces where applications may be created in and reconciled from.
@@ -642,6 +647,10 @@ controller:
   ## like round-robin, then the shards will be well-balanced.
   dynamicClusterDistribution: false
 
+  # -- Runtime class name for the application controller
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
+
   # -- Application controller heartbeat time
   # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/dynamic-cluster-distribution/#working-of-dynamic-distribution
   heartbeatTime: 10
@@ -942,6 +951,10 @@ dex:
   # -- Additional command line arguments to pass to the Dex server
   extraArgs: []
 
+  # -- Runtime class name for Dex
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
+
   metrics:
     # -- Deploy metrics service
     enabled: false
@@ -1235,6 +1248,10 @@ redis:
   enabled: true
   # -- Redis name
   name: redis
+
+  # -- Runtime class name for redis
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
 
   ## Redis Pod Disruption Budget
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -1723,6 +1740,10 @@ server:
 
   # -- The number of server pods to run
   replicas: 2
+
+  # -- Runtime class name for the Argo CD server
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
 
   ## Argo CD server Horizontal Pod Autoscaler
   autoscaling:
@@ -2391,6 +2412,10 @@ repoServer:
   # -- The number of repo server pods to run
   replicas: 2
 
+  # -- Runtime class name for the repo server
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
+
   ## Repo server Horizontal Pod Autoscaler
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the repo server
@@ -2779,6 +2804,10 @@ applicationSet:
   # -- The number of ApplicationSet controller pods to run
   replicas: 0
 
+  # -- Runtime class name for the ApplicationSet controller
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
+
   ## ApplicationSet controller Pod Disruption Budget
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   pdb:
@@ -3145,6 +3174,10 @@ notifications:
   # -- Argo CD dashboard url; used in place of {{.context.argocdUrl}} in templates
   # @default -- `""` (defaults to https://`global.domain`)
   argocdUrl: ""
+
+  # -- Runtime class name for the notifications controller
+  # @default -- `""` (defaults to global.runtimeClassName)
+  runtimeClassName: ""
 
   ## Notifications controller Pod Disruption Budget
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
