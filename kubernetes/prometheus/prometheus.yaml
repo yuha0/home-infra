@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   labels:
-    app.kubernetes.io/instance: prom-ingress-nginx
+    app.kubernetes.io/instance: prom-k8s
   name: k8s
 spec:
   externalLabels:
@@ -10,9 +10,6 @@ spec:
     prom_shard: "$(SHARD)"
   enableFeatures:
   - auto-gomemlimit
-  additionalArgs:
-  - name: auto-gomemlimit.ratio
-    value: "0.9"
   image: quay.io/prometheus/prometheus:v2.54.1
   replicas: 1
   shards: 15
