@@ -23161,7 +23161,7 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     external-dns.alpha.kubernetes.io/target: "ddns.yuha0.com"
-    nginx.ingress.kubernetes.io/limit-connections: "10"
+    nginx.ingress.kubernetes.io/limit-connections: "50"
 spec:
   ingressClassName: nginx-external
   rules:
