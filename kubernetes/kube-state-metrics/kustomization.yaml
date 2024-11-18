@@ -12,4 +12,4 @@ images:
 - name: registry.k8s.io/kube-state-metrics/kube-state-metrics
   newTag: v2.14.0
 - name: quay.io/brancz/kube-rbac-proxy
-  newTag: v0.18.0
+  newTag: v0.18.1
