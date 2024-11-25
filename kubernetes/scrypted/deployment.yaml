@@ -17,6 +17,8 @@ metadata:
 spec:
   replicas: 1
   template:
+    nodeSelector:
+      kubernetes.io/arch: amd64
     spec:
       hostNetwork: true
       volumes:
