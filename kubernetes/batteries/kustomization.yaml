@@ -1,0 +1,11 @@
+namespace: batteries
+resources:
+- namespace.yaml
+- nut-exporter
+images:
+- name: nut-client
+  newName: ghcr.io/yuha0/nut-client
+  newTag: sha-d4e1760fface13be4260f9182bfa742731e40179
+- name: nut-exporter
+  newName: ghcr.io/druggeri/nut_exporter
+  newTag: 3.0.0

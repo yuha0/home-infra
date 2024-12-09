@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: nut-exporter
+  name: batteries
 spec:
   destinations:
-  - namespace: "nut-exporter"
+  - namespace: "batteries"
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: ''
@@ -13,10 +13,10 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nut-exporter
+  name: batteries
 spec:
-  project: nut-exporter
+  project: batteries
   source:
-    path: kubernetes/nut-exporter
+    path: kubernetes/batteries
   destination:
-    namespace: nut-exporter
+    namespace: batteries

@@ -2,6 +2,7 @@ resources:
 - adguardhome.yaml
 - awx.yaml
 - argocd.yaml
+- batteries.yaml
 - cert-manager.yaml
 - cloudflare-ddns.yaml
 - cloudnative-pg.yaml
@@ -16,7 +17,6 @@ resources:
 - logging.yaml
 - metallb-system.yaml
 - node-exporter.yaml
-- nut-exporter.yaml
 - ollama.yaml
 - plex.yaml
 - prometheus.yaml
