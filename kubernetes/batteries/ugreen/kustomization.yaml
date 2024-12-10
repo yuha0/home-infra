@@ -1,0 +1,7 @@
+commonLabels:
+  app.kubernetes.io/name: proam-cli
+  app.kubernetes.io/instance: ugreen
+resources:
+- deployment.yaml
+- service.yaml
+- servicemonitor.yaml

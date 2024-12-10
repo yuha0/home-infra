@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proam-cli
+spec:
+  replicas: 1
+  template:
+    spec:
+      nodeSelector:
+        nodepool.yuha0.com/bluetooth: "true"
+      # theoretically, all nodes with bluetooth adapter should be able to run this container
+      # however, I don't have a setup to build container images for proam-cli.
+      # Right now the binary needs to be built from source code in an initContainer
+      # Doing this on a rpi board takes ~10+ minutes.
+      # So just try to use the more powerful amd64 node if possible.
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - name: repo
+        emptyDir: {}
+      - name: app
+        emptyDir: {}
+      - name: dbus
+        hostPath:
+          path: /run/dbus/system_bus_socket
+      initContainers:
+      - name: git
+        image: git
+        volumeMounts:
+        - name: repo
+          mountPath: /repo
+        env:
+        - name: TARGET_COMMIT
+          value: 7d1c15bbaa0dab8783dbbfdf3ff5ae7ba60cd63a
+        command:
+        - sh
+        - -c
+        - |
+          set -ex
+          cd /repo
+          git init
+          git fetch --depth=1 https://github.com/ilya-zlobintsev/proam-cli.git ${TARGET_COMMIT}
+          git checkout ${TARGET_COMMIT}
+      - name: build
+        image: rust
+        volumeMounts:
+        - name: repo
+          mountPath: /repo
+        - name: app
+          mountPath: /app
+        command:
+        - sh
+        - -c
+        - |
+          set -ex
+          apt-get update && apt-get install -y libdbus-1-dev
+          cd /repo
+          cargo build --release
+          mv target/release/proam-cli /app/
+          chmod +x /app/proam-cli
+      containers:
+      - name: proam
+        image: rust
+        volumeMounts:
+        - name: app
+          mountPath: /app
+        - name: dbus
+          mountPath: /run/dbus/system_bus_socket
+          readOnly: true
+        ports:
+        - containerPort: 9091
+        command:
+        - sh
+        - -c
+        - |
+          set -ex
+          apt-get update && apt-get install -y libdbus-1-dev
+          rm -rf /var/lib/apt/lists/*
+          /app/proam-cli connect
+          /app/proam-cli exporter

@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: proam-cli
+spec:
+  endpoints:
+  - interval: 5s
+    port: metrics
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: proam-cli
+      app.kubernetes.io/instance: ugreen
