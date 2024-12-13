@@ -59,7 +59,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: "v2.13.1"
+    tag: "v2.13.2"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
 
@@ -1870,7 +1870,7 @@ server:
       # -- Repository to use for extension installer image
       repository: "quay.io/argoprojlabs/argocd-extension-installer"
       # -- Tag to use for extension installer image
-      tag: "v0.0.5"
+      tag: "v0.0.8"
       # -- Image pull policy for extensions
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
