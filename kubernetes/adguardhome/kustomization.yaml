@@ -31,6 +31,6 @@ images:
   newTag: v1.14
 - name: vector
   newName: docker.io/timberio/vector
-  newTag: 0.42.0-distroless-libc
+  newTag: 0.43.1-distroless-libc
 - name: python
   newName: gcr.io/distroless/python3-debian12
