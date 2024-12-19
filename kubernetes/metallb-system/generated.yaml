@@ -6,10 +6,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
 ---
@@ -20,10 +20,10 @@ metadata:
   name: metallb-speaker
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: speaker
 ---
@@ -34,10 +34,10 @@ metadata:
   name: metallb-webhook-cert
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: metallb/templates/exclude-l2-config.yaml
@@ -47,10 +47,10 @@ metadata:
   name: metallb-excludel2
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 data:
   excludel2.yaml: |
@@ -74,7 +74,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: bfdprofiles.metallb.io
 spec:
   group: metallb.io
@@ -196,7 +196,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: bgpadvertisements.metallb.io
 spec:
   group: metallb.io
@@ -403,7 +403,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: bgppeers.metallb.io
 spec:
   conversion:
@@ -439,6 +439,8 @@ spec:
         - jsonPath: .spec.ebgpMultiHop
           name: Multi Hops
           type: string
+      deprecated: true
+      deprecationWarning: v1beta1 is deprecated, please use v1beta2
       name: v1beta1
       schema:
         openAPIV3Schema:
@@ -600,15 +602,26 @@ spec:
                   default: false
                   description: To set if we want to disable MP BGP that will separate IPv4 and IPv6 route exchanges into distinct BGP sessions.
                   type: boolean
+                dynamicASN:
+                  description: |-
+                    DynamicASN detects the AS number to use for the remote end of the session
+                    without explicitly setting it via the ASN field. Limited to:
+                    internal - if the neighbor's ASN is different than MyASN connection is denied.
+                    external - if the neighbor's ASN is the same as MyASN the connection is denied.
+                    ASN and DynamicASN are mutually exclusive and one of them must be specified.
+                  enum:
+                    - internal
+                    - external
+                  type: string
                 ebgpMultiHop:
                   description: To set if the BGPPeer is multi-hops away. Needed for FRR mode only.
                   type: boolean
                 enableGracefulRestart:
                   description: |-
-                    EnableGracefulRestart allows BGP peer to continue to forward data packets along
-                    known routes while the routing protocol information is being restored.
-                    This field is immutable because it requires restart of the BGP session
-                    Supported for FRR mode only.
+                    EnableGracefulRestart allows BGP peer to continue to forward data packets
+                    along known routes while the routing protocol information is being
+                    restored. This field is immutable because it requires restart of the BGP
+                    session. Supported for FRR mode only.
                   type: boolean
                   x-kubernetes-validations:
                     - message: EnableGracefulRestart cannot be changed after creation
@@ -696,7 +709,9 @@ spec:
                   type: object
                   x-kubernetes-map-type: atomic
                 peerASN:
-                  description: AS number to expect from the remote end of the session.
+                  description: |-
+                    AS number to expect from the remote end of the session.
+                    ASN and DynamicASN are mutually exclusive and one of them must be specified.
                   format: int32
                   maximum: 4294967295
                   minimum: 0
@@ -723,7 +738,6 @@ spec:
                   type: string
               required:
                 - myASN
-                - peerASN
                 - peerAddress
               type: object
             status:
@@ -740,7 +754,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: communities.metallb.io
 spec:
   group: metallb.io
@@ -806,7 +820,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: ipaddresspools.metallb.io
 spec:
   group: metallb.io
@@ -1017,7 +1031,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: l2advertisements.metallb.io
 spec:
   group: metallb.io
@@ -1198,7 +1212,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.16.3
   name: servicel2statuses.metallb.io
 spec:
   group: metallb.io
@@ -1288,10 +1302,10 @@ kind: ClusterRole
 metadata:
   name: metallb:controller
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1307,11 +1321,11 @@ rules:
   resources: ["events"]
   verbs: ["create", "patch"]
 - apiGroups: ["admissionregistration.k8s.io"]
-  resources: ["validatingwebhookconfigurations", "mutatingwebhookconfigurations"]
+  resources: ["validatingwebhookconfigurations"]
   resourceNames: ["metallb-webhook-configuration"]
   verbs: ["create", "delete", "get", "list", "patch", "update", "watch"]
 - apiGroups: ["admissionregistration.k8s.io"]
-  resources: ["validatingwebhookconfigurations", "mutatingwebhookconfigurations"]
+  resources: ["validatingwebhookconfigurations"]
   verbs: ["list", "watch"]
 - apiGroups: ["apiextensions.k8s.io"]
   resources: ["customresourcedefinitions"]
@@ -1328,10 +1342,10 @@ kind: ClusterRole
 metadata:
   name: metallb:speaker
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1353,10 +1367,10 @@ kind: ClusterRoleBinding
 metadata:
   name: metallb:controller
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -1373,10 +1387,10 @@ kind: ClusterRoleBinding
 metadata:
   name: metallb:speaker
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 subjects:
 - kind: ServiceAccount
@@ -1394,10 +1408,10 @@ metadata:
   name: metallb-pod-lister
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1435,10 +1449,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups: [""]
@@ -1481,10 +1495,10 @@ metadata:
   name: metallb-pod-lister
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1501,10 +1515,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1521,10 +1535,10 @@ metadata:
   name: metallb-webhook-service
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 spec:
   ports:
@@ -1542,10 +1556,10 @@ metadata:
   name: metallb-speaker
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: speaker
 spec:
@@ -1577,7 +1591,7 @@ spec:
             name: metallb-excludel2
       containers:
       - name: speaker
-        image: quay.io/metallb/speaker:v0.14.7
+        image: quay.io/metallb/speaker:v0.14.9
         args:
         - --port=7472
         - --log-level=info
@@ -1655,10 +1669,10 @@ metadata:
   name: metallb-controller
   namespace: "metallb-system"
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: controller
 spec:
@@ -1684,7 +1698,7 @@ spec:
         runAsUser: 65534
       containers:
       - name: controller
-        image: quay.io/metallb/controller:v0.14.7
+        image: quay.io/metallb/controller:v0.14.9
         args:
         - --port=7472
         - --log-level=info
@@ -1742,10 +1756,10 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: metallb-webhook-configuration
   labels:
-    helm.sh/chart: metallb-0.14.7
+    helm.sh/chart: metallb-0.14.9
     app.kubernetes.io/name: metallb
     app.kubernetes.io/instance: metallb
-    app.kubernetes.io/version: "v0.14.7"
+    app.kubernetes.io/version: "v0.14.9"
     app.kubernetes.io/managed-by: Helm
 webhooks:
 - admissionReviewVersions:
