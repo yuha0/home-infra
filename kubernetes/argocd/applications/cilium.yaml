@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cilium
+spec:
+  destinations:
+  - namespace: "kube-system"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: 'cilium.io'
+    kind: CiliumBGPPeeringPolicy
+  - group: 'cilium.io'
+    kind: CiliumLoadBalancerIPPool
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+spec:
+  project: cilium
+  source:
+    path: kubernetes/cilium
+  destination:
+    namespace: kube-system

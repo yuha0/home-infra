@@ -1,0 +1,3 @@
+resources:
+- bgp-peering-policy.yaml
+- lb-ip-pool.yaml

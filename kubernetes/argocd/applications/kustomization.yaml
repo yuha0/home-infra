@@ -4,6 +4,7 @@ resources:
 - argocd.yaml
 - batteries.yaml
 - cert-manager.yaml
+- cilium.yaml
 - cloudflare-ddns.yaml
 - cloudnative-pg.yaml
 - csi-driver-nfs.yaml

@@ -1,0 +1,20 @@
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumBGPPeeringPolicy
+metadata:
+  name: k0
+spec:
+  nodeSelector:
+    matchLabels:
+      node-role.kubernetes.io/node: ""
+  virtualRouters:
+  - localASN: 65101
+    serviceSelector:
+      matchExpressions:
+      - {key: somekey, operator: NotIn, values: ['never-used-value']}
+    neighbors:
+    - peerAddress: '10.100.0.1/32'
+      peerASN: 65100
+      gracefulRestart:
+        enabled: true
+        restartTimeSeconds: 30
+    
