@@ -23,7 +23,7 @@ metadata:
   name: dns-udp
 spec:
   externalTrafficPolicy: Local
-  loadBalancerIP: 10.110.0.12
+  loadBalancerIP: 10.200.0.3
   type: LoadBalancer
   ports:
   - name: dns-udp
