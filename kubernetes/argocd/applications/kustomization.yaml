@@ -16,7 +16,6 @@ resources:
 - ingress-nginx.yaml
 - kube-state-metrics.yaml
 - logging.yaml
-- metallb-system.yaml
 - node-exporter.yaml
 - ollama.yaml
 - plex.yaml
