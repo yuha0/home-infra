@@ -14,4 +14,4 @@ images:
   newTag: 0.43.1-distroless-libc
 - name: unpoller
   newName: ghcr.io/unpoller/unpoller
-  newTag: v2.11.2
+  newTag: v2.14.0
