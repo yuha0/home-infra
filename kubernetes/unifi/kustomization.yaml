@@ -4,6 +4,7 @@ resources:
 - networkpolicies.yaml
 - unpoller
 - logging
+- proxy
 
 images:
 - name: geoipupdate
