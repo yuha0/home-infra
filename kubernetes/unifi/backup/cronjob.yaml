@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup
+spec:
+  schedule: "0 7 * * *"
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 14
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          terminationGracePeriodSeconds: 5
+          volumes:
+          - name: data-archive
+            persistentVolumeClaim:
+              claimName: backup
+          - name: data-raw
+            emptyDir:
+              medium: Memory
+          containers:
+          - name: backup
+            image: ghcr.io/yuha0/rsyncgpg:sha-efe887081920faf5aa78fdfa8c8c90eeff8a5ff1
+            envFrom:
+            - configMapRef:
+                name: config
+            - secretRef:
+                name: unifi-ssh
+            command:
+            - sh
+            - -c
+            - |
+              set -ex
+              BACKUP_TS=$(date +%s)
+              curl -sSLo /tmp/key.pub ${BACKUP_GPG_PUBKEY}
+              sshpass -e rsync -az -e "ssh -o StrictHostKeyChecking=no" $BACKUP_SSH_USERNAME@$BACKUP_SSH_HOST:$BACKUP_SSH_DATA_PATH /data/raw/
+              tar -cvf - /data/raw | gpg --encrypt --recipient-file /tmp/key.pub --output /data/archive/unifi-${BACKUP_TS}.tar.gpg
+              rm -rf /data/raw/*
+              ls -1 /data/archive | sort -r | awk 'NR>7' | xargs rm -f
+            resources:
+              requests:
+                memory: 2Gi
+            volumeMounts:
+            - mountPath: /data/archive
+              name: data-archive
+            - mountPath: /data/raw
+              name: data-raw
+          restartPolicy: Never

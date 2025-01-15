@@ -1,0 +1,10 @@
+resources:
+- volume.yaml
+- cronjob.yaml
+- sealed-unifi-ssh.yaml
+configMapGenerator:
+- name: config
+  literals:
+  - BACKUP_GPG_PUBKEY=https://github.com/yuha0.gpg
+  - BACKUP_SSH_HOST=10.106.0.1
+  - BACKUP_SSH_DATA_PATH=/data/unifi/data/backup/autobackup/

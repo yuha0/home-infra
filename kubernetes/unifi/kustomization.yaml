@@ -5,6 +5,7 @@ resources:
 - unpoller
 - logging
 - proxy
+- backup
 
 images:
 - name: geoipupdate
