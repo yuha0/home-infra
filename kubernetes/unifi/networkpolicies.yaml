@@ -13,10 +13,13 @@ spec:
         prometheus: k8s
         io.kubernetes.pod.namespace: monitoring
   egress:
-  - toServices:
-    - k8sService:
-        serviceName: ingress-nginx-controller-internal
-        namespace: ingress-nginx-internal
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/component: controller
+        io.kubernetes.pod.namespace: ingress-nginx-internal
+    toPorts:
+    - ports:
+      - port: "443"
   - toCIDRSet:
     - cidr: 169.254.25.10/32
     toPorts:
