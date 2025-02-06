@@ -3,6 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: proam-cli
 spec:
+  fallbackScrapeProtocol: PrometheusText0.0.4
   endpoints:
   - interval: 5s
     port: metrics
