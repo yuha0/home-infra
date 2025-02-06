@@ -1,15 +1,14 @@
 namespace: kube-system
 resources:
-- cluster-role.yaml
-- deployment.yaml
-- network-policy.yaml
-- service.yaml
-- service-account.yaml
-- cluster-role-binding.yaml
 - service-monitor.yaml
-- prometheus-rule.yaml
-images:
-- name: registry.k8s.io/kube-state-metrics/kube-state-metrics
-  newTag: v2.14.0
-- name: quay.io/brancz/kube-rbac-proxy
-  newTag: v0.18.1
+- https://github.com/kubernetes/kube-state-metrics//examples/autosharding?ref=v2.15.0
+
+patches:
+- target:
+    group: apps
+    kind: StatefulSet
+    name: kube-state-metrics
+  patch: |-
+    - op: add
+      path: /spec/replicas
+      value: 5
