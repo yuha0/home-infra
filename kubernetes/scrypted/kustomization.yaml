@@ -9,7 +9,7 @@ resources:
 images:
 - name: scrypted
   newName: ghcr.io/koush/scrypted
-  newTag: "v0.127.1-noble-lite"
+  newTag: "v0.137.0-noble-lite"
 
 patches:
 - target:
