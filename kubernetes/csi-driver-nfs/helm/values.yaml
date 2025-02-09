@@ -1,28 +1,33 @@
 customLabels: {}
 image:
+    baseRepo: registry.k8s.io
     nfs:
         repository: registry.k8s.io/sig-storage/nfsplugin
-        tag: v4.5.0
+        tag: v4.10.0
         pullPolicy: IfNotPresent
     csiProvisioner:
         repository: registry.k8s.io/sig-storage/csi-provisioner
-        tag: v3.6.1
+        tag: v5.2.0
+        pullPolicy: IfNotPresent
+    csiResizer:
+        repository: registry.k8s.io/sig-storage/csi-resizer
+        tag: v1.13.1
         pullPolicy: IfNotPresent
     csiSnapshotter:
         repository: registry.k8s.io/sig-storage/csi-snapshotter
-        tag: v6.3.1
+        tag: v8.2.0
         pullPolicy: IfNotPresent
     livenessProbe:
         repository: registry.k8s.io/sig-storage/livenessprobe
-        tag: v2.11.0
+        tag: v2.15.0
         pullPolicy: IfNotPresent
     nodeDriverRegistrar:
         repository: registry.k8s.io/sig-storage/csi-node-driver-registrar
-        tag: v2.9.0
+        tag: v2.13.0
         pullPolicy: IfNotPresent
     externalSnapshotter:
         repository: registry.k8s.io/sig-storage/snapshot-controller
-        tag: v6.3.1
+        tag: v8.2.0
         pullPolicy: IfNotPresent
 
 serviceAccount:
@@ -51,6 +56,8 @@ controller:
   strategyType: Recreate
   runOnMaster: false
   runOnControlPlane: false
+  enableSnapshotter: true
+  useTarCommandInSnapshot: false
   livenessProbe:
     healthPort: 29652
   logLevel: 5
@@ -60,9 +67,27 @@ controller:
   affinity: {}
   nodeSelector: {}
   priorityClassName: system-cluster-critical
-  tolerations: []
+  tolerations:
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/controlplane"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "CriticalAddonsOnly"
+      operator: "Exists"
+      effect: "NoSchedule"
   resources:
     csiProvisioner:
+      limits:
+        memory: 400Mi
+      requests:
+        cpu: 10m
+        memory: 20Mi
+    csiResizer:
       limits:
         memory: 400Mi
       requests:
@@ -123,6 +148,7 @@ node:
 externalSnapshotter:
   enabled: true
   name: snapshot-controller
+  deletionPolicy: Delete
   priorityClassName: system-cluster-critical
   controller:
     replicas: 3
@@ -135,9 +161,34 @@ externalSnapshotter:
   # Create volume snapshot CRDs.
   customResourceDefinitions:
     enabled: true   #if set true, VolumeSnapshot, VolumeSnapshotContent and VolumeSnapshotClass CRDs will be created. Set it false, If they already exist in cluster.
+## volumeSnapshotClass resource example:
+volumeSnapshotClass:
+  create: false
+  name: csi-nfs-snapclass
+  deletionPolicy: Delete
+  
 
 ## Reference to one or more secrets to be used when pulling images
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 ##
 imagePullSecrets: []
+
+## StorageClass resource example:
+storageClass:
+  create: false
+#   name: nfs-csi
+#   annotations:
+#     storageclass.kubernetes.io/is-default-class: "true"
+#   parameters:
+#     server: nfs-server.default.svc.cluster.local
+#     share: /
+#     subDir:
+#     mountPermissions: "0"
+#     csi.storage.k8s.io/provisioner-secret is only needed for providing mountOptions in DeleteVolume
+#     csi.storage.k8s.io/provisioner-secret-name: "mount-options"
+#     csi.storage.k8s.io/provisioner-secret-namespace: "default"
+#   reclaimPolicy: Delete
+#   volumeBindingMode: Immediate
+#   mountOptions:
+#     - nfsvers=4.1
 # - name: "image-pull-secret"

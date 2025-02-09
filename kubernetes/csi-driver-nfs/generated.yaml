@@ -9,8 +9,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 ---
 # Source: csi-driver-nfs/templates/rbac-csi-nfs.yaml
 apiVersion: v1
@@ -22,8 +22,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 ---
 # Source: csi-driver-nfs/templates/rbac-snapshot-controller.yaml
 apiVersion: v1
@@ -35,8 +35,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 ---
 # Source: csi-driver-nfs/templates/crd-csi-snapshot.yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -891,12 +891,12 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
-    verbs: ["get", "list", "watch", "create", "delete"]
+    verbs: ["get", "list", "watch", "create", "patch", "delete"]
   - apiGroups: [""]
     resources: ["persistentvolumeclaims"]
     verbs: ["get", "list", "watch", "update"]
@@ -928,6 +928,34 @@ rules:
     resources: ["secrets"]
     verbs: ["get"]
 ---
+# Source: csi-driver-nfs/templates/rbac-csi-nfs.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nfs-external-resizer-role
+  labels:
+    app.kubernetes.io/instance: "csi-driver-nfs"
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/name: "csi-driver-nfs"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims/status"]
+    verbs: ["update", "patch"]
+  - apiGroups: [""]
+    resources: ["events"]
+    verbs: ["list", "watch", "create", "update", "patch"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+---
 # Source: csi-driver-nfs/templates/rbac-snapshot-controller.yaml
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -937,8 +965,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -960,10 +988,30 @@ rules:
     verbs: ["patch"]
   - apiGroups: ["snapshot.storage.k8s.io"]
     resources: ["volumesnapshots"]
-    verbs: ["get", "list", "watch", "update", "patch"]
+    verbs: ["get", "list", "watch", "update", "patch", "create"]
   - apiGroups: ["snapshot.storage.k8s.io"]
     resources: ["volumesnapshots/status"]
     verbs: ["update", "patch"]
+---
+# Source: csi-driver-nfs/templates/rbac-csi-nfs.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: nfs-csi-resizer-role
+  labels:
+    app.kubernetes.io/instance: "csi-driver-nfs"
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/name: "csi-driver-nfs"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+subjects:
+  - kind: ServiceAccount
+    name: csi-nfs-controller-sa
+    namespace: kube-system
+roleRef:
+  kind: ClusterRole
+  name: nfs-external-resizer-role
+  apiGroup: rbac.authorization.k8s.io
 ---
 # Source: csi-driver-nfs/templates/rbac-csi-nfs.yaml
 kind: ClusterRoleBinding
@@ -974,8 +1022,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 subjects:
   - kind: ServiceAccount
     name: csi-nfs-controller-sa
@@ -994,8 +1042,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 subjects:
   - kind: ServiceAccount
     name: snapshot-controller
@@ -1015,8 +1063,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 rules:
   - apiGroups: ["coordination.k8s.io"]
     resources: ["leases"]
@@ -1032,8 +1080,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 subjects:
   - kind: ServiceAccount
     name: snapshot-controller
@@ -1052,8 +1100,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 spec:
   updateStrategy:
     rollingUpdate:
@@ -1068,8 +1116,8 @@ spec:
         app.kubernetes.io/instance: "csi-driver-nfs"
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/name: "csi-driver-nfs"
-        app.kubernetes.io/version: "v4.5.0"
-        helm.sh/chart: "csi-driver-nfs-v4.5.0"
+        app.kubernetes.io/version: "v4.10.0"
+        helm.sh/chart: "csi-driver-nfs-v4.10.0"
         app: csi-nfs-node
     spec:
       hostNetwork: true # original nfs connection would be broken without hostNetwork setting
@@ -1086,11 +1134,11 @@ spec:
         - operator: Exists
       containers:
         - name: liveness-probe
-          image: "registry.k8s.io/sig-storage/livenessprobe:v2.11.0"
+          image: "registry.k8s.io/sig-storage/livenessprobe:v2.15.0"
           args:
             - --csi-address=/csi/csi.sock
             - --probe-timeout=3s
-            - --health-port=29653
+            - --http-endpoint=localhost:29653
             - --v=2
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -1104,16 +1152,11 @@ spec:
               memory: 20Mi
           securityContext:
             readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+              - ALL
         - name: node-driver-registrar
-          image: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.0"
-          livenessProbe:
-            exec:
-              command:
-                - /csi-node-driver-registrar
-                - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
-                - --mode=kubelet-registration-probe
-            initialDelaySeconds: 30
-            timeoutSeconds: 15
+          image: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.13.0"
           args:
             - --v=2
             - --csi-address=/csi/csi.sock
@@ -1137,14 +1180,19 @@ spec:
             requests:
               cpu: 10m
               memory: 20Mi
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: nfs
           securityContext:
             privileged: true
             capabilities:
               add: ["SYS_ADMIN"]
+              drop:
+              - ALL
             allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: true
-          image: "registry.k8s.io/sig-storage/nfsplugin:v4.5.0"
+          image: "registry.k8s.io/sig-storage/nfsplugin:v4.10.0"
           args :
             - "--v=5"
             - "--nodeid=$(NODE_ID)"
@@ -1158,15 +1206,12 @@ spec:
                   fieldPath: spec.nodeName
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
-          ports:
-            - containerPort: 29653
-              name: healthz
-              protocol: TCP
           livenessProbe:
             failureThreshold: 5
             httpGet:
+              host: localhost
               path: /healthz
-              port: healthz
+              port: 29653
             initialDelaySeconds: 30
             timeoutSeconds: 10
             periodSeconds: 30
@@ -1207,8 +1252,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
 spec:
   replicas: 3
   selector:
@@ -1222,29 +1267,45 @@ spec:
         app.kubernetes.io/instance: "csi-driver-nfs"
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/name: "csi-driver-nfs"
-        app.kubernetes.io/version: "v4.5.0"
-        helm.sh/chart: "csi-driver-nfs-v4.5.0"
+        app.kubernetes.io/version: "v4.10.0"
+        helm.sh/chart: "csi-driver-nfs-v4.10.0"
         app: csi-nfs-controller
     spec:
       hostNetwork: true  # controller also needs to mount nfs to create dir
       dnsPolicy: ClusterFirstWithHostNet
       serviceAccountName: csi-nfs-controller-sa
+    # runOnControlPlane=true or runOnMaster=true only takes effect if affinity is not set
       nodeSelector:
         kubernetes.io/os: linux
       priorityClassName: system-cluster-critical
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/controlplane
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+        - effect: NoSchedule
+          key: CriticalAddonsOnly
+          operator: Exists
       containers:
         - name: csi-provisioner
-          image: "registry.k8s.io/sig-storage/csi-provisioner:v3.6.1"
+          image: "registry.k8s.io/sig-storage/csi-provisioner:v5.2.0"
           args:
             - "-v=2"
             - "--csi-address=$(ADDRESS)"
             - "--leader-election"
             - "--leader-election-namespace=kube-system"
             - "--extra-create-metadata=true"
+            - "--feature-gates=HonorPVReclaimPolicy=true"
             - "--timeout=1200s"
+            - "--retry-interval-max=30m"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -1260,14 +1321,43 @@ spec:
               memory: 20Mi
           securityContext:
             readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+              - ALL
+        - name: csi-resizer
+          image: "registry.k8s.io/sig-storage/csi-resizer:v1.13.1"
+          args:
+            - "-csi-address=$(ADDRESS)"
+            - "-v=2"
+            - "-leader-election"
+            - "--leader-election-namespace=kube-system"
+            - '-handle-volume-inuse-error=false'
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+          resources:
+            limits:
+              memory: 400Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: csi-snapshotter
-          image: "registry.k8s.io/sig-storage/csi-snapshotter:v6.3.1"
+          image: "registry.k8s.io/sig-storage/csi-snapshotter:v8.2.0"
           args:
             - "--v=2"
             - "--csi-address=$(ADDRESS)"
             - "--leader-election-namespace=kube-system"
             - "--leader-election"
             - "--timeout=1200s"
+            - "--retry-interval-max=30m"
           env:
             - name: ADDRESS
               value: /csi/csi.sock
@@ -1281,12 +1371,16 @@ spec:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
         - name: liveness-probe
-          image: "registry.k8s.io/sig-storage/livenessprobe:v2.11.0"
+          image: "registry.k8s.io/sig-storage/livenessprobe:v2.15.0"
           args:
             - --csi-address=/csi/csi.sock
             - --probe-timeout=3s
-            - --health-port=29652
+            - --http-endpoint=localhost:29652
             - --v=2
           imagePullPolicy: IfNotPresent
           volumeMounts:
@@ -1300,14 +1394,18 @@ spec:
               memory: 20Mi
           securityContext:
             readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+              - ALL
         - name: nfs
-          image: "registry.k8s.io/sig-storage/nfsplugin:v4.5.0"
+          image: "registry.k8s.io/sig-storage/nfsplugin:v4.10.0"
           securityContext:
             privileged: true
             capabilities:
               add: ["SYS_ADMIN"]
+              drop:
+              - ALL
             allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: true
           imagePullPolicy: IfNotPresent
           args:
             - "--v=5"
@@ -1317,6 +1415,7 @@ spec:
             - "--mount-permissions=0"
             - "--working-mount-dir=/tmp"
             - "--default-ondelete-policy=delete"
+            - "--use-tar-command-in-snapshot=false"
           env:
             - name: NODE_ID
               valueFrom:
@@ -1324,15 +1423,12 @@ spec:
                   fieldPath: spec.nodeName
             - name: CSI_ENDPOINT
               value: unix:///csi/csi.sock
-          ports:
-            - containerPort: 29652
-              name: healthz
-              protocol: TCP
           livenessProbe:
             failureThreshold: 5
             httpGet:
+              host: localhost
               path: /healthz
-              port: healthz
+              port: 29652
             initialDelaySeconds: 30
             timeoutSeconds: 10
             periodSeconds: 30
@@ -1342,8 +1438,6 @@ spec:
               mountPropagation: "Bidirectional"
             - mountPath: /csi
               name: socket-dir
-            - mountPath: /tmp
-              name: tmp-dir
           resources:
             limits:
               memory: 200Mi
@@ -1357,8 +1451,6 @@ spec:
             type: Directory
         - name: socket-dir
           emptyDir: {}
-        - name: tmp-dir
-          emptyDir: {}
 ---
 # Source: csi-driver-nfs/templates/csi-snapshot-controller.yaml
 kind: Deployment
@@ -1370,8 +1462,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.5.0"
-    helm.sh/chart: "csi-driver-nfs-v4.5.0"
+    app.kubernetes.io/version: "v4.10.0"
+    helm.sh/chart: "csi-driver-nfs-v4.10.0"
     app: snapshot-controller
 spec:
   replicas: 3
@@ -1395,13 +1487,27 @@ spec:
       serviceAccountName: snapshot-controller
       nodeSelector:
         kubernetes.io/os: linux
+    # runOnControlPlane=true or runOnMaster=true only takes effect if affinity is not set
       priorityClassName: system-cluster-critical
       securityContext:
         seccompProfile:
           type: RuntimeDefault
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/controlplane
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
+        - effect: NoSchedule
+          key: CriticalAddonsOnly
+          operator: Exists
       containers:
         - name: snapshot-controller
-          image: registry.k8s.io/sig-storage/snapshot-controller:v6.3.1
+          image: registry.k8s.io/sig-storage/snapshot-controller:v8.2.0
           args:
             - "--v=2"
             - "--leader-election=true"
@@ -1413,6 +1519,10 @@ spec:
               cpu: 10m
               memory: 20Mi
           imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
 ---
 # Source: csi-driver-nfs/templates/csi-snapshot-controller.yaml
 # This YAML file shows how to deploy the snapshot controller
