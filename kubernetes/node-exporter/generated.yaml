@@ -6,13 +6,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.37.1
+    helm.sh/chart: prometheus-node-exporter-4.44.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.8.2"
+    app.kubernetes.io/version: "1.9.0"
   annotations:
     prometheus.io/scrape: "true"
 spec:
@@ -34,13 +34,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.37.1
+    helm.sh/chart: prometheus-node-exporter-4.44.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.8.2"
+    app.kubernetes.io/version: "1.9.0"
 automountServiceAccountToken: false
 ---
 # Source: prometheus-node-exporter/templates/service.yaml
@@ -50,13 +50,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.37.1
+    helm.sh/chart: prometheus-node-exporter-4.44.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.8.2"
+    app.kubernetes.io/version: "1.9.0"
   annotations:
     prometheus.io/scrape: "true"
 spec:
@@ -77,13 +77,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.37.1
+    helm.sh/chart: prometheus-node-exporter-4.44.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.8.2"
+    app.kubernetes.io/version: "1.9.0"
 spec:
   selector:
     matchLabels:
@@ -99,13 +99,13 @@ spec:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       labels:
-        helm.sh/chart: prometheus-node-exporter-4.37.1
+        helm.sh/chart: prometheus-node-exporter-4.44.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: prometheus-node-exporter
         app.kubernetes.io/name: prometheus-node-exporter
         app.kubernetes.io/instance: monitoring
-        app.kubernetes.io/version: "1.8.2"
+        app.kubernetes.io/version: "1.9.0"
     spec:
       automountServiceAccountToken: false
       securityContext:
@@ -116,7 +116,7 @@ spec:
       serviceAccountName: monitoring-prometheus-node-exporter
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.8.2
+          image: quay.io/prometheus/node-exporter:v1.9.0
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
@@ -175,6 +175,20 @@ spec:
               readOnly: true
       hostNetwork: true
       hostPID: true
+      hostIPC: false
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: eks.amazonaws.com/compute-type
+                operator: NotIn
+                values:
+                - fargate
+              - key: type
+                operator: NotIn
+                values:
+                - virtual-kubelet
       nodeSelector:
         kubernetes.io/os: linux
       tolerations:
@@ -198,13 +212,13 @@ metadata:
   name: monitoring-prometheus-node-exporter
   namespace: monitoring
   labels:
-    helm.sh/chart: prometheus-node-exporter-4.37.1
+    helm.sh/chart: prometheus-node-exporter-4.44.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: prometheus-node-exporter
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/instance: monitoring
-    app.kubernetes.io/version: "1.8.2"
+    app.kubernetes.io/version: "1.9.0"
 spec:
   jobLabel: app.kubernetes.io/name
   
