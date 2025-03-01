@@ -52,6 +52,7 @@ spec:
           refuse_any: true
           upstream_dns:
           - {{ index . "nextdns-upstream" }}
+          - "[//]10.106.0.1:53"
           - "[/main.yuha0.com/]10.106.0.1:53"
           - "[/lab.yuha0.com/]10.106.0.1:53"
           upstream_dns_file: ""
