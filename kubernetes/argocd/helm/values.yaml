@@ -59,7 +59,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: "v2.14.2"
+    tag: "v2.14.3"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
 
@@ -164,7 +164,7 @@ global:
 
 ## Argo Configs
 configs:
-  # General Argo CD configuration
+  # General Argo CD configuration. Any values you put under `.configs.cm` are passed to argocd-cm ConfigMap.
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
   cm:
     # -- Create the argocd-cm configmap for [declarative setup]
@@ -284,6 +284,8 @@ configs:
     controller.self.heal.timeout.seconds: 5
     # -- Repo server RPC call timeout seconds.
     controller.repo.server.timeout.seconds: 60
+    # -- Specifies the timeout after which a sync would be terminated. 0 means no timeout
+    controller.sync.timeout.seconds: 0
 
     ## Server properties
     # -- Run server without TLS
@@ -1048,7 +1050,7 @@ dex:
     # -- Dex image repository
     repository: ghcr.io/dexidp/dex
     # -- Dex image tag
-    tag: v2.41.1
+    tag: v2.42.0
     # -- Dex imagePullPolicy
     # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
