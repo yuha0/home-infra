@@ -18,7 +18,7 @@ spec:
         - -m
         - app.app
         - -s
-        - discovery
+        - discovery-internal
         - -p
         - "80"
         - -l

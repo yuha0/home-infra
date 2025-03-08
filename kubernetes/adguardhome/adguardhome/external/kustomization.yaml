@@ -1,0 +1,22 @@
+commonLabels:
+  app.kubernetes.io/instance: external
+nameSuffix: -external
+resources:
+- ../base
+- service.yaml
+- ingress.yaml
+patches:
+- target:
+    group: apps
+    kind: Deployment
+    name: adguardhome
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/resources
+      value: 
+        requests:
+          memory: "128Mi"
+          cpu: "100m"
+        limits:
+          memory: "175Mi"
+          cpu: "200m"

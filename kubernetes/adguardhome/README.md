@@ -38,6 +38,8 @@ to pause ad-blocking for 60 seconds on all instances. Create an iOS shortcut for
 
 This script is definitely not "production ready". It uses the barebone built-in libraries to run webservers and sends http requests. Although it behaves as a transparant proxy, it inevitably processes the basic auth credentials. So don't expose it to the internet.
 
+In the current design, Pauser is hardcoded to only control internal instance for simplicity.
+
 ### Secret Generation
 
 For the following reasons, the configuration file has to be a secret instead of a configmap:

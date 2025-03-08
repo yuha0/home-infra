@@ -1,0 +1,25 @@
+commonLabels:
+  app.kubernetes.io/instance: internal
+nameSuffix: -internal
+resources:
+- ../base
+- service.yaml
+- ingress.yaml
+patches:
+- target:
+    group: apps
+    kind: Deployment
+    name: adguardhome
+  patch: |-
+    - op: add
+      path: /spec/template/spec/priorityClassName
+      value: system-node-critical
+    - op: add
+      path: /spec/template/spec/containers/0/resources
+      value: 
+        requests:
+          memory: "175Mi"
+          cpu: "200m"
+        limits:
+          memory: "175Mi"
+          cpu: "200m"

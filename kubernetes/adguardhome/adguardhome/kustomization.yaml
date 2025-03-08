@@ -2,13 +2,28 @@ commonLabels:
   app.kubernetes.io/component: adguardhome
 resources:
 - sealed-config.yaml
-- service.yaml
-- deploy.yaml
-- ingress.yaml
 - servicemonitor.yaml
 - networkpolicies.yaml
+- internal
+- external
 
 configMapGenerator:
 - name: vector
   files:
   - vector.yaml
+
+# Patch affinity rule at this level to avoid scheduling internal and external pods together.
+patches:
+- target:
+    group: apps
+    kind: Deployment
+    name: adguardhome
+  patch: |-
+    - op: add
+      path: /spec/template/spec/affinity
+      value:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels: {}
+            topologyKey: "kubernetes.io/hostname"
