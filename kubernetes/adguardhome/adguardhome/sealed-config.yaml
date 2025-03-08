@@ -67,6 +67,7 @@ spec:
           fastest_timeout: 1s
           allowed_clients:
           - "10.0.0.0/8"
+          - "100.64.0.0/16"
           - {{ index . "external-client-id-0" }}
           disallowed_clients: []
           blocked_hosts: []
