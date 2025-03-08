@@ -34,3 +34,6 @@ images:
   newTag: 0.44.0-distroless-libc
 - name: python
   newName: gcr.io/distroless/python3-debian12
+- name: httpd
+  newName: docker.io/httpd
+  newTag: 2.4.63-alpine

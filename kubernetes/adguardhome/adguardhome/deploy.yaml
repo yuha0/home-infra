@@ -13,7 +13,7 @@ spec:
       initContainers:
       # https://github.com/AdguardTeam/AdGuardHome/issues/1964
       - name: conf-init
-        image: httpd:2.4.51-alpine
+        image: httpd
         env:
         - name: ADGUARD_USERNAME
           valueFrom:
