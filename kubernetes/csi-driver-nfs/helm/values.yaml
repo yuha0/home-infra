@@ -3,7 +3,7 @@ image:
     baseRepo: registry.k8s.io
     nfs:
         repository: registry.k8s.io/sig-storage/nfsplugin
-        tag: v4.10.0
+        tag: v4.11.0
         pullPolicy: IfNotPresent
     csiProvisioner:
         repository: registry.k8s.io/sig-storage/csi-provisioner
@@ -172,6 +172,7 @@ volumeSnapshotClass:
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 ##
 imagePullSecrets: []
+# - name: "image-pull-secret"
 
 ## StorageClass resource example:
 storageClass:
@@ -191,4 +192,3 @@ storageClass:
 #   volumeBindingMode: Immediate
 #   mountOptions:
 #     - nfsvers=4.1
-# - name: "image-pull-secret"

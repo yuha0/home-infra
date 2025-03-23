@@ -9,8 +9,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 ---
 # Source: csi-driver-nfs/templates/rbac-csi-nfs.yaml
 apiVersion: v1
@@ -22,8 +22,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 ---
 # Source: csi-driver-nfs/templates/rbac-snapshot-controller.yaml
 apiVersion: v1
@@ -35,8 +35,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 ---
 # Source: csi-driver-nfs/templates/crd-csi-snapshot.yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -891,8 +891,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -937,8 +937,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -965,8 +965,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 rules:
   - apiGroups: [""]
     resources: ["persistentvolumes"]
@@ -1002,8 +1002,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 subjects:
   - kind: ServiceAccount
     name: csi-nfs-controller-sa
@@ -1022,8 +1022,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 subjects:
   - kind: ServiceAccount
     name: csi-nfs-controller-sa
@@ -1042,8 +1042,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 subjects:
   - kind: ServiceAccount
     name: snapshot-controller
@@ -1063,8 +1063,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 rules:
   - apiGroups: ["coordination.k8s.io"]
     resources: ["leases"]
@@ -1080,8 +1080,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 subjects:
   - kind: ServiceAccount
     name: snapshot-controller
@@ -1100,8 +1100,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 spec:
   updateStrategy:
     rollingUpdate:
@@ -1116,8 +1116,8 @@ spec:
         app.kubernetes.io/instance: "csi-driver-nfs"
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/name: "csi-driver-nfs"
-        app.kubernetes.io/version: "v4.10.0"
-        helm.sh/chart: "csi-driver-nfs-v4.10.0"
+        app.kubernetes.io/version: "4.11.0"
+        helm.sh/chart: "csi-driver-nfs-4.11.0"
         app: csi-nfs-node
     spec:
       hostNetwork: true # original nfs connection would be broken without hostNetwork setting
@@ -1192,7 +1192,7 @@ spec:
               drop:
               - ALL
             allowPrivilegeEscalation: true
-          image: "registry.k8s.io/sig-storage/nfsplugin:v4.10.0"
+          image: "registry.k8s.io/sig-storage/nfsplugin:v4.11.0"
           args :
             - "--v=5"
             - "--nodeid=$(NODE_ID)"
@@ -1252,8 +1252,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
 spec:
   replicas: 3
   selector:
@@ -1267,8 +1267,8 @@ spec:
         app.kubernetes.io/instance: "csi-driver-nfs"
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/name: "csi-driver-nfs"
-        app.kubernetes.io/version: "v4.10.0"
-        helm.sh/chart: "csi-driver-nfs-v4.10.0"
+        app.kubernetes.io/version: "4.11.0"
+        helm.sh/chart: "csi-driver-nfs-4.11.0"
         app: csi-nfs-controller
     spec:
       hostNetwork: true  # controller also needs to mount nfs to create dir
@@ -1398,7 +1398,7 @@ spec:
               drop:
               - ALL
         - name: nfs
-          image: "registry.k8s.io/sig-storage/nfsplugin:v4.10.0"
+          image: "registry.k8s.io/sig-storage/nfsplugin:v4.11.0"
           securityContext:
             privileged: true
             capabilities:
@@ -1462,8 +1462,8 @@ metadata:
     app.kubernetes.io/instance: "csi-driver-nfs"
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/name: "csi-driver-nfs"
-    app.kubernetes.io/version: "v4.10.0"
-    helm.sh/chart: "csi-driver-nfs-v4.10.0"
+    app.kubernetes.io/version: "4.11.0"
+    helm.sh/chart: "csi-driver-nfs-4.11.0"
     app: snapshot-controller
 spec:
   replicas: 3
