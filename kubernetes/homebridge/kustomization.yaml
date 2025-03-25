@@ -4,7 +4,7 @@ commonLabels:
 resources:
 - namespace.yaml
 - volume.yaml
-- deployment.yaml
+- statefulset.yaml
 - ingress.yaml
 
 images:
