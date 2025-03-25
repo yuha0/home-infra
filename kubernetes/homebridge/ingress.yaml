@@ -10,8 +10,28 @@ spec:
       paths:
       - backend:
           service:
-            name: homebridge-ui
+            name: homebridge-http
             port:
               number: 8581
+        path: /
+        pathType: Prefix
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homebridge-webhook
+spec:
+  ingressClassName: nginx-internal
+  rules:
+  - host: homebridge-webhook.internal.yuha0.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: homebridge-http
+            port:
+              number: 51828
         path: /
         pathType: Prefix
