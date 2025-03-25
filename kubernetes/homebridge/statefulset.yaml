@@ -39,6 +39,8 @@ spec:
         ports:
         - name: ui
           containerPort: 8581
+        - name: webhook
+          containerPort: 51828
         - name: bonjour
           containerPort: 5353
           hostPort: 5353
