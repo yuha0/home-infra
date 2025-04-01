@@ -199,6 +199,7 @@ data:
   application.instanceLabelKey: argocd.argoproj.io/instance
   application.sync.impersonation.enabled: "false"
   exec.enabled: "false"
+  reposerver.enable.git.submodule: "false"
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
     jqPathExpressions:
     - '.webhooks[]?.clientConfig.caBundle'
@@ -24838,7 +24839,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 32255d309b3e39a0b30779d982aafaa6f5ce14be0f285cd0261997356ab1871b
-        checksum/cm: 217951284c7844e6791bf5663fb0d65e741cd0c3481f7eeb9a06f6aa702761ca
+        checksum/cm: a614194057686266fe081672d3ed475bd74ffc1912811ec89cc320c961ab6693
       labels:
         helm.sh/chart: argo-cd-7.8.16
         app.kubernetes.io/name: argocd-repo-server
@@ -24864,8 +24865,6 @@ spec:
         - --port=8081
         - --metrics-port=8084
         env:
-          - name: ARGOCD_GIT_MODULES_ENABLED
-            value: "false"
           - name: ARGOCD_REPO_SERVER_NAME
             value: argocd-repo-server
           - name: ARGOCD_RECONCILIATION_TIMEOUT
@@ -25229,7 +25228,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 32255d309b3e39a0b30779d982aafaa6f5ce14be0f285cd0261997356ab1871b
-        checksum/cm: 217951284c7844e6791bf5663fb0d65e741cd0c3481f7eeb9a06f6aa702761ca
+        checksum/cm: a614194057686266fe081672d3ed475bd74ffc1912811ec89cc320c961ab6693
       labels:
         helm.sh/chart: argo-cd-7.8.16
         app.kubernetes.io/name: argocd-server
@@ -25783,7 +25782,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 32255d309b3e39a0b30779d982aafaa6f5ce14be0f285cd0261997356ab1871b
-        checksum/cm: 217951284c7844e6791bf5663fb0d65e741cd0c3481f7eeb9a06f6aa702761ca
+        checksum/cm: a614194057686266fe081672d3ed475bd74ffc1912811ec89cc320c961ab6693
       labels:
         helm.sh/chart: argo-cd-7.8.16
         app.kubernetes.io/name: argocd-application-controller

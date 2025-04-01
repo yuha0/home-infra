@@ -260,6 +260,7 @@ configs:
     #         cluster:
     #           name: some-cluster
     #           server: https://some-cluster
+    reposerver.enable.git.submodule: "false"
 
   # Argo CD configuration parameters
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
@@ -2530,9 +2531,7 @@ repoServer:
   extraArgs: []
 
   # -- Environment variables to pass to repo server
-  env:
-  - name: ARGOCD_GIT_MODULES_ENABLED
-    value: "false"
+  env: []
 
   # -- envFrom to pass to repo server
   # @default -- `[]` (See [values.yaml])
