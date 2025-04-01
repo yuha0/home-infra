@@ -59,7 +59,7 @@ global:
     # -- If defined, a repository applied to all Argo CD deployments
     repository: quay.io/argoproj/argocd
     # -- Overrides the global Argo CD image tag whose default is the chart appVersion
-    tag: "v2.14.5"
+    tag: "v2.14.8"
     # -- If defined, a imagePullPolicy applied to all Argo CD deployments
     imagePullPolicy: IfNotPresent
 
@@ -1275,12 +1275,13 @@ dex:
     #   maxSurge: 25%
     #   maxUnavailable: 25%
 
+  # DEPRECATED - Use configs.params to override
   # -- Dex log format. Either `text` or `json`
   # @default -- `""` (defaults to global.logging.format)
-  logFormat: ""
+  # logFormat: ""
   # -- Dex log level. One of: `debug`, `info`, `warn`, `error`
   # @default -- `""` (defaults to global.logging.level)
-  logLevel: ""
+  # logLevel: ""
 
 ## Redis
 redis:
@@ -3262,12 +3263,13 @@ notifications:
   # @default -- `[]` (defaults to global.imagePullSecrets)
   imagePullSecrets: []
 
+  # DEPRECATED - Use configs.params to override
   # -- Notifications controller log format. Either `text` or `json`
   # @default -- `""` (defaults to global.logging.format)
-  logFormat: ""
+  # logFormat: ""
   # -- Notifications controller log level. One of: `debug`, `info`, `warn`, `error`
   # @default -- `""` (defaults to global.logging.level)
-  logLevel: ""
+  # logLevel: ""
 
   # -- Extra arguments to provide to the notifications controller
   extraArgs: []
