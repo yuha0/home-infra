@@ -2530,7 +2530,9 @@ repoServer:
   extraArgs: []
 
   # -- Environment variables to pass to repo server
-  env: []
+  env:
+  - name: ARGOCD_GIT_MODULES_ENABLED
+    value: "false"
 
   # -- envFrom to pass to repo server
   # @default -- `[]` (See [values.yaml])

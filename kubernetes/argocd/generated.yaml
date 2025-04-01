@@ -24864,6 +24864,8 @@ spec:
         - --port=8081
         - --metrics-port=8084
         env:
+          - name: ARGOCD_GIT_MODULES_ENABLED
+            value: "false"
           - name: ARGOCD_REPO_SERVER_NAME
             value: argocd-repo-server
           - name: ARGOCD_RECONCILIATION_TIMEOUT
