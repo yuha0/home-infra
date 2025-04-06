@@ -12,7 +12,7 @@ spec:
       paths:
       - backend:
           service:
-            name: scrypted-ui
+            name: scrypted
             port:
               number: 10443
         path: /
