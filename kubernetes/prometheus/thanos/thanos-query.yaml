@@ -39,10 +39,12 @@ spec:
         - query
         - --grpc-address=0.0.0.0:10901
         - --http-address=0.0.0.0:9090
-        - --store=dnssrv+_grpc._tcp.thanos-store.monitoring.svc.cluster.local
-        - --store=dnssrv+_grpc._tcp.prometheus-operated.monitoring.svc.cluster.local
         - --query.timeout=10m
         - --query.auto-downsampling
+        - |
+          --endpoint.sd-config=- targets:
+            - thanos-store:10901
+            - prometheus-operated:10901
         image: thanos
         resources:
           requests:
