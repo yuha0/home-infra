@@ -34,9 +34,9 @@ spec:
             storage: 10Gi
         storageClassName: nfs-qnap
   thanos:
-    image: quay.io/thanos/thanos:v0.37.2
+    image: quay.io/thanos/thanos:v0.38.0
     objectStorageConfig:
       key: thanos.yaml
       name: thanos-objstore-config
-    version: v0.37.2
+    version: v0.38.0
   version: v3.2.1
