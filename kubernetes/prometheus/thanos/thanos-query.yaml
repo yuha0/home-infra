@@ -42,9 +42,9 @@ spec:
         - --query.timeout=10m
         - --query.auto-downsampling
         - |
-          --endpoint.sd-config=- targets:
-            - thanos-store:10901
-            - prometheus-operated:10901
+          --endpoint.sd-config=endpoints:
+          - address: "dnssrv+_grpc._tcp.thanos-store.monitoring.svc.cluster.local"
+          - address: "dnssrv+_grpc._tcp.prometheus-operated.monitoring.svc.cluster.local"
         image: thanos
         resources:
           requests:
