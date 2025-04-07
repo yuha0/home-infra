@@ -199,7 +199,6 @@ data:
   application.instanceLabelKey: argocd.argoproj.io/instance
   application.sync.impersonation.enabled: "false"
   exec.enabled: "false"
-  reposerver.enable.git.submodule: "false"
   resource.customizations.ignoreDifferences.admissionregistration.k8s.io_MutatingWebhookConfiguration: |
     jqPathExpressions:
     - '.webhooks[]?.clientConfig.caBundle'
@@ -253,6 +252,7 @@ data:
   otlp.address: ""
   redis.server: argocd-redis:6379
   repo.server: argocd-repo-server:8081
+  reposerver.enable.git.submodule: "false"
   reposerver.log.format: text
   reposerver.log.level: info
   reposerver.parallelism.limit: "1"
@@ -24567,7 +24567,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 0dfb8d74ea064c89555fbb3ee2cb213958862bf4c5a7de2e1960846d12da65d6
+        checksum/cmd-params: 12fd07543696bb2846ec16ffd61281948fc7d880a487833027f66482581e9006
       labels:
         helm.sh/chart: argo-cd-7.8.23
         app.kubernetes.io/name: argocd-applicationset-controller
@@ -24838,8 +24838,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 0dfb8d74ea064c89555fbb3ee2cb213958862bf4c5a7de2e1960846d12da65d6
-        checksum/cm: 644b80d8d48342b5994a90fe2c196654bd49c7fc15b108c3165f22ad4a1f50ee
+        checksum/cmd-params: 12fd07543696bb2846ec16ffd61281948fc7d880a487833027f66482581e9006
+        checksum/cm: 8a7fb2dd64e013eb133735b0970c5d76bae5e57b8addf3b9a5b1ca46438eff19
       labels:
         helm.sh/chart: argo-cd-7.8.23
         app.kubernetes.io/name: argocd-repo-server
@@ -25227,8 +25227,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 0dfb8d74ea064c89555fbb3ee2cb213958862bf4c5a7de2e1960846d12da65d6
-        checksum/cm: 644b80d8d48342b5994a90fe2c196654bd49c7fc15b108c3165f22ad4a1f50ee
+        checksum/cmd-params: 12fd07543696bb2846ec16ffd61281948fc7d880a487833027f66482581e9006
+        checksum/cm: 8a7fb2dd64e013eb133735b0970c5d76bae5e57b8addf3b9a5b1ca46438eff19
       labels:
         helm.sh/chart: argo-cd-7.8.23
         app.kubernetes.io/name: argocd-server
@@ -25781,8 +25781,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 0dfb8d74ea064c89555fbb3ee2cb213958862bf4c5a7de2e1960846d12da65d6
-        checksum/cm: 644b80d8d48342b5994a90fe2c196654bd49c7fc15b108c3165f22ad4a1f50ee
+        checksum/cmd-params: 12fd07543696bb2846ec16ffd61281948fc7d880a487833027f66482581e9006
+        checksum/cm: 8a7fb2dd64e013eb133735b0970c5d76bae5e57b8addf3b9a5b1ca46438eff19
       labels:
         helm.sh/chart: argo-cd-7.8.23
         app.kubernetes.io/name: argocd-application-controller

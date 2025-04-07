@@ -260,7 +260,6 @@ configs:
     #         cluster:
     #           name: some-cluster
     #           server: https://some-cluster
-    reposerver.enable.git.submodule: "false"
 
   # Argo CD configuration parameters
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
@@ -310,6 +309,7 @@ configs:
     ## Repo-server properties
     # -- Limit on number of concurrent manifests generate requests. Any value less the 1 means no limit.
     reposerver.parallelism.limit: 1
+    reposerver.enable.git.submodule: "false"
 
     ## ApplicationSet Properties
     # -- Modify how application is synced between the generator and the cluster. One of: `sync`, `create-only`, `create-update`, `create-delete`
