@@ -41,6 +41,7 @@ spec:
         - --http-address=0.0.0.0:9090
         - --query.timeout=10m
         - --query.auto-downsampling
+        - --query.replica-label=prometheus_replica
         - |
           --endpoint.sd-config=endpoints:
           - address: "dnssrv+_grpc._tcp.thanos-store.monitoring.svc.cluster.local"
