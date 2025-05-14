@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kube-system
+spec:
+  destinations:
+  - namespace: "kube-system"
+    server: https://kubernetes.default.svc
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-system
+spec:
+  project: kube-system
+  source:
+    path: kubernetes/kube-system
+  destination:
+    namespace: kube-system

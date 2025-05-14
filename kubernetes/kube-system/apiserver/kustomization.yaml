@@ -1,0 +1,3 @@
+resources:
+- endpoints.yaml
+- service.yaml

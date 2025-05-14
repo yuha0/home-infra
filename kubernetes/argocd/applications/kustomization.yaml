@@ -15,6 +15,7 @@ resources:
 - hubble.yaml
 - ingress-nginx.yaml
 - kube-state-metrics.yaml
+- kube-system.yaml
 - logging.yaml
 - node-exporter.yaml
 - ollama.yaml
