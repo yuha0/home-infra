@@ -1,0 +1,613 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: trident
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: tridentorchestrators.trident.qnap.io
+spec:
+  group: trident.qnap.io
+  names:
+    kind: TridentOrchestrator
+    listKind: TridentOrchestratorList
+    plural: tridentorchestrators
+    shortNames:
+    - torc
+    - torchestrator
+    singular: tridentorchestrator
+  scope: Cluster
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        type: object
+        x-kubernetes-preserve-unknown-fields: true
+    served: true
+    storage: true
+    subresources:
+      status: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: operator.trident.qnap.io
+  name: trident-operator
+  namespace: trident
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  labels:
+    app: operator.trident.qnap.io
+  name: trident-operator
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - resourcequotas
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - volumeattachments/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshots
+  - volumesnapshotclasses
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotclasses
+  verbs:
+  - create
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshots/status
+  - volumesnapshotcontents/status
+  verbs:
+  - update
+  - patch
+- apiGroups:
+  - snapshot.storage.k8s.io
+  resources:
+  - volumesnapshotcontents
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - csi.storage.k8s.io
+  resources:
+  - csidrivers
+  - csinodeinfos
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - csidrivers
+  - csinodes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - trident.qnap.io
+  resources:
+  - tridentversions
+  - tridentbackends
+  - tridentstorageclasses
+  - tridentvolumes
+  - tridentvolumepublications
+  - tridentvolumereferences
+  - tridentnodes
+  - tridenttransactions
+  - tridentsnapshots
+  - tridentbackendconfigs
+  - tridentbackendconfigs/status
+  - tridentmirrorrelationships
+  - tridentmirrorrelationships/status
+  - tridentactionmirrorupdates
+  - tridentactionmirrorupdates/status
+  - tridentsnapshotinfos
+  - tridentsnapshotinfos/status
+  - tridentactionsnapshotrestores
+  - tridentactionsnapshotrestores/status
+  - tridentprovisioners
+  - tridentprovisioners/status
+  - tridentorchestrators
+  - tridentorchestrators/status
+  - tridentconfigurators
+  - tridentconfigurators/status
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - policy
+  resourceNames:
+  - tridentpods
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - statefulsets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+- apiGroups:
+  - apps
+  resourceNames:
+  - trident
+  - trident-csi
+  - trident-controller
+  resources:
+  - deployments
+  - statefulsets
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - apps
+  resourceNames:
+  - trident
+  - trident-csi
+  - trident-csi-windows
+  - trident-node-linux
+  - trident-node-windows
+  resources:
+  - daemonsets
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  - services
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - create
+- apiGroups:
+  - ""
+  resourceNames:
+  - trident-csi
+  - trident
+  resources:
+  - pods/exec
+  - services
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resourceNames:
+  - trident-controller
+  - trident-node-linux
+  - trident-node-windows
+  - trident-csi
+  - trident
+  resources:
+  - serviceaccounts
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - authorization.openshift.io
+  - rbac.authorization.k8s.io
+  resources:
+  - roles
+  - rolebindings
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - list
+  - create
+- apiGroups:
+  - authorization.openshift.io
+  - rbac.authorization.k8s.io
+  resourceNames:
+  - trident-controller
+  - trident-node-linux
+  - trident-node-windows
+  - trident-csi
+  - trident
+  resources:
+  - roles
+  - rolebindings
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - policy
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - list
+  - create
+- apiGroups:
+  - policy
+  resourceNames:
+  - tridentpods
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - security.openshift.io
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - get
+  - list
+  - create
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - trident-controller
+  - trident-node-linux
+  - trident-node-windows
+  - trident
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - delete
+  - update
+  - patch
+- apiGroups:
+  - policy
+  resourceNames:
+  - trident-controller
+  - trident-node-linux
+  - trident-node-windows
+  - tridentoperatorpods
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qnapvolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qnapvolumes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qnapvolumes/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qpools
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qpools/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qpools/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qsnapshots
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qsnapshots/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - trident.qnap.com
+  resources:
+  - qsnapshots/status
+  verbs:
+  - get
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: operator.trident.qnap.io
+  name: trident-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-operator
+subjects:
+- kind: ServiceAccount
+  name: trident-operator
+  namespace: trident
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: operator.trident.qnap.io
+  name: trident-operator
+  namespace: trident
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: operator.trident.qnap.io
+      name: trident-operator
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: operator.trident.qnap.io
+        name: trident-operator
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - arm64
+                - amd64
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+      containers:
+      - command:
+        - /trident-operator
+        - --log-level=debug
+        - --qts-cgi-image=qnapsystem/qnap-csi-backend-qts-sidecar:v1.4.0
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: OPERATOR_NAME
+          value: trident-operator
+        image: qnapsystem/qnap-csi-operator:v1.4.0
+        imagePullPolicy: IfNotPresent
+        name: trident-operator
+        resources:
+          limits:
+            cpu: 20m
+            memory: 80Mi
+          requests:
+            cpu: 10m
+            memory: 40Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      serviceAccountName: trident-operator
+---
+apiVersion: trident.qnap.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  debug: true
+  namespace: trident
+  tridentImage: qnapsystem/qnap-csi:v1.4.0

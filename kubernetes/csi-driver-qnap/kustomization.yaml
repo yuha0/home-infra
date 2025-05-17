@@ -1,0 +1,7 @@
+namespace: trident
+resources:
+- source
+- rbac-controller.yaml
+- rbac-operator-namespaced.yaml
+- rbac-operator.yaml
+- config.yaml
