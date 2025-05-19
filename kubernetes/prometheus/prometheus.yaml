@@ -9,7 +9,7 @@ spec:
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
-  image: quay.io/prometheus/prometheus:v3.3.1
+  image: quay.io/prometheus/prometheus:v3.4.0
   replicas: 1
   shards: 15
   resources:
@@ -37,4 +37,4 @@ spec:
   thanos:
     image: quay.io/thanos/thanos:v0.38.0
     version: v0.38.0
-  version: v3.3.1
+  version: v3.4.0
