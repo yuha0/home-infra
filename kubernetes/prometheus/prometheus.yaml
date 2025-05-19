@@ -5,6 +5,7 @@ metadata:
     app.kubernetes.io/instance: prom-k8s
   name: k8s
 spec:
+  disableCompaction: false
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
@@ -35,8 +36,5 @@ spec:
         storageClassName: nfs-qnap
   thanos:
     image: quay.io/thanos/thanos:v0.38.0
-    objectStorageConfig:
-      key: thanos.yaml
-      name: thanos-objstore-config
     version: v0.38.0
   version: v3.3.1

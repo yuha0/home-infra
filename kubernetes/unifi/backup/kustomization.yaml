@@ -1,6 +1,5 @@
 resources:
 - volume.yaml
-- cronjob.yaml
 - sealed-unifi-ssh.yaml
 configMapGenerator:
 - name: config
