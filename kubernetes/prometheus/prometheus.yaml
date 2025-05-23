@@ -9,7 +9,7 @@ spec:
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
-  image: quay.io/prometheus/prometheus:v3.4.0
+  image: quay.io/prometheus/prometheus:VERSION
   replicas: 1
   shards: 15
   resources:
@@ -35,6 +35,6 @@ spec:
             storage: 10Gi
         storageClassName: nfs-qnap
   thanos:
-    image: quay.io/thanos/thanos:v0.38.0
+    image: quay.io/thanos/thanos:VERSION
     version: v0.38.0
   version: v3.4.0
