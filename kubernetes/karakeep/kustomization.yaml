@@ -10,6 +10,7 @@ labels:
 configMapGenerator:
 - name: karakeep-configuration
   literals:
+  - DISABLE_SIGNUPS=true
   - NEXTAUTH_URL=https://karakeep.internal.yuha0.com
   - OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
   - INFERENCE_TEXT_MODEL=gemini-2.0-flash
