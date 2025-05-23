@@ -5,3 +5,31 @@ resources:
 - prometheus.yaml
 - sealed-thanos-objstore-config.yaml
 - thanos
+
+replacements:
+- source:
+    fieldPath: spec.version
+    kind: Prometheus
+    name: k8s
+  targets:
+  - fieldPaths:
+    - spec.image
+    options:
+      delimiter: ':'
+      index: 1
+    select:
+      kind: Prometheus
+      name: k8s
+- source:
+    fieldPath: spec.thanos.version
+    kind: Prometheus
+    name: k8s
+  targets:
+  - fieldPaths:
+    - spec.thanos.image
+    options:
+      delimiter: ':'
+      index: 1
+    select:
+      kind: Prometheus
+      name: k8s
