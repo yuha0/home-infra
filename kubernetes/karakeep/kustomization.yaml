@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: karakeep
+
+labels:
+- pairs:
+    app.kubernetes.io/part-of: karakeep
+
+configMapGenerator:
+- name: karakeep-configuration
+  literals:
+  - NEXTAUTH_URL=https://karakeep.internal.yuha0.com
+  - OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
+  - INFERENCE_TEXT_MODEL=gemini-2.0-flash
+  - INFERENCE_IMAGE_MODEL=gemini-2.0-flash
+
+resources:
+- namespace.yaml
+- chrome
+- meilisearch
+- web
+- sealed-secrets.yaml
+- networkpolicy.yaml
+
+images:
+- name: alpine-chrome
+  newName: ghcr.io/zenika/alpine-chrome
+  newTag: "124"
+- name: meilisearch
+  newName: docker.io/getmeili/meilisearch
+  newTag: v1.14.0
+- name: karakeep
+  newName: ghcr.io/karakeep-app/karakeep
+  newTag: 0.24.1

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: karakeep
+spec:
+  destinations:
+  - namespace: "karakeep"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: karakeep
+spec:
+  project: karakeep
+  source:
+    path: kubernetes/karakeep
+  destination:
+    namespace: karakeep
