@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: meilisearch-secrets
+  namespace: karakeep
+spec:
+  encryptedData:
+    MEILI_MASTER_KEY: AgAJ6mm8A9fgny1Ksptqp4WSnnJFw5FGGG/31eThHFlSTXCajsbu8n6kEBxDo+2EQLG942WbbveVRcqf0Gy1a2Gl9C1UFOPLWmo1WAeX4Oo7O0U+zUMuBOqmnTJDTgt6C0KM3xcJanmcZOzZ0bHST2LJKHgMAcw45gNdtlfjbYX32gmfPqDFtaRtXpKyUlJZh9JQPs2A8at4938C1omAIwcX5KzLTvoevulgwcKwMQrpDwE+4ILRVUt1IbKf7Irs1yOzaJACFryI168ZCAzc7J3xnlUJrlLgZecNKSZGcn/Tv7VyZ3O5Pjk5KNvk7DOkP60iB5jM3u3SGn/4octnqyIgiq8C8v/3UEJcFmVTegV7XI1p3UOtVEga3ifmNF5yZ3cvnBsfzrfnZReH5f8Y1ngmEIu0bgSWprec0PUbUQlnz94WA87/5sugucNd+D9edIGvRhXQfK8/ijW7+FwcsYiuhQUC//PGQJ/cqBtOzKP/6nk4o9pOMEuM8ukgdbCpYKnlhdJMXS2hpiSR3o6qDiQGYYJN+4QQVkaxAe4lvtEeDQgCkjfiivwRwO0UAPV6mqzyAkHiF7FlBitWFJ2X3thCUXUWPJnT+Zz/fnZbm1nyX6WCSsZAgRSIvqTZzOUx67VMVdYLMJ10ZhbKK5QUYGTbbPevBgXb1pGB+C9KJe+AlK5JiHtQ6sg6/tBl1ojqSpXm/AvAF47+04zxk0XY6SOt0CaIwJouZaC7ZmIRUN8=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: meilisearch-secrets
+      namespace: karakeep
+    type: Opaque

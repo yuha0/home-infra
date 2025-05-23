@@ -21,7 +21,8 @@ resources:
 - chrome
 - meilisearch
 - web
-- sealed-secrets.yaml
+- sealed-karakeep-secrets.yaml
+- sealed-meilisearch-secrets.yaml
 - networkpolicy.yaml
 
 images:

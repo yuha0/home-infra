@@ -26,6 +26,8 @@ spec:
         envFrom:
         - secretRef:
             name: karakeep-secrets
+        - secretRef:
+            name: meilisearch-secrets
         - configMapRef:
             name: karakeep-configuration
       volumes:
