@@ -1,2 +1,4 @@
 namespace: cnpg-system
-resources: []
+resources:
+- namespace.yaml
+- generated.yaml
