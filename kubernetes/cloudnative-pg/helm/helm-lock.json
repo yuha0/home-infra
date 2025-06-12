@@ -9,6 +9,7 @@
 	    "gitTagFormat": "cloudnative-pg-v{version}",
 	    "version": "0.24.0"
 	},
+    "releaseName": "cnpg",
 	"valuesFile": "./values.yaml",
     "extraTemplateArgs": []
 }

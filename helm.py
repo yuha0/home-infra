@@ -15,6 +15,7 @@ For each helm application folder, create a subfolder and place a `helm-lock.json
         "gitTagFormat": "cloudnative-pg-v{version}",
         "version": "0.24.0"
     },
+    "releaseName": "cnpg",
     "valuesFile": "./values.yaml",
     "extraTemplateArgs": []
 }
@@ -114,7 +115,7 @@ def helm_repo_refresh(repo_name, repo_url, chart_name, version):
     for l in result.split("\n")[1:]:
         if l:
             versions.append(l.split()[1])
-    versions.sort()
+    versions.sort(key=lambda s: list(map(int, s.split('.'))))
     if version in versions:
         return version
     else:
@@ -206,7 +207,7 @@ def main():
         "template",
         "-f",
         args.values,
-        lock["repo"]["name"],
+        lock["releaseName"],
         f"{lock['repo']['name']}/{lock['chart']['name']}",
     ]
     helm_template_args.extend(lock["extraTemplateArgs"])
