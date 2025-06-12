@@ -1,0 +1,18 @@
+{
+	"repo": {
+	    "name": "argo",
+	    "url": "https://argoproj.github.io/argo-helm"
+	},
+	"chart": {
+        "name": "argo-cd",
+        "gitValuesPath": "https://raw.githubusercontent.com/argoproj/argo-helm/refs/tags/{gitTag}/charts/argo-cd/values.yaml",
+	    "gitTagFormat": "argo-cd-{version}",
+	    "version": "8.0.14"
+	},
+    "releaseName": "argocd",
+	"valuesFile": "./values.yaml",
+    "extraTemplateArgs": [
+      "-n=argocd",
+      "--api-versions=monitoring.coreos.com/v1"
+    ]
+}

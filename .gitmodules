@@ -1,9 +1,6 @@
 [submodule "ansible/kubespray"]
 	path = ansible/kubespray
 	url = https://github.com/yuha0/kubespray.git
-[submodule "kubernetes/argocd/helm/argocd-helm"]
-	path = kubernetes/argocd/helm/argocd-helm
-	url = https://github.com/argoproj/argo-helm.git
 [submodule "kubernetes/cert-manager/helm/cert-manager"]
 	path = kubernetes/cert-manager/helm/cert-manager
 	url = https://github.com/cert-manager/cert-manager.git
