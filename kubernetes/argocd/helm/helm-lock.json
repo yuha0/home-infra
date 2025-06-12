@@ -7,7 +7,7 @@
         "name": "argo-cd",
         "gitValuesPath": "https://raw.githubusercontent.com/argoproj/argo-helm/refs/tags/{gitTag}/charts/argo-cd/values.yaml",
 	    "gitTagFormat": "argo-cd-{version}",
-	    "version": "8.0.14"
+	    "version": "8.0.17"
 	},
     "releaseName": "argocd",
 	"valuesFile": "./values.yaml",
