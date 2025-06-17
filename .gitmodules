@@ -4,9 +4,6 @@
 [submodule "kubernetes/external-dns/helm/external-dns"]
 	path = kubernetes/external-dns/helm/external-dns
 	url = https://github.com/kubernetes-sigs/external-dns.git
-[submodule "kubernetes/kube-system/sealed-secrets/helm/sealed-secrets"]
-	path = kubernetes/sealed-secrets/helm/sealed-secrets
-	url = https://github.com/bitnami-labs/sealed-secrets.git
 [submodule "kubernetes/logging/loki/helm/helm-charts"]
 	path = kubernetes/logging/loki/helm/helm-charts
 	url = https://github.com/grafana/helm-charts.git
