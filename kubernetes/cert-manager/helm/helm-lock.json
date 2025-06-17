@@ -1,0 +1,17 @@
+{
+  "repo": {
+    "name": "jetstack",
+    "url": "https://charts.jetstack.io"
+  },
+  "chart": {
+    "name": "cert-manager",
+    "gitValuesPath": "https://raw.githubusercontent.com/cert-manager/cert-manager/refs/tags/{gitTag}/deploy/charts/cert-manager/values.yaml",
+    "gitTagFormat": "{version}",
+    "version": "v1.17.2"
+  },
+  "releaseName": "cert-manager",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=cert-manager"
+  ]
+}

@@ -30,6 +30,7 @@ import subprocess
 import logging
 import urllib.request
 import os
+import re
 
 logging.basicConfig(
     level=logging.INFO,
@@ -115,7 +116,10 @@ def helm_repo_refresh(repo_name, repo_url, chart_name, version):
     for l in result.split("\n")[1:]:
         if l:
             versions.append(l.split()[1])
-    versions.sort(key=lambda s: list(map(int, s.split('.'))))
+    def _version_sort(v):
+        version = re.search('\d+\.[\d\.]+\d$', v).group()
+        return list(map(int, version.split('.')))
+    versions.sort(key=_version_sort)
     if version in versions:
         return version
     else:
