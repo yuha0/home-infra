@@ -1,15 +1,17 @@
 {
-	"repo": {
-	    "name": "cnpg",
-	    "url": "https://cloudnative-pg.github.io/charts"
-	},
-	"chart": {
-        "name": "cloudnative-pg",
-        "gitValuesPath": "https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/{gitTag}/charts/cloudnative-pg/values.yaml",
-	    "gitTagFormat": "cloudnative-pg-v{version}",
-	    "version": "0.24.0"
-	},
-    "releaseName": "cnpg",
-	"valuesFile": "./values.yaml",
-    "extraTemplateArgs": []
+  "repo": {
+    "name": "cnpg",
+    "url": "https://cloudnative-pg.github.io/charts"
+  },
+  "chart": {
+    "name": "cloudnative-pg",
+    "gitValuesPath": "https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/{gitTag}/charts/cloudnative-pg/values.yaml",
+    "gitTagFormat": "cloudnative-pg-v{version}",
+    "version": "0.24.0"
+  },
+  "releaseName": "cnpg",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=cnpg-system"
+  ]
 }
