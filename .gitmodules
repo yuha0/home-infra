@@ -1,9 +1,6 @@
 [submodule "ansible/kubespray"]
 	path = ansible/kubespray
 	url = https://github.com/yuha0/kubespray.git
-[submodule "kubernetes/external-dns/helm/external-dns"]
-	path = kubernetes/external-dns/helm/external-dns
-	url = https://github.com/kubernetes-sigs/external-dns.git
 [submodule "kubernetes/logging/loki/helm/helm-charts"]
 	path = kubernetes/logging/loki/helm/helm-charts
 	url = https://github.com/grafana/helm-charts.git

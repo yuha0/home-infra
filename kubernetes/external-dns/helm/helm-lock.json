@@ -1,0 +1,18 @@
+{
+  "repo": {
+    "name": "external-dns",
+    "url": "https://kubernetes-sigs.github.io/external-dns"
+  },
+  "chart": {
+    "name": "external-dns",
+    "gitValuesPath": "https://raw.githubusercontent.com/argoproj/argo-helm/refs/tags/{gitTag}/charts/argo-cd/values.yaml",
+    "gitValuesPath": "https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/{gitTag}/charts/external-dns/values.yaml",
+    "gitTagFormat": "external-dns-helm-chart-{version}",
+    "version": "1.16.0"
+  },
+  "releaseName": "external-dns",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=external-dns"
+  ]
+}
