@@ -102,7 +102,7 @@ def helm_repo_refresh(repo_name, repo_url, chart_name, version):
         if not l:
             continue
         name, url = l.split()
-        if name == repo_name and url == repo_url:
+        if name == repo_name and url.strip("/") == repo_url.strip("/"):
             repo_exists = True
             logging.info(
                 "repo %s at %s already exists, skip adding", repo_name, repo_url
