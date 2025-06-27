@@ -209,8 +209,8 @@ def main():
         logging.info("Chart's current version and target version are the same")
     helm_template_args = [
         "template",
-        "-f",
-        args.values,
+        f"-f={args.values}",
+        f"--version={target_version}",
         lock["releaseName"],
         f"{lock['repo']['name']}/{lock['chart']['name']}",
     ]
