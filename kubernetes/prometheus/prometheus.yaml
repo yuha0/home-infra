@@ -36,7 +36,7 @@ spec:
         storageClassName: nfs-qnap
   thanos:
     image: quay.io/thanos/thanos:VERSION
-    version: v0.39.0
+    version: v0.39.2
     additionalArgs:
     - name: shipper.skip-corrupted-blocks
   version: v3.4.2
