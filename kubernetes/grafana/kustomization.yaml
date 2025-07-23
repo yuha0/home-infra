@@ -24,4 +24,4 @@ images:
     newTag: 11.6.3-security-01
   - name: k8s-sidecar
     newName: docker.io/kiwigrid/k8s-sidecar
-    newTag: 1.30.5
+    newTag: 1.30.7
