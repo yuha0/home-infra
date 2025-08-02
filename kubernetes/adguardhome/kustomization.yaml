@@ -33,7 +33,7 @@ patches:
 images:
 - name: adguardhome
   newName: adguard/adguardhome
-  newTag: v0.107.63
+  newTag: v0.107.64
 - name: adguard-exporter
   newName: ebrianne/adguard-exporter
   newTag: v1.14
@@ -44,4 +44,4 @@ images:
   newName: gcr.io/distroless/python3-debian12
 - name: httpd
   newName: docker.io/httpd
-  newTag: 2.4.63-alpine
+  newTag: 2.4.65-alpine
