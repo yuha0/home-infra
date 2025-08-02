@@ -189,6 +189,7 @@ def helm_template(args, output):
 def main():
     args = get_config()
     lock = get_lock(args.lock)
+    new_version = False
 
     check_values(lock["chart"], args.values)
 
@@ -196,15 +197,15 @@ def main():
         lock["repo"]["name"], lock["repo"]["url"], lock["chart"]["name"], args.target
     )
     if lock["chart"]["version"] != target_version:
+        new_version = True
         logging.info(
             "Refreshed repo %s and located target version %s",
             lock["repo"]["name"],
             target_version,
         )
         diff_path = gen_values_diff(lock["chart"], target_version, workdir=args.workdir)
-        if not diff_path:
-            return
-        patch(args.values, diff_path)
+        if diff_path:
+            patch(args.values, diff_path)
     else:
         logging.info("Chart's current version and target version are the same")
     helm_template_args = [
@@ -219,6 +220,13 @@ def main():
         helm_template_args,
         os.path.join(os.path.dirname(args.values), "../generated.yaml"),
     )
+
+    if new_version:
+        lock["chart"]["version"] = target_version
+        with open(args.lock, "w") as f:
+            json.dump(lock, f, indent=2, sort_keys=False)
+            f.write("\n")
+        logging.info("lock version updated")
 
 
 if __name__ == "__main__":
