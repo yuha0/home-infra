@@ -3,9 +3,26 @@ kind: Deployment
 metadata:
   name: meilisearch
 spec:
+  strategy:
+    type: Recreate
   replicas: 1
   template:
     spec:
+      initContainers:
+      - name: import
+        image: meilisearch
+        env:
+        - name: MEILI_NO_ANALYTICS
+          value: "true"
+        volumeMounts:
+        - mountPath: /meili_data
+          name: meilisearch
+        - mountPath: /meili_migration
+          name: meilisearch-migration
+        envFrom:
+        - secretRef:
+            name: meilisearch-secrets
+        command: ["/bin/sh", "/meili_migration/import.sh"]
       containers:
       - name: meilisearch
         image: meilisearch
@@ -15,10 +32,19 @@ spec:
         volumeMounts:
         - mountPath: /meili_data
           name: meilisearch
+        - mountPath: /meili_migration
+          name: meilisearch-migration
         envFrom:
         - secretRef:
             name: meilisearch-secrets
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "/bin/sh /meili_migration/dump.sh > /proc/1/fd/1"]
       volumes:
       - name: meilisearch
         persistentVolumeClaim:
           claimName: meilisearch-pvc
+      - name: meilisearch-migration
+        configMap:
+          name: meilisearch-migration

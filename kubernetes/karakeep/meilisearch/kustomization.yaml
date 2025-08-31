@@ -8,3 +8,9 @@ resources:
 - service.yaml
 - deployment.yaml
 - pvc.yaml
+
+configMapGenerator:
+- name: meilisearch-migration
+  files:
+  - dump.sh
+  - import.sh
