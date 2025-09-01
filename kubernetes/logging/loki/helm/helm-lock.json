@@ -1,0 +1,18 @@
+{
+  "repo": {
+    "name": "grafana",
+    "url": "https://grafana.github.io/helm-charts"
+  },
+  "chart": {
+    "name": "loki-distributed",
+    "gitValuesPath": "https://raw.githubusercontent.com/grafana/helm-charts/refs/tags/{gitTag}/charts/loki-distributed/values.yaml",
+    "gitTagFormat": "loki-distributed-{version}",
+    "version": "0.78.3"
+  },
+  "releaseName": "loki",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=logging",
+    "--kube-version=1.31"
+  ]
+}

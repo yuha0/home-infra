@@ -1,12 +1,6 @@
 [submodule "ansible/kubespray"]
 	path = ansible/kubespray
 	url = https://github.com/yuha0/kubespray.git
-[submodule "kubernetes/logging/loki/helm/helm-charts"]
-	path = kubernetes/logging/loki/helm/helm-charts
-	url = https://github.com/grafana/helm-charts.git
 [submodule "kubernetes/monitoring/node-exporter/helm/helm-charts"]
 	path = kubernetes/monitoring/node-exporter/helm/helm-charts
 	url = https://github.com/prometheus-community/helm-charts.git
-[submodule "kubernetes/csi-driver-nfs/helm/csi-driver-nfs"]
-	path = kubernetes/csi-driver-nfs/helm/csi-driver-nfs
-	url = https://github.com/kubernetes-csi/csi-driver-nfs.git
