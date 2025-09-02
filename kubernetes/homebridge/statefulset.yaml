@@ -7,7 +7,7 @@ spec:
     - name: ui
       port: 8581
       targetPort: 8581
-    - name: va
+    - name: homebridge-virtual-accessories
       port: 60221
       targetPort: 60221
 
@@ -39,7 +39,7 @@ spec:
         ports:
         - name: ui
           containerPort: 8581
-        - name: va
+        - name: virtual-accessories
           containerPort: 60221
         - name: bonjour
           containerPort: 5353

@@ -30,7 +30,7 @@ spec:
       paths:
       - backend:
           service:
-            name: homebridge-http
+            name: homebridge-virtual-accessories
             port:
               number: 60221
         path: /
