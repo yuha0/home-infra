@@ -21,17 +21,17 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: homebridge-virtual-accessories
+  name: homebridge-webhook
 spec:
   ingressClassName: nginx-internal
   rules:
-  - host: homebridge-va.internal.yuha0.com
+  - host: homebridge-webhook.internal.yuha0.com
     http:
       paths:
       - backend:
           service:
-            name: homebridge-virtual-accessories
+            name: homebridge-http
             port:
-              number: 60221
+              number: 51828
         path: /
         pathType: Prefix
