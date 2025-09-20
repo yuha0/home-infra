@@ -10,7 +10,7 @@ resources:
 images:
 - name: homebridge
   newName: docker.io/homebridge/homebridge
-  newTag: "2025-09-03"
+  newTag: "2025-09-15"
 
 patches:
 - target:
