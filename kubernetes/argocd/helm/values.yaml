@@ -2792,6 +2792,16 @@ repoServer:
     #     - mountPath: /home/argocd/cmp-server/config/plugin.yaml
     #       subPath: my-plugin.yaml
     #       name: argocd-cmp-cm
+
+  copyutil:
+    # -- Resource limits and requests for the repo server copyutil initContainer
+    resources: {}
+    #  limits:
+    #    cpu: 100m
+    #    memory: 128Mi
+    #  requests:
+    #    cpu: 50m
+    #    memory: 64Mi
     #     # Starting with v2.4, do NOT mount the same tmp volume as the repo-server container. The filesystem separation helps
     #     # mitigate path traversal attacks.
     #     - mountPath: /tmp
