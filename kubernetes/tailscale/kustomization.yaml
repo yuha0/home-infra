@@ -18,7 +18,7 @@ configMapGenerator:
 images:
 - name: tailscale
   newName: ghcr.io/tailscale/tailscale
-  newTag: v1.88.2
+  newTag: v1.88.3
 
 patches:
 - target:
