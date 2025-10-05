@@ -11,6 +11,7 @@ configMapGenerator:
 - name: config
   literals:
   - TS_USERSPACE=true
+  - TS_NO_LOGS_NO_SUPPORT=true
   - TS_ROUTES=10.0.0.0/8
   - TS_EXTRA_ARGS="--stateful-filtering=false"
 
