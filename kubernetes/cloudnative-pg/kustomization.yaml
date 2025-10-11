@@ -2,6 +2,7 @@ namespace: cnpg-system
 resources:
 - namespace.yaml
 - generated.yaml
+- networkpolicies.yaml
 patches:
 - target:
     kind: CustomResourceDefinition

@@ -1,0 +1,23 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: cnpg-operator
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/instance: cnpg
+      app.kubernetes.io/name: cloudnative-pg
+  ingress:
+    - fromEntities:
+        - cluster
+  egress:
+  - toEndpoints:
+    - {}
+  - toEntities:
+    - cluster
+  - toCIDRSet:
+    - cidr: 169.254.25.10/32
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP

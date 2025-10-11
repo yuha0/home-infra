@@ -74,7 +74,7 @@ config:
   # -- This option determines if the operator is responsible for observing
   # events across the entire Kubernetes cluster or if its focus should be
   # narrowed down to the specific namespace within which it has been deployed.
-  clusterWide: false
+  clusterWide: true
   # -- The content of the configmap/secret, see
   # https://cloudnative-pg.io/documentation/current/operator_conf/#available-options
   # for all the available options.
