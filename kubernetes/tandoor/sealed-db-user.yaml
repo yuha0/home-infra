@@ -1,0 +1,20 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: db-user
+  namespace: tandoor
+spec:
+  encryptedData:
+    password: AgBfshgdXOx1iD0MRcfdpPjVq66UZAS7QwJCqOs5tfe7g3CkW9qXYUCuH8u4Y/Y8iWYjETcQT5h8vJqiueL2OouApKGTGY48Cn0h2T7E7XMygnk9WvWee6Li4vqsNeD70aKjPYxw/VisCYgxucQ5u2uCdygd/DEaJYaoBOrv0EOTsk0rUU2xvn3MTS/epTdGrcaVYMehr6x9TcPSBypvftOLiIdKsE8VWwbMh9qRRHVu8zK9JSjxNIJYxNArZuJIy2SR4hJN3hzeVlbDiz2CRmsPTUJC401u2P5h6kf5XvmDbfnZhIepqeaOGWEEouSgRp/n7me36iPmOTIAptNtYTDF5POn2K7mq+cvUTiqX5xx1yi4H2lt01fIkoBrw60eHD+wBF+zrmlyIeXKT94lWNUPVXvAfLDzIGpS6zDhtBwlUKkwKrmyoVZY4AfpV+D+CNb565BDv8qwSO3NjeC8gOqvsFsE1ds3g8K7L9sBQU1MnJzQLkCedWz6cDEwOp+GHzFMbsA7R6b8bNL0DCeyi04mk7NB98Xo47KIM4gZutLLTQB5iTietCdGIBSZ9BS/U4Ut8sgawxzXG1k2sAT+jNaBcZEs1KQmSaGJnLII029Wa0RD1VUCCnzqFu7sowVTslZ+phFzFOvCNyLW0v1PD/QoLwvLb/5aCL75FgR0c2wtQnZQPFDCAqqe+lY03+gL3KRbmeuXGZKszUwNjjotRyTzNIbVhHNgzJEuDA==
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: db-user
+      namespace: tandoor
+    type: kubernetes.io/basic-auth
+    data:
+      username: recipes

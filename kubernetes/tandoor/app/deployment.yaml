@@ -3,84 +3,26 @@ kind: Deployment
 metadata:
   name: recipes
 spec:
-  replicas: 0
+  replicas: 1
   strategy:
     type: Recreate
   template:
     spec:
-      initContainers:
-      - name: init-chmod-data
-        envFrom:
-        - secretRef:
-            name: db
-        - secretRef:
-            name: email
-        - configMapRef:
-            name: app-config
-        env:
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: django-secret-key
-              key: secret-key
-        image: recipes
-        imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: 250m
-            memory: 64Mi
-        command:
-        - sh
-        - -c
-        - |
-          set -e
-          source venv/bin/activate
-          echo "Updating database"
-          python manage.py migrate
-          python manage.py collectstatic_js_reverse
-          python manage.py collectstatic --noinput
-          echo "Setting media file attributes"
-          chown -R 65534:65534 /opt/recipes/mediafiles
-          find /opt/recipes/mediafiles -type d | xargs -r chmod 755
-          find /opt/recipes/mediafiles -type f | xargs -r chmod 644
-          echo "Done"
-        securityContext:
-          runAsUser: 0
-        volumeMounts:
-        - mountPath: /opt/recipes/mediafiles
-          name: media
-          # mount as subPath due to lost+found on ext4 pvc
-          subPath: files
-        - mountPath: /opt/recipes/staticfiles
-          name: static
-          # mount as subPath due to lost+found on ext4 pvc
-          subPath: files
       containers:
       - name: recipes
         image: recipes
         imagePullPolicy: IfNotPresent
-        command:
-        - /opt/recipes/venv/bin/gunicorn
-        - -b
-        - :8080
-        - --access-logfile
-        - "-"
-        - --error-logfile
-        - "-"
-        - --log-level
-        - INFO
-        - recipes.wsgi
         livenessProbe:
           failureThreshold: 3
           httpGet:
             path: /
-            port: 8080
+            port: 80
             scheme: HTTP
           periodSeconds: 30
         readinessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 80
             scheme: HTTP
           periodSeconds: 30
         resources:
@@ -90,54 +32,33 @@ spec:
         volumeMounts:
         - mountPath: /opt/recipes/mediafiles
           name: media
-          # mount as subPath due to lost+found on ext4 pvc
           subPath: files
         - mountPath: /opt/recipes/staticfiles
           name: static
-          # mount as subPath due to lost+found on ext4 pvc
           subPath: files
         envFrom:
-        - secretRef:
-            name: db
         - secretRef:
             name: email
         - configMapRef:
             name: app-config
         env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-user
+              key: username
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-user
+              key: password
         - name: SECRET_KEY
           valueFrom:
             secretKeyRef:
               name: django-secret-key
               key: secret-key
         securityContext:
-          runAsUser: 65534
-      - name: recipes-nginx
-        image: nginx
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-          protocol: TCP
-          name: http
-        - containerPort: 8080
-          protocol: TCP
-          name: gunicorn
-        resources:
-          requests:
-            cpu: 250m
-            memory: 64Mi
-        volumeMounts:
-        - mountPath: /media
-          name: media
-          # mount as subPath due to lost+found on ext4 pvc
-          subPath: files
-        - mountPath: /static
-          name: static
-          # mount as subPath due to lost+found on ext4 pvc
-          subPath: files
-        - name: nginx-config
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
-          readOnly: true
+          runAsUser: 0
       volumes:
       - name: media
         persistentVolumeClaim:
@@ -145,6 +66,3 @@ spec:
       - name: static
         persistentVolumeClaim:
           claimName: static
-      - name: nginx-config
-        configMap:
-          name: nginx-config

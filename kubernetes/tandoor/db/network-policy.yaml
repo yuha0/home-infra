@@ -1,37 +1,54 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: tandoor
-  namespace: cnpg-system
+  name: tandoor-db
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/name: cnpg-tandoor
-      app.kubernetes.io/part-of: tandoor
-      cnpg.io/cluster: tandoor
+      app.kubernetes.io/name: tandoor
+      app.kubernetes.io/component: database
   ingress:
   - fromEndpoints:
+    - {}
+  - fromEndpoints:
     - matchLabels:
-        io.kubernetes.pod.namespace: tandoor
+        io.kubernetes.pod.namespace: cnpg-system
     toPorts:
     - ports:
-      - port: "5432"
+      - port: "8000"
+        protocol: TCP
   - fromEndpoints:
-    - {}
+    - matchLabels:
+        app.kubernetes.io/name: ingress-nginx
+        app.kubernetes.io/component: controller
+        io.cilium.k8s.namespace.labels.app.kubernetes.io/name: ingress-nginx
+      matchExpressions:
+      - key: io.kubernetes.pod.namespace
+        operator: Exists
   egress:
-  - toEndpoints:
-    - {}
   - toServices:
     - k8sService:
         serviceName: kubernetes
         namespace: default
+  - toEndpoints:
+    - {}
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
     toPorts:
     - ports:
-      - port: "443"
-  - toEntities:
-    - kube-apiserver
+        - port: "53"
+          protocol: UDP
+      rules:
+        dns:
+          - matchPattern: "*"
   - toCIDRSet:
     - cidr: 169.254.25.10/32
     toPorts:
     - ports:
       - port: "53"
+        protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"

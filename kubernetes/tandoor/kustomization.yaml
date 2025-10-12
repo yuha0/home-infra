@@ -1,3 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: tandoor
+namespace: tandoor
 resources:
+- namespace.yaml
+- sealed-db-user.yaml
 - db
 - app
+images:
+- name: recipes
+  newName: docker.io/vabene1111/recipes
+  newTag: "2.3.2"

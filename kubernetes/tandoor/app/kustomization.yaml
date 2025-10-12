@@ -1,15 +1,16 @@
-commonLabels:
-  app.kubernetes.io/name: recipes
-  app.kubernetes.io/part-of: tandoor
-namespace: tandoor
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: app
 resources:
-- namespace.yaml
 - service.yaml
 - deployment.yaml
 - ingress.yaml
-- sealed-db.yaml
 - sealed-django-key.yaml
 - sealed-email.yaml
+- volumes.yaml
 configMapGenerator:
 - name: app-config
   literals:
@@ -25,17 +26,10 @@ configMapGenerator:
   - GUNICORN_LOG_LEVEL="info"
   - GUNICORN_MEDIA="0"
   - GUNICORN_WORKERS="4"
+  - POSTGRES_DB=recipes
+  - POSTGRES_HOST=db-rw.tandoor.svc.cluster.local
+  - POSTGRES_PORT="5432"
   - REMOTE_USER_AUTH="0"
   - SQL_DEBUG="0"
   - STICKY_NAV_PREF_DEFAULT="1"
   - TZ=America/Los_Angeles
-- name: nginx-config
-  files:
-  - nginx.conf
-images:
-- name: nginx
-  newName: docker.io/nginx
-  newTag: 1.24.0-bullseye
-- name: recipes
-  newName: docker.io/vabene1111/recipes
-  newTag: "1.5.10"

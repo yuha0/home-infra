@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: media
 spec:
+  storageClassName: nfs-qnap
   accessModes:
   - ReadWriteMany
   resources:
@@ -14,6 +15,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: static
 spec:
+  storageClassName: nfs-qnap
   accessModes:
   - ReadWriteMany
   resources:
