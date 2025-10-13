@@ -5,9 +5,9 @@
   },
   "chart": {
     "name": "csi-driver-nfs",
-    "gitValuesPath": "https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/refs/tags/v{gitTag}/charts/v{gitTag}/csi-driver-nfs/values.yaml",
+    "gitValuesPath": "https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/refs/tags/{gitTag}/charts/{gitTag}/csi-driver-nfs/values.yaml",
     "gitTagFormat": "v{version}",
-    "version": "4.11.0"
+    "version": "4.12.0"
   },
   "releaseName": "csi-driver-nfs",
   "valuesFile": "./values.yaml",
