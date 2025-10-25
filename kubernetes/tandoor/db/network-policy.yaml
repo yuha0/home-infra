@@ -12,6 +12,14 @@ spec:
     - {}
   - fromEndpoints:
     - matchLabels:
+        prometheus: k8s
+        io.kubernetes.pod.namespace: monitoring
+    toPorts:
+    - ports:
+      - port: "9187"
+        protocol: TCP
+  - fromEndpoints:
+    - matchLabels:
         io.kubernetes.pod.namespace: cnpg-system
     toPorts:
     - ports:

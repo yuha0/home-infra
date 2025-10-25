@@ -31,3 +31,5 @@ spec:
     limits:
       memory: "1Gi"
       cpu: "1"
+  monitoring:
+    enablePodMonitor: true
