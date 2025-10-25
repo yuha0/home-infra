@@ -39,7 +39,7 @@ spec:
             enabled: false
           rewrites_enabled: true
           rewrites:
-          - domain: *.internal.yuha0.com
+          - domain: "*.internal.yuha0.com"
             answer: 10.200.0.1
             enabled: true
           protection_enabled: true
