@@ -37,7 +37,11 @@ spec:
           parental_cache_size: 1048576
           safe_search:
             enabled: false
-          rewrites: []
+          rewrites_enabled: true
+          rewrites:
+          - domain: *.internal.yuha0.com
+            answer: 10.200.0.1
+            enabled: true
           protection_enabled: true
           blocking_mode: default
           blocking_ipv4: ""
@@ -123,15 +127,6 @@ spec:
           id: 2
         whitelist_filters: []
         user_rules:
-        - "10.200.0.1 adguard.internal.yuha0.com"
-        - "10.200.0.1 argocd.internal.yuha0.com"
-        - "10.200.0.1 grafana.internal.yuha0.com"
-        - "10.200.0.1 homebridge.internal.yuha0.com"
-        - "10.200.0.1 hubble.internal.yuha0.com"
-        - "10.200.0.1 thanos.internal.yuha0.com"
-        - "10.200.0.1 plex.internal.yuha0.com"
-        - "10.200.0.1 scrypted.internal.yuha0.com"
-        - "10.200.0.1 tandoor.internal.yuha0.com"
         - "@@||amp-api-edge.apps.apple.com^$important"
         - "@@||amp-api-search-edge.apps.apple.com^$important"
         - "@@||amp-api-edge-lb.itunes-apple.com.akadns.net^$important"
@@ -181,7 +176,7 @@ spec:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 30
+        schema_version: 31
     metadata:
       creationTimestamp: null
       name: config
