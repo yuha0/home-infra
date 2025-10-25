@@ -12,6 +12,13 @@ spec:
       - name: recipes
         image: recipes
         imagePullPolicy: IfNotPresent
+        startupProbe:
+          failureThreshold: 60
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          periodSeconds: 5
         livenessProbe:
           failureThreshold: 3
           httpGet:
