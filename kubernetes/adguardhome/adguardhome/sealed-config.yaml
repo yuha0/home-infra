@@ -126,11 +126,7 @@ spec:
           name: Steven Black
           id: 2
         whitelist_filters: []
-        user_rules:
-        - "@@||amp-api-edge.apps.apple.com^$important"
-        - "@@||amp-api-search-edge.apps.apple.com^$important"
-        - "@@||amp-api-edge-lb.itunes-apple.com.akadns.net^$important"
-        - "@@||amp-api-edge.music.apple.com^$important"
+        user_rules: []
         dhcp:
           enabled: false
           interface_name: ""
