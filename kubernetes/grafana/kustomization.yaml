@@ -10,6 +10,7 @@ resources:
   - dashboards/adguardhome
   - dashboards/hardware
   - dashboards/kubernetes
+  - dashboards/postgres
   - dashboards/unifi
 configMapGenerator:
   - name: grafana-provisioning-datasources
