@@ -1,27 +1,31 @@
 namePrefix: dashboard-unifi-
-commonLabels:
-  grafana-provisioning: dashboard
 commonAnnotations:
   grafana-provisioning-directory: unifi
 generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-- name: client-insights
-  files:
+- files:
   - client-insights.json
-- name: network-sites
-  files:
+  name: client-insights
+- files:
   - network-sites.json
-- name: uap-insights
-  files:
+  name: network-sites
+- files:
   - uap-insights.json
-- name: usg-insights
-  files:
+  name: uap-insights
+- files:
   - usg-insights.json
-- name: usw-insights
-  files:
+  name: usg-insights
+- files:
   - usw-insights.json
-- name: firewall
-  files:
+  name: usw-insights
+- files:
   - firewall.json
+  name: firewall
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    grafana-provisioning: dashboard

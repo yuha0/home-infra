@@ -1,12 +1,16 @@
 namePrefix: dashboard-postgres-
-commonLabels:
-  grafana-provisioning: dashboard
 commonAnnotations:
   grafana-provisioning-directory: postgres
 generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-- name: cloudnativepg
-  files:
+- files:
   - cloudnativepg.json
+  name: cloudnativepg
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    grafana-provisioning: dashboard

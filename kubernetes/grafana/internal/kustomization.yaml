@@ -1,17 +1,17 @@
 nameSuffix: -internal
-commonLabels:
-  app.kubernetes.io/instance: grafana-internal
 resources:
 - ../base
 - ingress.yaml
 patches:
-- target:
+- patch: "- op: add\n  path: /spec/template/spec/containers/0/env/-\n  value:\n    name:
+    GF_SERVER_ROOT_URL\n    value: https://grafana.internal.yuha0.com   "
+  target:
     group: apps
     kind: Deployment
     name: grafana
-  patch: |-
-    - op: add
-      path: /spec/template/spec/containers/0/env/-
-      value:
-        name: GF_SERVER_ROOT_URL
-        value: https://grafana.internal.yuha0.com   
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/instance: grafana-internal

@@ -1,48 +1,52 @@
 namePrefix: dashboard-kubernetes-
-commonLabels:
-  grafana-provisioning: dashboard
 commonAnnotations:
   grafana-provisioning-directory: kubernetes
 generatorOptions:
   disableNameSuffixHash: true
 
 configMapGenerator:
-- name: apiserver
-  files:
+- files:
   - apiserver.json
-- name: cluster-total
-  files:
+  name: apiserver
+- files:
   - cluster-total.json
-- name: containers
-  files:
+  name: cluster-total
+- files:
   - containers.json
-- name: controller-manager
-  files:
+  name: containers
+- files:
   - controller-manager.json
-- name: ingress-nginx
-  files:
+  name: controller-manager
+- files:
   - ingress-nginx.json
-- name: ingress-nginx-requests
-  files:
+  name: ingress-nginx
+- files:
   - ingress-nginx-requests.json
-- name: k8s-resources-cluster
-  files:
+  name: ingress-nginx-requests
+- files:
   - k8s-resources-cluster.json
-- name: k8s-resources-namespace
-  files:
+  name: k8s-resources-cluster
+- files:
   - k8s-resources-namespace.json
-- name: k8s-resources-node
-  files:
+  name: k8s-resources-namespace
+- files:
   - k8s-resources-node.json
-- name: k8s-resources-pod
-  files:
+  name: k8s-resources-node
+- files:
   - k8s-resources-pod.json
-- name: kubelet
-  files:
+  name: k8s-resources-pod
+- files:
   - kubelet.json
-- name: prometheus
-  files:
+  name: kubelet
+- files:
   - prometheus.json
-- name: node-exporter
-  files:
+  name: prometheus
+- files:
   - node-exporter.json
+  name: node-exporter
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    grafana-provisioning: dashboard
