@@ -41,4 +41,4 @@ spec:
     version: v0.40.1
     additionalArgs:
     - name: shipper.skip-corrupted-blocks
-  version: v3.7.2
+  version: v3.7.3
