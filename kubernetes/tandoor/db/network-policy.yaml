@@ -34,10 +34,8 @@ spec:
       - key: io.kubernetes.pod.namespace
         operator: Exists
   egress:
-  - toServices:
-    - k8sService:
-        serviceName: kubernetes
-        namespace: default
+  - toEntities:
+    - kube-apiserver
   - toEndpoints:
     - {}
   - toEndpoints:
