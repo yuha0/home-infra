@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: db
+  namespace: tandoor
+spec:
+  namespaceSelector: {}
+  podMetricsEndpoints:
+  - bearerTokenSecret:
+      key: ""
+      name: ""
+    port: metrics
+  selector:
+    matchLabels:
+      cnpg.io/cluster: db
+      cnpg.io/podRole: instance

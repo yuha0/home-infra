@@ -7,7 +7,7 @@
     "name": "cloudnative-pg",
     "gitValuesPath": "https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/{gitTag}/charts/cloudnative-pg/values.yaml",
     "gitTagFormat": "cloudnative-pg-v{version}",
-    "version": "0.26.0"
+    "version": "0.26.1"
   },
   "releaseName": "cnpg",
   "valuesFile": "./values.yaml",
