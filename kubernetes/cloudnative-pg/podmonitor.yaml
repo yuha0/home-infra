@@ -3,7 +3,8 @@ kind: PodMonitor
 metadata:
   name: db
 spec:
-  namespaceSelector: {}
+  namespaceSelector:
+    any: true
   podMetricsEndpoints:
   - bearerTokenSecret:
       key: ""
