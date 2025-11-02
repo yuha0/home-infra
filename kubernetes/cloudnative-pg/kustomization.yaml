@@ -3,6 +3,7 @@ resources:
 - namespace.yaml
 - generated.yaml
 - networkpolicies.yaml
+- podmonitor.yaml
 patches:
 - target:
     kind: CustomResourceDefinition
