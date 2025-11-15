@@ -34,4 +34,4 @@ images:
   newTag: v1.19.1
 - name: karakeep
   newName: ghcr.io/karakeep-app/karakeep
-  newTag: 0.27.1
+  newTag: 0.28.0
