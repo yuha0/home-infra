@@ -100,11 +100,11 @@ spec:
         name: config-sidecar
         resources:
           limits:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 150m
+            memory: 200Mi
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 150m
+            memory: 200Mi
         volumeMounts:
         - mountPath: /grafana-provisioning-dashboards
           name: grafana-provisioning-dashboards
