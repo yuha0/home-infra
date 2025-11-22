@@ -77,5 +77,5 @@ spec:
         pathType: Prefix
   tls:
     - hosts:
-      - tandoor.yuha0.com
-      secretName: tandoor-tls-certificate
+      - recipes.yuha0.com
+      secretName: recipes-tls-certificate
