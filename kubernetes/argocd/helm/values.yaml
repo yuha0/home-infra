@@ -1476,7 +1476,7 @@ redis:
       # -- Repository to use for the redis-exporter
       repository: ghcr.io/oliver006/redis_exporter
       # -- Tag to use for the redis-exporter
-      tag: v1.80.0
+      tag: v1.80.1
       # -- Image pull policy for the redis-exporter
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
@@ -2049,7 +2049,7 @@ server:
       # -- Repository to use for extension installer image
       repository: "quay.io/argoprojlabs/argocd-extension-installer"
       # -- Tag to use for extension installer image
-      tag: "v0.0.8"
+      tag: "v0.0.9"
       # -- Image pull policy for extensions
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
