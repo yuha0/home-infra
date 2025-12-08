@@ -15,7 +15,7 @@ kind: StatefulSet
 metadata:
   name: scrypted
 spec:
-  replicas: 0
+  replicas: 1
   serviceName: scrypted
   template:
     spec:
