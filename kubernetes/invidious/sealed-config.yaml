@@ -1,0 +1,37 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: config
+  namespace: invidious
+spec:
+  encryptedData:
+    companion-key: AgAi+SDE5s392Bcgl5SfCQ1+c+rnTOw0SkEwPwiWFIJpGFTV+MCHJQATPBOa8oO+XTz5QUQ/QES2Kd7fpBEic0n+XbI5lPBfEwjA2UOgC2lempzHMAZY7NMI08wQ4uBC+Evs+pi0CawoEb612vblxf60c9ErZTTxE/0BKappE7u2jsM2uDRBDP3GIvboVG2zlyxYJ7sSmerKjSrqbgClR7EuMVjdJCsvOvoJ9DRh0M7JuSmUkiYQB3IpG6+qVc6wC8Mvv0EdarEH6jXE5yGlrPJL6iSKCW6Kf9h2E7c2xvVlXIQ1489l/JUAFFwmhLGIXWy/snxUvdfG9EKXefQcUBHixt7rfg3nzfas5eMgEP0nBiGDKJE36NZMDdNJDIbOJDU7Vp2j8Tcdw6Q9cRKU3bufEahSGb5t06cHlXbymEDea5KDhRVLwX7FQHwY1X77tzjWK4l24dOEtqMUCPktuknH/wSG/hbyiseSbI/8Msi1XHVEI/EMm/dj/dT3bf4nP9CSYQjKVll4kohtg9b2yGQWwrTnAI+Qyh3hU18p1zuRUApSRnRA+BNUvRrA6j6Xify3poajzVy9JsPxdN1PaeDW4T0czhRrtbLRvegWG6F4Sjvnjj83rcx9npEQDzCBbjX2vylzhtg7uvt4AZSItBI+EzqMPH2ceoqnV6dmS9hv6U9snnMpG5Wq13WY05vwBznqXYpGCIs1UaWRBH+vCVpX
+    hmac-key: AgA84rJQI2/ktfwQIoooCWSRiVpTfosmDZGsTvUh+vpu0pMJLJv5YtvyNhECYfyVoHpLPOf/tpFH+xu0cEQM3DjxEqRckZ9TwehsivHPKaagUipmd0uhNaah3isU1ooLmvHGE6mQTuVptv/qQ3QJp2YYhU9Hv1CfNwOI+oBjBDj0m99Egyte17oUReVuEsza3Gxr/NqVFGWgIGQnoGPoxxMdBFfjqhow7MHMIr46t4lyH0G9SNz0lgYvbRrEBCzFCjwG38wBmHPpqqJWHhxGJoXQWfxV2Gket2mdiwmOCHvvSMpmOQQo0ez13qaJvJM2AI9RaMwUJ7tmXcZaJAtk9/zj6Xmz54jkh//EqmEewNhDDASCXKFtjCMAMsZNsD+PZuwgeFOQHGwoiXmU+8cKtK8A55BOuuyeo4nhYeYNo4eql7PzNInCLVYU04i31xYgcuFI/nNihCZs5o1rubiCII349rXIzx4duqttFbG9GrzY2PCfy4tzJdTUaXxina/ZD7haCixVFrmVFnNC5zMMqWIDSLkuHpzkkLJwi60/hb8tDix/a0sMh6xK4dPOiyiAD+4013c2M+UYhslqDVF5oDbbKorDJYMai6AtJV+eGuhreDNDTN4aKYvOdcZXDwwDv1QjYfMBqhzbAHWUoWFaAmxJDsmPyox78H2k6gv43IleEMFxCIVqgEGC4uSCvr6MjXB0YzsHxdcDEhcEYFLxXVkm
+    password: AgChr3rQxmkVZdsAajReg9WialIs3hcIi9hzBuuMjlPJbBDQ8ubCAgbHDasemxjlkr9oBH4OVxe/60qCU2mS6/PDHlmCEzbJvALET/dPsDIXrIiEIqxy8LssuXYi+C1VbKEXRaBTFwYaVsZ3u0TJBMTyUVU2hNwfsZxmpyUXvBP5aCdgqFHaWpWmkq7Jv7bFDS9pTvSiXnpOPTLWzWFAdBzF+Uhy4gLPXEcdppUbIPStz7nBuFAudJ+JnpEN7hSaKlJDmKbFTwFUq8xcmH5mof6z4J2kXiZba5ojqfBkZcyg6wd91b0k4kTUc5XekFNElE+AnHb/8fMgh/UGHPYAcbt1N0eGmAGAxPxnDuMlEKvcEe2IynitqPFvBd3/b+O8c0PTOacVbQakoWB4lpqfx3W89s2nUWbyxUVxt0Dh8I//5gDDXI3P4bnIdDH+43rNVll4TAkEiMBEZrm598vEx1gt1n5SGnXRBKoIzBI0bK+lJ5ZdhT6ZBHo8FfGKC6tMn0/oKLADKIPs0/CpwZ2ZwiM0gr3xLYDi5sItMWUN5KtuuczemJQAsO1BO0HOI33PBWvfX4wGB1QAAUWskJ7rmSHpvNrsDGj1PlbQfgUMWGq7Y/uFOLv4ZxkFA6A8gyiHtOvG75vWyjAVAYOJGlE3iwrEIMfL/my/WfUdZGqoM54tGoCxLSKhwaiKBcfJIll5fHaps1y1aJa884g5bn4aAym4
+  template:
+    data:
+      config.yaml: |
+        db:
+          dbname: invidious
+          user: kemal
+          password: {{ index . "password" }}
+          host: db-rw
+          port: 5432
+        check_tables: false
+        invidious_companion:
+        - private_url: "http://localhost:8282/companion"
+        invidious_companion_key: {{ index . "companion-key" }}
+        hmac_key: {{ index . "hmac-key" }}
+        https_only: false
+        channel_threads: 1
+        feed_threads: 1
+      username: kemal
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: config
+      namespace: invidious
+    type: Opaque

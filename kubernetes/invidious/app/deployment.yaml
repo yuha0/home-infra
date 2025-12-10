@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: invidious
+spec:
+  replicas: 1
+  template:
+    spec:
+      nodeSelector:
+        # https://github.com/iv-org/invidious/issues/2648
+        kubernetes.io/arch: amd64
+      containers:
+      - name: invidious
+        env:
+        - name: INVIDIOUS_PORT
+          value: "3000"
+        - name: INVIDIOUS_CONFIG
+          valueFrom:
+            secretKeyRef:
+              name: config
+              key: config.yaml
+        image: invidious
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+      - name: companion
+        env:
+        - name: SERVER_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: config
+              key: companion-key
+        image: invidious-companion
+        volumeMounts:
+        - mountPath: /var/tmp/youtubei.js
+          name: companioncache
+      volumes:
+      - name: companioncache
+        emptyDir: {}

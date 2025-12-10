@@ -1,0 +1,15 @@
+# source: https://github.com/iv-org/invidious/tree/ef2290c1fde23af2a13ce50bb6f091e91ad0792d/config/sql
+configMapGenerator:
+- name: config
+  files:
+  - users.sql
+  - channel_videos.sql
+  - videos.sql
+  - annotations.sql
+  - playlist_videos.sql
+  - session_ids.sql
+  - playlists.sql
+  - nonces.sql
+  - channels.sql
+generatorOptions:
+  disableNameSuffixHash: true

@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: invidious
+namespace: invidious
+resources:
+- namespace.yaml
+- db
+- app
+- sealed-config.yaml
+
+images:
+- name: invidious
+  newName: quay.io/invidious/invidious
+  newTag: 2025.09.13-cf019e3
+- name: invidious-companion
+  newName: quay.io/invidious/invidious-companion
+  newTag: latest

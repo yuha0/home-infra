@@ -1,0 +1,60 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+spec:
+  description: "database for invidious"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: invidious
+      app.kubernetes.io/component: database
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  managed:
+    roles:
+    - name: kemal
+      ensure: present
+      comment: invidious app is very helpful that it wants to be your db admin
+      login: true
+      superuser: true
+  bootstrap:
+    initdb:
+      database: invidious
+      owner: kemal
+      secret:
+        name: config
+      postInitApplicationSQLRefs:
+        configMapRefs:
+        - name: config
+          key: channels.sql
+        - name: config
+          key: videos.sql
+        - name: config
+          key: channel_videos.sql
+        - name: config
+          key: users.sql
+        - name: config
+          key: session_ids.sql
+        - name: config
+          key: nonces.sql
+        - name: config
+          key: annotations.sql
+        - name: config
+          key: playlists.sql
+        - name: config
+          key: playlist_videos.sql
+  storage:
+    storageClass: nfs-qnap
+    size: 10Gi
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: 500m
+    limits:
+      memory: "1Gi"
+      cpu: "1"
