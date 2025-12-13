@@ -92,3 +92,25 @@
   when: ansible_architecture == "x86_64"
   tags:
   - nofile
+
+- name: Enable multipathing
+  ansible.builtin.copy:
+    src: multipath.conf
+    dest: /etc/multipath.conf
+    mode: '0644'
+  register: multipath_conf
+
+- name: Reload multipath
+  ansible.builtin.systemd_service:
+    name: multipath-tools
+    state: restarted
+  when: multipath_conf is changed
+
+- name: Ensure services
+  ansible.builtin.systemd_service:
+    name: '{{ item }}'
+    enabled: yes
+    state: started
+  with_items:
+  - multipath-tools
+  - open-iscsi
