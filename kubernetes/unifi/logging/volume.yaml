@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: geoip
 spec:
-  storageClassName: truenas-iscsi-general
+  storageClassName: nfs-qnap
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
