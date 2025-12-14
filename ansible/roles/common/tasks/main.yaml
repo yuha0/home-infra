@@ -93,10 +93,27 @@
   tags:
   - nofile
 
+- name: Ensure initiator names
+  ansible.builtin.template:
+    src: initiatorname.iscsi.j2
+    dest: /etc/iscsi/initiatorname.iscsi
+    owner: root
+    group: root
+    mode: '0600'
+  register: iscsi_conf
+
+- name: Reload iscsi
+  ansible.builtin.systemd_service:
+    name: open-iscsi
+    state: restarted
+  when: iscsi_conf is changed
+
 - name: Enable multipathing
   ansible.builtin.copy:
     src: multipath.conf
     dest: /etc/multipath.conf
+    owner: root
+    group: root
     mode: '0644'
   register: multipath_conf
 
@@ -114,3 +131,4 @@
   with_items:
   - multipath-tools
   - open-iscsi
+
