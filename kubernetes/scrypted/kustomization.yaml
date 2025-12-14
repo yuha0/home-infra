@@ -5,7 +5,7 @@ resources:
 - namespace.yaml
 - ingress.yaml
 - volume.yaml
-- deployment.yaml
+- statefulset.yaml
 images:
 - name: scrypted
   newName: ghcr.io/koush/scrypted
