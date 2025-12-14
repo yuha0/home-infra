@@ -35,7 +35,7 @@ spec:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: nfs-qnap
+        storageClassName: truenas-iscsi-general
   thanos:
     image: quay.io/thanos/thanos:VERSION
     version: v0.40.1

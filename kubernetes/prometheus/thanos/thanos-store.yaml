@@ -85,8 +85,8 @@ spec:
   - metadata:
       name: data
     spec:
-      accessModes: [ "ReadWriteMany" ]
-      storageClassName: "nfs-qnap"
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "truenas-iscsi-general"
       resources:
         requests:
           storage: 10Gi
