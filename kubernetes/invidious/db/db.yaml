@@ -45,8 +45,8 @@ spec:
         - name: config
           key: playlist_videos.sql
   storage:
-    storageClass: nfs-qnap
-    size: 10Gi
+    storageClass: truenas-iscsi-general
+    size: 5Gi
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
