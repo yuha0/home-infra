@@ -13,5 +13,6 @@
   "releaseName": "iscsi-general",
   "valuesFile": "./values.yaml",
   "extraTemplateArgs": [
+    "-n=democratic-csi"
   ]
 }

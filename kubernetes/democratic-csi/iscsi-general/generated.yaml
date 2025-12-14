@@ -226,7 +226,7 @@ spec:
       hostPID: false
       containers:
       - name: csi-driver
-        image: "docker.io/democraticcsi/democratic-csi:next"
+        image: "docker.io/democraticcsi/democratic-csi:latest"
         args:
         - --csi-version=1.5.0
         - --csi-name=truenas-iscsi-general
@@ -522,7 +522,7 @@ spec:
               apiVersion: v1
               fieldPath: metadata.name
       - name: csi-driver
-        image: "docker.io/democraticcsi/democratic-csi:next"
+        image: "docker.io/democraticcsi/democratic-csi:latest"
         args:
         - --csi-version=1.5.0
         - --csi-name=truenas-iscsi-general

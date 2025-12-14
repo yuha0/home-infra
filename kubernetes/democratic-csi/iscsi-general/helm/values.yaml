@@ -183,7 +183,7 @@ controller:
     enabled: true
     image:
       registry: docker.io/democraticcsi/democratic-csi
-      tag: next
+      tag: latest
       # pullPolicy: Always
     logLevel: info
     lifecycle:
@@ -257,7 +257,7 @@ node:
     enabled: true
     image:
       registry: docker.io/democraticcsi/democratic-csi
-      tag: next
+      tag: latest
       # pullPolicy: Always
     logLevel: info
     # set path to null if your OS has no localtime file
