@@ -1278,7 +1278,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: nfs-qnap
+        storageClassName: truenas-iscsi-general
         resources:
           requests:
             storage: "10Gi"
@@ -1423,7 +1423,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: nfs-qnap
+        storageClassName: truenas-iscsi-general
         resources:
           requests:
             storage: "10Gi"
@@ -1561,7 +1561,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: nfs-qnap
+        storageClassName: truenas-iscsi-general
         resources:
           requests:
             storage: "10Gi"

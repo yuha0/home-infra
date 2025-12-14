@@ -536,7 +536,7 @@ ingester:
         #   If set to "-", storageClassName: "", which disables dynamic provisioning.
         #   If empty or set to null, no storageClassName spec is
         #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-        storageClass: nfs-qnap
+        storageClass: truenas-iscsi-general
       # - name: wal
       #   size: 150Gi
     # -- Enable StatefulSetAutoDeletePVC feature
@@ -772,7 +772,7 @@ querier:
     # If set to "-", storageClassName: "", which disables dynamic provisioning.
     # If empty or set to null, no storageClassName spec is
     # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-    storageClass: nfs-qnap
+    storageClass: truenas-iscsi-general
     # -- Annotations for querier PVCs
     annotations: {}
   # -- Adds the appProtocol field to the querier service. This allows querier to work with istio protocol selection.
@@ -1455,7 +1455,7 @@ compactor:
     # If set to "-", storageClassName: "", which disables dynamic provisioning.
     # If empty or set to null, no storageClassName spec is
     # set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-    storageClass: nfs-qnap
+    storageClass: truenas-iscsi-general
     # -- Annotations for compactor PVCs
     annotations: {}
     # -- List of the compactor PVCs
@@ -1468,7 +1468,7 @@ compactor:
         #   If set to "-", storageClassName: "", which disables dynamic provisioning.
         #   If empty or set to null, no storageClassName spec is
         #   set, choosing the default provisioner (gp2 on AWS, standard on GKE, AWS, and OpenStack).
-        storageClass: nfs-qnap
+        storageClass: truenas-iscsi-general
       # - name: wal
       #   size: 150Gi
     # -- Enable StatefulSetAutoDeletePVC feature
