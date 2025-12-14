@@ -39,7 +39,7 @@ spec:
         - -c
         - |
           apk add rsync
-          rsync -az /config /migr
+          rsync -az /config/ /migr
       containers:
       - name: plex
         image: docker.io/plexinc/pms-docker
@@ -68,9 +68,9 @@ spec:
               optional: true
         volumeMounts:
         - name: config
-          mountPath: /config
+          mountPath: /old
         - name: db
-          mountPath: /migr
+          mountPath: /config
         - name: transcode
           mountPath: /transcode
         - name: media
