@@ -14,9 +14,7 @@ spec:
   nfs:
     server: fred.lab.yuha0.com
     path: /media
-
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -28,3 +26,15 @@ spec:
   resources:
     requests:
       storage: 11T
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db
+spec:
+  storageClassName: "truenas-iscsi-general"
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
