@@ -23,9 +23,28 @@ spec:
         kubernetes.io/arch: amd64
       hostNetwork: true
       volumes:
-      - name: data
+      - name: old
         persistentVolumeClaim:
           claimName: scrypted
+      - name: data
+        persistentVolumeClaim:
+          claimName: data
+
+      initContainers:
+      - name: migration
+        image: alpine
+        volumeMounts:
+        - name: old
+          mountPath: /old
+        - name: data
+          mountPath: /new
+        command:
+        - sh
+        - -c
+        - |
+          apk add rsync
+          rsync -azP /old/ /new
+
       containers:
       - name: scrypted
         image: scrypted

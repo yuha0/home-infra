@@ -9,3 +9,15 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: nfs-qnap
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: truenas-iscsi-general
