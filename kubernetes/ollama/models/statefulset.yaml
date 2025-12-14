@@ -7,6 +7,20 @@ spec:
   replicas: 1
   template:
     spec:
+      initContainers:
+      - name: migration
+        image: alpine
+        volumeMounts:
+        - name: data
+          mountPath: /old
+        - name: models
+          mountPath: /new
+        command:
+        - sh
+        - -c
+        - |
+          apk add rsync
+          rsync -az /old/ /new
       containers:
       - name: models
         image: ollama
@@ -17,8 +31,12 @@ spec:
             cpu: "2000m"
             memory: "16Gi"
         volumeMounts:
-        - name: data
+        - name: models
           mountPath: /root/.ollama
+      volumes:
+      - name: models
+        persistentVolumeClaim:
+          claimName: models
   volumeClaimTemplates:
   - metadata:
       name: data

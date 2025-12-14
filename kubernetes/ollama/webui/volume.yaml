@@ -9,3 +9,15 @@ spec:
   resources:
     requests:
       storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web
+spec:
+  accessModes:
+  - ReadWriteOnly
+  storageClassName: truenas-iscsi-general
+  resources:
+    requests:
+      storage: 5Gi

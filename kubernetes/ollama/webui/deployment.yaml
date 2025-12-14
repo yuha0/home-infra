@@ -6,6 +6,20 @@ spec:
   replicas: 1
   template:
     spec:
+      initContainers:
+      - name: migration
+        image: alpine
+        volumeMounts:
+        - name: old
+          mountPath: /old
+        - name: data
+          mountPath: /new
+        command:
+        - sh
+        - -c
+        - |
+          apk add rsync
+          rsync -az /old/ /new
       containers:
       - name: webui
         image: webui
@@ -25,6 +39,9 @@ spec:
         - name: data
           mountPath: /app/backend/data
       volumes:
-      - name: data
+      - name: old
         persistentVolumeClaim:
           claimName: webui
+      - name: data
+        persistentVolumeClaim:
+          claimName: web
