@@ -16,7 +16,7 @@ metadata:
   name: web
 spec:
   accessModes:
-  - ReadWriteOnly
+  - ReadWriteOnce
   storageClassName: truenas-iscsi-general
   resources:
     requests:
