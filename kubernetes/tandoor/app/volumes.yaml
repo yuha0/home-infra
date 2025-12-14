@@ -3,21 +3,21 @@ kind: PersistentVolumeClaim
 metadata:
   name: media
 spec:
-  storageClassName: nfs-qnap
+  storageClassName: truenas-iscsi-general
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: static
 spec:
-  storageClassName: nfs-qnap
+  storageClassName: truenas-iscsi-general
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi

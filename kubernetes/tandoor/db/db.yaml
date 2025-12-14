@@ -18,8 +18,8 @@ spec:
       secret:
         name: db-user
   storage:
-    storageClass: nfs-qnap
-    size: 10Gi
+    storageClass: truenas-iscsi-general
+    size: 5Gi
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
