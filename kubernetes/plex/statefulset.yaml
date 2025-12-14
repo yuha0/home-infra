@@ -26,20 +26,6 @@ spec:
         kubernetes.io/hostname: mini0
       securityContext:
         fsGroup: 1000
-      initContainers:
-      - name: migration
-        image: alpine
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        - name: db
-          mountPath: /migr
-        command:
-        - sh
-        - -c
-        - |
-          apk add rsync
-          rsync -az /config/ /migr
       containers:
       - name: plex
         image: docker.io/plexinc/pms-docker
@@ -67,8 +53,6 @@ spec:
               key: code
               optional: true
         volumeMounts:
-        - name: config
-          mountPath: /old
         - name: db
           mountPath: /config
         - name: transcode
@@ -78,10 +62,6 @@ spec:
       volumes:
       - name: transcode
         emptyDir: {}
-      - name: config
-        hostPath:
-          path: /var/pv/plex-0
-          type: DirectoryOrCreate
       - name: media
         persistentVolumeClaim:
           claimName: media
