@@ -9,20 +9,6 @@ spec:
   template:
     spec:
       initContainers:
-      - name: migration
-        image: alpine
-        volumeMounts:
-        - name: old
-          mountPath: /old
-        - name: meilisearch
-          mountPath: /new
-        command:
-        - sh
-        - -c
-        - |
-          apk add rsync
-          rsync -azP /old/ /new
-
       - name: import
         image: meilisearch
         env:
@@ -37,7 +23,6 @@ spec:
         - secretRef:
             name: meilisearch-secrets
         command: ["/bin/sh", "/meili_migration/import.sh"]
-
       containers:
       - name: meilisearch
         image: meilisearch
@@ -57,9 +42,6 @@ spec:
             exec:
               command: ["/bin/sh", "-c", "/bin/sh /meili_migration/dump.sh > /proc/1/fd/1"]
       volumes:
-      - name: old
-        persistentVolumeClaim:
-          claimName: meilisearch-pvc
       - name: meilisearch
         persistentVolumeClaim:
           claimName: meilisearch
