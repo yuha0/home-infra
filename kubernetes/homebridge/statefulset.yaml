@@ -26,26 +26,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: homebridge
-      - name: migr
-        persistentVolumeClaim:
           claimName: data
-
-      initContainers:
-      - name: migration
-        image: alpine
-        volumeMounts:
-        - name: data
-          mountPath: /old
-        - name: migr
-          mountPath: /new
-        command:
-        - sh
-        - -c
-        - |
-          apk add rsync
-          rsync -az /old/ /new
-
       containers:
       - name: homebridge
         image: homebridge
@@ -67,7 +48,7 @@ spec:
           containerPort: 51272
           hostPort: 51272
         volumeMounts:
-        - name: migr
+        - name: data
           mountPath: /homebridge
         resources:
           requests:
