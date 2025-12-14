@@ -67,8 +67,10 @@ spec:
               key: code
               optional: true
         volumeMounts:
-        - name: db
+        - name: config
           mountPath: /config
+        - name: db
+          mountPath: /migr
         - name: transcode
           mountPath: /transcode
         - name: media
