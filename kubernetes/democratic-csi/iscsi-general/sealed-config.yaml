@@ -1,0 +1,50 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: freenas-api-iscsi-general
+  namespace: democratic-csi
+spec:
+  encryptedData:
+    api-key: AgBQm0mKO1N77RokANzqB7QDyZ0S/lyEmFvdEUpkHd3A09cWW+RgKTxUXP99g1dZOe0d5ViOijiJLznFO4e2tc0GFONJH5La+YMv9dg4KcaYs19WZbClynJoUO95qGaOUhyPq7D+L5A1PkbDmX2EsbYQftKk6UtJDvSTNOZr/BEWZChOc/ajlgDvjLTUgksf0PKMjcjyt453uwzPBwps6pFt1yEyF5BQhemDRi/S+lasx1FTV82S6koxQ2Rfr4gQxStpiCOtOFgl7sfNwL1FJyLtqMy4FrhCKUTeqXC9UDVBbpXB2cjiSTmWR87f260Gci/ZzOsxUGuVtvSGWs5HlNfl6TYVjrB5+N1QDdZ2S9+ev+f6R/VvavviOnaloRru3tkjRhtKUT0mTWJtIn7VcL2z4S2wEma1ne/6dsoSoj35IKX55CeT0GRegdZwZlfGlyFsfD3p8guCezgOuDWsy/J+BiSpyaO9dLlAsiO5j7b0b+AGz4HuKY0PAD8DayzYkTAQ3ZU1YBXBG3r09jgCEZfhSuTJmsk5yHRgIuO9MyJXOYC2qIubWozbjOhXEvXXSwoWMKZ6Zmfp2vG5ZB2PXK+qMiQIBTqEZnNjOQCetZKZqx5zGgnclgrHhJlFm9VA/UcfLEE+qT/JNm7rNcPTYGQHwo8URocyQNbNOuNgqSfcvSXGHBS3tibHnbz7htw9bwKtHBEpC0B4h5wvbB56YWpMm/1HUKphAedBGr2OS9hK07VQ0u5VPGhqejObp140rtqD8G4zANs8wdPn0wUB7u+SJUM=
+  template:
+    data:
+      driver-config-file.yaml: |
+        driver: freenas-api-iscsi
+        instance_id:
+        httpConnection:
+          protocol: https
+          host: truenas.lab.yuha0.com
+          port: 443
+          apiKey: {{ index . "api-key" }}
+          allowInsecure: true
+        zfs:
+          datasetParentName: general/k0-iscsi/vols
+          detachedSnapshotsDatasetParentName: general/k0-iscsi/snaps
+          datasetEnableQuotas: true
+          datasetEnableReservation: false
+          zvolCompression: lz4
+          zvolDedup:
+          zvolEnableReservation: false
+          zvolBlocksize: 16K
+        iscsi:
+          targetPortal: "truenas.lab.yuha0.com:3260"
+          targetPortals:
+          interface:
+          namePrefix: csi-
+          nameSuffix: "-k0"
+          targetGroups:
+          - targetGroupPortalGroup: 1
+            targetGroupInitiatorGroup: 1
+            targetGroupAuthType: "CHAP"
+            targetGroupAuthGroup: 1
+          extentInsecureTpc: true
+          extentXenCompat: false
+          extentDisablePhysicalBlocksize: true
+          extentBlocksize: 512
+          extentRpm: "7200"
+          extentAvailThreshold: 0
+    metadata:
+      creationTimestamp: null
+    type: Opaque

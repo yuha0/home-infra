@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: democratic-csi
+spec:
+  destinations:
+  - namespace: "democratic-csi"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: storage.k8s.io
+    kind: StorageClass
+  - group: storage.k8s.io
+    kind: CSIDriver
+  - group: snapshot.storage.k8s.io
+    kind: VolumeSnapshotClass
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: democratic-csi
+spec:
+  project: democratic-csi
+  source:
+    path: kubernetes/democratic-csi
+  destination:
+    namespace: democratic-csi

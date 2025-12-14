@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: truenas-iscsi-general
+provisioner: truenas-iscsi-general
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  fsType: "xfs"
+  csi.storage.k8s.io/node-stage-secret-name: chap-iscsi-general
+  csi.storage.k8s.io/node-stage-secret-namespace: democratic-csi

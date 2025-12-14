@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: democratic-csi-iscsi
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
