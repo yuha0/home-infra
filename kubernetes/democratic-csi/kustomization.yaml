@@ -11,5 +11,5 @@ resources:
 
 images:
 - name: docker.io/democraticcsi/democratic-csi
-  tag: next
+  newTag: next
   digest: sha256:5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
