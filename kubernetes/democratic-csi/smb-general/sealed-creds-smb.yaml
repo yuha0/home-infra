@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: creds-smb-general
+  namespace: democratic-csi
+spec:
+  encryptedData:
+    password: AgAx2CFWdYNn+XB+bfGhvsnuskOOAepfP3q3knoxQIHoEi2p3GySK7ZaKeHPMlHmSpoTyZe8lcNC9/Kf1esV4AvZiT0baZVyxBr55wT2S/IahId4cihGhA35cobDm5KvPVCBzs8HZQyjynRv7ZOOQQgmo79IbDoHLUq4dybzA4UBawjuBq0c9X8AHX4saoPs1R+c2WS//MaJ3NBNgAjJDbI/Y+H2fVV9IgU2zFIuR3sEPfRxjjLEKvcSHDXbMmJSYJso7EpGCp9/xLjiwlOi2TxMUD68+AWRB9nHPOpU7hHiVJ0sxqiF07tLkMdTxDgBpQYDFvZ9HEjfUcWKZLPIqI6IOCaI/4ZRmWrq4oIvgyaN6C1PwZNIYEsBKq0dlY0t7/X0knUo9Y9c4dsfJDfaU8GxnjduPzSYYB4xnuaLZRSp7n6HxPy79Rnjex6NSMH+QCbjcndChFwmDkB13Zo56q2TCUMwr5+bipTUVBeVLz23g+SVYHtAu5l6zKAz3F30A5eFmt59fXb1DTGTG+jrb/DVuwvMwSjKOiaRcGSUXni3bAu03LrBWMat+I6hFkhjzO1Gg1vcqpGr+t99JoKQsFEKK/ZRriQdgnNGx7Rj/odzMpzWrBIm+xsbRx51ugWDgyceRa9c3uY8NgnRQs35KAYa4GiCzFtl64yUyG+NTXtegpZeH03TfLV0eNJLDUpDM0GH/FJyTyd5Q7yqTwTgA4eAwn5nwfxidlANTlgEa3E=
+    username: AgACSlXTmxHnCptIWLBCOHlnp2EYy4K/lPZp1Cty0wMIZBmwW5fNUZf3hRqqqnY/aKkwb6ojpMaVHc353hHj7c4mr37xys5tvo0PZ5TGnyTY9Qv0+7t+fXGbOltTo8aip4N3vxM/mqgu2aJw9cXcgpfILIvl6IjKH1MfCY7DyiBoH7ZUfntvijyMtAqRbA6YP5QPer++zaEZHFCiNVYj9hdR+fs1ZqdepXM6rNepb9Z0ceLKtLS4kysznYOjD1KQ5etEkccMLyd/QHxbDQT0MQQ53GCrIwkcHdv0l4BHYMtWzKohQwdRvKwu61NWNdjtaxbn0/nzWXa2z59YBehbf3AMVYbuS2FLRfaVdxOiPjOb2ZhHnXfpzf1isvtqM++JzitE3fDr8TzuLYFSWRw5cZTF/JMOdWO74CMLrcaa+A8nTgdjG/qjiOGxHmklmQ2M9ULgaxn5WBwFUwbKflnwZsp5egNHDl4hOMe40uFXbaYleXnvqAGCkU69NfCThYn8x0ImyQs6j1NSJKBYoPAJPbT1YudEbx4CjiLaUTkxQDh+g7G6Vpgl+Pzt59mQ7Qa8Mu96lZVYJkN5SPzGMq8VMTKlUlbdtCvOwGbQdMzoKUAxLmRAbO4yoJwT1HMMDeL7SGuDusVkLWn95zGT4M2/gScYKrin8xmsx5ItsECXsinpa4bFOxa+CwfjI0AIUP6QkZraqNyYqGid2yA=
+  template:
+    data:
+      mount_flags: username={{ index . "username" }},password={{ index . "password" }}
+    metadata:
+      creationTimestamp: null
+    type: Opaque

@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: truenas-smb-general
+provisioner: truenas-smb-general
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  csi.storage.k8s.io/fstype: cifs
+  csi.storage.k8s.io/node-stage-secret-name: creds-smb-general
+  csi.storage.k8s.io/node-stage-secret-namespace: democratic-csi

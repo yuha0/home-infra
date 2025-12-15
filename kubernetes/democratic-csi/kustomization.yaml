@@ -8,6 +8,7 @@ namespace: democratic-csi
 resources:
 - namespace.yaml
 - iscsi-general
+- smb-general
 
 images:
 - name: docker.io/democraticcsi/democratic-csi

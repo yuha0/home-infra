@@ -1,0 +1,52 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: freenas-api-smb-general
+  namespace: democratic-csi
+spec:
+  encryptedData:
+    api-key: AgAklBAI6Vkr0TJipJbQ6tzYte/c4duatHrRd574wPOgEOkyU74wPppbm0kIsdFJPdN81DDMbIy0ou5sI4RGSF8CkOyJM7Jj1rzMKxCKJgwiOJD3qJlmBg2d4h1REUYFS7QvIGS4ZnDOcOlP0t99udxUlGPQMIPj1ZM0Ku2jbUYEBFszHTYsgVkr+0FQxRmaV9bJjzazArtB7obKsJ7Q9EtjORTSYkzFdXS6hEvm6tijOc1AlrXSUkqgeEQjnYDXeR6/UhnoSbfaRgOrax3tDJq5702mD2GgozXO1H/xV+LuVbglNgFq7AGLwpife0P5NorDtmJyVNt2Qmrj7322nE52Rm5lK3dfNWpRM1ciOzFNNEJuzjoxOmCKYEvZk1eKCCbkjy5KdXcBOSAPD6CeK7FeOKqGf0f5j+PfFCtYCu2VrZTMu1/kxQP/ZOpWi0g0XijV0Mlj4WyYNLjvJ8qaqVWOVTzKZyWF9FZsu2d8S29EYUH0JjOTi268aCSST62LUkW+PobD86KCqTIFcId6qaSH/Yrd2AHvNtyhKg5qvyNhuAHZJ4lWTsmRh5SkqZBdHwQ6zON4XQP84X+g3T9TFjMqwZBLAVihDoNaV218cPlQRpMLBo6txrkIwNqZK+fJ1IRrxuZVV6TKLX67N/dRGjBGRlBG2LR8dL5V0UfUeTB5XLsWEsZMVSg0ouis4e2jsdWEKZ5fqutHrNxB19OSvi0i5aFZVk77QfUVtQoo6V02nFk2gU4wmWvcTOKwHXbYeBIfAby7ZlczYT0epcBmyDsu1yY=
+  template:
+    data:
+      driver-config-file.yaml: |
+        driver: freenas-api-smb
+        instance_id:
+        httpConnection:
+          protocol: https
+          host: truenas.lab.yuha0.com
+          port: 443
+          apiKey: {{ index . "api-key" }}
+          allowInsecure: true
+        zfs:
+          datasetParentName: general/k0-smb/vols
+          detachedSnapshotsDatasetParentName: general/k0-smb/snaps
+          datasetPermissionsMode: "0777"
+          datasetPermissionsUser: 0
+          datasetPermissionsGroup: 0
+          datasetEnableQuotas: true
+          datasetEnableReservation: false
+        smb:
+          shareHost: truenas.lab.yuha0.com
+          nameTemplate: ""
+          namePrefix: ""
+          nameSuffix: ""
+          shareAuxiliaryConfigurationTemplate: |
+            #guest ok = yes
+            #guest only = yes
+          shareHome: false
+          shareAllowedHosts: []
+          shareDeniedHosts: []
+          #shareDefaultPermissions: true
+          shareGuestOk: true
+          #shareGuestOnly: true
+          #shareShowHiddenFiles: true
+          shareRecycleBin: false
+          shareBrowsable: false
+          shareAccessBasedEnumeration: true
+          shareTimeMachine: false
+          #shareStorageTask:
+    metadata:
+      creationTimestamp: null
+    type: Opaque
