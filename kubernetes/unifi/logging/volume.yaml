@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: geoip
 spec:
-  storageClassName: nfs-qnap
+  storageClassName: truenas-smb-general
   accessModes:
   - ReadWriteMany
   resources:
