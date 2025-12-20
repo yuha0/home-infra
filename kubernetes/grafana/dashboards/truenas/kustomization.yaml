@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    grafana-provisioning: dashboard
+namePrefix: dashboard-truenas-
+commonAnnotations:
+  grafana-provisioning-directory: truenas
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- files:
+  - truenas-overview.json
+  name: truenas-overview
+- files:
+  - truenas-disk-insights.json
+  name: truenas-disk-insights
+- files:
+  - truenas-temperature-overview.json
+  name: truenas-temperature-overview

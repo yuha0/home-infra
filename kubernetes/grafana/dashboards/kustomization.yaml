@@ -5,4 +5,5 @@ resources:
 - hardware
 - kubernetes
 - postgres
+- truenas
 - unifi
