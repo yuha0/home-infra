@@ -64,7 +64,7 @@ spec:
         emptyDir: {}
       - name: media
         persistentVolumeClaim:
-          claimName: media
+          claimName: plex-media-smb-manual
       - name: db
         persistentVolumeClaim:
           claimName: db
