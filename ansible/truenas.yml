@@ -1,0 +1,4 @@
+- hosts: truenas
+  roles:
+  - truenas-exporter
+  become: yes

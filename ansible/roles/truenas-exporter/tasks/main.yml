@@ -1,0 +1,15 @@
+- name: Download netdata config
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/tags/{{ netdata_conf_version }}/netdata.conf"
+    dest: /etc/netdata/netdata.conf
+    mode: '0644'
+    owner: root
+    group: root
+    backup: yes
+  register: netdata_conf
+
+- name: Restart netdata
+  ansible.builtin.systemd_service:
+    name: netdata
+    state: restarted
+  when: netdata_conf is changed
