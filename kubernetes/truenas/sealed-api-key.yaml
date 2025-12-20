@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: truenas-api-key
+  namespace: truenas
+spec:
+  encryptedData:
+    api-key: AgBt5JYKl/B+xuxub9oeWAOwk3x9zvR0S5XTW/XdtV2kY1hch1cDw39mFAEwg5pNnyHYfqRPCwt/OsSEkRSSOD1VAVEumje8nQpAXWecelJQbVE+nHX3010yaQIVVuE467ZFv0HFFRe6ele1gKleynqPtpD3BPTJJ1FhBzF1KyxxPWLjS2mnwC8Bem0KQ/vSQGwX9QGoo1wHrt6DQlhK6qyekpPU0j5TbJzPPHSu4Pq3uNmpw++FndTRGrbNm0g2HjLhMQC8FwZyCubsQhE10770xwiFTJVjC0Jv/V83DQ/ELsXDNdL2H4fwpdJ2uUqMirgtAojYdw3LvdL1oPnldmoc1RXArt8lTnfmH/L+hMf2iTl1IeKMQheYbj7bTKYEYq/REGR/oay9212+IWKbF8Tn1kbnD6YlGmspLZBVFatwQw5sSYHOdT85iS6BFFeN0VlSBnhyHg/Kf0pptoQjtOheFoPSZU7WergDCi5u6qJCWdXpf5HmbaQiVXAjbb9XPDxs/3iKJwhOtwCqMer70uehMLEAmUul7h3ZhESBDSaXjh9XsYM8asOCHyQoVpGYf/2aAUhD4+EJ88n9/inAIiuInrhJ3JHcjCGeFFIpJcpl33x1IPMmVkDcbOz+ePBULipSa51gTjS4bnbTM5y81fXbCb6Yz4jypiy1dJhW1nz7mzdwkaiBzeTkx3gXCYJtobwwdbtk0vT1P4R5Te35NbiVnEYwAKRqgPrrhLz1DiTQBy0YOQA3qUAg444AZj9+ePjUIBr+RC7XJlaJvcXw4/Qutgg=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: truenas-api-key
+      namespace: truenas
+    type: Opaque

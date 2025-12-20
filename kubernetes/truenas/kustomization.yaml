@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: truenas
+namespace: truenas
+resources:
+- namespace.yaml
+- sealed-api-key.yaml
+- certificate
+- metrics
+
+images:
+- name: truenas-cert-sync
+  newName: ghcr.io/dataway/truenas-cert-sync
+  newTag: v0.0.2
+  digest: sha256:8728bc7bb7f7050c8b38bc6dc7f178cdf66a3f43438968e35367c14d6e80d362
+- name: graphite-exporter
+  newName: quay.io/prometheus/graphite-exporter
+  newTag: v0.16.0

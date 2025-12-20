@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphite-exporter
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: graphite-exporter
+        image: graphite-exporter
+        args:
+        - --graphite.mapping-config=/config/graphite_mapping.conf
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        ports:
+        - name: metrics
+          containerPort: 9108
+        - name: receive
+          containerPort: 9109
+          hostPort: 9109
+      volumes:
+      - name: config
+        configMap:
+          name: graphite-config
