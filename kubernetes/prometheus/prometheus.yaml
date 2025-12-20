@@ -21,6 +21,8 @@ spec:
       cpu: 400m
       memory: 400Mi
   retention: 12h
+  scrapeConfigNamespaceSelector: {}
+  scrapeConfigSelector: {}
   securityContext:
     fsGroup: 65534
     runAsGroup: 65534
