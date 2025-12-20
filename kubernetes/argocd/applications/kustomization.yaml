@@ -28,6 +28,7 @@ resources:
 - system-service-monitors.yaml
 - tailscale.yaml
 - tandoor.yaml
+- truenas.yaml
 - unifi.yaml
 
 patches:

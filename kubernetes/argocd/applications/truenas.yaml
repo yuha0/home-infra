@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: truenas
+spec:
+  destinations:
+  - namespace: "truenas"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: truenas
+spec:
+  project: truenas
+  source:
+    path: kubernetes/truenas
+  destination:
+    namespace: truenas
