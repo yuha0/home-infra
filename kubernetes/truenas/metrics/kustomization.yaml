@@ -5,11 +5,4 @@ labels:
   pairs:
     app.kubernetes.io/component: metrics
 resources:
-- deployment.yaml
-- service.yaml
-- servicemonitor.yaml
-configMapGenerator:
-- name: graphite-config
-  files:
-  # https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/tags/v2.2.1/graphite_mapping.conf
-  - graphite_mapping.conf
+- scrape-config.yaml

@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: truenas
+spec:
+  metricsPath: /metrics
+  scrapeInterval: 15s
+  staticConfigs:
+  - labels:
+      job: truenas
+    targets:
+    - truenas.lab.yuha0.com:9108
