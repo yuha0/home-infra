@@ -1,0 +1,566 @@
+---
+# Source: democratic-csi/templates/controller-rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: manual-general-democratic-csi-controller-sa
+  namespace: democratic-csi
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: democratic-csi/templates/node-rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: manual-general-democratic-csi-node-sa
+  namespace: democratic-csi
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: democratic-csi/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: manual-general-democratic-csi
+  namespace: democratic-csi
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+data:
+  extra-ca-certs: ""
+---
+# Source: democratic-csi/templates/controller-rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manual-general-democratic-csi-controller-cr
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+rules:
+  # Allow listing and creating CRDs
+  - apiGroups: ['apiextensions.k8s.io']
+    resources: ['customresourcedefinitions']
+    verbs: ['list', 'create']
+  - apiGroups: ['']
+    resources: ['persistentvolumes']
+    verbs: ['create', 'delete', 'get', 'list', 'watch', 'update', 'patch']
+  - apiGroups: ['']
+    resources: ['secrets']
+    verbs: ['get', 'list']
+  - apiGroups: ['']
+    resources: ['pods']
+    verbs: ['get', 'list', 'watch']
+  - apiGroups: ['']
+    resources: ['persistentvolumeclaims']
+    verbs: ['get', 'list', 'watch', 'update', 'patch']
+  - apiGroups: ['']
+    resources: ['persistentvolumeclaims/status']
+    verbs: ['get', 'list', 'watch', 'update', 'patch']
+  - apiGroups: ['']
+    resources: ['nodes']
+    verbs: ['get', 'list', 'watch']
+  - apiGroups: ['storage.k8s.io']
+    resources: ['volumeattachments']
+    verbs: ['get', 'list', 'watch', 'update', 'patch']
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments/status"]
+    verbs: ["patch"]
+  - apiGroups: ['storage.k8s.io']
+    resources: ['storageclasses']
+    verbs: ['get', 'list', 'watch']
+  - apiGroups: ['csi.storage.k8s.io']
+    resources: ['csidrivers']
+    verbs: ['get', 'list', 'watch', 'update', 'create']
+  - apiGroups: ['']
+    resources: ['events']
+    verbs: ['list', 'watch', 'create', 'update', 'patch']
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ['snapshot.storage.k8s.io']
+    resources: ['volumesnapshots/status']
+    verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents"]
+    verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshotcontents/status"]
+    verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
+  - apiGroups: ["snapshot.storage.k8s.io"]
+    resources: ["volumesnapshots"]
+    verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["csinodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["csi.storage.k8s.io"]
+    resources: ["csinodeinfos"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "watch", "list", "delete", "update", "create"]
+  # capacity rbac
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["csistoragecapacities"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources: ["daemonsets", "deployments", "replicasets", "statefulsets"]
+    verbs: ["get"]
+---
+# Source: democratic-csi/templates/node-rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manual-general-democratic-csi-node-cr
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+rules:
+  # Allow listing and creating CRDs
+  - apiGroups: ['apiextensions.k8s.io']
+    resources: ['customresourcedefinitions']
+    verbs: ['list', 'create']
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch", "update"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "update"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch", "update"]
+---
+# Source: democratic-csi/templates/controller-rbac.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manual-general-democratic-csi-controller-rb
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: manual-general-democratic-csi-controller-cr
+subjects:
+- kind: ServiceAccount
+  name: manual-general-democratic-csi-controller-sa
+  namespace: democratic-csi
+---
+# Source: democratic-csi/templates/node-rbac.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: manual-general-democratic-csi-node-rb
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: manual-general-democratic-csi-node-cr
+subjects:
+- kind: ServiceAccount
+  name: manual-general-democratic-csi-node-sa
+  namespace: democratic-csi
+---
+# Source: democratic-csi/templates/node.yaml
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: manual-general-democratic-csi-node
+  namespace: democratic-csi
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/csi-role: "node"
+    app.kubernetes.io/component: "node-linux"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: democratic-csi
+      app.kubernetes.io/instance: manual-general
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/csi-role: "node"
+      app.kubernetes.io/component: "node-linux"
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: 9a056f4d32c50340222b20ebf704595be26a2991b932cd64095746454a040b5f
+      labels:
+        app.kubernetes.io/name: democratic-csi
+        app.kubernetes.io/instance: manual-general
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/csi-role: "node"
+        app.kubernetes.io/component: "node-linux"
+    spec:
+      serviceAccount: manual-general-democratic-csi-node-sa
+      priorityClassName: "system-node-critical"
+      # Required by iSCSI
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      hostAliases: []
+      # Required by multipath detach
+      hostIPC: true
+      hostPID: false
+      containers:
+      - name: csi-driver
+        image: "docker.io/democraticcsi/democratic-csi:latest"
+        args:
+        - --csi-version=1.5.0
+        - --csi-name=node-manual-general
+        - --driver-config-file=/config/driver-config-file.yaml
+        - --log-level=info
+        - --csi-mode=node
+        - --server-socket=/csi-data/csi.sock.internal
+
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+        env:
+        - name: CSI_NODE_ID
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: NODE_EXTRA_CA_CERTS
+          value: "/tmp/certs/extra-ca-certs.crt"
+
+        # prevent crazy error messages due to the /dev host mount
+        terminationMessagePath: /tmp/termination-log
+        terminationMessagePolicy: File
+        livenessProbe:
+          failureThreshold: 3
+          exec:
+            command:
+            - bin/liveness-probe
+            - --csi-version=1.5.0
+            - --csi-address=/csi-data/csi.sock.internal
+          initialDelaySeconds: 10
+          timeoutSeconds: 15
+          periodSeconds: 60
+
+        volumeMounts:
+        - name: socket-dir
+          mountPath: /csi-data
+        - name: kubelet-dir
+          mountPath: /var/lib/kubelet
+          mountPropagation: Bidirectional
+        - name: modules-dir
+          mountPath: /lib/modules
+          readOnly: true
+        - name: localtime
+          mountPath: /etc/localtime
+          readOnly: true
+        - name: udev-data
+          mountPath: /run/udev
+        - name: host-dir
+          mountPath: /host
+          mountPropagation: Bidirectional
+        - mountPath: /sys
+          name: sys-dir
+        - name: dev-dir
+          mountPath: /dev
+        - name: config
+          mountPath: /config
+        - name: extra-ca-certs
+          mountPath: /tmp/certs
+      - name: csi-proxy
+        image: "docker.io/democraticcsi/csi-grpc-proxy:v0.5.6"
+        env:
+        - name: BIND_TO
+          value: "unix:///csi-data/csi.sock"
+        - name: PROXY_TO
+          value: "unix:///csi-data/csi.sock.internal"
+        volumeMounts:
+        - mountPath: /csi-data
+          name: socket-dir
+      - name: driver-registrar
+        image: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.9.0"
+        args:
+        - --v=5
+        - --csi-address=/csi-data/csi.sock
+        - --kubelet-registration-path=/var/lib/kubelet/plugins/node-manual-general/csi.sock
+        env:
+        - name: KUBE_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+
+        livenessProbe:
+          exec:
+            command:
+            - /csi-node-driver-registrar
+            - --kubelet-registration-path=/var/lib/kubelet/plugins/node-manual-general/csi.sock
+            - --mode=kubelet-registration-probe
+
+        volumeMounts:
+        - mountPath: /csi-data
+          name: socket-dir
+        - name: registration-dir
+          mountPath: /registration
+        - name: kubelet-dir
+          mountPath: /var/lib/kubelet
+
+      - name: cleanup
+        image: "docker.io/busybox:1.37.0"
+        command:
+          - "/bin/sh"
+          - "-c"
+          - "--"
+        args: [ "while true; do sleep 2; done;" ]
+        lifecycle:
+          # note this runs *before* other containers are terminated
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "rm -rf /plugins/node-manual-general /registration/node-manual-general-reg.sock"]
+
+        volumeMounts:
+        - name: plugins-dir
+          mountPath: /plugins
+        - name: registration-dir
+          mountPath: /registration
+
+      volumes:
+      - name: socket-dir
+        hostPath:
+          path: /var/lib/kubelet/plugins/node-manual-general
+          type: DirectoryOrCreate
+      - name: plugins-dir
+        hostPath:
+          path: /var/lib/kubelet/plugins
+          type: Directory
+      - name: registration-dir
+        hostPath:
+          path: /var/lib/kubelet/plugins_registry
+          type: Directory
+      - name: kubelet-dir
+        hostPath:
+          path: /var/lib/kubelet
+          type: Directory
+      - name: dev-dir
+        hostPath:
+          path: /dev
+          type: Directory
+      - name: modules-dir
+        hostPath:
+          path: /lib/modules
+      - name: localtime
+        hostPath:
+          path: /etc/localtime
+      - name: udev-data
+        hostPath:
+          path: /run/udev
+      - name: sys-dir
+        hostPath:
+          path: /sys
+          type: Directory
+      - name: host-dir
+        hostPath:
+          path: /
+          type: Directory
+      - name: config
+        secret:
+          secretName: node-manual-general
+      - name: extra-ca-certs
+        configMap:
+          name: manual-general-democratic-csi
+          items:
+          - key: extra-ca-certs
+            path: extra-ca-certs.crt
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+# Source: democratic-csi/templates/controller.yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: manual-general-democratic-csi-controller
+  namespace: democratic-csi
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/csi-role: "controller"
+    app.kubernetes.io/component: "controller-linux"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: democratic-csi
+      app.kubernetes.io/instance: manual-general
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/csi-role: "controller"
+      app.kubernetes.io/component: "controller-linux"
+  template:
+    metadata:
+      annotations:
+        checksum/configmap: 9a056f4d32c50340222b20ebf704595be26a2991b932cd64095746454a040b5f
+      labels:
+        app.kubernetes.io/name: democratic-csi
+        app.kubernetes.io/instance: manual-general
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/csi-role: "controller"
+        app.kubernetes.io/component: "controller-linux"
+    spec:
+      serviceAccount: manual-general-democratic-csi-controller-sa
+      priorityClassName: "system-cluster-critical"
+      hostNetwork: false
+      dnsPolicy: ClusterFirst
+      hostAliases: []
+      hostIPC: false
+      containers:
+      # https://github.com/kubernetes-csi/external-attacher
+      - name: external-attacher
+        image: "registry.k8s.io/sig-storage/csi-attacher:v4.4.0"
+        args:
+        - --v=5
+        - --leader-election
+        - --leader-election-namespace=democratic-csi
+        - --timeout=90s
+        - --worker-threads=10
+        - --csi-address=/csi-data/csi.sock
+        volumeMounts:
+        - mountPath: /csi-data
+          name: socket-dir
+      # https://github.com/kubernetes-csi/external-provisioner
+      - name: external-provisioner
+        image: "registry.k8s.io/sig-storage/csi-provisioner:v3.6.0"
+        args:
+        - --v=5
+        - --leader-election
+        - --leader-election-namespace=democratic-csi
+        - --timeout=90s
+        - --worker-threads=10
+        - --extra-create-metadata
+        - --csi-address=/csi-data/csi.sock
+        volumeMounts:
+        - mountPath: /csi-data
+          name: socket-dir
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+      - name: csi-driver
+        image: "docker.io/democraticcsi/democratic-csi:latest"
+        args:
+        - --csi-version=1.5.0
+        - --csi-name=node-manual-general
+        - --driver-config-file=/config/driver-config-file.yaml
+        - --log-level=info
+        - --csi-mode=controller
+        - --server-socket=/csi-data/csi.sock.internal
+
+        env:
+        - name: NODE_EXTRA_CA_CERTS
+          value: "/tmp/certs/extra-ca-certs.crt"
+        livenessProbe:
+          failureThreshold: 3
+          exec:
+            command:
+            - bin/liveness-probe
+            - --csi-version=1.5.0
+            - --csi-address=/csi-data/csi.sock.internal
+          initialDelaySeconds: 10
+          timeoutSeconds: 15
+          periodSeconds: 60
+        volumeMounts:
+        - name: socket-dir
+          mountPath: /csi-data
+        - name: config
+          mountPath: /config
+        - name: extra-ca-certs
+          mountPath: /tmp/certs
+      - name: csi-proxy
+        image: "docker.io/democraticcsi/csi-grpc-proxy:v0.5.6"
+        env:
+        - name: BIND_TO
+          value: "unix:///csi-data/csi.sock"
+        - name: PROXY_TO
+          value: "unix:///csi-data/csi.sock.internal"
+        volumeMounts:
+        - mountPath: /csi-data
+          name: socket-dir
+
+      volumes:
+      - name: socket-dir
+        emptyDir: {}
+      - name: config
+        secret:
+          secretName: node-manual-general
+      - name: extra-ca-certs
+        configMap:
+          name: manual-general-democratic-csi
+          items:
+          - key: extra-ca-certs
+            path: extra-ca-certs.crt
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+# Source: democratic-csi/templates/required.yaml
+# c80b35e691b41c29d9781b2cf145b7cf044236e6d4514a928969c4762d25ac4f
+# 1f4dc096d58f7d21e3875671aee6f29b120ab84218fa47db2cb53bc9eb5b4dac
+# 82216ceda3c38620ce95124054ce43aa742bd9e6f35776be21c7eb9668c5a725
+---
+# Source: democratic-csi/templates/snapshot-classes.yaml
+# this loop is deeply connected to the loop for secret parameter settings above
+---
+# Source: democratic-csi/templates/storage-classes.yaml
+# this loop is deeply connected to the loop for secret parameter settings above
+---
+# Source: democratic-csi/templates/driver.yaml
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: node-manual-general
+  labels:
+    app.kubernetes.io/name: democratic-csi
+    helm.sh/chart: democratic-csi-0.15.0
+    app.kubernetes.io/instance: manual-general
+    app.kubernetes.io/managed-by: Helm
+spec:
+  attachRequired: true
+  podInfoOnMount: true
+  # https://kubernetes.io/blog/2020/12/14/kubernetes-release-1.20-fsgroupchangepolicy-fsgrouppolicy/
+  #  added in Kubernetes 1.16
+  #  volumeLifecycleModes:
+  #  - Persistent
+  #  - Ephemeral

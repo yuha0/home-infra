@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/instance: node-manual-general
+resources:
+- generated.yaml
+
+
+secretGenerator:
+- name: node-manual-general
+  files:
+  - driver-config-file.yaml

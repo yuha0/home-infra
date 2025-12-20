@@ -1,0 +1,18 @@
+{
+  "repo": {
+    "name": "democratic-csi",
+    "url": "https://democratic-csi.github.io/charts"
+  },
+  "chart": {
+    "name": "democratic-csi",
+    "gitValuesPath": "https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/{gitTag}/charts/cloudnative-pg/values.yaml",
+    "gitValuesPath": "https://raw.githubusercontent.com/democratic-csi/charts/refs/tags/{gitTag}/stable/democratic-csi/values.yaml",
+    "gitTagFormat": "democratic-csi-{version}",
+    "version": "0.15.0"
+  },
+  "releaseName": "manual-general",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=democratic-csi"
+  ]
+}
