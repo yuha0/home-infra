@@ -1270,7 +1270,9 @@ worker:
 
   # Custom command line arguments to add to the worker command
   # Example: ["-customFlag", "value", "-anotherFlag"]
-  extraArgs: []
+  extraArgs:
+  # upstream missed metricsPort, causing probes to fail
+  - "-metricsPort=9327"
 
   # Storage configuration for working directory
   # Note: Workers use Deployment, so use "emptyDir", "hostPath", or "existingClaim"
@@ -1330,13 +1332,13 @@ worker:
   # Health checks for worker pods
   # Since workers do not have an HTTP endpoint, a tcpSocket probe on the metrics port is recommended.
   livenessProbe:
-    enabled: false
+    enabled: true
     tcpSocket:
       port: metrics
     initialDelaySeconds: 30
-    periodSeconds: 10
+    periodSeconds: 60
     successThreshold: 1
-    failureThreshold: 180
+    failureThreshold: 5
     timeoutSeconds: 10
 
   readinessProbe:
