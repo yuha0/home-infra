@@ -86,3 +86,6 @@ patches:
     - op: replace
       path: /data/allow-snippet-annotations
       value: "true"
+    - op: add
+      path: /data/annotations-risk-level
+      value: Critical
