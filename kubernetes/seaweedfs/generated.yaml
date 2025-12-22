@@ -320,8 +320,7 @@ spec:
               -admin=seaweedfs-admin.seaweedfs:23646 \
               -capabilities=vacuum,balance,erasure_coding,replication \
               -maxConcurrent=3 \
-              -workingDir=/tmp/seaweedfs-worker \
-              -metricsPort=9327
+              -workingDir=/tmp/seaweedfs-worker
           volumeMounts:
             - name: worker-data
               mountPath: /tmp/seaweedfs-worker
@@ -336,22 +335,6 @@ spec:
             requests:
               cpu: 500m
               memory: 512Mi
-          livenessProbe:
-            tcpSocket:
-              port: metrics
-            initialDelaySeconds: 30
-            periodSeconds: 60
-            successThreshold: 1
-            failureThreshold: 5
-            timeoutSeconds: 10
-          readinessProbe:
-            tcpSocket:
-              port: metrics
-            initialDelaySeconds: 20
-            periodSeconds: 15
-            successThreshold: 1
-            failureThreshold: 3
-            timeoutSeconds: 10
       volumes:
         - name: worker-data
           persistentVolumeClaim:
@@ -1042,7 +1025,7 @@ stringData:
   user: "YourSWUser"
   password: "HardCodedPassword"
   # better to random generate and create in DB
-  # password: YmYwMWIzZjExOTYzYTNlNTQ2OTEzYjEy
+  # password: ZjRmN2NhZWE1ZTU3ZGYyYjQ4YzM5OTY1
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
