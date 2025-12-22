@@ -1018,7 +1018,9 @@ metadata:
   namespace: seaweedfs
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
     nginx.ingress.kubernetes.io/proxy-read-timeout: 60s
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
     nginx.ingress.kubernetes.io/proxy-send-timeout: 60s
   labels:
     app.kubernetes.io/name: seaweedfs
@@ -1041,7 +1043,42 @@ spec:
             name: seaweedfs-filer
             port:
               number: 8888
-    host: seaweedfs-s3.internal.yuha0.com
+    host: seaweedfs-filer.internal.yuha0.com
+---
+# Source: seaweedfs/templates/s3/s3-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-seaweedfs-s3
+  namespace: seaweedfs
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 60s
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 60s
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: s3
+spec:
+  ingressClassName: "nginx-internal"
+  tls:
+    
+      []
+  rules:
+  - http:
+      paths:
+      - path: "/"
+        pathType: "Prefix"
+        backend:
+          service:
+            name: seaweedfs-s3
+            port:
+              number: 8333
+    host: "seaweedfs-s3.internal.yuha0.com"
 ---
 # Source: seaweedfs/templates/shared/secret-seaweedfs-db.yaml
 apiVersion: v1
@@ -1062,7 +1099,7 @@ stringData:
   user: "YourSWUser"
   password: "HardCodedPassword"
   # better to random generate and create in DB
-  # password: ZjhiYWZhZDIxZDM2Yzk2NDQ0OWIwM2I0
+  # password: MjE4OWU2MTA3MjA1MjU1MDI2MTA0NGI3
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
