@@ -308,7 +308,7 @@ volume:
   # Choose [memory|leveldb|leveldbMedium|leveldbLarge] mode for memory~performance balance., default memory
   index: memory
   # limit file size to avoid out of memory, default 256mb
-  fileSizeLimitMB: null
+  fileSizeLimitMB: 2000
   # minimum free disk space(in percents). If free disk space lower this value - all volumes marks as ReadOnly
   minFreeSpacePercent: 1
 
@@ -476,7 +476,9 @@ volume:
   # should map directly to the value of the resources field for a PodSpec,
   # formatted as a multi-line string. By default no direct resource request
   # is made.
-  resources: {}
+  resources:
+    requests:
+      memory: 3Gi
 
   # Toleration Settings for server pods
   # This should be a multi-line string matching the Toleration array
@@ -774,13 +776,16 @@ filer:
   containerSecurityContext: {}
 
   ingress:
-    enabled: false
-    className: ""
+    enabled: true
+    className: "nginx-internal"
     # host: false for "*" hostname
-    host: "seaweedfs.cluster.local"
-    path: "/sw-filer/?(.*)"
-    pathType: ImplementationSpecific
-    annotations: {}
+    host: "seaweedfs-s3.internal.yuha0.com"
+    path: "/"
+    pathType: Prefix
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
       # nginx.ingress.kubernetes.io/backend-protocol: GRPC
       # nginx.ingress.kubernetes.io/auth-type: "basic"
       # nginx.ingress.kubernetes.io/auth-secret: "default/ingress-basic-auth-secret"

@@ -915,6 +915,7 @@ spec:
                 -ip.bind=0.0.0.0 \
                 -readMode=proxy \
                 -index=memory \
+                -fileSizeLimitMB=2000 \
                 -minFreeSpacePercent=1 \
                 -ip=${POD_NAME}.${SEAWEEDFS_FULLNAME}-volume.seaweedfs \
                 -compactionMBps=50 \
@@ -952,6 +953,9 @@ spec:
             successThreshold: 1
             failureThreshold: 4
             timeoutSeconds: 30
+          resources:
+            requests:
+              memory: 3Gi
       volumes:
   volumeClaimTemplates:
     - apiVersion: v1
@@ -1006,6 +1010,39 @@ spec:
             port:
               number: 23646
 ---
+# Source: seaweedfs/templates/filer/filer-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-seaweedfs-filer
+  namespace: seaweedfs
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 60s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 60s
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: filer
+spec:
+  ingressClassName: "nginx-internal"
+  tls:
+    
+      []
+  rules:
+  - http:
+      paths:
+      - path: "/"
+        pathType: "Prefix"
+        backend:
+          service:
+            name: seaweedfs-filer
+            port:
+              number: 8888
+    host: seaweedfs-s3.internal.yuha0.com
+---
 # Source: seaweedfs/templates/shared/secret-seaweedfs-db.yaml
 apiVersion: v1
 kind: Secret
@@ -1025,7 +1062,7 @@ stringData:
   user: "YourSWUser"
   password: "HardCodedPassword"
   # better to random generate and create in DB
-  # password: ZjRmN2NhZWE1ZTU3ZGYyYjQ4YzM5OTY1
+  # password: ZjhiYWZhZDIxZDM2Yzk2NDQ0OWIwM2I0
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
