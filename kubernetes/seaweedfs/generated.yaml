@@ -1053,8 +1053,6 @@ metadata:
   namespace: seaweedfs
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header Authorization $http_authorization;
-      proxy_set_header x-amz-content-sha256 $http_x_amz_content_sha256;
       chunked_transfer_encoding off;
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
@@ -1103,7 +1101,7 @@ stringData:
   user: "YourSWUser"
   password: "HardCodedPassword"
   # better to random generate and create in DB
-  # password: NWJkYWZkMGExN2MyYmY0OTI0NmU2Njc2
+  # password: NDFjNTM3ZDNiMzI0NjJhZDBlYjY2NWI2
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1

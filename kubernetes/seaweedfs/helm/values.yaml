@@ -1054,8 +1054,6 @@ s3:
       nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
       nginx.ingress.kubernetes.io/proxy-buffering: "off"
       nginx.ingress.kubernetes.io/configuration-snippet: |
-        proxy_set_header Authorization $http_authorization;
-        proxy_set_header x-amz-content-sha256 $http_x_amz_content_sha256;
         chunked_transfer_encoding off;
     tls: []
 
