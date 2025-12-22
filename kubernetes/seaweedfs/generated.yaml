@@ -1,0 +1,1129 @@
+---
+# Source: seaweedfs/templates/shared/service-account.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: seaweedfs
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+automountServiceAccountToken: true
+---
+# Source: seaweedfs/templates/master/master-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seaweedfs-master-config
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+data:
+  master.toml: |-
+    
+    # Enter any extra configuration for master.toml here.
+    # It may be a multi-line string.
+---
+# Source: seaweedfs/templates/admin/admin-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-admin
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: admin
+spec:
+  type: ClusterIP
+  ports:
+  - name: "http"
+    port: 23646
+    targetPort: 23646
+    protocol: TCP
+  - name: "grpc"
+    port: 33646
+    targetPort: 33646
+    protocol: TCP
+  - name: "metrics"
+    port: 9327
+    targetPort: 9327
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: admin
+---
+# Source: seaweedfs/templates/filer/filer-service-client.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-filer-client
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: filer
+    monitoring: "true"
+spec:
+  clusterIP: None
+  ports:
+  - name: "swfs-filer"
+    port: 8888
+    targetPort: 8888
+    protocol: TCP
+  - name: "swfs-filer-grpc"
+    port: 18888
+    targetPort: 18888
+    protocol: TCP
+  - name: "metrics"
+    port: 9327
+    targetPort: 9327
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: filer
+---
+# Source: seaweedfs/templates/filer/filer-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: seaweedfs-filer
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: filer
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+  - name: "swfs-filer"
+    port: 8888
+    targetPort: 8888
+    protocol: TCP
+  - name: "swfs-filer-grpc"
+    port: 18888
+    targetPort: 18888
+    protocol: TCP
+  - name: "swfs-s3"
+    port: 8333
+    targetPort: 8333
+    protocol: TCP
+  - name: "metrics"
+    port: 9327
+    targetPort: 9327
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: filer
+---
+# Source: seaweedfs/templates/master/master-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-master
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: master
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports:
+  - name: "swfs-master"
+    port: 9333
+    targetPort: 9333
+    protocol: TCP
+  - name: "swfs-master-grpc"
+    port: 19333
+    targetPort: 19333
+    protocol: TCP
+  - name: "metrics"
+    port: 9327
+    targetPort: 9327
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: master
+---
+# Source: seaweedfs/templates/s3/s3-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-s3
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: s3
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+spec:
+  internalTrafficPolicy: Cluster
+  ports:
+  - name: "swfs-s3"
+    port: 8333
+    targetPort: 8333
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: filer
+---
+# Source: seaweedfs/templates/volume/volume-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-volume
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: volume
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+spec:
+  clusterIP: None
+  internalTrafficPolicy: Cluster
+  ports:
+  - name: "swfs-volume"
+    port: 8080
+    targetPort: 8080
+    protocol: TCP
+  - name: "swfs-volume-18080"
+    port: 18080
+    targetPort: 18080
+    protocol: TCP
+  - name: "metrics"
+    port: 9327
+    targetPort: 9327
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/component: volume
+---
+# Source: seaweedfs/templates/worker/worker-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-worker
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: worker
+spec:
+  clusterIP: None  # Headless service
+  ports:
+  - name: "metrics"
+    port: 9327
+    targetPort: 9327
+    protocol: TCP
+  selector:
+    app.kubernetes.io/name: seaweedfs
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: worker
+---
+# Source: seaweedfs/templates/worker/worker-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seaweedfs-worker
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seaweedfs
+      app.kubernetes.io/instance: seaweedfs
+      app.kubernetes.io/component: worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seaweedfs
+        helm.sh/chart: seaweedfs-4.0.403
+        app.kubernetes.io/instance: seaweedfs
+        app.kubernetes.io/component: worker
+      
+      annotations:
+      
+    spec:
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: seaweedfs
+                  app.kubernetes.io/instance: seaweedfs
+                  app.kubernetes.io/component: worker
+              topologyKey: kubernetes.io/hostname
+      
+      terminationGracePeriodSeconds: 60
+      enableServiceLinks: false
+      containers:
+        - name: seaweedfs
+          image: chrislusf/seaweedfs:4.03
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: SEAWEEDFS_FULLNAME
+              value: "seaweedfs"
+            - name: WEED_CLUSTER_DEFAULT
+              value: "sw"
+            - name: WEED_CLUSTER_SW_FILER
+              value: "seaweedfs-filer-client.seaweedfs:8888"
+            - name: WEED_CLUSTER_SW_MASTER
+              value: "seaweedfs-master.seaweedfs:9333"
+          command:
+            - "/bin/sh"
+            - "-ec"
+            - |
+              exec /usr/bin/weed \
+              -logtostderr=true \
+              -v=1 \
+              worker \
+              -admin=seaweedfs-admin.seaweedfs:23646 \
+              -capabilities=vacuum,balance,erasure_coding,replication \
+              -maxConcurrent=3 \
+              -workingDir=/tmp/seaweedfs-worker
+          volumeMounts:
+            - name: worker-data
+              mountPath: /tmp/seaweedfs-worker
+            
+          ports:
+            - containerPort: 9327
+              name: metrics
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
+            requests:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            tcpSocket:
+              port: metrics
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
+      volumes:
+        - name: worker-data
+          persistentVolumeClaim:
+            claimName: seaweedfs-worker-data
+---
+# Source: seaweedfs/templates/admin/admin-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seaweedfs-admin
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: admin
+spec:
+  serviceName: seaweedfs-admin
+  podManagementPolicy: Parallel
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seaweedfs
+      app.kubernetes.io/instance: seaweedfs
+      app.kubernetes.io/component: admin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seaweedfs
+        helm.sh/chart: seaweedfs-4.0.403
+        app.kubernetes.io/instance: seaweedfs
+        app.kubernetes.io/component: admin
+      
+      annotations:
+      
+    spec:
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: seaweedfs
+                  app.kubernetes.io/instance: seaweedfs
+                  app.kubernetes.io/component: admin
+              topologyKey: kubernetes.io/hostname
+      
+      terminationGracePeriodSeconds: 30
+      enableServiceLinks: false
+      containers:
+        - name: seaweedfs
+          image: chrislusf/seaweedfs:4.03
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SEAWEEDFS_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: seaweedfs-admin
+                  key: adminUser
+            - name: SEAWEEDFS_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: seaweedfs-admin
+                  key: adminPassword
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: SEAWEEDFS_FULLNAME
+              value: "seaweedfs"
+            - name: WEED_CLUSTER_DEFAULT
+              value: "sw"
+            - name: WEED_CLUSTER_SW_FILER
+              value: "seaweedfs-filer-client.seaweedfs:8888"
+            - name: WEED_CLUSTER_SW_MASTER
+              value: "seaweedfs-master.seaweedfs:9333"
+          command:
+            - "/bin/sh"
+            - "-ec"
+            - |
+              exec /usr/bin/weed \
+              -logtostderr=true \
+              -v=1 \
+              admin \
+              -port=23646 \
+              -port.grpc=33646 \
+              -dataDir=/data \
+              -adminUser="${SEAWEEDFS_ADMIN_USER}" \
+              -adminPassword="${SEAWEEDFS_ADMIN_PASSWORD}" \
+              -masters=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333
+          volumeMounts:
+            - name: admin-data
+              mountPath: /data
+            
+          ports:
+            - containerPort: 23646
+              name: http
+            - containerPort: 33646
+              name: grpc
+            - containerPort: 9327
+              name: metrics
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 5
+            timeoutSeconds: 10
+      volumes:
+        
+  volumeClaimTemplates:
+    - metadata:
+        name: admin-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: truenas-iscsi-general
+        resources:
+          requests:
+            storage: 10Gi
+---
+# Source: seaweedfs/templates/filer/filer-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seaweedfs-filer
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: filer
+spec:
+  serviceName: seaweedfs-filer
+  podManagementPolicy: Parallel
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seaweedfs
+      app.kubernetes.io/instance: seaweedfs
+      app.kubernetes.io/component: filer
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seaweedfs
+        helm.sh/chart: seaweedfs-4.0.403
+        app.kubernetes.io/instance: seaweedfs
+        app.kubernetes.io/component: filer
+      annotations:
+        checksum/s3config: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+    spec:
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: seaweedfs
+                  app.kubernetes.io/instance: seaweedfs
+                  app.kubernetes.io/component: filer
+              topologyKey: kubernetes.io/hostname
+      
+      serviceAccountName: "seaweedfs" # for deleting statefulset pods after migration
+      terminationGracePeriodSeconds: 60
+      enableServiceLinks: false
+      containers:
+        - name: seaweedfs
+          image: chrislusf/seaweedfs:4.03
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: WEED_MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secret-seaweedfs-db
+                  key: user
+                  optional: true
+            - name: WEED_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-seaweedfs-db
+                  key: password
+                  optional: true
+            - name: SEAWEEDFS_FULLNAME
+              value: "seaweedfs"
+            - name: WEED_FILER_BUCKETS_FOLDER
+              value: "/buckets"
+            - name: WEED_FILER_OPTIONS_RECURSIVE_DELETE
+              value: "false"
+            - name: WEED_LEVELDB2_ENABLED
+              value: "false"
+            - name: WEED_MYSQL_CONNECTION_MAX_IDLE
+              value: "5"
+            - name: WEED_MYSQL_CONNECTION_MAX_LIFETIME_SECONDS
+              value: "600"
+            - name: WEED_MYSQL_CONNECTION_MAX_OPEN
+              value: "75"
+            - name: WEED_MYSQL_DATABASE
+              value: "sw_database"
+            - name: WEED_MYSQL_ENABLED
+              value: "false"
+            - name: WEED_MYSQL_HOSTNAME
+              value: "mysql-db-host"
+            - name: WEED_MYSQL_INTERPOLATEPARAMS
+              value: "true"
+            - name: WEED_MYSQL_PORT
+              value: "3306"
+            - name: WEED_POSTGRES_ENABLED
+              value: "true"
+            - name: WEED_CLUSTER_DEFAULT
+              value: "sw"
+            - name: WEED_CLUSTER_SW_FILER
+              value: "seaweedfs-filer-client.seaweedfs:8888"
+            - name: WEED_CLUSTER_SW_MASTER
+              value: "seaweedfs-master.seaweedfs:9333"
+            - name: WEED_POSTGRES_DATABASE
+              valueFrom: 
+                secretKeyRef:
+                  key: dbname
+                  name: db-app
+            - name: WEED_POSTGRES_HOSTNAME
+              valueFrom: 
+                secretKeyRef:
+                  key: host
+                  name: db-app
+            - name: WEED_POSTGRES_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  key: password
+                  name: db-app
+            - name: WEED_POSTGRES_PORT
+              valueFrom: 
+                secretKeyRef:
+                  key: port
+                  name: db-app
+            - name: WEED_POSTGRES_USERNAME
+              valueFrom: 
+                secretKeyRef:
+                  key: username
+                  name: db-app
+          command:
+            - "/bin/sh"
+            - "-ec"
+            - |
+              exec /usr/bin/weed \
+              -logtostderr=true \
+              -v=1 \
+              filer \
+              -port=8888 \
+              -metricsPort=9327 \
+              -dirListLimit=100000 \
+              -defaultReplicaPlacement=001 \
+              -ip=${POD_IP} \
+              -ip.bind=0.0.0.0 \
+              -s3 \
+              -s3.port=8333 \
+              -s3.config=/etc/sw/seaweedfs_s3_config \
+              -master=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333 \
+          volumeMounts:
+            - name: config-users
+              mountPath: /etc/sw
+              readOnly: true
+            
+          ports:
+            - containerPort: 8888
+              name: swfs-filer
+            - containerPort: 9327
+              name: metrics
+            - containerPort: 18888
+              #name: swfs-filer-grpc
+            - containerPort: 8333
+              name: swfs-s3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8888
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 100
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8888
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 5
+            timeoutSeconds: 10
+      volumes:
+        - name: db-schema-config-volume
+          configMap:
+            name: seaweedfs-db-init-config
+        - name: config-users
+          secret:
+            defaultMode: 420
+            secretName: seaweedfs-s3-config
+---
+# Source: seaweedfs/templates/master/master-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seaweedfs-master
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: master
+spec:
+  serviceName: seaweedfs-master
+  podManagementPolicy: Parallel
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seaweedfs
+      app.kubernetes.io/instance: seaweedfs
+      app.kubernetes.io/component: master
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seaweedfs
+        helm.sh/chart: seaweedfs-4.0.403
+        app.kubernetes.io/instance: seaweedfs
+        app.kubernetes.io/component: master
+      
+      annotations:
+      
+    spec:
+      restartPolicy: Always
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: seaweedfs
+                  app.kubernetes.io/instance: seaweedfs
+                  app.kubernetes.io/component: master
+              topologyKey: kubernetes.io/hostname
+      
+      terminationGracePeriodSeconds: 60
+      enableServiceLinks: false
+      containers:
+        - name: seaweedfs
+          image: chrislusf/seaweedfs:4.03
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: SEAWEEDFS_FULLNAME
+              value: "seaweedfs"
+            - name: WEED_MASTER_VOLUME_GROWTH_COPY_1
+              value: "7"
+            - name: WEED_MASTER_VOLUME_GROWTH_COPY_2
+              value: "6"
+            - name: WEED_MASTER_VOLUME_GROWTH_COPY_3
+              value: "3"
+            - name: WEED_MASTER_VOLUME_GROWTH_COPY_OTHER
+              value: "1"
+            - name: WEED_CLUSTER_DEFAULT
+              value: "sw"
+            - name: WEED_CLUSTER_SW_FILER
+              value: "seaweedfs-filer-client.seaweedfs:8888"
+            - name: WEED_CLUSTER_SW_MASTER
+              value: "seaweedfs-master.seaweedfs:9333"
+          command:
+            - "/bin/sh"
+            - "-ec"
+            - |
+              exec /usr/bin/weed \
+              -logtostderr=true \
+              -v=1 \
+              master \
+              -port=9333 \
+              -mdir=/data \
+              -ip.bind=0.0.0.0 \
+              -defaultReplication=001 \
+              -metricsPort=9327 \
+              -volumeSizeLimitMB=30000 \
+              -disableHttp \
+              -resumeState \
+              -raftHashicorp \
+              -electionTimeout=10s \
+              -heartbeatInterval=300ms \
+              -ip=${POD_NAME}.${SEAWEEDFS_FULLNAME}-master.seaweedfs \
+              -peers=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333 \
+          volumeMounts:
+            - name : data-seaweedfs
+              mountPath: /data
+            - name: master-config
+              readOnly: true
+              mountPath: /etc/seaweedfs/master.toml
+              subPath: master.toml
+            
+          ports:
+            - containerPort: 9333
+              name: swfs-master
+            - containerPort: 19333
+              #name: swfs-master-grpc
+          readinessProbe:
+            httpGet:
+              path: /cluster/status
+              port: 9333
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 45
+            successThreshold: 2
+            failureThreshold: 100
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /cluster/status
+              port: 9333
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 4
+            timeoutSeconds: 10
+      volumes:
+        - name: master-config
+          configMap:
+            name: seaweedfs-master-config
+        
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: data-seaweedfs
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: truenas-iscsi-general
+        resources:
+          requests:
+            storage: 5Gi
+---
+# Source: seaweedfs/templates/volume/volume-statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seaweedfs-volume
+  namespace: seaweedfs
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: volume
+spec:
+  serviceName: seaweedfs-volume
+  replicas: 3
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seaweedfs
+      app.kubernetes.io/instance: seaweedfs
+      app.kubernetes.io/component: volume
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seaweedfs
+        helm.sh/chart: seaweedfs-4.0.403
+        app.kubernetes.io/instance: seaweedfs
+        app.kubernetes.io/component: volume
+      
+      annotations:
+      
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: seaweedfs
+                  app.kubernetes.io/instance: seaweedfs
+                  app.kubernetes.io/component: volume
+              topologyKey: kubernetes.io/hostname
+      restartPolicy: Always
+      
+      terminationGracePeriodSeconds: 150
+      enableServiceLinks: false
+      initContainers:
+        - name: seaweedfs-vol-move-idx
+          image: chrislusf/seaweedfs:4.03
+          imagePullPolicy: IfNotPresent
+          command: [ '/bin/sh', '-c' ]
+          args: [ 'if ls /data1/*.idx  >/dev/null 2>&1; then mv /data1/*.idx /idx/ ; fi; ' ]
+          volumeMounts:
+            - name: idx
+              mountPath: /idx
+            - name: data1
+              mountPath: /data1
+      containers:
+        - name: seaweedfs
+          image: chrislusf/seaweedfs:4.03
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: SEAWEEDFS_FULLNAME
+              value: "seaweedfs"
+            - name: WEED_CLUSTER_DEFAULT
+              value: "sw"
+            - name: WEED_CLUSTER_SW_FILER
+              value: "seaweedfs-filer-client.seaweedfs:8888"
+            - name: WEED_CLUSTER_SW_MASTER
+              value: "seaweedfs-master.seaweedfs:9333"
+          command:
+            - "/bin/sh"
+            - "-ec"
+            - |
+              exec /usr/bin/weed \
+                -logtostderr=true \
+                -v=1 \
+                volume \
+                -port=8080 \
+                -metricsPort=9327 \
+                -dir /data1 \
+                -dir.idx=/idx \
+                -max 0 \
+                -ip.bind=0.0.0.0 \
+                -readMode=proxy \
+                -index=memory \
+                -minFreeSpacePercent=1 \
+                -ip=${POD_NAME}.${SEAWEEDFS_FULLNAME}-volume.seaweedfs \
+                -compactionMBps=50 \
+                -master=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333 \
+          volumeMounts:
+            - name: data1
+              mountPath: "/data1/"
+            - name: idx
+              mountPath: "/idx/"
+            
+          ports:
+            - containerPort: 8080
+              name: swfs-vol
+            - containerPort: 9327
+              name: metrics
+            - containerPort: 18080
+              name: swfs-vol-grpc
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 100
+            timeoutSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 90
+            successThreshold: 1
+            failureThreshold: 4
+            timeoutSeconds: 30
+      volumes:
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: data1
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: truenas-iscsi-general
+        resources:
+          requests:
+            storage: 128Gi
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: idx
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: truenas-iscsi-general
+        resources:
+          requests:
+            storage: 20Gi
+---
+# Source: seaweedfs/templates/admin/admin-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-seaweedfs-admin
+  namespace: seaweedfs
+  annotations:
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+    app.kubernetes.io/component: admin
+spec:
+  ingressClassName: "nginx-internal"
+  tls:
+    
+      []
+  rules:
+  -
+    host: "seaweedfs-admin.internal.yuha0.com"
+    http:
+      paths:
+      - path: "/"
+        pathType: "Prefix"
+        backend:
+          service:
+            name: seaweedfs-admin
+            port:
+              number: 23646
+---
+# Source: seaweedfs/templates/shared/secret-seaweedfs-db.yaml
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: secret-seaweedfs-db
+  namespace: seaweedfs
+  annotations:
+    "helm.sh/resource-policy": keep
+    "helm.sh/hook": "pre-install"
+  labels:
+    app.kubernetes.io/name: seaweedfs
+    helm.sh/chart: seaweedfs-4.0.403
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: seaweedfs
+stringData:
+  user: "YourSWUser"
+  password: "HardCodedPassword"
+  # better to random generate and create in DB
+  # password: MDdjNmQ2OWIyNzQ4OWU3MjM4Y2I1YTQ4
+---
+# Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "seaweedfs-bucket-hook"
+  labels:
+    app.kubernetes.io/managed-by: "Helm"
+    app.kubernetes.io/instance: "seaweedfs"
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: "seaweedfs"
+      labels:
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/instance: "seaweedfs"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        image: chrislusf/seaweedfs:4.03
+        env:
+          - name: WEED_CLUSTER_DEFAULT
+            value: "sw"
+          - name: WEED_CLUSTER_SW_MASTER
+            value: "seaweedfs-master.seaweedfs:9333"
+          - name: WEED_CLUSTER_SW_FILER
+            value: "seaweedfs-filer-client.seaweedfs:8888"
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: SEAWEEDFS_FULLNAME
+            value: "seaweedfs"
+        command:
+          - "/bin/sh"
+          - "-ec"
+          - |
+            wait_for_service() {
+              local url=$1
+              local max_attempts=60  # 5 minutes total (5s * 60)
+              local attempt=1
+              
+              echo "Waiting for service at $url..."
+              while [ $attempt -le $max_attempts ]; do
+                if wget -q --spider "$url" >/dev/null 2>&1; then
+                  echo "Service at $url is up!"
+                  return 0
+                fi
+                echo "Attempt $attempt: Service not ready yet, retrying in 5s..."
+                sleep 5
+                attempt=$((attempt + 1))
+              done
+              echo "Service at $url failed to become ready within 5 minutes"
+              exit 1
+            }
+            wait_for_service "http://$WEED_CLUSTER_SW_MASTER/cluster/status"
+            wait_for_service "http://$WEED_CLUSTER_SW_FILER/"
+            /bin/echo \
+            "s3.bucket.create --name prometheus" |\
+            /usr/bin/weed shell
+            /bin/echo \
+            "s3.bucket.create --name loki" |\
+            /usr/bin/weed shell
+            /bin/echo \
+            "s3.bucket.create --name ente" |\
+            /usr/bin/weed shell
+        volumeMounts:
+          - name: config-users
+            mountPath: /etc/sw
+            readOnly: true
+        ports:
+          - containerPort: 9333
+            name: swfs-master
+          - containerPort: 19333
+            #name: swfs-master-grpc
+      volumes:
+        - name: config-users
+          secret:
+            defaultMode: 420
+            secretName: seaweedfs-s3-config

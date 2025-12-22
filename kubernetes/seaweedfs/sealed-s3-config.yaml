@@ -1,0 +1,90 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: seaweedfs-s3-config
+  namespace: seaweedfs
+spec:
+  encryptedData:
+    admin-ak: AgBVfDJSZZYEuQFXXT+RxUFmYzV79uJUHjzyJAeiHsh9rGBkrseeOspr1LHITGoDw3lZwYqEDj/vr36aP5QbHlI54hEPShi9c/FNfLM75OxIzUx2V42ew/ACG9gAWofdcO4ZdVokvLSVUAcXM/veVxFbx5XTaiVHtoc3YMprhahHhVSv8xrnGDDgG1YsBE5qDvbHF5xL1IF+0sepEbPu9yjlrNV7LJBrCFGz6IA8vNYIruX+E09fu+Cvl8dD9qgyoiADT5w/I/GkWNiCEJT7X2BcRku0dJC62rWV9cYwsVp91JfZmyhlaH4RRZ1eBnXGmK5iAug83lhfvrMct2sd23RaqfTs0KtVbPd+0cmaD5WOq0sVKpcpVk3hJfkarTym/MSxmVt+yd62bb4jYwu9PSbuKxcfS7WIeE6+rOxpTZ9Ir/xDhBVirA0xu8mVkM20FITaYYI5KOi3QRGyOQjw/83T9a3CXS/ylUDWuWHl0aPBtz2BFYwhsWSV/RBRL3K2uuH2UIVMbo6pNj2Mpk47/bcN4MEZFfQjSnwPlNQ5bVj6oOU/j/C01CdzYGKsmquu96oIb3akuoVypKQ5/rXZ0YQimCdYcgbye9TpM4bNW30W6elfO1tF7ZRtAgthjZ4WV/tZlfB7UBVI2EwYaSUK+BJU7jrE3mVeOOXa7IZM9WcUTYjHmT2ikzMOiM6iQjaJpLavwgkBspqRMfXHm/eJIJwLR16SJljH5HIzHpJTqOWQaQ==
+    admin-sk: AgCDbW2vB8vVAqkvMSc/TJ2A8x7xB/G6XaKEOY9JTll5lCZCLle06DE+48qFIthvvPLwfsmEYxLOj7XWWwuDzcPwx1ghkBN2AI9gDXVZvnuAzaPtRyIxF3MjT9v8LKNpJiFaQBrjGY8SXWq2T2aO7MDVC0qzV2943NdcV4TeyfmXwxrnzOXEwcigfXTrhAlz2pSxUgoRpC5ouc7Os2JHlnSzbgURKlBS+/FkW9If57G4GBsrMLFrmIOtnqW4/DUP16UHSmuTksMFzhw3mVnoGrAY0S4dbvt7BG2PWRpdfeIq0bF1ioA8XUMlC2mYWD5OJtzRKHcIYId0FcTxVJ9MJWcPnQF9idpk9wuJsx6+jumZLUAN03Q090tCJORdklwVT5nJpA0LRblDhz2MmL9evh356SMB6e0718SUmvaLV76NEU+Lufbi6R1JflWn4LrRehTs5ua3ndfWqfoQRjBlRd3ZTsfeSVrpmyWlBTwRrRp3wb1nO8yDdpDpfEIN4BxsswOJag3f0XrAjkmj++E+QmDy8scWKUpEp0iF7D1Kjbw5JCkJikEgKZvbT5bcthBDzuIGHPjezddcOUwJSz412Tctfc+XyX9Tze6jE64s1MmaNGoAU4vO9vwXOOjHQmU35SHZ6J+oo5VnG4RZD2/SJvuKWs0TwgVuV5I3XIggPJ13lPDorIkbslNND0+N0dkLQcbXuui4AwNazbmdPh1we3eDgW1pR33QA9DBchhlLeuhjw==
+    ente-ak: AgBDldxzzG7PGurpYQARg0AhkzV5t6WY2FbCwj9POpk0bvNE+ZUX5xhk720IZ1OLOayRmTkklklmmRsfkNuAffJnzxZomkquCFZ2O6aOwC/KBmxTzQeFY4YJ4Smae02VP4gJgEe/4dcfnb7o3gBZcezFgwFaOENecCZWVSL6Nl8HcBgyc1dXXAKd7cjQ5dSX+4G6DCPzKjMBWjmi8DlC88TQtvqZUhIvBIwXCjmkC/i34MTwPyueCviOKQ3QUZd7UEFHXR1gtVYQE76Bogz6NZENbWc/+45Wg0TVwTv5O9PWMezYTfcy0kPIiY5asmYhXb+xKN1foPueCmv+FbIXPq0rbgYjHV8odLDgQZDnwrdPlpD2tDr+5wJfl0ZoamiYfQS83Ptp7piGN7Js/5v8U5YZpZ20yNKwXE/4wdvMHcpWQnOHE/ooXbBvcRnXeBbZUmNR3CXkQNXx6Hk+bo5fGkYHygwUMvh8sY9K6PNAzn7ONWlreHFobg4MuS0JeaeGxgL4nX9OYn1CId+Bp5plCl7QJDEztJm+4BPrYQ+689nThCVbk+H1fSvWXNbwURejeBMH2hBqvaZWQAdfGjU0qX1GiuVOMQGLg8bJi3TRh/5jzO7lkNRhkVIl8LmgXFRLKAQKzxs1P6WGs84Bx24zKEfyI9iQB3MAkDgZv2Gxv5ngoJZ/orI8ZvQmdP0ZEXYNN56IDZgDY1hI/vOJGlM1uu8SYgn01MMP3KBBD0R7Ec6nJw==
+    ente-sk: AgB1NQK82VNHxx/DXKEvOSQPZ3upZt09cIz7tXGZoA6BrOGvQqoF03Z22rDuvjcycYBY6XLZxI3NBk4aD0spfASL+gQMN/lqnsoXRnvkMd96OlOaG5ZC6VgaeX/JdRMgZVW4fd4p03j/kGY8yUc7Im4ViKY19Anh3GvT8Z0gAOKjqOHXus3eUcbSA4LbzxkB5rFQIgK5eZYGd3wS9gp7LouazGf9ZLXvJwZVD2esJgrZKMDp5DCDFk2w8hrqQiO/WciPHNW/iaX1NR400CpKSUKjf7wM5XMOIwRvq9Lc+HbYwMEbHLRpvqkPcAgP/N6X0ky6bEObSJ3Ij4BqU3RHchhd5jgaI4kMAzwy8yFeoarL623Q5RXCa7YQhtf1ZC8HoSlxTT5OkFoP9mqYix+iJJs+khokfUDQrlbXxkWu9eieMKY33MLbNMqsnI3leIAnCaWD4jjrAvrUPfak6OppopTP0zvxf8GAHid3hqrUYpluJr0XasIwX8GOw+Zok0WDhxufE3ZQpKvUbCBAwMmuWz4qBBzxja1MLL76VEnQvZhk8waoheKUg/ZIJycZl1LedARZ1dvx2Ym8kgesAAT99y3ppdH5QUXHzQpy/vHzn7cUPeh/B6m0dfSx2+I45pwJrf6rCvifDmHvKZnS7MDV8yMVZamlgQPEdqx/MzAwDVCncyKtE/LO0L+3sf1D8SwydpTcc5EqqNtagHq/tZz+QyyiPa8ikUHA/bnE9hL1kVv+Aw==
+    loki-ak: AgBWS8KD1n+6D7C+G8bAbog+YNsPNKVEv5zDn5UTaD2jN6/RfYmlwStOfj+Rcf6u62ZdqsbFc0mkYHf67gM0gG+SoromKlLKiucZulCebfd7Sz8Q4jMJO5Hobc3PuMoIstEC6BgGf9w73lmMFbGUjkIFoJLtb8KQqFYzh7jvYPMlefEaDC0TwgQiFSS1Zp6/WFi/IPkmFoxIbYnornYGjpm0kNLzTHrEr9RTdtqL3U9U7ZFD0McSFbkZXCVC+33+EbN2VJm8qdf+zGZL+cBEQBm6zRbrLRm8KACyMnaoS2xBY9fxt7gaY+nLAOUCAgg19Ar8Xd3fU4E1XS/jQ1pHeUCu8z8KiVeBqdNJxzSjkU18zjYGCtgi3aeFXwa3NVf3ZRC+ewDi4VHKrf6XPmAnoFD03NWSh7BgE1f3Q23RxWM2MvoqE/AhdxjN7zdvuI087IlK3MS7yo5p9CKuRJo7RqIgGsCKUVS7ND4Dr3whXFQ6Pc97SeSdiGmdmSgg5ig8swpbg/LHG5Zqh3btcyis8DK+DDOg3lXSArw18DKMC6SB5BihuqPA7wosM7MlRw37Ougi0YD8vViVxJ+1JLCPrZswrgZzDITN+3YAZJQDESuhZyYhh8k61a8o4t6InwUi7lybFaAbd4goRd5Lik1Mg3mokYKKDPss1+AOUevUztt9vCtYrfnC721ldIuAiAlPmt1+kXGVZid9MxZg5BqXLY7NagyXIystTFsexK3rW9+QtQ==
+    loki-sk: AgCPmZ3+i6J/3YcRTw9BgSEOENKOVJtnsE1Fk0mN9dw1KOWqse73yfRDzdJ/mQ5JH8UHm8IDMTuqhyUb+QXorxbK8NeJEM6ea3ax7Vku5TIHcLhnP0U3ZD7L1q7AcNamhgGqnRZmQESyqybLq39BRb/q7UljXGDfKZNt7n9nZJgg4B+h1MrOnsBkrH18txqFePhcmeqpyvnQZwrBhW7JBqSO937NyqFcbOFrbG6iwBmrDBa02gidHp4zj35BeYFuQtZKiGegwB1CeHNpZL9iRO/XdUq0b7TQWB44tCqlUE/dRj/ysHf+JqUQszdnwoVikizf/wXtGMdGnGUBhBQv4s8bktMKk4eZcMW3wCrMbxzujSpuagCTZp1us2QYQzZo0UfqKsKfsb72dM/B4/VXx3oZQAB+qOO00HpK6a/sk5YOu97D9v1XafF9oFxh/GzSL8g4/mAPlYt8lyK/58iHVf+dnj7yQgJF+t5oHGUFCY1BVGXDd+ZIC19bTctVkH77qdq1WhBOMJSEJjnEWrd2Wo88kB8aCYVqxD+PwZkfW+o0e/74a3ofUKqRvk5DVEF64egsg56RTJPDtqn2iXKvCWn8LGRzZjfhIl3lCQQknyuJ8wtdoAqKbz+EPpBiRVJwp+TnopPPYR+c96HF06oGISAJkquKjT8T+Q6+u9i33gCS7mXqAsV9JDD+u4FEErrMZBGcYDoUqDefmC7cdqp1aBe2256abNKm8pPR3Gl2nJs5sQ==
+    thanos-ak: AgAoXh1hcAwmDWH10fDEQJxFzRGiwmI0Ho2534OZMgaHIL8wUtxdk8hg/QeT8nO/gq7LmW1Jktk8uA/jSfh0DQPZl4Te3znNs/+0gMYwq+H7jmcNkJsWb+GFDz9iTjL4QHkgrpWQtPektAvtTaGgrk4cKU8OXKXar0Ust6GW7nBkhg7s+w7Ii06qiWezTCN7kWYgP+z4GbK+si5hU06uIU+2iaovv1WEjrG037NKcegfcCrMR/ClLXIXWfDu6CEotc2kFD8rWoKmMzWj2IfEjeyseE6JujoV1N1WSybaULWDlLLjl/p9Vln3Md+cHXOXFhfH98SyvUufX/JSKBslcJZupxzsqrinuNU/LIssaVamPV2R1GXo9CdG9EkNhZYVFbaBRu+CNLWamXVoE1ccdZWqHNArOXkc/4ToXxE2yUafzLModtkOQ+7XnOzzGvuzBomaQqdBRFpkfwopLQKzqNvrwXC2R8USgetUgA2QHzwjAtSjTxPMasBOYgTRFhZMEbYPA444AyAHr1Jdh2ItG77qenyUklSdo3ylMKlwyg8S/JuGM7soTC3Z4zIBfquMfzKJ0vrm1IO8r0UT5Sa5FMC81NsXajIPH9RIbKPp+Ja5l5itMuS5nwAXue0waykSLGJwZcYNbXDZ4Cd1iIY/D1X00VUpZ776C8l5nnLWOwgFfN1ssBDcMVFmxpwU4gwaQjD5EzoMbRlXyRjL1qgvT9kdU1xBz/QNkR0jBmEtyRhlMg==
+    thanos-sk: AgCxsWyZlpiQszKCMvvdLidiMC8udDWBqv+9hnjblxXSAYkV5pMk6TaFXcpYZQvUGy6m+lvnFEVpqVzhXwHHm+/qLaCyoax4DqIezHJ/I+8uuuR7HiRy8v4cuPbYppagijmJi76xMW2E+Aa9y59Q7Ig+FghtEAZ7QRp7ovGMWTEitPQjtZlfiy7Q0YOYuhegxzQ3UF1ddoPH5wLp2pwqDjwlKx5htdDgqP/K/RH8M8DD0/YJ5p7E/p5qAw/XxV2jjMB5qGKiEvnOjtJINCbERDHldyqFv37yg81fm5RRqHr0JgoxjQSnjkYMNt3V9+ZFM0EtG+uVMce/psUQPml7zghsLBlJaMurFUR+heJgDjnIJFk/dhm/H62MXgR/Tn/UTRsbMJg2yfllxix+zogOUlpM52Q9rmyk+L6fxwTzd/8l5iXFQoX3L7em1t0bTaEUJn+3k4plwuDc1reG6BV4U1/DDf4t4IxIayUTYD7b4AW8zOH7JTJyVWLEdcsmkNM41x65393UsyGdNLIpOcgRWcukOi582w7w7FxAb/vKk3hd4gXPrs88TjS8UkQoaK3Ou4mZQ2yQeGSskOYzT8+TxRONEfSHJg8ZPxydtjcAAnvIkKygHxdQKigFjJ7ev5wlG3bzKkTi2/AbvhJYzh3W9uIyPIzUvtSuIu3k/UhkTVaL/85n8oP2Eni4rZj4FH1dA402kWggLSiI3QL2fNOhYzzACvvHwwt5YDdJF+1WULsXCA==
+  template:
+    data:
+      seaweedfs_s3_config: |
+        {
+            "identities": [
+                {
+                    "name": "admin",
+                    "credentials": [
+                        {
+                            "accessKey": "{{ index . "admin-ak" }}",
+                            "secretKey": "{{ index . "admin-sk" }}"
+                        }
+                    ],
+                    "actions": [
+                        "Admin",
+                        "Read",
+                        "Write"
+                    ]
+                },
+                {
+                    "name": "thanos",
+                    "credentials": [
+                        {
+                            "accessKey": "{{ index . "thanos-ak" }}",
+                            "secretKey": "{{ index . "thanos-sk" }}"
+                        }
+                    ],
+                    "actions": [
+                        "Read:prometheus",
+                        "Write:prometheus",
+                        "List:prometheus",
+                        "Tagging:prometheus",
+                        "Admin:prometheus"
+                    ]
+                },
+                {
+                    "name": "loki",
+                    "credentials": [
+                        {
+                            "accessKey": "{{ index . "loki-ak" }}",
+                            "secretKey": "{{ index . "loki-sk" }}"
+                        }
+                    ],
+                    "actions": [
+                        "Read:loki",
+                        "Write:loki",
+                        "List:loki",
+                        "Tagging:loki",
+                        "Admin:loki"
+                    ]
+                },
+                {
+                    "name": "ente",
+                    "credentials": [
+                        {
+                            "accessKey": "{{ index . "ente-ak" }}",
+                            "secretKey": "{{ index . "ente-sk" }}"
+                        }
+                    ],
+                    "actions": [
+                        "Read:ente",
+                        "Write:ente",
+                        "List:ente",
+                        "Tagging:ente",
+                        "Admin:ente"
+                    ]
+                }
+            ]
+        }
+    metadata:
+      creationTimestamp: null
+      name: seaweedfs-s3-config
+      namespace: seaweedfs

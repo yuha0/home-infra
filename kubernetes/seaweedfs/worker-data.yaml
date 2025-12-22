@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: seaweedfs-worker-data
+spec:
+  storageClassName: "truenas-smb-general"
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 30Gi

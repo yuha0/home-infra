@@ -1,0 +1,47 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+spec:
+  description: "database for seaweedfs filer"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: seaweedfs
+      app.kubernetes.io/component: database
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  managed:
+    roles:
+    - name: seaweedfs
+      ensure: present
+      comment: seaweedfs needs to be superuser
+      login: true
+      superuser: true
+  bootstrap:
+    initdb:
+      database: seaweedfs
+      owner: seaweedfs
+      postInitApplicationSQL:
+      - |
+        CREATE TABLE IF NOT EXISTS filemeta (
+          dirhash     BIGINT,
+          name        VARCHAR(65535),
+          directory   VARCHAR(65535),
+          meta        bytea,
+          PRIMARY KEY (dirhash, name)
+        );
+  storage:
+    storageClass: truenas-iscsi-general
+    size: 64Gi
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      memory: "1Gi"
+      cpu: "1"
+    limits:
+      memory: "1Gi"
+      cpu: "1"

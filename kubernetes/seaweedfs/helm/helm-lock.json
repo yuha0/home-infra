@@ -1,0 +1,17 @@
+{
+  "repo": {
+    "name": "seaweedfs",
+    "url": "https://seaweedfs.github.io/seaweedfs/helm"
+  },
+  "chart": {
+    "name": "seaweedfs",
+    "gitValuesPath": "https://raw.githubusercontent.com/seaweedfs/seaweedfs/refs/tags/{gitTag}/k8s/charts/seaweedfs/values.yaml",
+    "gitTagFormat": "{version}",
+    "version": "4.0.403"
+  },
+  "releaseName": "seaweedfs",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=seaweedfs"
+  ]
+}

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: seaweedfs
+spec:
+  destinations:
+  - namespace: "seaweedfs"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seaweedfs
+spec:
+  project: seaweedfs
+  source:
+    path: kubernetes/seaweedfs
+  destination:
+    namespace: seaweedfs

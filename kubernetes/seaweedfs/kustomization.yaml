@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: seaweedfs
+namespace: seaweedfs
+resources:
+- namespace.yaml
+- db
+- sealed-seaweedfs-admin.yaml
+- sealed-s3-config.yaml
+- worker-data.yaml
+- generated.yaml
