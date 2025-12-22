@@ -83,6 +83,10 @@ def check_values(chart_info, values_file):
     if os.path.isfile(values_file):
         return
     tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
+    if chart_info["name"] == "seaweedfs":
+        match = re.match(r"(\d+)\.\d+\.(\d)(\d+)", chart_info["version"])
+        tag = f"{match.group(2)}.{match.group(3)}"
+        logging.warning("Special handling for seaweedfs due to values.yaml being tracked by app version tag and not chart version tag: extracted app version %s from chart version %s", tag, chart_info["version"])
     url = chart_info["gitValuesPath"].format(gitTag=tag)
     get_remote_file(url, values_file)
 
