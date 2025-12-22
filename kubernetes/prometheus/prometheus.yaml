@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: prom-k8s
   name: k8s
 spec:
-  disableCompaction: false
+  disableCompaction: true
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
@@ -39,8 +39,11 @@ spec:
             storage: 10Gi
         storageClassName: truenas-iscsi-general
   thanos:
-    image: quay.io/thanos/thanos:VERSION
-    version: v0.40.1
     additionalArgs:
     - name: shipper.skip-corrupted-blocks
+    image: quay.io/thanos/thanos:VERSION
+    objectStorageConfig:
+      key: thanos.yaml
+      name: thanos-objstore-config
+    version: v0.40.1
   version: v3.8.1
