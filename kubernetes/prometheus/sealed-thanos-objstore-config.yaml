@@ -7,23 +7,18 @@ metadata:
   namespace: monitoring
 spec:
   encryptedData:
-    access-key: AgBW9Yxbvv/6HccMdRP7gx0eLl328WlarsQqSK3XC0WzfTzSdZr72saAlacy8T2UvdA1Tdt57hWKWMsjKU39NpBkym+nqiQ/9nAvw+VWGUj3eVsigUQbalQnMK+eGKDW5OhmLrC6yAL8bTHy9u82xOrJ805o1oq6kfS9KkGNv+xskA1PUtdQoviCt/H+U1x+f0FFJiT+eOPvjf8yzTRS8wUx8Ji0fB+0EU103t4BQYZgEjLGVhxGfalCoAqPtJHvUA6Ag7LO/zKjbrHVIL/D+nCtAm9C8d8H00Qcvv5jSPQUN5pFyzQ14+gs/P74i0NXthxOqI5L03h7RD5H+e/PBCDMd0mC4JrpJOSlWM0YavVLbQ3uG58FBVKwlI13khgNlRIrtvE3+nna3Ebu3xJm2Wxf/eUMBqXffvfJ/u1VNO7W1NF9kjUWIF24iHRw7lBlige9+L0+E76GhYiul1oD15MpYU9DuoQLWTuMjxHCaO+0VKC3eO5RCaxcichFqlxCDQdy+/D2+gqZzIEMdNy/XhgFCjR+C8/5rBFYHSzGjlT4ln1d2PtIKOzjVQWM7BxVTQn3SbTq1Td4yME54+9e6q1RWIy+Toq1yg6wfpELFTsu9zfWB77Har5lLwCfVViWyo4PZQTSISIc4U4Nm+nGNoW5hZzOfTwJnottJClQbIgxASL4EletqmDkmJLnhcVwBSMw19Yf6jLwA67NRyBOf9GEC4ZDd8I2Gg==
-    secret-key: AgBwhmKOmqcHy7moX37dL7upthL8WMXcG0Ud1miP0ILI6GEoJ/TW0DlGGSQA+uXUuHWr0n0fXJk+Gtql8FY+cZFAvvz0e0kxiY+AMvEfHhl3RKgFmL+oQyHbW2PeQXfxKjdV16cPPt2Fe50QP7b9wkaY467kxMkpiAOEb+khdKs7d1paQMpcKWf7jAUeWhDiND32P+tQcqLmJ5EOmZnqhgHfDjN5XEjLndlMROP4xFf+BiU3lvGKYA+fmTF9XAa4Rawbee6faGM/SOY78tsfswYoFn/HL61SelPOOkKNxvs+nqS4vviEkdZ3Jv1fZvx9rIR5pP5RDuNMVcwaFf7qHZ7xFOz2d/skpyv13YP/k9589hoAuHHf90z6bhP3ljWLCipA5ZAfvlIP6ya/oClwyoDRvSwJGrHWNeszxtsp3j5pHV9rFx9rue7hPtDqwGWRu1r2UNMDIPEANWeemsiGviRdXEFiA9iNIYhEM2ZY7uiqXBPb9nUVz5rVUqROyImKiRaDbeZA8ichzGm+k7/QNmXEvBIHqO8uj5PRMRwwDkidBS2+/Gi/Ox+0Nh8YggkCvgoxYMPeQKD4mQzZfre1sNEAT7nd8ne1QfVLIRpqZG8s4CkZbDZ3RUy1xAVd1okSjPZEzNFQ9OOMhwOVbOdOZ2/WQ7S3frjX7SrvD0w2n7kWxHFhtFfXV5+NfrFLGOxVXwUOEnRDFm7u/1iGUlyF3/ktemzs6sB4EX7FiUrzViqjIw==
+    access-key: AgAWPcsklTcIVh7ufWkd2i3hpdhtl7gGDGJemPiRDiqPUStjTmcKa80n1z9cqhLjV0CG7+zEdjYp2jZbcPdkgiugtsUZPP4bXndniSAZTEaelgAMu5OOEAlxliJg/PhJObnF+kNc/1sZD2hfbHlZcknaS+otQl6w2vVBY68f+aQNPCwiCH4Z7cgN0da/0SBQ6o541Na+kLhh6L35qYQxGbQa2xp/WV49a+SKfLhLYm6zUN7v4zeQcTKhSFgFc5aV6Xx4fmfH5dw5VoxV4Xj3vis2zElOtKP5yf35gIoadyIDYnF0RDNb/XGK+uyz5P5l1+lIj/8Cp6u8ZzKGl+99HM+iKIJiqmlCOL+Z2ShcgdrOogNlKJBpF6Z36wdUiuP1MyHWfe9PrHFZTIJbC3Rd7NySqaz31JP+6ATisSgB43O1xDj3u+pqc0d5teRFJgS3EJ1JvSFoI7fQ4re9EnC2LzBumKQgxvT8CTtH3cBG7cfX+insjxmP5931kdsSY8oskQVo79sIn2Y2ejO+LsWvrT80CZuAx1emaX82GBHcdxMFbxbiNlxGH9DiyX9H/r6MC8cx2zViw6vIOTT25T/zShcSESQWLHxCmFAZeUkjX0GM0QbOFDFPh6UfOLUVyh7i6QX8bCKoRZdOVmEVNURmKfm5VNGjKkbebSdbCv/aJXMs9cEH0p/o1mXA0w0MXz3lM0IfXbsJLa37IrKpLTuYBEKUPIcxODoD4qKLWrMOuUZfkw==
+    secret-key: AgCEmPGvnVZnTvoXSQhd8ka7tvuSf8xM3gyVsd4Y/75F3GmRi9ROMsORWrb3GP+RLlb86SwTnhXRcsbLSoyaTvIg1Tt9SZruAi3XICrT6FD8cVORNi29huyJhIybh42pm5GCdl0RK9oPo1ScQuzPbZWx5eJd0nV+5tjpuFGkrNaM2iFRqwZIgNXd7O8jJQleU+f0vTVfp+7XdjmFWwtiR66Datkvg2DywNSePworwhJNJL+bCVc95IAU0cZKBgqH099fpdMnLKvxgyQhwgTv3IINWLbFDmqQCraMj5KGt8KxGrSQVPMH1NGyOBzK07snQQ1MC+bEIvJviiBJdWP0hQT/8xzUZlwTwq0Rqfg/JczgjkCNQgmSe9yRH0swkYtTStigtP14q+rS4rruNEEKcJ4wh9OYppOZLFjOsiRue4QiuUlQ+N5/jWcVMr4wQgT7Tnpuds/CCgEuL0ubvUJafV4W5qC7J8XWPgw37AA3BuIIWHlld5RAAt/Vr2Hral+/bxHXmtMM2oDCwnl9iyYqAbimI77UiHIy0qKHad6od4eVpbiAAW/3TsLfV1RmM+HlisM2S+CSLc1k2p1us9vGiCLdTMmhCr/JZKzpE1GJGa1p4EmaEKgSLEg+1bp/XxXVnv1bu/ZuAtDZHf9Ok3SBTR52pLcg96FdkmtULCU3f/xn5siO9TjrYxN/btrhZB1nVR+evxBGeLZKuDXDhReI2oUe8/VvlGhdITR/xVnaiCYjIg==
   template:
     data:
       thanos.yaml: |
         type: S3
         config:
           bucket: "prometheus"
-          endpoint: "fred.lab.yuha0.com:8010"
-          insecure: false
-          signature_version2: true
+          endpoint: "seaweedfs-s3.internal.yuha0.com"
+          signature_version2: false
           access_key: {{ index . "access-key" }}
           secret_key: {{ index . "secret-key" }}
-          http_config:
-            insecure_skip_verify: true
-            tls_config:
-              insecure_skip_verify: true
     metadata:
       creationTimestamp: null
       name: thanos-objstore-config

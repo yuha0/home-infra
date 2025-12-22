@@ -21,7 +21,7 @@ metadata:
     app.kubernetes.io/component: compact
   name: thanos-compact
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: compact

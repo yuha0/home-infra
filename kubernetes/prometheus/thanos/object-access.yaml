@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: thanos-objstore-config
-  namespace: monitoring
-type: Opaque
-stringData:
-  access-key: s3:
-  secret-key:
