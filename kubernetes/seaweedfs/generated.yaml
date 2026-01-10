@@ -1019,9 +1019,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
   labels:
     app.kubernetes.io/name: seaweedfs
     helm.sh/chart: seaweedfs-4.0.403
@@ -1056,9 +1056,9 @@ metadata:
       chunked_transfer_encoding off;
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: 60s
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: 60s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
   labels:
     app.kubernetes.io/name: seaweedfs
     helm.sh/chart: seaweedfs-4.0.403
@@ -1101,7 +1101,7 @@ stringData:
   user: "YourSWUser"
   password: "HardCodedPassword"
   # better to random generate and create in DB
-  # password: ZDc2ZWViZGQwOWY0YTI0NDk1ZjA5Mzcx
+  # password: NWE0MjllMTJmMGI0MGU5YjBhMWI5YWIw
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
