@@ -784,8 +784,8 @@ filer:
     pathType: Prefix
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
-      nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
       nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
       nginx.ingress.kubernetes.io/proxy-buffering: "off"
       # nginx.ingress.kubernetes.io/backend-protocol: GRPC
