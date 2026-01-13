@@ -42,6 +42,9 @@ configMapGenerator:
   - prometheus.json
   name: prometheus
 - files:
+  - pvc.json
+  name: pvc
+- files:
   - node-exporter.json
   name: node-exporter
 apiVersion: kustomize.config.k8s.io/v1beta1
