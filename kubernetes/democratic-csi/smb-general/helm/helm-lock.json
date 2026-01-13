@@ -5,10 +5,9 @@
   },
   "chart": {
     "name": "democratic-csi",
-    "gitValuesPath": "https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/{gitTag}/charts/cloudnative-pg/values.yaml",
     "gitValuesPath": "https://raw.githubusercontent.com/democratic-csi/charts/refs/tags/{gitTag}/stable/democratic-csi/values.yaml",
     "gitTagFormat": "democratic-csi-{version}",
-    "version": "0.15.0"
+    "version": "0.15.1"
   },
   "releaseName": "smb-general",
   "valuesFile": "./values.yaml",

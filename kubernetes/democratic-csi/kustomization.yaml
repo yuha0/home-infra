@@ -12,6 +12,5 @@ resources:
 - node-manual-general
 
 images:
-- name: docker.io/democraticcsi/democratic-csi
-  newTag: next
-  digest: sha256:5b607d63a270330b4cdaa70ae961fc1484f0dda3d164d940e69e1faa213682fd
+- name: ghcr.io/democratic-csi/democratic-csi
+  newTag: v1.9.5

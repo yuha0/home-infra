@@ -7,7 +7,7 @@ metadata:
   namespace: democratic-csi
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 ---
@@ -19,7 +19,7 @@ metadata:
   namespace: democratic-csi
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 ---
@@ -31,7 +31,7 @@ metadata:
   namespace: democratic-csi
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 data:
@@ -44,7 +44,7 @@ metadata:
   name: manual-general-democratic-csi-controller-cr
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 rules:
@@ -127,7 +127,7 @@ metadata:
   name: manual-general-democratic-csi-node-cr
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 rules:
@@ -152,7 +152,7 @@ metadata:
   name: manual-general-democratic-csi-controller-rb
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 roleRef:
@@ -171,7 +171,7 @@ metadata:
   name: manual-general-democratic-csi-node-rb
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 roleRef:
@@ -191,7 +191,7 @@ metadata:
   namespace: democratic-csi
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/csi-role: "node"
@@ -207,7 +207,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/configmap: 9a056f4d32c50340222b20ebf704595be26a2991b932cd64095746454a040b5f
+        checksum/configmap: d5cf5d7d25d654a8895510c32098e37abc861369bb2dfe3c708233cf446b0f9c
       labels:
         app.kubernetes.io/name: democratic-csi
         app.kubernetes.io/instance: manual-general
@@ -226,7 +226,7 @@ spec:
       hostPID: false
       containers:
       - name: csi-driver
-        image: "docker.io/democraticcsi/democratic-csi:latest"
+        image: "ghcr.io/democratic-csi/democratic-csi:latest"
         args:
         - --csi-version=1.5.0
         - --csi-name=node-manual-general
@@ -290,7 +290,7 @@ spec:
         - name: extra-ca-certs
           mountPath: /tmp/certs
       - name: csi-proxy
-        image: "docker.io/democraticcsi/csi-grpc-proxy:v0.5.6"
+        image: "ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.7"
         env:
         - name: BIND_TO
           value: "unix:///csi-data/csi.sock"
@@ -358,7 +358,7 @@ spec:
       - name: registration-dir
         hostPath:
           path: /var/lib/kubelet/plugins_registry
-          type: Directory
+          type: DirectoryOrCreate
       - name: kubelet-dir
         hostPath:
           path: /var/lib/kubelet
@@ -404,7 +404,7 @@ metadata:
   namespace: democratic-csi
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/csi-role: "controller"
@@ -421,7 +421,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/configmap: 9a056f4d32c50340222b20ebf704595be26a2991b932cd64095746454a040b5f
+        checksum/configmap: d5cf5d7d25d654a8895510c32098e37abc861369bb2dfe3c708233cf446b0f9c
       labels:
         app.kubernetes.io/name: democratic-csi
         app.kubernetes.io/instance: manual-general
@@ -480,7 +480,7 @@ spec:
               apiVersion: v1
               fieldPath: metadata.name
       - name: csi-driver
-        image: "docker.io/democraticcsi/democratic-csi:latest"
+        image: "ghcr.io/democratic-csi/democratic-csi:latest"
         args:
         - --csi-version=1.5.0
         - --csi-name=node-manual-general
@@ -510,7 +510,7 @@ spec:
         - name: extra-ca-certs
           mountPath: /tmp/certs
       - name: csi-proxy
-        image: "docker.io/democraticcsi/csi-grpc-proxy:v0.5.6"
+        image: "ghcr.io/democratic-csi/csi-grpc-proxy:v0.5.7"
         env:
         - name: BIND_TO
           value: "unix:///csi-data/csi.sock"
@@ -553,7 +553,7 @@ metadata:
   name: node-manual-general
   labels:
     app.kubernetes.io/name: democratic-csi
-    helm.sh/chart: democratic-csi-0.15.0
+    helm.sh/chart: democratic-csi-0.15.1
     app.kubernetes.io/instance: manual-general
     app.kubernetes.io/managed-by: Helm
 spec:
