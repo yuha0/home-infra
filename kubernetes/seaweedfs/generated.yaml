@@ -1114,7 +1114,7 @@ stringData:
   user: "YourSWUser"
   password: "HardCodedPassword"
   # better to random generate and create in DB
-  # password: MDdmYWQyOGRhMGY4NWQyMzJiZWUxMWUy
+  # password: OGZhYzBkZWRkYjJiZjZmNzk1OWQxZDRh
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
@@ -1189,7 +1189,10 @@ spec:
             "s3.bucket.create --name prometheus" |\
             /usr/bin/weed shell
             /bin/echo \
-            "s3.bucket.create --name loki" |\
+            "s3.bucket.create --name loki-chunks" |\
+            /usr/bin/weed shell
+            /bin/echo \
+            "s3.bucket.create --name loki-ruler" |\
             /usr/bin/weed shell
             /bin/echo \
             "s3.bucket.create --name ente" |\

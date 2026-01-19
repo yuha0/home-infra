@@ -904,7 +904,9 @@ filer:
     createBuckets:
     - name: prometheus
       anonymousRead: false
-    - name: loki
+    - name: loki-chunks
+      anonymousRead: false
+    - name: loki-ruler
       anonymousRead: false
     - name: ente
       anonymousRead: false

@@ -51,7 +51,7 @@ spec:
                     ]
                 },
                 {
-                    "name": "loki",
+                    "name": "loki-chunks",
                     "credentials": [
                         {
                             "accessKey": "{{ index . "loki-ak" }}",
@@ -59,11 +59,27 @@ spec:
                         }
                     ],
                     "actions": [
-                        "Read:loki",
-                        "Write:loki",
-                        "List:loki",
-                        "Tagging:loki",
-                        "Admin:loki"
+                        "Read:loki-chunks",
+                        "Write:loki-chunks",
+                        "List:loki-chunks",
+                        "Tagging:loki-chunks",
+                        "Admin:loki-chunks"
+                    ]
+                },
+                {
+                    "name": "loki-ruler",
+                    "credentials": [
+                        {
+                            "accessKey": "{{ index . "loki-ak" }}",
+                            "secretKey": "{{ index . "loki-sk" }}"
+                        }
+                    ],
+                    "actions": [
+                        "Read:loki-ruler",
+                        "Write:loki-ruler",
+                        "List:loki-ruler",
+                        "Tagging:loki-ruler",
+                        "Admin:loki-ruler"
                     ]
                 },
                 {
