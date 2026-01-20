@@ -1,4 +1,9 @@
-namespace: logging
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: loki
 resources:
 - generated.yaml
 - sealed-s3-secret.yaml

@@ -79,14 +79,19 @@ def get_lock(lockfile):
     return lock
 
 
+def seaweedtag(chart_version):
+    match = re.match(r"(\d+)\.\d+\.(\d)(\d+)", chart_version)
+    tag = f"{match.group(2)}.{match.group(3)}"
+    logging.warning("Special handling for seaweedfs due to values.yaml being tracked by app version tag and not chart version tag: extracted app version %s from chart version %s", tag, chart_version)
+    return tag
+
+
 def check_values(chart_info, values_file):
     if os.path.isfile(values_file):
         return
     tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
     if chart_info["name"] == "seaweedfs":
-        match = re.match(r"(\d+)\.\d+\.(\d)(\d+)", chart_info["version"])
-        tag = f"{match.group(2)}.{match.group(3)}"
-        logging.warning("Special handling for seaweedfs due to values.yaml being tracked by app version tag and not chart version tag: extracted app version %s from chart version %s", tag, chart_info["version"])
+        tag = seaweedtag(chart_info["version"])
     url = chart_info["gitValuesPath"].format(gitTag=tag)
     get_remote_file(url, values_file)
 
@@ -143,11 +148,15 @@ def get_remote_file(url, path):
 
 def gen_values_diff(chart_info, newv, workdir="/tmp", diff_file="values.diff"):
     old_tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
+    if chart_info["name"] == "seaweedfs":
+        old_tag = seaweedtag(chart_info["version"])
     old_url = chart_info["gitValuesPath"].format(gitTag=old_tag)
     old_file = os.path.join(workdir, f"{chart_info['version']}-values.yaml")
     get_remote_file(old_url, old_file)
 
     new_tag = chart_info["gitTagFormat"].format(version=newv)
+    if chart_info["name"] == "seaweedfs":
+        new_tag = seaweedtag(newv)
     new_url = chart_info["gitValuesPath"].format(gitTag=new_tag)
     new_file = os.path.join(workdir, f"{newv}-values.yaml")
     get_remote_file(new_url, new_file)

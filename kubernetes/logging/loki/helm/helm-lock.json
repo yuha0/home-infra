@@ -4,10 +4,10 @@
     "url": "https://grafana.github.io/helm-charts"
   },
   "chart": {
-    "name": "loki-distributed",
-    "gitValuesPath": "https://raw.githubusercontent.com/grafana/helm-charts/refs/tags/{gitTag}/charts/loki-distributed/values.yaml",
-    "gitTagFormat": "loki-distributed-{version}",
-    "version": "0.78.3"
+    "name": "loki",
+    "gitValuesPath": "https://raw.githubusercontent.com/grafana/loki/refs/tags/{gitTag}/production/helm/loki/values.yaml",
+    "gitTagFormat": "helm-loki-{version}",
+    "version": "6.49.0"
   },
   "releaseName": "loki",
   "valuesFile": "./values.yaml",
