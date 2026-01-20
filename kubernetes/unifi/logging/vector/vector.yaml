@@ -57,7 +57,7 @@ sinks:
     type: "loki"
     inputs:
     - parse_unifi_ulog_syslogemu
-    endpoint: http://loki-loki-distributed-gateway.logging.svc.cluster.local.:80
+    endpoint: http://loki-gateway.logging:80
     encoding:
       codec: json
     out_of_order_action: accept
@@ -71,7 +71,7 @@ sinks:
     type: "loki"
     inputs:
     - parse_unifi_ulog_syslogemu.dropped
-    endpoint: http://loki-loki-distributed-gateway.logging.svc.cluster.local.:80
+    endpoint: http://loki-gateway.logging:80
     encoding:
       codec: json
     out_of_order_action: accept
