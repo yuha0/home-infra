@@ -1,0 +1,37 @@
+data_dir: /vector-data-dir
+api:
+  enabled: true
+  address: 127.0.0.1:8686
+  playground: false
+sources:
+  kubernetes_logs:
+    type: kubernetes_logs
+  host_metrics:
+    filesystem:
+      devices:
+        excludes: [binfmt_misc]
+      filesystems:
+        excludes: [binfmt_misc]
+      mountpoints:
+        excludes: ["*/proc/sys/fs/binfmt_misc"]
+    type: host_metrics
+  internal_metrics:
+    type: internal_metrics
+sinks:
+  kubernetes_loki:
+    type: "loki"
+    inputs:
+    - kubernetes_logs
+    endpoint: http://loki-gateway.logging:80
+    out_of_order_action: accept
+    encoding:
+      codec: text
+    labels:
+      job: "vector"
+      source: "{{ source_type }}"
+      stream: "{{ stream }}"
+      pod_host: "{{ kubernetes.pod_node_name }}"
+      pod_name: "{{ kubernetes.pod_name }}"
+      pod_namespace: "{{ kubernetes.pod_namespace }}"
+      container_name: "{{ kubernetes.container_name }}"
+      file: "{{ file }}"
