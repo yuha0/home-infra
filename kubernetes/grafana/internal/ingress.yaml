@@ -2,11 +2,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: grafana
-  annotations:
-    nginx.ingress.kubernetes.io/affinity: "cookie"
-    nginx.ingress.kubernetes.io/session-cookie-name: "grafana-internal"
-    nginx.ingress.kubernetes.io/session-cookie-expires: "3600"
-    nginx.ingress.kubernetes.io/session-cookie-max-age: "3600"
 spec:
   ingressClassName: nginx-internal
   rules:
