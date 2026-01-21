@@ -30,8 +30,8 @@ spec:
     podAntiAffinityType: preferred
   resources:
     requests:
-      memory: "100Mi"
-      cpu: 200m
+      memory: "200Mi"
+      cpu: 300m
     limits:
-      memory: "100Mi"
-      cpu: 200m
+      memory: "200Mi"
+      cpu: 300m
