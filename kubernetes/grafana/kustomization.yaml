@@ -1,6 +1,7 @@
 namespace: grafana
 resources:
 - namespace.yaml
+- db
 - sealed-grafana-admin.yaml
 - rbac.yaml
 - internal

@@ -1,0 +1,31 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+spec:
+  description: "database for grafana"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/component: database
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: grafana
+      owner: grafana
+  storage:
+    storageClass: truenas-iscsi-general
+    size: 5Gi
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: 200m
+    limits:
+      memory: "100Mi"
+      cpu: 200m
