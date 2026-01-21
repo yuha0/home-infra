@@ -38,11 +38,6 @@ spec:
             secretKeyRef:
               key: password
               name: db-app
-        - name: GF_DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              key: uri
-              name: db-app
         - name: GF_INSTALL_PLUGINS
           value: "grafana-clock-panel,natel-discrete-panel,grafana-piechart-panel"
         - name: GF_LOG_MODE
