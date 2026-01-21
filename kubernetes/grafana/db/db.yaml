@@ -11,6 +11,12 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:17
   instances: 3
   primaryUpdateStrategy: unsupervised
+  managed:
+    roles:
+    - name: grafana
+      ensure: present
+      login: true
+      superuser: true
   bootstrap:
     initdb:
       database: grafana
