@@ -21,6 +21,23 @@ spec:
           value: "false"
         - name: GF_DATABASE_TYPE
           value: "postgres"
+        - name: GF_DATABASE_HOST
+          value: "db-rw:5432"
+        - name: GF_DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              key: dbname
+              name: db-app
+        - name: GF_DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              key: user
+              name: db-app
+        - name: GF_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: db-app
         - name: GF_DATABASE_URL
           valueFrom:
             secretKeyRef:
