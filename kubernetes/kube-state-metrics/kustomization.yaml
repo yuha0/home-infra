@@ -1,7 +1,7 @@
 namespace: kube-system
 resources:
 - service-monitor.yaml
-- https://github.com/kubernetes/kube-state-metrics//examples/autosharding?ref=v2.17.0
+- https://github.com/kubernetes/kube-state-metrics//examples/autosharding?ref=v2.18.0
 
 patches:
 - target:
