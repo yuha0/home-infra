@@ -1,6 +1,4 @@
 ---
-cilium_version: "v1.15.9"
-
 # Log-level
 # cilium_debug: false
 
@@ -154,7 +152,7 @@ cilium_kube_proxy_replacement: strict
 cilium_enable_hubble: true
 ### Enable Hubble-ui
 ### Installed by default when hubble is enabled. To disable set to false
-# cilium_enable_hubble_ui: "{{ cilium_enable_hubble }}
+# cilium_enable_hubble_ui: "{{ cilium_enable_hubble }}"
 ### Enable Hubble Metrics
 cilium_enable_hubble_metrics: true
 ### if cilium_enable_hubble_metrics: true
@@ -176,6 +174,10 @@ cilium_hubble_tls_generate: true
 # cilium_hubble_event_buffer_capacity: 4095
 ### Buffer size of the channel to receive monitor events.
 # cilium_hubble_event_queue_size: 50
+
+# Override the DNS suffix that Hubble-Relay uses to resolve its peer service.
+# It defaults to the inventory's `dns_domain`.
+# cilium_hubble_peer_service_cluster_domain: "{{ dns_domain }}"
 
 # IP address management mode for v1.9+.
 # https://docs.cilium.io/en/v1.9/concepts/networking/ipam/
@@ -259,6 +261,10 @@ cilium_enable_bgp_control_plane: true
 #   - name: "blue-pool"
 #     cidrs:
 #       - "10.0.10.0/24"
+#     ranges:
+#       - start: "20.0.20.100"
+#         stop: "20.0.20.200"
+#       - start: "1.2.3.4"
 
 # -- Configure BGP Instances (New bgpv2 API v1.16+)
 # cilium_bgp_cluster_configs:
