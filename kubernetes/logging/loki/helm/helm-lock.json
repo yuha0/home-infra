@@ -7,7 +7,7 @@
     "name": "loki",
     "gitValuesPath": "https://raw.githubusercontent.com/grafana/loki/refs/tags/{gitTag}/production/helm/loki/values.yaml",
     "gitTagFormat": "helm-loki-{version}",
-    "version": "6.49.0"
+    "version": "6.51.0"
   },
   "releaseName": "loki",
   "valuesFile": "./values.yaml",
