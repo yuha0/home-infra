@@ -39,7 +39,7 @@ images:
   newTag: v1.14
 - name: vector
   newName: docker.io/timberio/vector
-  newTag: 0.46.1-distroless-libc
+  newTag: 0.52.0-distroless-libc
 - name: python
   newName: gcr.io/distroless/python3-debian12
 - name: httpd
