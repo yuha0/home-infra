@@ -26,10 +26,6 @@ spec:
       - port: "8000"
         protocol: TCP
   egress:
-  - toEntities:
-    - kube-apiserver
-  - toEndpoints:
-    - {}
   - toCIDRSet:
     - cidr: 169.254.25.10/32
     toPorts:
@@ -41,3 +37,7 @@ spec:
       rules:
         dns:
         - matchPattern: "*"
+  - toEntities:
+    - kube-apiserver
+  - toEndpoints:
+    - {}
