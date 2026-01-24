@@ -8,7 +8,7 @@ spec:
     labels:
       app.kubernetes.io/name: tandoor
       app.kubernetes.io/component: database
-  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.1
   instances: 3
   primaryUpdateStrategy: unsupervised
   bootstrap:
