@@ -13,27 +13,18 @@ spec:
         app.kubernetes.io/component: controller
         io.kubernetes.pod.namespace: ingress-nginx-internal
   egress:
+  - toEntities:
+    - host
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
   - toEndpoints:
     - matchLabels:
         app.kubernetes.io/name: adguardhome
         app.kubernetes.io/component: adguardhome
-  - toEndpoints:
-    - matchLabels:
-        io.kubernetes.pod.namespace: kube-system
-        k8s-app: kube-dns
-    toPorts:
-    - ports:
-      - port: "53"
-        protocol: UDP
-      rules:
-        dns:
-        - matchPattern: "*"
-  - toCIDRSet:
-    - cidr: 169.254.25.10/32
-    toPorts:
-    - ports:
-      - port: "53"
-        protocol: UDP
-      rules:
-        dns:
-        - matchPattern: "*"
