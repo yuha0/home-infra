@@ -26,8 +26,8 @@ spec:
       - port: "8000"
         protocol: TCP
   egress:
-  - toCIDRSet:
-    - cidr: 169.254.25.10/32
+  - toEntities:
+    - host
     toPorts:
     - ports:
       - port: "53"
