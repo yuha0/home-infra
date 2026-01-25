@@ -11,13 +11,18 @@ spec:
     - fromEntities:
         - cluster
   egress:
-  - toEndpoints:
-    - {}
   - toEntities:
-    - cluster
-  - toCIDRSet:
-    - cidr: 169.254.25.10/32
+    - host
     toPorts:
     - ports:
       - port: "53"
         protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEndpoints:
+    - {}
+  - toEntities:
+    - cluster

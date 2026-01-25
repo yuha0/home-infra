@@ -17,25 +17,14 @@ spec:
       - key: io.kubernetes.pod.namespace
         operator: Exists
   egress:
-  # DNS
-  - toEndpoints:
-    - matchLabels:
-        io.kubernetes.pod.namespace: kube-system
-        k8s-app: kube-dns
-    toPorts:
-    - ports:
-        - port: "53"
-          protocol: UDP
-      rules:
-        dns:
-          - matchPattern: "*"
-  # nodelocaldns
-  - toCIDRSet:
-    - cidr: 169.254.25.10/32
+  - toEntities:
+    - host
     toPorts:
     - ports:
       - port: "53"
         protocol: UDP
+      - port: "53"
+        protocol: TCP
       rules:
         dns:
         - matchPattern: "*"

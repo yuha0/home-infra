@@ -36,6 +36,17 @@ spec:
       - ports:
           - port: "9617"
   egress:
+  - toEntities:
+    - host
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
   - toCIDRSet:
   # upstreams
     - cidr: 169.254.25.10/32

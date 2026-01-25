@@ -13,6 +13,17 @@ spec:
         prometheus: k8s
         io.kubernetes.pod.namespace: monitoring
   egress:
+  - toEntities:
+    - host
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
   - toEndpoints:
     - matchLabels:
         app.kubernetes.io/component: controller
@@ -20,13 +31,3 @@ spec:
     toPorts:
     - ports:
       - port: "443"
-  - toCIDRSet:
-    - cidr: 169.254.25.10/32
-    toPorts:
-    - ports:
-      - port: "53"
-        protocol: UDP
-  - toEndpoints:
-    - matchLabels:
-        io.kubernetes.pod.namespace: logging
-
