@@ -43,7 +43,13 @@ def get_server(service_name, service_port, is_ready):
             self.wfile.write(msg.encode())
 
         def _get_instances(self):
-            result = socket.getaddrinfo(service_name, service_port)
+            result = socket.getaddrinfo(
+                service_name,
+                service_port,
+                family=socket.AF_INET,
+                type=socket.SOCK_STREAM,
+                proto=socket.IPPROTO_TCP,
+            )
             return [(addr[4][0], addr[4][1]) for addr in result]
 
         def _forward(self, url, data, headers):
