@@ -28,13 +28,17 @@ spec:
       - port: "80"
       - port: "3000"
   - fromEndpoints:
-      - matchLabels:
-          app.kubernetes.io/instance: k8s
-          app.kubernetes.io/name: prometheus
-          io.kubernetes.pod.namespace: monitoring
+    - matchLabels:
+        app.kubernetes.io/instance: k8s
+        app.kubernetes.io/name: prometheus
+        io.kubernetes.pod.namespace: monitoring
     toPorts:
       - ports:
           - port: "9617"
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: adguardhome
+        app.kubernetes.io/component: pauser
   egress:
   - toEntities:
     - host
