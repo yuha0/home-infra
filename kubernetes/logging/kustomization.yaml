@@ -2,7 +2,7 @@ namespace: logging
 resources:
 - namespace.yaml
 - loki
-- https://github.com/vectordotdev/vector//distribution/kubernetes/vector-agent?ref=v0.52.0
+- https://github.com/vectordotdev/vector//distribution/kubernetes/vector-agent?ref=v0.53.0
 
 configMapGenerator:
 - name: vector
@@ -12,4 +12,4 @@ configMapGenerator:
 
 images:
 - name: timberio/vector
-  newTag: 0.52.0-distroless-libc
+  newTag: 0.53.0-distroless-libc
