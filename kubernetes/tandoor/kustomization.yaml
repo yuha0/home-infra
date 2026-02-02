@@ -13,4 +13,4 @@ resources:
 images:
 - name: recipes
   newName: docker.io/vabene1111/recipes
-  newTag: "2.3.6"
+  newTag: "2.4.2"
