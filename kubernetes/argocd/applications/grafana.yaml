@@ -20,6 +20,3 @@ spec:
     path: kubernetes/grafana
   destination:
     namespace: grafana
-  syncPolicy:
-    syncOptions:
-    - ServerSideApply=true
