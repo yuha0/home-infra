@@ -30,6 +30,7 @@ spec:
   syncPolicy:
     syncOptions:
     - ServerSideApply=true
+    - ClientSideApplyMigration=false
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
