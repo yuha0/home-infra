@@ -27,6 +27,9 @@ spec:
     path: kubernetes/prometheus-operator
   destination:
     namespace: monitoring
+  syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application

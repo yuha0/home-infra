@@ -30,3 +30,6 @@ spec:
     path: kubernetes/cloudnative-pg
   destination:
     namespace: cnpg-system
+  syncPolicy:
+    syncOptions:
+    - ServerSideApply=true

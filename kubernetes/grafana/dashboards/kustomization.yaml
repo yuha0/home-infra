@@ -1,5 +1,3 @@
-commonAnnotations:
-  argocd.argoproj.io/sync-options: "ServerSideApply=true"
 resources:
 - adguardhome
 - hardware

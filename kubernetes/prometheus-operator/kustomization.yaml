@@ -2,12 +2,3 @@ namespace: monitoring
 resources:
 - namespace.yaml
 - bundle.yaml
-
-patches:
-- target:
-    group: apiextensions.k8s.io
-    kind: CustomResourceDefinition
-  patch: |-
-    - op: add
-      path: /metadata/annotations/argocd.argoproj.io~1sync-options
-      value: "ServerSideApply=true"

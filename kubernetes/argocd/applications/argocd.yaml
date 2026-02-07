@@ -26,3 +26,6 @@ spec:
     path: kubernetes/argocd
   destination:
     namespace: argocd
+  syncPolicy:
+    syncOptions:
+    - ServerSideApply=true
