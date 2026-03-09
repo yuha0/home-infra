@@ -54,6 +54,7 @@ patches:
       path: /spec/signatureKeys
       value:
       - keyID: CD67D78AC53D68C5
+      - keyID: 77DCB7E7567690CA
 - target:
     group: argoproj.io
     kind: Application
