@@ -76,6 +76,9 @@ global:
   # -- Annotations for the all deployed Statefulsets
   statefulsetAnnotations: {}
 
+  # -- Labels for the all deployed Statefulsets
+  statefulsetLabels: {}
+
   # -- Annotations for the all deployed Deployments
   deploymentAnnotations: {}
 
@@ -209,7 +212,10 @@ configs:
     admin.enabled: true
 
     # -- Timeout to discover if a new manifests version got published to the repository
-    timeout.reconciliation: 180s
+    timeout.reconciliation: 120s
+
+    # -- Maximum jitter added to the reconciliation timeout to spread out refreshes and reduce repo-server load
+    timeout.reconciliation.jitter: 60s
 
     # -- Timeout to refresh application data as well as target manifests cache
     timeout.hard.reconciliation: 0s
@@ -511,6 +517,21 @@ configs:
         aMVzwwD/fTdQWUKjSNkTwmAKqJTEfmat3QW+oHDUsEYf6KrVJ1cA/iu0c3Ylx+gf
         XrVzpq74hNit0xDoDBZc0tstMLJIfbcG
         =z9Fn
+        -----END PGP PUBLIC KEY BLOCK-----
+      77DCB7E7567690CA: |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+        
+        mDMEaa5kHxYJKwYBBAHaRw8BAQdAuLeyXncSlNe6nIu2xKBUKaaZ+uo/PZ35ifzu
+        xhvbJT60G1l1aGFvIFpoYW5nIDxnaXRAeXVoYTAuY29tPoivBBMWCgBXFiEEbxBa
+        mu9Y92MaitJgd9y351Z2kMoFAmmuZB8bFIAAAAAABAAObWFudTIsMi41KzEuMTIs
+        MCwzAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMBAh4HAheAAAoJEHfct+dWdpDK1UUA
+        /3Lly25a+G40uJx2zT1nlufNhdF9LVg97rrWYdFTjO1LAQD5pWOG1eHOuVgbnMe9
+        Jj9S6KiuvS4Up/rzYrCuUNW5Crg4BGmuZB8SCisGAQQBl1UBBQEBB0CRGk3lAzG7
+        UlfK/2S0xidPrGV40h6iWkB7nMhwsb7qbQMBCAeIlAQYFgoAPBYhBG8QWprvWPdj
+        GorSYHfct+dWdpDKBQJprmQfGxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDAsMwIb
+        DAAKCRB33LfnVnaQyi40AP92VdUH8ujOmaT4/kjcEcOPsBx32zLKs+uY/7J+fhCC
+        rwEAgXmKzMcuq3C3NaQVT7BnCiA3m5nIdbn1SY2Nslj1dQs=
+        =VgL8
         -----END PGP PUBLIC KEY BLOCK-----
 
   # SSH known hosts for Git repositories
@@ -881,6 +902,9 @@ controller:
   #     name: secret-name
 
   # -- Additional containers to be added to the application controller pod
+  # -- Labels for the application controller StatefulSet
+  statefulsetLabels: {}
+
   ## Note: Supports use of custom Helm templates
   extraContainers: []
 
@@ -1205,7 +1229,7 @@ dex:
     # -- Dex image repository
     repository: ghcr.io/dexidp/dex
     # -- Dex image tag
-    tag: v2.44.0
+    tag: v2.45.1
     # -- Dex imagePullPolicy
     # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
@@ -1324,6 +1348,7 @@ dex:
   # @default -- See [values.yaml]
   containerSecurityContext:
     runAsNonRoot: true
+    runAsUser: 1001
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
     seccompProfile:
@@ -1496,7 +1521,7 @@ redis:
       # -- Repository to use for the redis-exporter
       repository: ghcr.io/oliver006/redis_exporter
       # -- Tag to use for the redis-exporter
-      tag: v1.80.2
+      tag: v1.82.0
       # -- Image pull policy for the redis-exporter
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
@@ -2673,6 +2698,9 @@ server:
         # filters: []
         #   - type: RequestHeaderModifier
         #     requestHeaderModifier:
+        # timeouts:
+        #   request: 10s
+        #   backendRequest: 2s
         #       add:
         #         - name: X-Custom-Header
         #           value: custom-value
