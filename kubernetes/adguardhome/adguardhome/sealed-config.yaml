@@ -175,7 +175,7 @@ spec:
           group: ""
           user: ""
           rlimit_nofile: 0
-        schema_version: 32
+        schema_version: 33
     metadata:
       creationTimestamp: null
       name: config
