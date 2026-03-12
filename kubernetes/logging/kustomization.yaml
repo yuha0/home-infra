@@ -12,4 +12,4 @@ configMapGenerator:
 
 images:
 - name: timberio/vector
-  newTag: 0.53.0-distroless-libc
+  newTag: 0.54.0-distroless-libc
