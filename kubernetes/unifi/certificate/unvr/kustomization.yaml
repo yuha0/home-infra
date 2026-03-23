@@ -22,5 +22,5 @@ patches:
       path: /spec/template/spec/volumes/-
       value:
         name: certs
-        secrets:
+        secret:
           secretName: unvr-tls-certificate

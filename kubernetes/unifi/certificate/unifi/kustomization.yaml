@@ -21,5 +21,5 @@ patches:
       path: /spec/template/spec/volumes/-
       value:
         name: certs
-        secrets:
+        secret:
           secretName: unifios-tls-certificate
