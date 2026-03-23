@@ -58,6 +58,6 @@ spec:
           limits:
             memory: 64Mi
       volumes:
-        - name: certs
-          secret:
-            secretName: truenas-tls-certificate
+      - name: certs
+        secret:
+          secretName: truenas-tls-certificate
