@@ -6,3 +6,7 @@ labels:
     app.kubernetes.io/component: certificate
 resources:
 - certificate.yaml
+- sealed-tls-cert-sync-user.yaml
+- service.yaml
+- unifi
+- unvr

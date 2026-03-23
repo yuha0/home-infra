@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/instance: unifios
+
+resources:
+- ../base
+
+patches:
+- target:
+    kind: Deployment
+    name: tls-cert-sync
+  patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: "--url=https://unifi.core.yuha0.com"
+    - op: add
+      path: /spec/template/spec/volumes/-
+      value:
+        name: certs
+        secrets:
+          secretName: unifios-tls-certificate
