@@ -13,4 +13,4 @@ resources:
 images:
 - name: tls-cert-sync
   newName: ghcr.io/yuha0/tls-cert-sync
-  newTag: v1.1.0
+  newTag: v1.1.1

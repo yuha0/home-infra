@@ -23,3 +23,6 @@ images:
 - name: unpoller
   newName: ghcr.io/unpoller/unpoller
   newTag: v2.34.0
+- name: tls-cert-sync
+  newName: ghcr.io/yuha0/tls-cert-sync
+  newTag: v1.1.1
