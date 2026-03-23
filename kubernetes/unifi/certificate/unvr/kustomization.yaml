@@ -8,7 +8,7 @@ labels:
 resources:
 - ../base
 
-nameSuffix: unvr
+nameSuffix: -unvr
 
 patches:
 - target:
