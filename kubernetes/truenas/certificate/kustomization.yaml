@@ -6,3 +6,6 @@ labels:
     app.kubernetes.io/component: certificate
 resources:
 - certificate.yaml
+- sealed-api-key.yaml
+- servicemonitor.yaml
+- sync.yaml
