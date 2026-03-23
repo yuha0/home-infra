@@ -3,9 +3,6 @@ kind: Kustomization
 labels:
 - includeSelectors: true
   pairs:
-    app.kubernetes.io/component: logging
-
+    app.kubernetes.io/component: certificate
 resources:
-- volume.yaml
-- geoipupdate
-- vector
+- certificate.yaml
