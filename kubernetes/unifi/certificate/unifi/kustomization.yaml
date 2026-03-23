@@ -4,9 +4,10 @@ labels:
 - includeSelectors: true
   pairs:
     app.kubernetes.io/instance: unifios
-
 resources:
 - ../base
+
+nameSuffix: unifios
 
 patches:
 - target:

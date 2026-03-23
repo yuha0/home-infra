@@ -8,6 +8,8 @@ labels:
 resources:
 - ../base
 
+nameSuffix: unvr
+
 patches:
 - target:
     kind: Deployment
