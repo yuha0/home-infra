@@ -8,5 +8,6 @@ resources:
 - certificate.yaml
 - sealed-tls-cert-sync-user.yaml
 - service.yaml
+- servicemonitor.yaml
 - unifi
 - unvr

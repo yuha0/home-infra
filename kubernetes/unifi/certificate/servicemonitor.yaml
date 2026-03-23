@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: tls-cert-sync
+spec:
+  endpoints:
+  - interval: 1200s
+    port: http
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: certificate
