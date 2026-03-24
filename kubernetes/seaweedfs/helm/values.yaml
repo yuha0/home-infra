@@ -1053,6 +1053,15 @@ s3:
   extraArgs: []
 
   # used to configure livenessProbe on s3 containers
+  icebergIngress:
+    enabled: false
+    className: ""
+    host: "seaweedfs-iceberg.cluster.local"
+    path: "/"
+    pathType: Prefix
+    annotations: {}
+    tls: []
+
   #
   livenessProbe:
     enabled: true
