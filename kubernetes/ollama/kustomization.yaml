@@ -10,7 +10,7 @@ resources:
 images:
 - name: ollama
   newName: docker.io/ollama/ollama
-  newTag: "0.17.7"
+  newTag: "0.18.2"
 - name: webui
   newName: ghcr.io/open-webui/open-webui
   newTag: "v0.8.10"
