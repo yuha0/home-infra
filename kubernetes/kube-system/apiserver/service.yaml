@@ -11,6 +11,7 @@ spec:
   - protocol: TCP
     port: 443
     targetPort: 6443
-  selector: {}
+  selector:
+    component: kube-apiserver
   type: LoadBalancer
   loadBalancerIP: 10.200.0.4
