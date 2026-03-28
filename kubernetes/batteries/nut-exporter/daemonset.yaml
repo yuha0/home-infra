@@ -27,6 +27,12 @@ spec:
           preStop:
             exec:
               command: ["upsdrvctl", "stop"]
+        livenessProbe:
+          exec:
+            command: ["test", "-c", "/dev/usb/ups"]
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          failureThreshold: 1
         envFrom:
         - secretRef:
             name: nut-client-secrets
