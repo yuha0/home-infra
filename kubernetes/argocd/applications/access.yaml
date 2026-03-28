@@ -6,16 +6,9 @@ spec:
   destinations:
   - namespace: access
     server: https://kubernetes.default.svc
-  namespaceResourceWhitelist:
+  clusterResourceWhitelist:
   - group: ""
     kind: Namespace
-  - group: ""
-    kind: ServiceAccount
-  - group: rbac.authorization.k8s.io
-    kind: Role
-  - group: rbac.authorization.k8s.io
-    kind: RoleBinding
-  clusterResourceWhitelist:
   - group: rbac.authorization.k8s.io
     kind: ClusterRole
   - group: rbac.authorization.k8s.io
