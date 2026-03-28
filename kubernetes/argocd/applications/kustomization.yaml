@@ -1,4 +1,5 @@
 resources:
+- access.yaml
 - adguardhome.yaml
 - awx.yaml
 - argocd.yaml

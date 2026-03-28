@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: access
+spec:
+  destinations:
+  - namespace: access
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: ""
+    kind: Namespace
+  - group: ""
+    kind: ServiceAccount
+  - group: rbac.authorization.k8s.io
+    kind: Role
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+  clusterResourceWhitelist:
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: access
+spec:
+  project: access
+  source:
+    path: kubernetes/access
+  destination:
+    namespace: access
