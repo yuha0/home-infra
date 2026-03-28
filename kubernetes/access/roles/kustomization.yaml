@@ -1,2 +1,3 @@
 resources:
 - access-cluster-viewer.yaml
+- kubeconfig-generator.yaml

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kubeconfig-generator
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      serviceAccountName: kubeconfig-generator
+      restartPolicy: OnFailure
+      containers:
+      - name: kubeconfig-generator
+        image: kubectl
+        command:
+        - /bin/sh
+        - /scripts/generate-kubeconfig.sh
+        volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+          readOnly: true
+      volumes:
+      - name: scripts
+        configMap:
+          name: kubeconfig-generator-scripts

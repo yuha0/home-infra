@@ -1,0 +1,8 @@
+resources:
+- serviceaccount.yaml
+- rolebinding.yaml
+- job.yaml
+configMapGenerator:
+- name: kubeconfig-generator-scripts
+  files:
+  - generate-kubeconfig.sh

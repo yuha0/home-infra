@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubeconfig-generator
+subjects:
+- kind: ServiceAccount
+  name: kubeconfig-generator
+  namespace: access
+roleRef:
+  kind: Role
+  name: kubeconfig-generator
+  apiGroup: rbac.authorization.k8s.io

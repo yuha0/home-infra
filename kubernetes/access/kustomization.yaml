@@ -1,10 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 labels:
-- includeSelectors: true
-  pairs:
+- pairs:
     app.kubernetes.io/name: access
 resources:
 - namespace.yaml
 - roles
 - serviceaccounts
+- kubeconfig
+images:
+- name: kubectl
+  newName: docker.io/alpine/kubectl
+  newTag: "1.35.3"
