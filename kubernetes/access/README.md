@@ -40,7 +40,7 @@ Manages service accounts, roles, and kubeconfig generation for external access t
        kubernetes.io/service-account.name: <name>
    type: kubernetes.io/service-account-token
    ```
-   The token secret provides a long-lived token. The kubeconfig generator job will automatically pick it up on the next ArgoCD sync and create a `kubeconfig-<name>` secret in the `access` namespace.
+   The token secret provides a long-lived token. The kubeconfig generator job will automatically pick it up on the next ArgoCD sync and create a `<name>-kubeconfig` secret in the `access` namespace.
 
 ## Kubeconfig generation
 
@@ -48,5 +48,5 @@ The `kubeconfig/` job runs as an ArgoCD PostSync hook. It:
 
 1. Finds all service accounts annotated with `access.yuha0.com/kubeconfig: "true"`.
 2. Reads the long-lived token from the `<sa-name>-token` secret.
-3. Generates a kubeconfig and stores it in a secret named `kubeconfig-<sa-name>`.
+3. Generates a kubeconfig and stores it in a secret named `<sa-name>-kubeconfig`.
 4. Cleans up kubeconfig secrets for service accounts that no longer have the annotation.

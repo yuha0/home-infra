@@ -11,7 +11,7 @@ SA_LIST=$(kubectl get serviceaccounts -n "$NAMESPACE" \
   -o jsonpath='{range .items[?(@.metadata.annotations.access\.yuha0\.com/kubeconfig=="true")]}{.metadata.name}{"\n"}{end}')
 
 for SA in $SA_LIST; do
-  SECRET_NAME="kubeconfig-${SA}"
+  SECRET_NAME="${SA}-kubeconfig"
   echo "Generating kubeconfig for service account: ${SA}"
 
   # Read the long-lived token from the SA's token secret
