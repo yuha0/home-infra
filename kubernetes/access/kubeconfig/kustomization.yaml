@@ -6,3 +6,6 @@ configMapGenerator:
 - name: kubeconfig-generator-scripts
   files:
   - generate-kubeconfig.sh
+- name: kubeconfig-generator-env
+  literals:
+  - KUBE_API_SERVER=https://k0.yuha0.com

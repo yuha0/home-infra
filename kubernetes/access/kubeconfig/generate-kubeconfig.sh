@@ -3,7 +3,7 @@ set -e
 
 NAMESPACE="access"
 LABEL_KEY="access.yuha0.com/kubeconfig-sa"
-SERVER="https://kubernetes.default.svc"
+SERVER="${KUBE_API_SERVER:?KUBE_API_SERVER must be set}"
 CA_CERT="/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
 
 # List all service accounts with the kubeconfig annotation set to "true"

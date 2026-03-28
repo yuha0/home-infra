@@ -13,6 +13,9 @@ spec:
       containers:
       - name: kubeconfig-generator
         image: kubectl
+        envFrom:
+        - configMapRef:
+            name: kubeconfig-generator-env
         command:
         - /bin/sh
         - /scripts/generate-kubeconfig.sh
