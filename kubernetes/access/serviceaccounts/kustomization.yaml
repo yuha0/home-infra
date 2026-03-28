@@ -1,3 +1,4 @@
 namespace: access
 resources:
+- kubenav
 - llm-agent

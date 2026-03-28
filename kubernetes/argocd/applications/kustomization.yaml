@@ -10,7 +10,6 @@ resources:
 - cloudnative-pg.yaml
 - democratic-csi.yaml
 - external-dns.yaml
-- external-service-accounts.yaml
 - grafana.yaml
 - homebridge.yaml
 - hubble.yaml
