@@ -26,7 +26,6 @@ resources:
 - seaweedfs.yaml
 - scrypted.yaml
 - sealed-secrets.yaml
-- system-service-monitors.yaml
 - tailscale.yaml
 - tandoor.yaml
 - truenas.yaml
