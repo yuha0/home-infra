@@ -4,8 +4,7 @@ metadata:
   name: k0
 spec:
   nodeSelector:
-    matchLabels:
-      node-role.kubernetes.io/node: ""
+    matchLabels: {}
   virtualRouters:
   - localASN: 65101
     serviceSelector:
