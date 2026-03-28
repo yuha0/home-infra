@@ -15,6 +15,16 @@ spec:
             app.kubernetes.io/component: compact
         spec:
           restartPolicy: OnFailure
+          affinity:
+            nodeAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                preference:
+                  matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                    - amd64
           containers:
           - args:
             - compact
@@ -32,7 +42,7 @@ spec:
             image: thanos
             resources:
               requests:
-                cpu: "2"
+                cpu: 500m
                 memory: 4Gi
             name: thanos-compactor
             volumeMounts:
