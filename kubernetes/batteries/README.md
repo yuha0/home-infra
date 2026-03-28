@@ -14,9 +14,13 @@ Standard UPS devices should all be connected to cluster nodes via USB and monito
 
 ## Ugreen
 
-Ugreen PowerRoam batteries sends telemetry data over bluetooth. The following project use host's bluetooth adapter to discover and pair with their batteries and expose metrics in Prometheus format:
+~Ugreen PowerRoam batteries sends telemetry data over bluetooth. The following project use host's bluetooth adapter to discover and pair with their batteries and expose metrics in Prometheus format:~
 
-https://github.com/ilya-zlobintsev/proam-cli
+~https://github.com/ilya-zlobintsev/proam-cli~
+
+### Deprecated
+
+Too fragile and unreliable. Not worth running at all.
 
 ## [WIP] EcoFlow
 

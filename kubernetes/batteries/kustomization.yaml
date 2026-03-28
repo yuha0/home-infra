@@ -2,7 +2,6 @@ namespace: batteries
 resources:
 - namespace.yaml
 - nut-exporter
-- ugreen
 images:
 - name: nut-client
   newName: ghcr.io/yuha0/nut-client
