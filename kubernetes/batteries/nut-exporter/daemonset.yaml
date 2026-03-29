@@ -21,12 +21,6 @@ spec:
           preStop:
             exec:
               command: ["upsdrvctl", "stop"]
-        livenessProbe:
-          tcpSocket:
-            port: 3493
-          initialDelaySeconds: 180
-          periodSeconds: 10
-          failureThreshold: 6
         envFrom:
         - secretRef:
             name: nut-client-secrets
