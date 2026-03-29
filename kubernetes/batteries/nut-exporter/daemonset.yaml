@@ -12,11 +12,6 @@ spec:
         image: nut-client
         securityContext:
           privileged: true
-        command: ["sh", "/override/entrypoint-override.sh"]
-        args: ["upsd", "-D", "-u", "root"]
-        volumeMounts:
-        - name: entrypoint-override
-          mountPath: /override
         env:
         - name: NUT_CLIENT_DRIVER
           value: "usbhid-ups"
@@ -33,8 +28,6 @@ spec:
           periodSeconds: 30
           failureThreshold: 3
         envFrom:
-        - configMapRef:
-            name: ups-manufacturer
         - secretRef:
             name: nut-client-secrets
       - name: nut-exporter
@@ -44,8 +37,3 @@ spec:
         args:
         - --nut.vars_enable
         - ""
-      volumes:
-      - name: entrypoint-override
-        configMap:
-          name: entrypoint-override
-          defaultMode: 0755
