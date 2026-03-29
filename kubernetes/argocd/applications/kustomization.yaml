@@ -1,7 +1,6 @@
 resources:
 - access.yaml
 - adguardhome.yaml
-- awx.yaml
 - argocd.yaml
 - batteries.yaml
 - cert-manager.yaml
