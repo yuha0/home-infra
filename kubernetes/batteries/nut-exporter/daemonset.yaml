@@ -17,19 +17,19 @@ spec:
           value: "usbhid-ups"
         - name: NUT_CLIENT_NAME
           value: "ups"
-        - name: NUT_CLIENT_PORT
-          value: "/dev/usb/hiddev0"
         lifecycle:
           preStop:
             exec:
               command: ["upsdrvctl", "stop"]
         livenessProbe:
-          exec:
-            command: ["test", "-c", "/dev/usb/hiddev0"]
+          tcpSocket:
+            port: 3493
           initialDelaySeconds: 30
           periodSeconds: 30
           failureThreshold: 3
         envFrom:
+        - configMapRef:
+            name: ups-manufacturer
         - secretRef:
             name: nut-client-secrets
       - name: nut-exporter
