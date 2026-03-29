@@ -15,7 +15,7 @@ configMapGenerator:
 - name: app-config
   literals:
   - ANALYTICS_DISABLED=true
-  - APP_URL=https://oidc.yuha0.com
+  - APP_URL=https://oidc.internal.yuha0.com
   - EMAIL_API_KEY_EXPIRATION_ENABLED=true
   - EMAIL_LOGIN_NOTIFICATION_ENABLED=true
   - EMAIL_ONE_TIME_ACCESS_AS_ADMIN_ENABLED=true
