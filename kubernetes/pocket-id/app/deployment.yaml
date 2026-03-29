@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pocket-id
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - name: pocket-id
+        image: pocket-id
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 1411
+        startupProbe:
+          failureThreshold: 60
+          httpGet:
+            path: /
+            port: 1411
+            scheme: HTTP
+          periodSeconds: 5
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 1411
+            scheme: HTTP
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 1411
+            scheme: HTTP
+          periodSeconds: 30
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        volumeMounts:
+        - name: geoip
+          mountPath: /geoip
+          readOnly: true
+        envFrom:
+        - configMapRef:
+            name: app-config
+        - secretRef:
+            name: smtp
+        env:
+        - name: DB_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: db-app
+              key: uri
+        - name: ENCRYPTION_KEY
+          valueFrom:
+            secretKeyRef:
+              name: encryption
+              key: key
+        - name: GEOLITE_DB_PATH
+          value: /geoip/GeoLite2-City.mmdb
+      volumes:
+      - name: geoip
+        persistentVolumeClaim:
+          claimName: geoip

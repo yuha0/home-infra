@@ -1,0 +1,28 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+spec:
+  description: "database for pocket-id"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: pocket-id
+      app.kubernetes.io/component: database
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.1
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: pocket-id
+      owner: pocket-id
+  storage:
+    storageClass: truenas-iscsi-general
+    size: 10Gi
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: 100m

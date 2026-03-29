@@ -1,0 +1,37 @@
+# Static PV/PVC referencing the same SMB share as the geoip PVC in the unifi namespace.
+# The volumeHandle must match the existing PV bound to the unifi geoip PVC.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: geoip-pocket-id
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: truenas-smb-general
+    # volumeHandle from the volume in unifi namespace
+    volumeHandle: pvc-bef931a5-db0b-412e-8f5f-29c61afdb4d6
+    volumeAttributes:
+      node_attach_driver: smb
+      provisioner_driver: freenas-api-smb
+      server: truenas.lab.yuha0.com
+      share: pvc-bef931a5-db0b-412e-8f5f-29c61afdb4d6
+    nodeStageSecretRef:
+      name: creds-smb-general
+      namespace: democratic-csi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: geoip
+spec:
+  storageClassName: ""
+  volumeName: geoip-pocket-id
+  accessModes:
+  - ReadOnlyMany
+  resources:
+    requests:
+      storage: 1Gi

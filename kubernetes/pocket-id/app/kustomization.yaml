@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: app
+resources:
+- service.yaml
+- deployment.yaml
+- ingress.yaml
+- sealed-smtp.yaml
+- sealed-encryption-key.yaml
+- geoip-volume.yaml
+configMapGenerator:
+- name: app-config
+  literals:
+  - ANALYTICS_DISABLED=true
+  - APP_URL=https://oidc.yuha0.com
+  - EMAIL_API_KEY_EXPIRATION_ENABLED=true
+  - EMAIL_LOGIN_NOTIFICATION_ENABLED=true
+  - EMAIL_ONE_TIME_ACCESS_AS_ADMIN_ENABLED=true
+  - EMAIL_VERIFICATION_ENABLED=true
+  - UI_CONFIG_DISABLED=true
+  - PORT=1411
+  - SESSION_DURATION=1440
+  - TRUST_PROXY=true
+  - TRUSTED_PLATFORM=CF-Connecting-IP

@@ -1,3 +1,5 @@
+# This PVC's underlying SMB share is also referenced by a static PV in the pocket-id namespace.
+# If you delete this PVC, update the reclaim policy on the PV first to avoid losing data.
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

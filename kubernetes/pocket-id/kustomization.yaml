@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- pairs:
+    app.kubernetes.io/name: pocket-id
+
+namespace: pocket-id
+
+resources:
+- namespace.yaml
+- db
+- app
+
+images:
+- name: pocket-id
+  newName: ghcr.io/pocket-id/pocket-id
+  newTag: v2.5.0

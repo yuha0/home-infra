@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: encryption
+  namespace: pocket-id
+spec:
+  encryptedData:
+    key: AgBWgpkU0hrr5ljws8mCAxprnh9ATw/SW2SIAPSoTg5kuHPWDGR1znU3Hs7tHSoHwwOP96a/PBiYCU3wwlKGcLBOeoG4lleeWKZXIXIX0Zj15X+Jo+2KeUubiIyVGssmX/F8NuJ3X10NQJXASGOo0rka1RZqb/AHVB8hnwCFtgNUWb2aLZ4R3ykvFh98w6VVBxkbC4zAMWJEfp/zX268ZYXe3umoapvm4cL+S32NkdUINez47JhtFTTNSj+Jb2rdZgCKYzRM5M+aVSdqI5RHn6a2IIuZSGhzLP5oVmuZBTJpYK+JVY+WJJQfd0Lp7O3eUrZ6Wg69JYRIqV07HCFM+L96WIBLs+6q4lremY7SXJlMCChaWTfOydkHCPU7qSymO3cneNPB2MPnL9UtUmQ6lV3qSlI7SG0ZJjHG3fqMgZZPmxQi1/5LemgJr5OrTg0siD43JbgYD3USH334R7JV/aSRjeLkiJDrXpQr6VPTH2YDI8MFUu8ABk1tLNIIBmDhWNFFiq2SC58PWlgw+6tkKwhim1ZIR6Sv44Vp1bacfSxEuDfufP09OxmKcQPMmsXBuX4B+OFZPDS9FdXL7qxAraq/mSUgQ8P75ZVDyQmPP92ERl3tNkkSkBohC53hluOUaQK9lUJQxZsTLDepnm4GVdeBT++16wamIzgO/AlBV8BF8NNHshEymuRGJWNkhE5SIJMGzzvbnDYeX/wE119XIpdQBWjjsngu9ZXVhfs58m76Y8dGiQp4wK8JW7RUQQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: encryption
+      namespace: pocket-id
+    type: Opaque

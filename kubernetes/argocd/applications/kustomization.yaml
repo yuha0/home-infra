@@ -20,6 +20,7 @@ resources:
 - logging.yaml
 - node-exporter.yaml
 - plex.yaml
+- pocket-id.yaml
 - prometheus.yaml
 - seaweedfs.yaml
 - scrypted.yaml
