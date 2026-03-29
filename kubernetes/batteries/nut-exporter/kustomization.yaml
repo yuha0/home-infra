@@ -9,6 +9,9 @@ configMapGenerator:
 - name: ups-manufacturer
   literals:
   - UPS_MANUFACTURER=CPS
+- name: entrypoint-override
+  files:
+  - entrypoint-override.sh
 resources:
 - service.yaml
 - daemonset.yaml
