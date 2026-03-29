@@ -1,6 +1,0 @@
-commonLabels:
-  app.kubernetes.io/name: models
-resources:
-- service.yaml
-- statefulset.yaml
-- volume.yaml

@@ -1,7 +1,0 @@
-commonLabels:
-  app.kubernetes.io/name: webui
-resources:
-- service.yaml
-- deployment.yaml
-- ingress.yaml
-- volume.yaml

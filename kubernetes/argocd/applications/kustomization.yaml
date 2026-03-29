@@ -20,7 +20,6 @@ resources:
 - kube-system.yaml
 - logging.yaml
 - node-exporter.yaml
-- ollama.yaml
 - plex.yaml
 - prometheus.yaml
 - seaweedfs.yaml
