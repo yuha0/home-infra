@@ -26,9 +26,9 @@ spec:
         livenessProbe:
           exec:
             command: ["test", "-c", "/dev/usb/hiddev0"]
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 30
-          failureThreshold: 1
+          failureThreshold: 3
         envFrom:
         - secretRef:
             name: nut-client-secrets
