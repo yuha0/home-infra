@@ -8,7 +8,7 @@ global:
   # All app-specific global values are namespaced under global.seaweedfs
   # to avoid polluting the shared global namespace when used as a subchart.
   seaweedfs:
-    createClusterRole: true
+    createClusterRole: false
     image:
       # if repository is set, it overrides the namespace part of image.name
       repository: ""
