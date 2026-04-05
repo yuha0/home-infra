@@ -147,7 +147,7 @@ def get_remote_file(url, path):
         f.write(content)
 
 
-def gen_values_diff(chart_info, newv, workdir="/tmp", diff_file="values.diff"):
+def gen_values_diff(chart_info, newv, values_file, workdir="/tmp", diff_file="values.diff"):
     old_tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
     if chart_info["name"] == "seaweedfs":
         old_tag = seaweedtag(chart_info["version"])
@@ -164,7 +164,10 @@ def gen_values_diff(chart_info, newv, workdir="/tmp", diff_file="values.diff"):
 
     diff_path = os.path.join(workdir, diff_file)
     with open(diff_path, "w") as diff:
-        p = subprocess.run(["diff", old_file, new_file], stdout=diff)
+        p = subprocess.run(
+            ["diff", "-u", f"--label=a/{values_file}", f"--label=b/{values_file}", old_file, new_file],
+            stdout=diff,
+        )
     if p.returncode not in (0, 1):
         logging.error(
             "Failed to generate diff between %s and %s: %s",
@@ -186,7 +189,10 @@ def gen_values_diff(chart_info, newv, workdir="/tmp", diff_file="values.diff"):
 
 
 def patch(values_file, patch_file):
-    p = subprocess.run(["patch", values_file, patch_file], capture_output=True)
+    p = subprocess.run(
+        ["git", "apply", patch_file],
+        capture_output=True,
+    )
     if p.returncode != 0:
         logging.error(p.stderr.decode())
     else:
@@ -217,7 +223,7 @@ def main():
             lock["repo"]["name"],
             target_version,
         )
-        diff_path = gen_values_diff(lock["chart"], target_version, workdir=args.workdir)
+        diff_path = gen_values_diff(lock["chart"], target_version, args.values, workdir=args.workdir)
         if diff_path:
             patch(args.values, diff_path)
     else:
