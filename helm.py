@@ -81,8 +81,8 @@ def get_lock(lockfile):
 
 
 def seaweedtag(chart_version):
-    match = re.match(r"(\d+)\.\d+\.(\d)(\d+)", chart_version)
-    tag = f"{match.group(2)}.{match.group(3)}"
+    match = re.match(r"(\d+)\.(\d+)\.0", chart_version)
+    tag = f"{match.group(1)}.{match.group(2)}"
     logging.warning("Special handling for seaweedfs due to values.yaml being tracked by app version tag and not chart version tag: extracted app version %s from chart version %s", tag, chart_version)
     return tag
 
