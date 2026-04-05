@@ -14,6 +14,10 @@ patches:
     - op: add
       path: /spec/loadBalancerIP
       value: 10.200.0.1
+    - op: add
+      path: /metadata/annotations
+      value:
+        external-dns.alpha.kubernetes.io/hostname: "*.internal.yuha0.com"
 - target:
     group: apps
     kind: Deployment
