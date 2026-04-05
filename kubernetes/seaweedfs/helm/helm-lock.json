@@ -7,7 +7,7 @@
     "name": "seaweedfs",
     "gitValuesPath": "https://raw.githubusercontent.com/seaweedfs/seaweedfs/refs/tags/{gitTag}/k8s/charts/seaweedfs/values.yaml",
     "gitTagFormat": "{version}",
-    "version": "4.16.0"
+    "version": "4.17.0"
   },
   "releaseName": "seaweedfs",
   "valuesFile": "./values.yaml",
