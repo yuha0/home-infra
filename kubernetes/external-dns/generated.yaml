@@ -158,6 +158,7 @@ spec:
             - --registry=txt
             - --domain-filter=yuha0.com
             - --provider=cloudflare
+            - --ingress-class=nginx-external
             - --zone-id-filter=$(CF_API_ZONE_ID)
           ports:
             - name: http
