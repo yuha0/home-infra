@@ -1,7 +1,7 @@
 # Available parameters and their default values for the SeaweedFS chart.
 
 global:
-  createClusterRole: false
+  createClusterRole: true
   registry: ""
   # if repository is set, it overrides the namespace part of imageName
   repository: ""
@@ -20,6 +20,7 @@ global:
       filerRead: false
   # we will use this serviceAccountName for all ClusterRoles/ClusterRoleBindings
   serviceAccountName: "seaweedfs"
+  serviceAccountAnnotations: {}
   automountServiceAccountToken: true
   certificates:
     duration: 87600h
@@ -119,7 +120,7 @@ master:
   #    type: "emptyDir"
   data:
     type: "persistentVolumeClaim"
-    size: 5Gi
+    size: "5Gi"
     storageClass: "truenas-iscsi-general"
 
   # You may use ANY storage-class, example with local-path-provisioner
@@ -348,11 +349,11 @@ volume:
   #     maxVolumes: 0  # If set to zero on non-windows OS, the limit will be auto configured. (default "7")
 
   dataDirs:
-  - name: data1
-    type: "persistentVolumeClaim"
-    size: "128Gi"
-    storageClass: "truenas-iscsi-general"
-    maxVolumes: 0
+    - name: data1
+      type: "persistentVolumeClaim"
+      size: "128Gi"
+      storageClass: "truenas-iscsi-general"
+      maxVolumes: 0
 
       # - name: data2
       #   type: "persistentVolumeClaim"
@@ -397,16 +398,16 @@ volume:
     storageClass: "truenas-iscsi-general"
 
   logs: {}
+
   # limit background compaction or copying speed in mega bytes per second
   compactionMBps: "50"
-  # Stable identifier for the volume server, independent of IP address
-  # Useful for Kubernetes environments with hostPath volumes to maintain stable identity
-  id: null
-
-
 
   # Volume server's rack name
   rack: null
+
+  # Stable identifier for the volume server, independent of IP address
+  # Useful for Kubernetes environments with hostPath volumes to maintain stable identity
+  id: null
 
   # Volume server's data center name
   dataCenter: null
@@ -543,6 +544,12 @@ volume:
     enabled: true
     httpGet:
       path: /healthz
+      scheme: HTTP
+    initialDelaySeconds: 15
+    periodSeconds: 15
+    successThreshold: 1
+    failureThreshold: 100
+    timeoutSeconds: 30
 
   ingress:
     enabled: false
@@ -567,12 +574,6 @@ volume:
       #   sub_filter '=/' '=./';
       #   sub_filter '/seaweedfsstatic' './seaweedfsstatic';
       #   sub_filter_once off;
-      scheme: HTTP
-    initialDelaySeconds: 15
-    periodSeconds: 15
-    successThreshold: 1
-    failureThreshold: 100
-    timeoutSeconds: 30
 
 # Map of named volume groups for topology-aware deployments.
 # Each key inherits all fields from the `volume` section but can override
@@ -811,8 +812,8 @@ filer:
     pathType: Prefix
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
-      nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
       nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
       nginx.ingress.kubernetes.io/proxy-buffering: "off"
       # nginx.ingress.kubernetes.io/backend-protocol: GRPC
@@ -922,9 +923,16 @@ filer:
     # set to the name of an existing kubernetes Secret with the s3 json config file
     # should have a secret key called seaweedfs_s3_config with an inline json configure
     existingConfigSecret: seaweedfs-s3-config
+    # To provide explicit credentials for the S3 gateway, set them under
+    # the top-level s3.credentials key (not filer.s3.credentials).
+    # The s3-secret.yaml template only reads from .Values.s3.credentials.
+    # See: s3.credentials.admin.accessKey, s3.credentials.read.accessKey
     auditLogConfig: {}
     # You may specify buckets to be created during the install or upgrade process.
     # Buckets may be exposed publicly by setting `anonymousRead` to `true`
+    # ttl format: [1-255][m|h|d|w|M|y] (e.g., 7d)
+    # objectLock enables S3 Object Lock (irreversible, forces versioning)
+    # versioning: Enabled or Suspended (or true to enable)
     createBuckets:
     - name: prometheus
       anonymousRead: false
@@ -934,6 +942,14 @@ filer:
       anonymousRead: false
     - name: ente
       anonymousRead: false
+    # createBuckets:
+    #   - name: bucket-a
+    #     anonymousRead: true
+    #     ttl: 7d
+    #     objectLock: true
+    #     versioning: Enabled
+    #   - name: bucket-b
+    #     anonymousRead: false
 
 s3:
   enabled: false
@@ -941,27 +957,43 @@ s3:
   restartPolicy: null
   replicas: 1
   bindAddress: 0.0.0.0
-  # Iceberg catalog REST port (Apache Iceberg REST Catalog API)
-  # Set to a port number to enable, or 0/null to disable
-  icebergPort: null
   port: 8333
   # add additional https port
   httpsPort: 0
   metricsPort: 9327
+  # Iceberg catalog REST port (Apache Iceberg REST Catalog API)
+  # Set to a port number to enable, or 0/null to disable
+  icebergPort: null
   loggingOverrideLevel: null
   # enable user & permission to s3 (need to inject to all services)
   enableAuth: false
-  # You may specify buckets to be created during the install or upgrade process.
-  # Buckets may be exposed publicly by setting `anonymousRead` to `true`
-  # createBuckets:
-  #   - name: bucket-a
-  #     anonymousRead: true
-  #   - name: bucket-b
-  #     anonymousRead: false
   # set to the name of an existing kubernetes Secret with the s3 json config file
   # should have a secret key called seaweedfs_s3_config with an inline json config
   existingConfigSecret: null
+  # Optionally provide explicit credentials for the S3 gateway.
+  # When set, these are used in the generated s3 secret instead of
+  # auto-generating random credentials.
+  # credentials:
+  #   admin:
+  #     accessKey: ""
+  #     secretKey: ""
+  #   read:
+  #     accessKey: ""
+  #     secretKey: ""
   auditLogConfig: {}
+  # You may specify buckets to be created during the install or upgrade process.
+  # Buckets may be exposed publicly by setting `anonymousRead` to `true`
+  # ttl format: [1-255][m|h|d|w|M|y] (e.g., 7d)
+  # objectLock enables S3 Object Lock (irreversible, forces versioning)
+  # versioning: Enabled or Suspended (or true to enable)
+  # createBuckets:
+  #   - name: bucket-a
+  #     anonymousRead: true
+  #     ttl: 7d
+  #     objectLock: true
+  #     versioning: Enabled
+  #   - name: bucket-b
+  #     anonymousRead: false
 
   # Suffix of the host name, {bucket}.{domainName}
   domainName: ""
@@ -1053,15 +1085,6 @@ s3:
   extraArgs: []
 
   # used to configure livenessProbe on s3 containers
-  icebergIngress:
-    enabled: false
-    className: ""
-    host: "seaweedfs-iceberg.cluster.local"
-    path: "/"
-    pathType: Prefix
-    annotations: {}
-    tls: []
-
   #
   livenessProbe:
     enabled: true
@@ -1097,12 +1120,21 @@ s3:
     # additional ingress annotations for the s3 endpoint
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
-      nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
-      nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
       nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
       nginx.ingress.kubernetes.io/proxy-buffering: "off"
       nginx.ingress.kubernetes.io/configuration-snippet: |
         chunked_transfer_encoding off;
+    tls: []
+
+  icebergIngress:
+    enabled: false
+    className: ""
+    host: "seaweedfs-iceberg.cluster.local"
+    path: "/"
+    pathType: Prefix
+    annotations: {}
     tls: []
 
 sftp:
@@ -1112,6 +1144,7 @@ sftp:
   replicas: 1
   bindAddress: 0.0.0.0
   port: 2022  # Default SFTP port
+  metricsPort: 9327
   metricsIp: ""  # If empty, defaults to bindAddress
   loggingOverrideLevel: null
 
@@ -1183,7 +1216,6 @@ admin:
   replicas: 1
   port: 23646  # Default admin port
   grpcPort: 33646  # Default gRPC port for worker connections
-  metricsPort: 9327
   loggingOverrideLevel: null
 
   # Admin authentication
@@ -1310,20 +1342,20 @@ worker:
   replicas: 1
   loggingOverrideLevel: null
   metricsPort: 9327
+  metricsIp: ""  # If empty, defaults to 0.0.0.0
 
   # Admin server to connect to
-  #
-  # The port in `-admin` flag should have been the http port, not gRPC port, so that it can automatically [calculate the gRPC port](https://github.com/seaweedfs/seaweedfs/blob/1dfda78e59bd181868718114f498777941cad5e0/weed/pb/grpc_client_server.go#L279) correctly (`+ 10000`):
-  # https://github.com/seaweedfs/seaweedfs/blob/1dfda78e59bd181868718114f498777941cad5e0/k8s/charts/seaweedfs/templates/worker/worker-deployment.yaml#L137
   adminServer: "seaweedfs-admin.seaweedfs:23646"
 
-  # Worker capabilities - comma-separated list
-  # Available: vacuum, balance, erasure_coding
-  # Default: "vacuum,balance,erasure_coding" (all capabilities)
-  capabilities: "vacuum,balance,erasure_coding,replication"
+  # Worker job types - comma-separated list
+  # Available: vacuum, volume_balance, erasure_coding
+  jobType: "vacuum,volume_balance,erasure_coding"
 
-  # Maximum number of concurrent tasks
-  maxConcurrent: 3
+  # Maximum number of concurrent detection requests
+  maxDetect: 1
+
+  # Maximum number of concurrent execution jobs
+  maxExecute: 4
 
   # Working directory for task execution
   workingDir: "/tmp/seaweedfs-worker"
@@ -1460,12 +1492,22 @@ allInOne:
     # Set to the name of an existing kubernetes Secret with the s3 json config file
     # should have a secret key called seaweedfs_s3_config with an inline json config
     existingConfigSecret: null
+    # To provide explicit credentials for the S3 gateway, set them under
+    # the top-level s3.credentials key (not allInOne.s3.credentials).
+    # The s3-secret.yaml template only reads from .Values.s3.credentials.
+    # See: s3.credentials.admin.accessKey, s3.credentials.read.accessKey
     auditLogConfig: null  # S3 audit log configuration (null inherits from s3.auditLogConfig)
     # You may specify buckets to be created during the install process.
     # Buckets may be exposed publicly by setting `anonymousRead` to `true`
+    # ttl format: [1-255][m|h|d|w|M|y] (e.g., 7d)
+    # objectLock enables S3 Object Lock (irreversible, forces versioning)
+    # versioning: Enabled or Suspended (or true to enable)
     # createBuckets:
     #   - name: bucket-a
     #     anonymousRead: true
+    #     ttl: 7d
+    #     objectLock: true
+    #     versioning: Enabled
     #   - name: bucket-b
     #     anonymousRead: false
 
@@ -1631,6 +1673,8 @@ cosi:
   image: "ghcr.io/seaweedfs/seaweedfs-cosi-driver:v0.1.2"
   driverName: "seaweedfs.objectstorage.k8s.io"
   bucketClassName: "seaweedfs"
+  # Optional parameters to pass to the default BucketClass (e.g., diskType for tiered storage)
+  bucketClassParameters: {}
   endpoint: ""
   region: ""
 
