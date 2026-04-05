@@ -7,7 +7,7 @@
     "name": "external-dns",
     "gitValuesPath": "https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/{gitTag}/charts/external-dns/values.yaml",
     "gitTagFormat": "external-dns-helm-chart-{version}",
-    "version": "1.19.0"
+    "version": "1.20.0"
   },
   "releaseName": "external-dns",
   "valuesFile": "./values.yaml",
