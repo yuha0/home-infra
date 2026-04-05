@@ -7,7 +7,7 @@
     "name": "prometheus-node-exporter",
     "gitValuesPath": "https://raw.githubusercontent.com/prometheus-community/helm-charts/refs/tags/{gitTag}/charts/prometheus-node-exporter/values.yaml",
     "gitTagFormat": "prometheus-node-exporter-{version}",
-    "version": "4.49.1"
+    "version": "4.53.0"
   },
   "releaseName": "monitoring",
   "valuesFile": "./values.yaml",
