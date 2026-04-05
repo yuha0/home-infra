@@ -6,10 +6,10 @@ metadata:
   name: cnpg-cloudnative-pg
   namespace: cnpg-system
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: cloudnative-pg/templates/config.yaml
@@ -37,10 +37,10 @@ metadata:
   name: cnpg-controller-manager-config
   namespace: cnpg-system
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 data:
   {}
@@ -52,10 +52,10 @@ metadata:
   name: cnpg-default-monitoring
   namespace: cnpg-system
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
     cnpg.io/reload: ""
 data:
@@ -63,30 +63,30 @@ data:
     |
       backends:
         query: |
-         SELECT sa.datname
-             , sa.usename
-             , sa.application_name
-             , states.state
-             , COALESCE(sa.count, 0) AS total
-             , COALESCE(sa.max_tx_secs, 0) AS max_tx_duration_seconds
-             FROM ( VALUES ('active')
-                 , ('idle')
-                 , ('idle in transaction')
-                 , ('idle in transaction (aborted)')
-                 , ('fastpath function call')
-                 , ('disabled')
-                 ) AS states(state)
-             LEFT JOIN (
-                 SELECT datname
-                     , state
-                     , usename
-                     , COALESCE(application_name, '') AS application_name
-                     , COUNT(*)
-                     , COALESCE(EXTRACT (EPOCH FROM (max(now() - xact_start))), 0) AS max_tx_secs
-                 FROM pg_catalog.pg_stat_activity
-                 GROUP BY datname, state, usename, application_name
-             ) sa ON states.state = sa.state
-             WHERE sa.usename IS NOT NULL
+          SELECT sa.datname
+            , sa.usename
+            , sa.application_name
+            , states.state
+            , COALESCE(sa.count, 0) AS total
+            , COALESCE(sa.max_tx_secs, 0) AS max_tx_duration_seconds
+          FROM ( VALUES ('active')
+            , ('idle')
+            , ('idle in transaction')
+            , ('idle in transaction (aborted)')
+            , ('fastpath function call')
+            , ('disabled')
+            ) AS states(state)
+          LEFT JOIN (
+            SELECT datname
+              , state
+              , usename
+              , COALESCE(application_name, '') AS application_name
+              , COUNT(*)
+              , COALESCE(EXTRACT (EPOCH FROM (max(now() - xact_start))), 0) AS max_tx_secs
+            FROM pg_catalog.pg_stat_activity
+            GROUP BY datname, state, usename, application_name
+          ) sa ON states.state = sa.state
+          WHERE sa.usename IS NOT NULL
         metrics:
           - datname:
               usage: "LABEL"
@@ -109,22 +109,22 @@ data:
     
       backends_waiting:
         query: |
-         SELECT count(*) AS total
-         FROM pg_catalog.pg_locks blocked_locks
-         JOIN pg_catalog.pg_locks blocking_locks
-           ON blocking_locks.locktype = blocked_locks.locktype
-           AND blocking_locks.database IS NOT DISTINCT FROM blocked_locks.database
-           AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation
-           AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page
-           AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple
-           AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid
-           AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid
-           AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid
-           AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid
-           AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid
-           AND blocking_locks.pid != blocked_locks.pid
-         JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid = blocking_locks.pid
-         WHERE NOT blocked_locks.granted
+          SELECT count(*) AS total
+          FROM pg_catalog.pg_locks blocked_locks
+          JOIN pg_catalog.pg_locks blocking_locks
+            ON blocking_locks.locktype = blocked_locks.locktype
+            AND blocking_locks.database IS NOT DISTINCT FROM blocked_locks.database
+            AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation
+            AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page
+            AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple
+            AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid
+            AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid
+            AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid
+            AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid
+            AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid
+            AND blocking_locks.pid != blocked_locks.pid
+          JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid = blocking_locks.pid
+          WHERE NOT blocked_locks.granted
         metrics:
           - total:
               usage: "GAUGE"
@@ -162,16 +162,17 @@ data:
               description: "Time at which postgres started (based on epoch)"
     
       pg_replication:
-        query: "SELECT CASE WHEN (
-                  NOT pg_catalog.pg_is_in_recovery()
-                  OR pg_catalog.pg_last_wal_receive_lsn() = pg_catalog.pg_last_wal_replay_lsn())
-                THEN 0
-                ELSE GREATEST (0,
-                  EXTRACT(EPOCH FROM (now() - pg_catalog.pg_last_xact_replay_timestamp())))
-                END AS lag,
-                pg_catalog.pg_is_in_recovery() AS in_recovery,
-                EXISTS (TABLE pg_stat_wal_receiver) AS is_wal_receiver_up,
-                (SELECT count(*) FROM pg_catalog.pg_stat_replication) AS streaming_replicas"
+        query: |
+          SELECT CASE WHEN (
+              NOT pg_catalog.pg_is_in_recovery()
+              OR pg_catalog.pg_last_wal_receive_lsn() = pg_catalog.pg_last_wal_replay_lsn())
+            THEN 0
+            ELSE GREATEST (0,
+              EXTRACT(EPOCH FROM (now() - pg_catalog.pg_last_xact_replay_timestamp())))
+            END AS lag,
+            pg_catalog.pg_is_in_recovery() AS in_recovery,
+            EXISTS (TABLE pg_stat_wal_receiver) AS is_wal_receiver_up,
+            (SELECT count(*) FROM pg_catalog.pg_stat_replication) AS streaming_replicas
         metrics:
           - lag:
               usage: "GAUGE"
@@ -227,6 +228,9 @@ data:
             , COALESCE(CAST(CAST('x'||pg_catalog.right(pg_catalog.split_part(last_failed_wal, '.', 1), 16) AS pg_catalog.bit(64)) AS pg_catalog.int8), -1) AS last_failed_wal_start_lsn
             , EXTRACT(EPOCH FROM stats_reset) AS stats_reset_time
           FROM pg_catalog.pg_stat_archiver
+        predicate_query: |
+          SELECT NOT pg_catalog.pg_is_in_recovery()
+            OR pg_catalog.current_setting('archive_mode') = 'always'
         metrics:
           - archived_count:
               usage: "COUNTER"
@@ -439,20 +443,20 @@ data:
       pg_stat_replication:
         primary: true
         query: |
-         SELECT usename
-           , COALESCE(application_name, '') AS application_name
-           , COALESCE(client_addr::text, '') AS client_addr
-           , COALESCE(client_port::text, '') AS client_port
-           , EXTRACT(EPOCH FROM backend_start) AS backend_start
-           , COALESCE(pg_catalog.age(backend_xmin), 0) AS backend_xmin_age
-           , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), sent_lsn) AS sent_diff_bytes
-           , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), write_lsn) AS write_diff_bytes
-           , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), flush_lsn) AS flush_diff_bytes
-           , COALESCE(pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), replay_lsn),0) AS replay_diff_bytes
-           , COALESCE((EXTRACT(EPOCH FROM write_lag)),0)::float AS write_lag_seconds
-           , COALESCE((EXTRACT(EPOCH FROM flush_lag)),0)::float AS flush_lag_seconds
-           , COALESCE((EXTRACT(EPOCH FROM replay_lag)),0)::float AS replay_lag_seconds
-         FROM pg_catalog.pg_stat_replication
+          SELECT usename
+            , COALESCE(application_name, '') AS application_name
+            , COALESCE(client_addr::text, '') AS client_addr
+            , COALESCE(client_port::text, '') AS client_port
+            , EXTRACT(EPOCH FROM backend_start) AS backend_start
+            , COALESCE(pg_catalog.age(backend_xmin), 0) AS backend_xmin_age
+            , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), sent_lsn) AS sent_diff_bytes
+            , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), write_lsn) AS write_diff_bytes
+            , pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), flush_lsn) AS flush_diff_bytes
+            , COALESCE(pg_catalog.pg_wal_lsn_diff(pg_catalog.pg_current_wal_lsn(), replay_lsn),0) AS replay_diff_bytes
+            , COALESCE((EXTRACT(EPOCH FROM write_lag)),0)::float AS write_lag_seconds
+            , COALESCE((EXTRACT(EPOCH FROM flush_lag)),0)::float AS flush_lag_seconds
+            , COALESCE((EXTRACT(EPOCH FROM replay_lag)),0)::float AS replay_lag_seconds
+          FROM pg_catalog.pg_stat_replication
         metrics:
           - usename:
               usage: "LABEL"
@@ -512,13 +516,13 @@ data:
       pg_extensions:
         query: |
           SELECT
-           current_database() as datname,
-           name as extname,
-           default_version,
-           installed_version,
-           CASE
-             WHEN default_version = installed_version THEN 0
-             ELSE 1
+            current_database() as datname,
+            name as extname,
+            default_version,
+            installed_version,
+            CASE
+              WHEN default_version = installed_version THEN 0
+              ELSE 1
           END AS update_available
           FROM pg_catalog.pg_available_extensions
           WHERE installed_version IS NOT NULL
@@ -546,7 +550,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: backups.postgresql.cnpg.io
 spec:
@@ -758,6 +762,11 @@ spec:
                     - key
                     - name
                     type: object
+                  useDefaultAzureCredentials:
+                    description: |-
+                      Use the default Azure authentication flow, which includes DefaultAzureCredential.
+                      This allows authentication using environment variables and managed identities.
+                    type: boolean
                 type: object
               backupId:
                 description: The ID of the Barman backup
@@ -855,6 +864,13 @@ spec:
                   podName:
                     description: The pod name
                     type: string
+                  sessionID:
+                    description: |-
+                      The instance manager session ID. This is a unique identifier generated at instance manager
+                      startup and changes on every restart (including container reboots). Used to detect if
+                      the instance manager was restarted during long-running operations like backups, which
+                      would terminate any running backup process.
+                    type: string
                 type: object
               majorVersion:
                 description: |-
@@ -876,6 +892,15 @@ spec:
                   type: string
                 description: A map containing the plugin metadata
                 type: object
+              reconciliationStartedAt:
+                description: When the backup process was started by the operator
+                format: date-time
+                type: string
+              reconciliationTerminatedAt:
+                description: When the reconciliation was terminated by the operator
+                  (either successfully or not)
+                format: date-time
+                type: string
               s3Credentials:
                 description: The credentials to use to upload data to S3
                 properties:
@@ -971,11 +996,12 @@ spec:
                     type: array
                 type: object
               startedAt:
-                description: When the backup was started
+                description: When the backup execution was started by the backup tool
                 format: date-time
                 type: string
               stoppedAt:
-                description: When the backup was terminated
+                description: When the backup execution was terminated by the backup
+                  tool
                 format: date-time
                 type: string
               tablespaceMapFile:
@@ -998,7 +1024,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: clusterimagecatalogs.postgresql.cnpg.io
 spec:
@@ -1047,6 +1073,112 @@ spec:
                 items:
                   description: CatalogImage defines the image and major version
                   properties:
+                    extensions:
+                      description: The configuration of the extensions to be added
+                      items:
+                        description: |-
+                          ExtensionConfiguration is the configuration used to add
+                          PostgreSQL extensions to the Cluster.
+                        properties:
+                          bin_path:
+                            description: |-
+                              A list of directories within the image to be appended to the
+                              PostgreSQL process's `PATH` environment variable.
+                            items:
+                              type: string
+                            type: array
+                          dynamic_library_path:
+                            description: |-
+                              The list of directories inside the image which should be added to dynamic_library_path.
+                              If not defined, defaults to "/lib".
+                            items:
+                              type: string
+                            type: array
+                          env:
+                            description: |-
+                              Env is a list of custom environment variables to be set in the
+                              PostgreSQL process for this extension. It is the responsibility of the
+                              cluster administrator to ensure the variables are correct for the
+                              specific extension. Note that changes to these variables require
+                              a manual cluster restart to take effect.
+                            items:
+                              description: |-
+                                ExtensionEnvVar defines an environment variable for a specific extension
+                                image volume.
+                              properties:
+                                name:
+                                  description: |-
+                                    Name of the environment variable to be injected into the
+                                    PostgreSQL process.
+                                  minLength: 1
+                                  pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
+                                  type: string
+                                value:
+                                  description: |-
+                                    Value of the environment variable. CloudNativePG performs a direct
+                                    replacement of this value, with support for placeholder expansion.
+                                    The ${`image_root`} placeholder resolves to the absolute mount path
+                                    of the extension's volume (e.g., `/extensions/my-extension`). This
+                                    is particularly useful for allowing applications or libraries to
+                                    locate specific directories within the mounted image.
+                                    Unrecognized placeholders are rejected. To include a literal ${...}
+                                    in the value, escape it as $${...}.
+                                  minLength: 1
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - name
+                            x-kubernetes-list-type: map
+                          extension_control_path:
+                            description: |-
+                              The list of directories inside the image which should be added to extension_control_path.
+                              If not defined, defaults to "/share".
+                            items:
+                              type: string
+                            type: array
+                          image:
+                            description: The image containing the extension.
+                            properties:
+                              pullPolicy:
+                                description: |-
+                                  Policy for pulling OCI objects. Possible values are:
+                                  Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails.
+                                  Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present.
+                                  IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
+                                  Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+                                type: string
+                              reference:
+                                description: |-
+                                  Required: Image or artifact reference to be used.
+                                  Behaves in the same way as pod.spec.containers[*].image.
+                                  Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets.
+                                  More info: https://kubernetes.io/docs/concepts/containers/images
+                                  This field is optional to allow higher level config management to default or override
+                                  container images in workload controllers like Deployments and StatefulSets.
+                                type: string
+                            type: object
+                          ld_library_path:
+                            description: The list of directories inside the image
+                              which should be added to ld_library_path.
+                            items:
+                              type: string
+                            type: array
+                          name:
+                            description: The name of the extension, required
+                            minLength: 1
+                            pattern: ^[a-z0-9]([-a-z0-9_]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      type: array
+                      x-kubernetes-list-map-keys:
+                      - name
+                      x-kubernetes-list-type: map
                     image:
                       description: The image reference
                       type: string
@@ -1081,7 +1213,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: clusters.postgresql.cnpg.io
 spec:
@@ -2099,9 +2231,10 @@ spec:
                         operator:
                           description: |-
                             Operator represents a key's relationship to the value.
-                            Valid operators are Exists and Equal. Defaults to Equal.
+                            Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal.
                             Exists is equivalent to wildcard for value, so that a pod can
                             tolerate all taints of a particular category.
+                            Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
                           type: string
                         tolerationSeconds:
                           description: |-
@@ -2194,6 +2327,11 @@ spec:
                             - key
                             - name
                             type: object
+                          useDefaultAzureCredentials:
+                            description: |-
+                              Use the default Azure authentication flow, which includes DefaultAzureCredential.
+                              This allows authentication using environment variables and managed identities.
+                            type: boolean
                         type: object
                       data:
                         description: |-
@@ -3056,8 +3194,9 @@ spec:
                               integer)
                             type: string
                           targetTime:
-                            description: The target time as a timestamp in the RFC3339
-                              standard
+                            description: |-
+                              The target time as a timestamp in RFC3339 format or PostgreSQL timestamp format.
+                              Timestamps without an explicit timezone are interpreted as UTC.
                             type: string
                           targetXID:
                             description: The target transaction ID
@@ -3576,7 +3715,7 @@ spec:
                           resources:
                             description: |-
                               resources represents the minimum resources the volume should have.
-                              If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements
+                              Users are allowed to specify resource requirements
                               that are lower than previous value but must still be higher than capacity recorded in the
                               status field of the claim.
                               More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -3780,6 +3919,11 @@ spec:
                               - key
                               - name
                               type: object
+                            useDefaultAzureCredentials:
+                              description: |-
+                                Use the default Azure authentication flow, which includes DefaultAzureCredential.
+                                This allows authentication using environment variables and managed identities.
+                              type: boolean
                           type: object
                         data:
                           description: |-
@@ -5405,6 +5549,82 @@ spec:
                         type: string
                     type: object
                 type: object
+              podSelectorRefs:
+                description: |-
+                  PodSelectorRefs defines named pod label selectors that can be referenced
+                  in pg_hba rules using the ${podselector:NAME} syntax in the address field.
+                  The operator resolves matching pod IPs and the instance manager expands
+                  pg_hba lines accordingly. Only pods in the Cluster's own namespace are considered.
+                items:
+                  description: |-
+                    PodSelectorRef defines a named pod label selector for use in pg_hba rules.
+                    Pods matching the selector in the Cluster's namespace will have their IPs
+                    resolved and made available for pg_hba address expansion via the
+                    `${podselector:NAME}` syntax.
+                  properties:
+                    name:
+                      description: |-
+                        Name is the identifier used to reference this selector in pg_hba rules
+                        via the ${podselector:NAME} syntax in the address field.
+                      minLength: 1
+                      pattern: ^[a-z]([a-z0-9_-]*[a-z0-9])?$
+                      type: string
+                    selector:
+                      description: |-
+                        Selector is a label selector that identifies the pods whose IPs
+                        should be resolved. Only pods in the Cluster's namespace are considered.
+                      properties:
+                        matchExpressions:
+                          description: matchExpressions is a list of label selector
+                            requirements. The requirements are ANDed.
+                          items:
+                            description: |-
+                              A label selector requirement is a selector that contains values, a key, and an operator that
+                              relates the key and values.
+                            properties:
+                              key:
+                                description: key is the label key that the selector
+                                  applies to.
+                                type: string
+                              operator:
+                                description: |-
+                                  operator represents a key's relationship to a set of values.
+                                  Valid operators are In, NotIn, Exists and DoesNotExist.
+                                type: string
+                              values:
+                                description: |-
+                                  values is an array of string values. If the operator is In or NotIn,
+                                  the values array must be non-empty. If the operator is Exists or DoesNotExist,
+                                  the values array must be empty. This array is replaced during a strategic
+                                  merge patch.
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: atomic
+                            required:
+                            - key
+                            - operator
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        matchLabels:
+                          additionalProperties:
+                            type: string
+                          description: |-
+                            matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels
+                            map is equivalent to an element of matchExpressions, whose key field is "key", the
+                            operator is "In", and the values array contains only "value". The requirements are ANDed.
+                          type: object
+                      type: object
+                      x-kubernetes-map-type: atomic
+                  required:
+                  - name
+                  - selector
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - name
+                x-kubernetes-list-type: map
               postgresGID:
                 default: 26
                 description: The GID of the `postgres` user inside the image, defaults
@@ -5434,6 +5654,13 @@ spec:
                         ExtensionConfiguration is the configuration used to add
                         PostgreSQL extensions to the Cluster.
                       properties:
+                        bin_path:
+                          description: |-
+                            A list of directories within the image to be appended to the
+                            PostgreSQL process's `PATH` environment variable.
+                          items:
+                            type: string
+                          type: array
                         dynamic_library_path:
                           description: |-
                             The list of directories inside the image which should be added to dynamic_library_path.
@@ -5441,6 +5668,45 @@ spec:
                           items:
                             type: string
                           type: array
+                        env:
+                          description: |-
+                            Env is a list of custom environment variables to be set in the
+                            PostgreSQL process for this extension. It is the responsibility of the
+                            cluster administrator to ensure the variables are correct for the
+                            specific extension. Note that changes to these variables require
+                            a manual cluster restart to take effect.
+                          items:
+                            description: |-
+                              ExtensionEnvVar defines an environment variable for a specific extension
+                              image volume.
+                            properties:
+                              name:
+                                description: |-
+                                  Name of the environment variable to be injected into the
+                                  PostgreSQL process.
+                                minLength: 1
+                                pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
+                                type: string
+                              value:
+                                description: |-
+                                  Value of the environment variable. CloudNativePG performs a direct
+                                  replacement of this value, with support for placeholder expansion.
+                                  The ${`image_root`} placeholder resolves to the absolute mount path
+                                  of the extension's volume (e.g., `/extensions/my-extension`). This
+                                  is particularly useful for allowing applications or libraries to
+                                  locate specific directories within the mounted image.
+                                  Unrecognized placeholders are rejected. To include a literal ${...}
+                                  in the value, escape it as $${...}.
+                                minLength: 1
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                          x-kubernetes-list-map-keys:
+                          - name
+                          x-kubernetes-list-type: map
                         extension_control_path:
                           description: |-
                             The list of directories inside the image which should be added to extension_control_path.
@@ -5449,7 +5715,7 @@ spec:
                             type: string
                           type: array
                         image:
-                          description: The image containing the extension, required
+                          description: The image containing the extension.
                           properties:
                             pullPolicy:
                               description: |-
@@ -5469,9 +5735,6 @@ spec:
                                 container images in workload controllers like Deployments and StatefulSets.
                               type: string
                           type: object
-                          x-kubernetes-validations:
-                          - message: An image reference is required
-                            rule: has(self.reference)
                         ld_library_path:
                           description: The list of directories inside the image which
                             should be added to ld_library_path.
@@ -5481,13 +5744,15 @@ spec:
                         name:
                           description: The name of the extension, required
                           minLength: 1
-                          pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                          pattern: ^[a-z0-9]([-a-z0-9_]*[a-z0-9])?$
                           type: string
                       required:
-                      - image
                       - name
                       type: object
                     type: array
+                    x-kubernetes-list-map-keys:
+                    - name
+                    x-kubernetes-list-type: map
                   ldap:
                     description: Options to specify LDAP configuration
                     properties:
@@ -5569,7 +5834,9 @@ spec:
                   pg_hba:
                     description: |-
                       PostgreSQL Host Based Authentication rules (lines to be appended
-                      to the pg_hba.conf file)
+                      to the pg_hba.conf file).
+                      Use the ${podselector:NAME} syntax to reference a pod selector;
+                      the rule will be expanded for each Pod IP matching that selector.
                     items:
                       type: string
                     type: array
@@ -6269,6 +6536,24 @@ spec:
                               description: Kubelet's generated CSRs will be addressed
                                 to this signer.
                               type: string
+                            userAnnotations:
+                              additionalProperties:
+                                type: string
+                              description: |-
+                                userAnnotations allow pod authors to pass additional information to
+                                the signer implementation.  Kubernetes does not restrict or validate this
+                                metadata in any way.
+
+                                These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of
+                                the PodCertificateRequest objects that Kubelet creates.
+
+                                Entries are subject to the same validation as object metadata annotations,
+                                with the addition that all keys must be domain-prefixed. No restrictions
+                                are placed on values, except an overall size limitation on the entire field.
+
+                                Signers should document the keys and values they support. Signers should
+                                deny requests that contain keys they do not recognize.
+                              type: object
                           required:
                           - keyType
                           - signerName
@@ -6758,6 +7043,20 @@ spec:
                         type: string
                     type: object
                 type: object
+              serviceAccountName:
+                description: |-
+                  Name of an existing ServiceAccount in the same namespace to use for the cluster.
+                  When specified, the operator will not create a new ServiceAccount
+                  but will use the provided one. This is useful for sharing a single
+                  ServiceAccount across multiple clusters (e.g., for cloud IAM configurations).
+                  If not specified, a ServiceAccount will be created with the cluster name.
+                  Mutually exclusive with ServiceAccountTemplate.
+                maxLength: 253
+                pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                type: string
+                x-kubernetes-validations:
+                - message: serviceAccountName is immutable
+                  rule: self == oldSelf
               serviceAccountTemplate:
                 description: Configure the generation of the service account
                 properties:
@@ -6910,7 +7209,7 @@ spec:
                       resources:
                         description: |-
                           resources represents the minimum resources the volume should have.
-                          If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements
+                          Users are allowed to specify resource requirements
                           that are lower than previous value but must still be higher than capacity recorded in the
                           status field of the claim.
                           More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -7166,7 +7465,7 @@ spec:
                             resources:
                               description: |-
                                 resources represents the minimum resources the volume should have.
-                                If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements
+                                Users are allowed to specify resource requirements
                                 that are lower than previous value but must still be higher than capacity recorded in the
                                 status field of the claim.
                                 More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -7574,7 +7873,7 @@ spec:
                       resources:
                         description: |-
                           resources represents the minimum resources the volume should have.
-                          If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements
+                          Users are allowed to specify resource requirements
                           that are lower than previous value but must still be higher than capacity recorded in the
                           status field of the claim.
                           More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -8033,6 +8332,110 @@ spec:
                 description: PGDataImageInfo contains the details of the latest image
                   that has run on the current data directory.
                 properties:
+                  extensions:
+                    description: Extensions contains the container image extensions
+                      available for the current Image
+                    items:
+                      description: |-
+                        ExtensionConfiguration is the configuration used to add
+                        PostgreSQL extensions to the Cluster.
+                      properties:
+                        bin_path:
+                          description: |-
+                            A list of directories within the image to be appended to the
+                            PostgreSQL process's `PATH` environment variable.
+                          items:
+                            type: string
+                          type: array
+                        dynamic_library_path:
+                          description: |-
+                            The list of directories inside the image which should be added to dynamic_library_path.
+                            If not defined, defaults to "/lib".
+                          items:
+                            type: string
+                          type: array
+                        env:
+                          description: |-
+                            Env is a list of custom environment variables to be set in the
+                            PostgreSQL process for this extension. It is the responsibility of the
+                            cluster administrator to ensure the variables are correct for the
+                            specific extension. Note that changes to these variables require
+                            a manual cluster restart to take effect.
+                          items:
+                            description: |-
+                              ExtensionEnvVar defines an environment variable for a specific extension
+                              image volume.
+                            properties:
+                              name:
+                                description: |-
+                                  Name of the environment variable to be injected into the
+                                  PostgreSQL process.
+                                minLength: 1
+                                pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
+                                type: string
+                              value:
+                                description: |-
+                                  Value of the environment variable. CloudNativePG performs a direct
+                                  replacement of this value, with support for placeholder expansion.
+                                  The ${`image_root`} placeholder resolves to the absolute mount path
+                                  of the extension's volume (e.g., `/extensions/my-extension`). This
+                                  is particularly useful for allowing applications or libraries to
+                                  locate specific directories within the mounted image.
+                                  Unrecognized placeholders are rejected. To include a literal ${...}
+                                  in the value, escape it as $${...}.
+                                minLength: 1
+                                type: string
+                            required:
+                            - name
+                            - value
+                            type: object
+                          type: array
+                          x-kubernetes-list-map-keys:
+                          - name
+                          x-kubernetes-list-type: map
+                        extension_control_path:
+                          description: |-
+                            The list of directories inside the image which should be added to extension_control_path.
+                            If not defined, defaults to "/share".
+                          items:
+                            type: string
+                          type: array
+                        image:
+                          description: The image containing the extension.
+                          properties:
+                            pullPolicy:
+                              description: |-
+                                Policy for pulling OCI objects. Possible values are:
+                                Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails.
+                                Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present.
+                                IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
+                                Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+                              type: string
+                            reference:
+                              description: |-
+                                Required: Image or artifact reference to be used.
+                                Behaves in the same way as pod.spec.containers[*].image.
+                                Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets.
+                                More info: https://kubernetes.io/docs/concepts/containers/images
+                                This field is optional to allow higher level config management to default or override
+                                container images in workload controllers like Deployments and StatefulSets.
+                              type: string
+                          type: object
+                        ld_library_path:
+                          description: The list of directories inside the image which
+                            should be added to ld_library_path.
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: The name of the extension, required
+                          minLength: 1
+                          pattern: ^[a-z0-9]([-a-z0-9_]*[a-z0-9])?$
+                          type: string
+                      required:
+                      - name
+                      type: object
+                    type: array
                   image:
                     description: Image is the image name
                     type: string
@@ -8106,6 +8509,31 @@ spec:
                   - version
                   type: object
                 type: array
+              podSelectorRefs:
+                description: |-
+                  PodSelectorRefs contains the resolved pod IPs for each named selector
+                  defined in spec.podSelectorRefs.
+                items:
+                  description: PodSelectorRefStatus contains the resolved pod IPs
+                    for a named selector.
+                  properties:
+                    ips:
+                      description: |-
+                        IPs is the list of pod IPs matching the selector.
+                        Each IP is a single address (no CIDR notation).
+                      items:
+                        type: string
+                      type: array
+                    name:
+                      description: Name corresponds to the name in the spec's PodSelectorRef.
+                      type: string
+                  required:
+                  - name
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - name
+                x-kubernetes-list-type: map
               poolerIntegrations:
                 description: The integration needed by poolers referencing the cluster
                 properties:
@@ -8291,7 +8719,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: databases.postgresql.cnpg.io
 spec:
@@ -8887,7 +9315,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: failoverquorums.postgresql.cnpg.io
 spec:
@@ -8966,7 +9394,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: imagecatalogs.postgresql.cnpg.io
 spec:
@@ -9014,6 +9442,112 @@ spec:
                 items:
                   description: CatalogImage defines the image and major version
                   properties:
+                    extensions:
+                      description: The configuration of the extensions to be added
+                      items:
+                        description: |-
+                          ExtensionConfiguration is the configuration used to add
+                          PostgreSQL extensions to the Cluster.
+                        properties:
+                          bin_path:
+                            description: |-
+                              A list of directories within the image to be appended to the
+                              PostgreSQL process's `PATH` environment variable.
+                            items:
+                              type: string
+                            type: array
+                          dynamic_library_path:
+                            description: |-
+                              The list of directories inside the image which should be added to dynamic_library_path.
+                              If not defined, defaults to "/lib".
+                            items:
+                              type: string
+                            type: array
+                          env:
+                            description: |-
+                              Env is a list of custom environment variables to be set in the
+                              PostgreSQL process for this extension. It is the responsibility of the
+                              cluster administrator to ensure the variables are correct for the
+                              specific extension. Note that changes to these variables require
+                              a manual cluster restart to take effect.
+                            items:
+                              description: |-
+                                ExtensionEnvVar defines an environment variable for a specific extension
+                                image volume.
+                              properties:
+                                name:
+                                  description: |-
+                                    Name of the environment variable to be injected into the
+                                    PostgreSQL process.
+                                  minLength: 1
+                                  pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
+                                  type: string
+                                value:
+                                  description: |-
+                                    Value of the environment variable. CloudNativePG performs a direct
+                                    replacement of this value, with support for placeholder expansion.
+                                    The ${`image_root`} placeholder resolves to the absolute mount path
+                                    of the extension's volume (e.g., `/extensions/my-extension`). This
+                                    is particularly useful for allowing applications or libraries to
+                                    locate specific directories within the mounted image.
+                                    Unrecognized placeholders are rejected. To include a literal ${...}
+                                    in the value, escape it as $${...}.
+                                  minLength: 1
+                                  type: string
+                              required:
+                              - name
+                              - value
+                              type: object
+                            type: array
+                            x-kubernetes-list-map-keys:
+                            - name
+                            x-kubernetes-list-type: map
+                          extension_control_path:
+                            description: |-
+                              The list of directories inside the image which should be added to extension_control_path.
+                              If not defined, defaults to "/share".
+                            items:
+                              type: string
+                            type: array
+                          image:
+                            description: The image containing the extension.
+                            properties:
+                              pullPolicy:
+                                description: |-
+                                  Policy for pulling OCI objects. Possible values are:
+                                  Always: the kubelet always attempts to pull the reference. Container creation will fail If the pull fails.
+                                  Never: the kubelet never pulls the reference and only uses a local image or artifact. Container creation will fail if the reference isn't present.
+                                  IfNotPresent: the kubelet pulls if the reference isn't already present on disk. Container creation will fail if the reference isn't present and the pull fails.
+                                  Defaults to Always if :latest tag is specified, or IfNotPresent otherwise.
+                                type: string
+                              reference:
+                                description: |-
+                                  Required: Image or artifact reference to be used.
+                                  Behaves in the same way as pod.spec.containers[*].image.
+                                  Pull secrets will be assembled in the same way as for the container image by looking up node credentials, SA image pull secrets, and pod spec image pull secrets.
+                                  More info: https://kubernetes.io/docs/concepts/containers/images
+                                  This field is optional to allow higher level config management to default or override
+                                  container images in workload controllers like Deployments and StatefulSets.
+                                type: string
+                            type: object
+                          ld_library_path:
+                            description: The list of directories inside the image
+                              which should be added to ld_library_path.
+                            items:
+                              type: string
+                            type: array
+                          name:
+                            description: The name of the extension, required
+                            minLength: 1
+                            pattern: ^[a-z0-9]([-a-z0-9_]*[a-z0-9])?$
+                            type: string
+                        required:
+                        - name
+                        type: object
+                      type: array
+                      x-kubernetes-list-map-keys:
+                      - name
+                      x-kubernetes-list-type: map
                     image:
                       description: The image reference
                       type: string
@@ -9048,7 +9582,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: poolers.postgresql.cnpg.io
 spec:
@@ -9449,6 +9983,19 @@ spec:
                     - name
                     type: object
                 type: object
+              serviceAccountName:
+                description: |-
+                  Name of an existing ServiceAccount in the same namespace to use for the pooler.
+                  When specified, the operator will not create a new ServiceAccount
+                  but will use the provided one. This is useful for sharing a single
+                  ServiceAccount across multiple poolers (e.g., for cloud IAM configurations).
+                  If not specified, a ServiceAccount will be created with the pooler name.
+                maxLength: 253
+                pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                type: string
+                x-kubernetes-validations:
+                - message: serviceAccountName is immutable
+                  rule: self == oldSelf
               serviceTemplate:
                 description: Template for the Service to be created
                 properties:
@@ -11680,7 +12227,9 @@ spec:
                                   type: integer
                               type: object
                             resizePolicy:
-                              description: Resources resize policy for the container.
+                              description: |-
+                                Resources resize policy for the container.
+                                This field cannot be set on ephemeral containers.
                               items:
                                 description: ContainerResizePolicy represents resource
                                   resize policy for the container.
@@ -14903,7 +15452,9 @@ spec:
                                   type: integer
                               type: object
                             resizePolicy:
-                              description: Resources resize policy for the container.
+                              description: |-
+                                Resources resize policy for the container.
+                                This field cannot be set on ephemeral containers.
                               items:
                                 description: ContainerResizePolicy represents resource
                                   resize policy for the container.
@@ -15690,8 +16241,8 @@ spec:
                           will be made available to those containers which consume them
                           by name.
 
-                          This is an alpha field and requires enabling the
-                          DynamicResourceAllocation feature gate.
+                          This is a stable field but requires that the
+                          DynamicResourceAllocation feature gate is enabled.
 
                           This field is immutable.
                         items:
@@ -16150,9 +16701,10 @@ spec:
                             operator:
                               description: |-
                                 Operator represents a key's relationship to the value.
-                                Valid operators are Exists and Equal. Defaults to Equal.
+                                Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal.
                                 Exists is equivalent to wildcard for value, so that a pod can
                                 tolerate all taints of a particular category.
+                                Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
                               type: string
                             tolerationSeconds:
                               description: |-
@@ -16946,7 +17498,7 @@ spec:
                                         resources:
                                           description: |-
                                             resources represents the minimum resources the volume should have.
-                                            If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements
+                                            Users are allowed to specify resource requirements
                                             that are lower than previous value but must still be higher than capacity recorded in the
                                             status field of the claim.
                                             More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -17832,6 +18384,24 @@ spec:
                                             description: Kubelet's generated CSRs
                                               will be addressed to this signer.
                                             type: string
+                                          userAnnotations:
+                                            additionalProperties:
+                                              type: string
+                                            description: |-
+                                              userAnnotations allow pod authors to pass additional information to
+                                              the signer implementation.  Kubernetes does not restrict or validate this
+                                              metadata in any way.
+
+                                              These values are copied verbatim into the `spec.unverifiedUserAnnotations` field of
+                                              the PodCertificateRequest objects that Kubelet creates.
+
+                                              Entries are subject to the same validation as object metadata annotations,
+                                              with the addition that all keys must be domain-prefixed. No restrictions
+                                              are placed on values, except an overall size limitation on the entire field.
+
+                                              Signers should document the keys and values they support. Signers should
+                                              deny requests that contain keys they do not recognize.
+                                            type: object
                                         required:
                                         - keyType
                                         - signerName
@@ -18257,6 +18827,42 @@ spec:
                         x-kubernetes-list-map-keys:
                         - name
                         x-kubernetes-list-type: map
+                      workloadRef:
+                        description: |-
+                          WorkloadRef provides a reference to the Workload object that this Pod belongs to.
+                          This field is used by the scheduler to identify the PodGroup and apply the
+                          correct group scheduling policies. The Workload object referenced
+                          by this field may not exist at the time the Pod is created.
+                          This field is immutable, but a Workload object with the same name
+                          may be recreated with different policies. Doing this during pod scheduling
+                          may result in the placement not conforming to the expected policies.
+                        properties:
+                          name:
+                            description: |-
+                              Name defines the name of the Workload object this Pod belongs to.
+                              Workload must be in the same namespace as the Pod.
+                              If it doesn't match any existing Workload, the Pod will remain unschedulable
+                              until a Workload object is created and observed by the kube-scheduler.
+                              It must be a DNS subdomain.
+                            type: string
+                          podGroup:
+                            description: |-
+                              PodGroup is the name of the PodGroup within the Workload that this Pod
+                              belongs to. If it doesn't match any existing PodGroup within the Workload,
+                              the Pod will remain unschedulable until the Workload object is recreated
+                              and observed by the kube-scheduler. It must be a DNS label.
+                            type: string
+                          podGroupReplicaKey:
+                            description: |-
+                              PodGroupReplicaKey specifies the replica key of the PodGroup to which this
+                              Pod belongs. It is used to distinguish pods belonging to different replicas
+                              of the same pod group. The pod group policy is applied separately to each replica.
+                              When set, it must be a DNS label.
+                            type: string
+                        required:
+                        - name
+                        - podGroup
+                        type: object
                     required:
                     - containers
                     type: object
@@ -18359,7 +18965,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: publications.postgresql.cnpg.io
 spec:
@@ -18556,7 +19162,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: scheduledbackups.postgresql.cnpg.io
 spec:
@@ -18749,7 +19355,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: subscriptions.postgresql.cnpg.io
 spec:
@@ -18901,10 +19507,10 @@ kind: ClusterRole
 metadata:
   name: cnpg-cloudnative-pg
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups:
@@ -19141,10 +19747,10 @@ kind: ClusterRole
 metadata:
   name: cnpg-cloudnative-pg-view
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups:
@@ -19172,10 +19778,10 @@ kind: ClusterRole
 metadata:
   name: cnpg-cloudnative-pg-edit
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups:
@@ -19205,10 +19811,10 @@ kind: ClusterRoleBinding
 metadata:
   name: cnpg-cloudnative-pg
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -19226,10 +19832,10 @@ metadata:
   name: cnpg-webhook-service
   namespace: cnpg-system
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -19248,10 +19854,10 @@ metadata:
   name: cnpg-cloudnative-pg
   namespace: cnpg-system
   labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
+    helm.sh/chart: cloudnative-pg-0.28.0
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
+    app.kubernetes.io/version: "1.29.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -19262,9 +19868,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/rbac: e3737a66be9c74a67263b9d7b4e8fc1232e36433605ae75d0e4fe340566025b1
-        checksum/config: b816778d3592e8b42274b5adf201bebe6364cec185ec7fa19c68105b483620ce
-        checksum/monitoring-config: 78ed617198025de5f7f8414cd5e217f0d46ec506d3e284b18a77081aa297455a
+        checksum/rbac: f9ab1d3a43e8253c4414d3a1232d1725aeedf63996cac8c26e02ebfd76378b78
+        checksum/config: 0b84310a9b67b370b35d8358c17775dd28944c2e7990d461e55a116dc2c8ba6c
+        checksum/monitoring-config: abe87b2b96fa91351ae6517fb7fb1b291b3c2a07b20ad09ef524a3def8e2facf
       labels:
         app.kubernetes.io/name: cloudnative-pg
         app.kubernetes.io/instance: cnpg
@@ -19280,19 +19886,19 @@ spec:
         - /manager
         env:
         - name: OPERATOR_IMAGE_NAME
-          value: "ghcr.io/cloudnative-pg/cloudnative-pg:1.28.0"
+          value: "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.0"
         - name: OPERATOR_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MONITORING_QUERIES_CONFIGMAP
           value: "cnpg-default-monitoring"
-        image: "ghcr.io/cloudnative-pg/cloudnative-pg:1.28.0"
+        image: "ghcr.io/cloudnative-pg/cloudnative-pg:1.29.0"
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
             path: /readyz
-            port: 9443
+            port: webhook-server
             scheme: HTTPS
           initialDelaySeconds: 3
         name: manager
@@ -19306,7 +19912,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /readyz
-            port: 9443
+            port: webhook-server
             scheme: HTTPS
           initialDelaySeconds: 3
         resources:
@@ -19325,7 +19931,7 @@ spec:
           failureThreshold: 6
           httpGet:
             path: /readyz
-            port: 9443
+            port: webhook-server
             scheme: HTTPS
           periodSeconds: 5
         volumeMounts:
@@ -19347,6 +19953,221 @@ spec:
           defaultMode: 420
           optional: true
           secretName: cnpg-webhook-cert
+---
+# Source: cloudnative-pg/templates/mutatingwebhookconfiguration.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: cnpg-mutating-webhook-configuration
+  labels:
+    helm.sh/chart: cloudnative-pg-0.28.0
+    app.kubernetes.io/name: cloudnative-pg
+    app.kubernetes.io/instance: cnpg
+    app.kubernetes.io/version: "1.29.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /mutate-postgresql-cnpg-io-v1-backup
+      port: 443
+  failurePolicy: Fail
+  name: mbackup.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - backups
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /mutate-postgresql-cnpg-io-v1-cluster
+      port: 443
+  failurePolicy: Fail
+  name: mcluster.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - clusters
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /mutate-postgresql-cnpg-io-v1-database
+      port: 443
+  failurePolicy: Fail
+  name: mdatabase.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - databases
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /mutate-postgresql-cnpg-io-v1-scheduledbackup
+      port: 443
+  failurePolicy: Fail
+  name: mscheduledbackup.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - scheduledbackups
+  sideEffects: None
+---
+# Source: cloudnative-pg/templates/validatingwebhookconfiguration.yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: cnpg-validating-webhook-configuration
+  labels:
+    helm.sh/chart: cloudnative-pg-0.28.0
+    app.kubernetes.io/name: cloudnative-pg
+    app.kubernetes.io/instance: cnpg
+    app.kubernetes.io/version: "1.29.0"
+    app.kubernetes.io/managed-by: Helm
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /validate-postgresql-cnpg-io-v1-backup
+      port: 443
+  failurePolicy: Fail
+  name: vbackup.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - backups
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /validate-postgresql-cnpg-io-v1-cluster
+      port: 443
+  failurePolicy: Fail
+  name: vcluster.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - clusters
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /validate-postgresql-cnpg-io-v1-scheduledbackup
+      port: 443
+  failurePolicy: Fail
+  name: vscheduledbackup.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - scheduledbackups
+  sideEffects: None
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /validate-postgresql-cnpg-io-v1-database
+      port: 443
+  failurePolicy: Fail
+  name: vdatabase.cnpg.io
+  rules:
+  - apiGroups:
+    - postgresql.cnpg.io
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - databases
+  sideEffects: None
+- admissionReviewVersions:
+    - v1
+  clientConfig:
+    service:
+      name: cnpg-webhook-service
+      namespace: cnpg-system
+      path: /validate-postgresql-cnpg-io-v1-pooler
+      port: 443
+  failurePolicy: Fail
+  name: vpooler.cnpg.io
+  rules:
+    - apiGroups:
+        - postgresql.cnpg.io
+      apiVersions:
+        - v1
+      operations:
+        - CREATE
+        - UPDATE
+      resources:
+        - poolers
+  sideEffects: None
 ---
 # Source: cloudnative-pg/templates/deployment.yaml
 #
@@ -19487,218 +20308,3 @@ spec:
 #
 # SPDX-License-Identifier: Apache-2.0
 #
----
-# Source: cloudnative-pg/templates/mutatingwebhookconfiguration.yaml
-apiVersion: admissionregistration.k8s.io/v1
-kind: MutatingWebhookConfiguration
-metadata:
-  name: cnpg-mutating-webhook-configuration
-  labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
-    app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
-    app.kubernetes.io/managed-by: Helm
-webhooks:
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /mutate-postgresql-cnpg-io-v1-backup
-      port: 443
-  failurePolicy: Fail
-  name: mbackup.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - backups
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /mutate-postgresql-cnpg-io-v1-cluster
-      port: 443
-  failurePolicy: Fail
-  name: mcluster.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - clusters
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /mutate-postgresql-cnpg-io-v1-database
-      port: 443
-  failurePolicy: Fail
-  name: mdatabase.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - databases
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /mutate-postgresql-cnpg-io-v1-scheduledbackup
-      port: 443
-  failurePolicy: Fail
-  name: mscheduledbackup.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - scheduledbackups
-  sideEffects: None
----
-# Source: cloudnative-pg/templates/validatingwebhookconfiguration.yaml
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingWebhookConfiguration
-metadata:
-  name: cnpg-validating-webhook-configuration
-  labels:
-    helm.sh/chart: cloudnative-pg-0.27.0
-    app.kubernetes.io/name: cloudnative-pg
-    app.kubernetes.io/instance: cnpg
-    app.kubernetes.io/version: "1.28.0"
-    app.kubernetes.io/managed-by: Helm
-webhooks:
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /validate-postgresql-cnpg-io-v1-backup
-      port: 443
-  failurePolicy: Fail
-  name: vbackup.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - backups
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /validate-postgresql-cnpg-io-v1-cluster
-      port: 443
-  failurePolicy: Fail
-  name: vcluster.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - clusters
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /validate-postgresql-cnpg-io-v1-scheduledbackup
-      port: 443
-  failurePolicy: Fail
-  name: vscheduledbackup.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - scheduledbackups
-  sideEffects: None
-- admissionReviewVersions:
-  - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /validate-postgresql-cnpg-io-v1-database
-      port: 443
-  failurePolicy: Fail
-  name: vdatabase.cnpg.io
-  rules:
-  - apiGroups:
-    - postgresql.cnpg.io
-    apiVersions:
-    - v1
-    operations:
-    - CREATE
-    - UPDATE
-    resources:
-    - databases
-  sideEffects: None
-- admissionReviewVersions:
-    - v1
-  clientConfig:
-    service:
-      name: cnpg-webhook-service
-      namespace: cnpg-system
-      path: /validate-postgresql-cnpg-io-v1-pooler
-      port: 443
-  failurePolicy: Fail
-  name: vpooler.cnpg.io
-  rules:
-    - apiGroups:
-        - postgresql.cnpg.io
-      apiVersions:
-        - v1
-      operations:
-        - CREATE
-        - UPDATE
-      resources:
-        - poolers
-  sideEffects: None
