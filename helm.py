@@ -1,5 +1,16 @@
 """
-Upgrade helm chart version with newer values.yaml while retaining modification in values.yaml.
+Upgrade helm chart version with newer values.yaml while retaining local modifications.
+
+Flow:
+  1. Read helm-lock.json to determine the current chart version and repo.
+  2. Refresh the helm repo and resolve the target version (latest if unspecified).
+  3. If the target differs from the current version, download both the old and new
+     upstream default values.yaml from git.
+  4. Run `git merge-file` to 3-way merge the upstream changes into the local file:
+     current = user's customized values.yaml, base = old upstream, other = new upstream.
+     Conflict markers are inserted where local edits clash with upstream changes.
+  6. Run `helm template` against the (now patched) values.yaml to render manifests.
+  7. Update helm-lock.json with the new version.
 
 For each helm application folder, create a subfolder and place a `helm-lock.json` in it:
 
@@ -22,7 +33,8 @@ For each helm application folder, create a subfolder and place a `helm-lock.json
 
 ```
 
-Run this script from that directory to patch the values.yaml and generate manifest from newer chart version. Will migrate most of helm generated manifests to be managed in this way.
+Run this script from that directory to patch the values.yaml and generate manifest
+from newer chart version.
 """
 import argparse
 import json
@@ -147,7 +159,8 @@ def get_remote_file(url, path):
         f.write(content)
 
 
-def gen_values_diff(chart_info, newv, values_file, workdir="/tmp", diff_file="values.diff"):
+def merge_values(chart_info, newv, values_file, workdir="/tmp"):
+    """3-way merge: upstream old → upstream new, applied to the user's values_file."""
     old_tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
     if chart_info["name"] == "seaweedfs":
         old_tag = seaweedtag(chart_info["version"])
@@ -162,41 +175,26 @@ def gen_values_diff(chart_info, newv, values_file, workdir="/tmp", diff_file="va
     new_file = os.path.join(workdir, f"{newv}-values.yaml")
     get_remote_file(new_url, new_file)
 
-    diff_path = os.path.join(workdir, diff_file)
-    with open(diff_path, "w") as diff:
-        p = subprocess.run(
-            ["diff", "-u", f"--label=a/{values_file}", f"--label=b/{values_file}", old_file, new_file],
-            stdout=diff,
-        )
-    if p.returncode not in (0, 1):
-        logging.error(
-            "Failed to generate diff between %s and %s: %s",
-            chart_info["version"],
-            newv,
-            p.stderr.decode(),
-        )
-        sys.exit(1)
-    elif p.returncode == 1:
-        logging.info(
-            "diff between %s and %s generated in %s",
-            chart_info["version"],
-            newv,
-            diff_path,
-        )
-        return diff_path
-    else:
-        logging.info("no diff between %s and %s", chart_info["version"], newv)
-
-
-def patch(values_file, patch_file):
+    # git merge-file modifies values_file in-place:
+    #   current = values_file (user's customized version)
+    #   base    = old_file    (old upstream defaults)
+    #   other   = new_file    (new upstream defaults)
     p = subprocess.run(
-        ["git", "apply", patch_file],
+        ["git", "merge-file", "-L", "ours", "-L", "base", "-L", "theirs",
+         values_file, old_file, new_file],
         capture_output=True,
     )
-    if p.returncode != 0:
-        logging.error(p.stderr.decode())
+    if p.returncode == 0:
+        logging.info("Merged upstream %s → %s cleanly", chart_info["version"], newv)
+    elif p.returncode > 0:
+        logging.error(
+            "Merged with %d conflict(s) — resolve manually in %s then re-run",
+            p.returncode, values_file,
+        )
+        sys.exit(1)
     else:
-        logging.info(p.stdout.decode())
+        logging.error("Merge failed: %s", p.stderr.decode())
+        sys.exit(1)
 
 
 def helm_template(args, output):
@@ -223,9 +221,7 @@ def main():
             lock["repo"]["name"],
             target_version,
         )
-        diff_path = gen_values_diff(lock["chart"], target_version, args.values, workdir=args.workdir)
-        if diff_path:
-            patch(args.values, diff_path)
+        merge_values(lock["chart"], target_version, args.values, workdir=args.workdir)
     else:
         logging.info("Chart's current version and target version are the same")
     helm_template_args = [
