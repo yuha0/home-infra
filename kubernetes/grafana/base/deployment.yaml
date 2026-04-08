@@ -56,6 +56,9 @@ spec:
           value: /var/lib/grafana
         - name: GF_PATHS_PROVISIONING
           value: /etc/grafana/provisioning
+        envFrom:
+        - secretRef:
+            name: oidc-pocket-id
         image: grafana
         name: grafana
         ports:
