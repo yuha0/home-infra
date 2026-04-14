@@ -7,7 +7,7 @@
     "name": "cert-manager",
     "gitValuesPath": "https://raw.githubusercontent.com/cert-manager/cert-manager/refs/tags/{gitTag}/deploy/charts/cert-manager/values.yaml",
     "gitTagFormat": "{version}",
-    "version": "v1.20.1"
+    "version": "v1.20.2"
   },
   "releaseName": "cert-manager",
   "valuesFile": "./values.yaml",
