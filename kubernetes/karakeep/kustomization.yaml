@@ -32,7 +32,7 @@ images:
   newTag: "124"
 - name: meilisearch
   newName: docker.io/getmeili/meilisearch
-  newTag: v1.42.0
+  newTag: v1.29.0
 - name: karakeep
   newName: ghcr.io/karakeep-app/karakeep
   newTag: 0.31.0
