@@ -23,6 +23,7 @@ resources:
 - web
 - sealed-karakeep.yaml
 - sealed-meilisearch.yaml
+- sealed-oidc.yaml
 - networkpolicy.yaml
 
 images:
