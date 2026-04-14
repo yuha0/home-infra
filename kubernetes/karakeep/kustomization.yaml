@@ -13,8 +13,8 @@ configMapGenerator:
   - DISABLE_SIGNUPS=true
   - NEXTAUTH_URL=https://karakeep.internal.yuha0.com
   - OPENAI_BASE_URL=https://generativelanguage.googleapis.com/v1beta
-  - INFERENCE_TEXT_MODEL=gemini-2.0-flash
-  - INFERENCE_IMAGE_MODEL=gemini-2.0-flash
+  - INFERENCE_TEXT_MODEL=gemini-2.5-flash-lite
+  - INFERENCE_IMAGE_MODEL=gemini-2.5-flash-lite
 
 resources:
 - namespace.yaml
