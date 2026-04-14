@@ -30,10 +30,10 @@ spec:
             name: karakeep-secrets
         - secretRef:
             name: meilisearch-secrets
+        - secretRef:
+            name: oidc-pocket-id
         - configMapRef:
             name: karakeep-configuration
-        - configMapRef:
-            name: oidc-pocket-id
       volumes:
       - name: data
         persistentVolumeClaim:
