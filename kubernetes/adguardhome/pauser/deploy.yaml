@@ -13,6 +13,13 @@ spec:
       containers:
       - name: pauser
         image: python
+        resources:
+          requests:
+            cpu: 10m
+            memory: 20Mi
+          limits:
+            cpu: 10m
+            memory: 20Mi
         command:
         - python
         - -m

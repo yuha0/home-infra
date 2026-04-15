@@ -1075,13 +1075,11 @@ metadata:
   name: ingress-seaweedfs-s3
   namespace: seaweedfs
   annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      chunked_transfer_encoding off;
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
     nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
   labels:
     app.kubernetes.io/name: seaweedfs
     helm.sh/chart: seaweedfs-4.18.0
@@ -1123,7 +1121,7 @@ metadata:
 stringData:
   user: "YourSWUser"
   # auto-generated password
-  password: MmM5MDRjY2UyYWQ0NTljOWU3NDUxNTEz
+  password: MTg5OGFiYzRmYzJhODRkNzk0ZTYyNjg3
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
