@@ -15,11 +15,11 @@ spec:
         image: python
         resources:
           requests:
-            cpu: 20m
-            memory: 30Mi
+            cpu: 30m
+            memory: 40Mi
           limits:
-            cpu: 20m
-            memory: 30Mi
+            cpu: 30m
+            memory: 40Mi
         command:
         - python
         - -m
