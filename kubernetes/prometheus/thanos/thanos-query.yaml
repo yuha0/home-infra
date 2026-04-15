@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/component: query
   name: thanos-query
 spec:
-  replicas: 6
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/component: query
