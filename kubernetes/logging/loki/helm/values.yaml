@@ -503,7 +503,7 @@ loki:
       # S3 configuration (when type is "s3")
       s3:
         # S3 endpoint URL
-        endpoint: seaweedfs-s3.internal.yuha0.com
+        endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local.:8333
         # Optional region
         region: null
         # Optional access key
@@ -511,7 +511,7 @@ loki:
         # Optional secret key
         secret_access_key: null
         # Optional. Enable if using self-signed TLS
-        insecure: false
+        insecure: true
         # Optional server-side encryption configuration
         sse: {}
         # Optional HTTP client configuration

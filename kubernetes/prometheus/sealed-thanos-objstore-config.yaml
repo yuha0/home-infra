@@ -15,7 +15,8 @@ spec:
         type: S3
         config:
           bucket: "prometheus"
-          endpoint: "seaweedfs-s3.internal.yuha0.com"
+          endpoint: "seaweedfs-s3.seaweedfs.svc.cluster.local.:8333"
+          insecure: true
           signature_version2: false
           access_key: {{ index . "access-key" }}
           secret_key: {{ index . "secret-key" }}
