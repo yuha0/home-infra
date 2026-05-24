@@ -1,12 +1,12 @@
 {
   "repo": {
-    "name": "grafana",
-    "url": "https://grafana.github.io/helm-charts"
+    "name": "grafana-community",
+    "url": "https://grafana-community.github.io/helm-charts"
   },
   "chart": {
     "name": "loki",
-    "gitValuesPath": "https://raw.githubusercontent.com/grafana/loki/refs/tags/{gitTag}/production/helm/loki/values.yaml",
-    "gitTagFormat": "helm-loki-{version}",
+    "gitValuesPath": "https://raw.githubusercontent.com/grafana-community/helm-charts/refs/tags/{gitTag}/charts/loki/values.yaml",
+    "gitTagFormat": "loki-{version}",
     "version": "6.55.0"
   },
   "releaseName": "loki",

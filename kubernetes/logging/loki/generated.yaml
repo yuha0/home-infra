@@ -120,12 +120,15 @@ data:
       storage:
         object_store:
           s3:
+            access_key_id: null
             bucket_lookup_type: path
             bucket_name: loki-chunks
             dualstack_enabled: false
             endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local.:8333
             http: {}
             insecure: true
+            region: null
+            secret_access_key: null
             sse: {}
           storage_prefix: null
     compactor:
@@ -893,7 +896,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 1d48dd871cc05e4ea4a7615bd476ad0c2126c6cd716f21825784d802d702457d
+        checksum/config: 39690874b077a678c972811585c29fe7e59a55d23ace1726c92066f4186ac9d7
       labels:
         app.kubernetes.io/part-of: memberlist
         app.kubernetes.io/name: loki
@@ -1015,7 +1018,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 1d48dd871cc05e4ea4a7615bd476ad0c2126c6cd716f21825784d802d702457d
+        checksum/config: 39690874b077a678c972811585c29fe7e59a55d23ace1726c92066f4186ac9d7
         kubectl.kubernetes.io/default-container: "loki"
       labels:
         helm.sh/chart: loki-6.55.0
@@ -1374,7 +1377,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 1d48dd871cc05e4ea4a7615bd476ad0c2126c6cd716f21825784d802d702457d
+        checksum/config: 39690874b077a678c972811585c29fe7e59a55d23ace1726c92066f4186ac9d7
       labels:
         helm.sh/chart: loki-6.55.0
         app.kubernetes.io/name: loki
