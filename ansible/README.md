@@ -55,7 +55,9 @@ patch -s -p1 < /tmp/group_vars.diff
 cd ..
 uv pip install --upgrade -r kubespray/requirements.txt
 
-# 5. Follow official docs instruction to upgrade the cluster
+# 5. Follow official docs instruction to upgrade the cluster:
+uv run ansible-playbook cluster.yml -b -i inventory/k0.ini -e upgrade_cluster_setup=true
+
 ```
 
 [kubernetes-sigs/kubespray]: https://github.com/kubernetes-sigs/kubespray
