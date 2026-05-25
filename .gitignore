@@ -1,6 +1,7 @@
 ansible/inventory/credentials
 ansible/inventory/artifacts
 **/*.env
+**/*.venv
 **/*.orig
 **/*.rej
 **/*secret*.yaml
