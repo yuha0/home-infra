@@ -1,7 +1,7 @@
 namespace: kube-system
 resources:
 - service-monitor.yaml
-- https://github.com/kubernetes/kube-state-metrics//examples/autosharding?ref=v2.18.0
+- https://github.com/kubernetes/kube-state-metrics//examples/autosharding?ref=v2.19.0
 
 patches:
 - target:
@@ -11,4 +11,4 @@ patches:
   patch: |-
     - op: add
       path: /spec/replicas
-      value: 5
+      value: 3
