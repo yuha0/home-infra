@@ -13,6 +13,9 @@ patches:
     - op: add
       path: /spec/loadBalancerIP
       value: 10.200.0.2
+    - op: add
+      path: /metadata/labels/cilium-bgp-advertise
+      value: default
 - target:
     group: apps
     kind: Deployment

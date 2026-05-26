@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: apiserver
+  labels:
+    cilium-bgp-advertise: default
   annotations:
     external-dns.alpha.kubernetes.io/hostname: k0.yuha0.com
     external-dns.alpha.kubernetes.io/ttl: "120"
