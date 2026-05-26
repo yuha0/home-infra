@@ -8,7 +8,11 @@ spec:
     server: https://kubernetes.default.svc
   clusterResourceWhitelist:
   - group: 'cilium.io'
-    kind: CiliumBGPPeeringPolicy
+    kind: CiliumBGPClusterConfig
+  - group: 'cilium.io'
+    kind: CiliumBGPPeerConfig
+  - group: 'cilium.io'
+    kind: CiliumBGPAdvertisement
   - group: 'cilium.io'
     kind: CiliumLoadBalancerIPPool
 

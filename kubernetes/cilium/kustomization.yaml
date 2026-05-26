@@ -1,3 +1,5 @@
 resources:
-- bgp-peering-policy.yaml
+- bgp-cluster-config.yaml
+- bgp-peer-config.yaml
+- bgp-advertisement.yaml
 - lb-ip-pool.yaml

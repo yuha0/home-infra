@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumBGPClusterConfig
+metadata:
+  name: k0
+spec:
+  nodeSelector:
+    matchLabels: {}
+  bgpInstances:
+  - name: default
+    localASN: 65101
+    peers:
+    - name: unifi
+      peerASN: 65100
+      peerAddress: "10.100.0.1"
+      peerConfigRef:
+        name: default
