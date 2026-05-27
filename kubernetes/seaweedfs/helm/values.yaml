@@ -324,7 +324,7 @@ volume:
   # limit file size to avoid out of memory, default 256mb
   fileSizeLimitMB: 2000
   # minimum free disk space(in percents). If free disk space lower this value - all volumes marks as ReadOnly
-  minFreeSpacePercent: 1
+  minFreeSpacePercent: 10
 
   # Custom command line arguments to add to the volume command
   # Example to fix IPv6 metrics connectivity issues:
@@ -364,9 +364,9 @@ volume:
   dataDirs:
     - name: data1
       type: "persistentVolumeClaim"
-      size: "128Gi"
+      size: "512Gi"
       storageClass: "truenas-iscsi-general"
-      maxVolumes: 0
+      maxVolumes: 16
 
       # - name: data2
       #   type: "persistentVolumeClaim"
