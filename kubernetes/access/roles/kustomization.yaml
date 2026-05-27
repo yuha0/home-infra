@@ -1,3 +1,4 @@
 resources:
 - access-cluster-viewer.yaml
+- access-debug.yaml
 - kubeconfig-generator.yaml
