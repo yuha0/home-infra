@@ -192,7 +192,7 @@ master:
   # deployment to single node services such as Minikube
   affinity: |
     podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
+      requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchLabels:
               app.kubernetes.io/name: {{ template "seaweedfs.name" . }}
@@ -482,13 +482,15 @@ volume:
   # deployment to single node services such as Minikube
   affinity: |
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: {{ template "seaweedfs.name" . }}
-              app.kubernetes.io/instance: {{ .Release.Name }}
-              app.kubernetes.io/component: {{ $volumeName }}
-          topologyKey: kubernetes.io/hostname
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: {{ template "seaweedfs.name" . }}
+                app.kubernetes.io/instance: {{ .Release.Name }}
+                app.kubernetes.io/component: {{ $volumeName }}
+            topologyKey: kubernetes.io/hostname
 
   # Topology Spread Constraints Settings
   # This should map directly to the value of the topologySpreadConstraints

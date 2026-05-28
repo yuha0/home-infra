@@ -725,7 +725,7 @@ spec:
       restartPolicy: Always
       affinity:
         podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
+          requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: seaweedfs
@@ -874,13 +874,15 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: seaweedfs
-                  app.kubernetes.io/instance: seaweedfs
-                  app.kubernetes.io/component: volume
-              topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: seaweedfs
+                    app.kubernetes.io/instance: seaweedfs
+                    app.kubernetes.io/component: volume
+                topologyKey: kubernetes.io/hostname
       restartPolicy: Always
       
       terminationGracePeriodSeconds: 150
@@ -1121,7 +1123,7 @@ metadata:
 stringData:
   user: "YourSWUser"
   # auto-generated password
-  password: MmUyZTZlNGFhYmI0NzhhMWM1OGYwMzc0
+  password: YTc5ZDQyOWNhZDdmZGNmMWJiNzAxZDFi
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
