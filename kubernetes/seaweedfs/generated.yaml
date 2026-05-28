@@ -978,9 +978,6 @@ spec:
             successThreshold: 1
             failureThreshold: 4
             timeoutSeconds: 30
-          resources:
-            requests:
-              memory: 3Gi
       volumes:
   volumeClaimTemplates:
     - apiVersion: v1
@@ -1123,7 +1120,7 @@ metadata:
 stringData:
   user: "YourSWUser"
   # auto-generated password
-  password: YTc5ZDQyOWNhZDdmZGNmMWJiNzAxZDFi
+  password: YjY5MTI2OTEzOWMyYjI5YTNmMjYzODll
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
