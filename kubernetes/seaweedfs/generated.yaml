@@ -725,7 +725,7 @@ spec:
       restartPolicy: Always
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: seaweedfs
@@ -1121,7 +1121,7 @@ metadata:
 stringData:
   user: "YourSWUser"
   # auto-generated password
-  password: ZDAwMDJhOWY2NGViYzE3YTFlOTQ2NjBj
+  password: MmUyZTZlNGFhYmI0NzhhMWM1OGYwMzc0
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1

@@ -192,7 +192,7 @@ master:
   # deployment to single node services such as Minikube
   affinity: |
     podAntiAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
+      preferredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchLabels:
               app.kubernetes.io/name: {{ template "seaweedfs.name" . }}
