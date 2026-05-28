@@ -315,7 +315,7 @@ volume:
   metricsPort: 9327
   metricsIp: ""  # Metrics listen IP. If empty, defaults to ipBind
   ipBind: "0.0.0.0"
-  replicas: 3
+  replicas: 10
   loggingOverrideLevel: null
   # number of seconds between heartbeats, must be smaller than or equal to the master's setting
   pulseSeconds: null
@@ -364,9 +364,9 @@ volume:
   dataDirs:
     - name: data1
       type: "persistentVolumeClaim"
-      size: "512Gi"
+      size: "256Gi"
       storageClass: "truenas-iscsi-general"
-      maxVolumes: 16
+      maxVolumes: 9
 
       # - name: data2
       #   type: "persistentVolumeClaim"
@@ -407,7 +407,7 @@ volume:
 
   idx:
     type: "persistentVolumeClaim"
-    size: 20Gi
+    size: 2Gi
     storageClass: "truenas-iscsi-general"
 
   # Resource requests, limits, etc. for the vol-move-idx initContainer. This

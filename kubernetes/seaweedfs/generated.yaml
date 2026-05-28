@@ -854,7 +854,7 @@ metadata:
     app.kubernetes.io/component: volume
 spec:
   serviceName: seaweedfs-volume
-  replicas: 3
+  replicas: 10
   podManagementPolicy: Parallel
   selector:
     matchLabels:
@@ -934,7 +934,7 @@ spec:
                 -metricsPort=9327 \
                 -dir /data1 \
                 -dir.idx=/idx \
-                -max 16 \
+                -max 9 \
                 -ip.bind=0.0.0.0 \
                 -readMode=proxy \
                 -index=memory \
@@ -990,7 +990,7 @@ spec:
         storageClassName: truenas-iscsi-general
         resources:
           requests:
-            storage: 512Gi
+            storage: 256Gi
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
@@ -1000,7 +1000,7 @@ spec:
         storageClassName: truenas-iscsi-general
         resources:
           requests:
-            storage: 20Gi
+            storage: 2Gi
 ---
 # Source: seaweedfs/templates/admin/admin-ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -1121,7 +1121,7 @@ metadata:
 stringData:
   user: "YourSWUser"
   # auto-generated password
-  password: NDc2MjgxN2U4ZjRjNWNiMTAxNWExNmYz
+  password: ZDAwMDJhOWY2NGViYzE3YTFlOTQ2NjBj
 ---
 # Source: seaweedfs/templates/shared/post-install-bucket-hook.yaml
 apiVersion: batch/v1
