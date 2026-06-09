@@ -56,7 +56,7 @@ cilium_enable_prometheus: true
 #
 # Only effective when monitor aggregation is set to "medium" or higher.
 # cilium_monitor_aggregation_flags: "all"
-# Kube Proxy Replacement mode (strict/partial)
+# Kube Proxy Replacement mode (true/false)
 cilium_kube_proxy_replacement: true
 
 # If upgrading from Cilium < 1.5, you may want to override some of these options
