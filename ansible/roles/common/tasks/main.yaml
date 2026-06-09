@@ -93,6 +93,17 @@
   tags:
   - nofile
 
+- name: Bump inotify max_user_instances
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_instances
+    value: '8192'
+    state: present
+    sysctl_set: true
+    sysctl_file: /etc/sysctl.d/99-inotify.conf
+    reload: yes
+  tags:
+  - inotify
+
 - name: Ensure initiator names
   ansible.builtin.template:
     src: initiatorname.iscsi.j2
