@@ -84,3 +84,48 @@
     name: vector
     state: restarted
   when: vector_config.changed or vector_downloads.changed
+
+# Enforce the UniFi Network JVM max heap. UniFi OS ships -Xmx{{ unifi_stock_xmx_mb }}M
+# in /etc/default/unifi (read into UNIFI_NATIVE_OPTS by the unifi systemd unit),
+# which is too small for Network 10.4.57 on the UDM-SE and causes a continuous
+# Full-GC spiral. The file lives on the writable overlay, so OS image updates
+# can revert it -- this re-enforces it on every run.
+#
+# We override ONLY the exact stock -Xmx{{ unifi_stock_xmx_mb }}M line. If neither
+# the stock value nor our enforced value is present, UniFi OS has changed the
+# default heap (possibly a real fix), in which case we abort rather than
+# blindly clobber it. So upstream is free to take over.
+- name: Read /etc/default/unifi
+  ansible.builtin.slurp:
+    src: /etc/default/unifi
+  register: unifi_default_raw
+
+- name: Detect current UniFi Network heap setting
+  ansible.builtin.set_fact:
+    unifi_stock_heap_present: "{{ ('-Xmx' ~ unifi_stock_xmx_mb ~ 'M') in (unifi_default_raw.content | b64decode) }}"
+    unifi_enforced_heap_present: "{{ ('-Xmx' ~ unifi_heap_xmx_mb ~ 'M') in (unifi_default_raw.content | b64decode) }}"
+
+- name: Abort if UniFi OS changed the default heap (neither stock nor enforced value present)
+  ansible.builtin.assert:
+    that:
+      - unifi_stock_heap_present or unifi_enforced_heap_present
+    fail_msg: >-
+      Neither the stock -Xmx{{ unifi_stock_xmx_mb }}M nor the enforced
+      -Xmx{{ unifi_heap_xmx_mb }}M was found in /etc/default/unifi. UniFi OS likely
+      changed the default JVM heap -- refusing to override so upstream can take
+      over. Review the file and update unifi_stock_xmx_mb before re-running.
+    success_msg: "Recognized UniFi Network heap setting present; safe to enforce."
+
+- name: Enforce UniFi Network JVM max heap (only when exact stock -Xmx{{ unifi_stock_xmx_mb }}M present)
+  ansible.builtin.replace:
+    path: /etc/default/unifi
+    regexp: '-Xmx{{ unifi_stock_xmx_mb }}M'
+    replace: '-Xmx{{ unifi_heap_xmx_mb }}M'
+  when: unifi_stock_heap_present
+  register: unifi_heap
+
+- name: Restart UniFi Network application if heap was changed
+  ansible.builtin.systemd_service:
+    name: unifi
+    state: restarted
+  when: unifi_heap.changed | default(false)

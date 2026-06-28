@@ -1,0 +1,11 @@
+# Max heap (MB) for the UniFi Network application JVM.
+# Stock UniFi OS ships -Xmx512M, which is too small for Network 10.4.57 on the
+# UDM-SE and drives a continuous Full-GC spiral (pegged CPU, sluggish UI).
+# Enforced here because UniFi OS updates reflash the base image and revert it.
+unifi_heap_xmx_mb: 1024
+
+# The stock heap value we expect to override. The role only rewrites this exact
+# -Xmx<value>M; if both it and our enforced value are gone, UniFi OS changed the
+# default and the role aborts so upstream can take over. Bump this if a future
+# UniFi OS ships a different stock heap that still needs overriding.
+unifi_stock_xmx_mb: 512
