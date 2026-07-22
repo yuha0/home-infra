@@ -32940,7 +32940,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
     app.kubernetes.io/version: "v3.4.5"
 spec:
-  replicas: 2
+  replicas: 1
   revisionHistoryLimit: 5
   serviceName: argocd-application-controller
   selector:
@@ -32977,7 +32977,7 @@ spec:
         name: application-controller
         env:
           - name: ARGOCD_CONTROLLER_REPLICAS
-            value: "2"
+            value: "1"
           - name: ARGOCD_APPLICATION_CONTROLLER_NAME
             value: argocd-application-controller
           - name: ARGOCD_RECONCILIATION_TIMEOUT
