@@ -9,6 +9,10 @@ Flow:
   4. Run `git merge-file` to 3-way merge the upstream changes into the local file:
      current = user's customized values.yaml, base = old upstream, other = new upstream.
      Conflict markers are inserted where local edits clash with upstream changes.
+     On conflict the lock is bumped to the target version anyway (the file has
+     already been rebased onto it) and the script exits so the user can resolve
+     the markers. A re-run then finds versions matching, skips the merge, and
+     renders. A startup guard refuses to run while conflict markers remain.
   6. Run `helm template` against the (now patched) values.yaml to render manifests.
   7. Update helm-lock.json with the new version.
 
@@ -99,6 +103,32 @@ def seaweedtag(chart_version):
     return tag
 
 
+def check_conflict_markers(values_file):
+    """Abort if values_file still contains unresolved merge conflict markers.
+
+    A previous run may have left conflicts in place after bumping the lock (see
+    merge_values). Refuse to proceed until they are resolved, rather than feeding
+    a broken file to `helm template` and emitting a confusing YAML parse error.
+    """
+    if not os.path.isfile(values_file):
+        return
+    with open(values_file, "r") as f:
+        for lineno, line in enumerate(f, 1):
+            stripped = line.rstrip("\n")
+            if (
+                stripped.startswith("<<<<<<<")
+                or stripped.startswith(">>>>>>>")
+                or stripped == "======="
+            ):
+                logging.error(
+                    "Unresolved conflict marker at %s:%d — resolve existing "
+                    "conflicts before re-running",
+                    values_file,
+                    lineno,
+                )
+                sys.exit(1)
+
+
 def check_values(chart_info, values_file):
     if os.path.isfile(values_file):
         return
@@ -186,15 +216,24 @@ def merge_values(chart_info, newv, values_file, workdir="/tmp"):
     )
     if p.returncode == 0:
         logging.info("Merged upstream %s → %s cleanly", chart_info["version"], newv)
+        return False
     elif p.returncode > 0:
         logging.error(
             "Merged with %d conflict(s) — resolve manually in %s then re-run",
             p.returncode, values_file,
         )
-        sys.exit(1)
+        return True
     else:
         logging.error("Merge failed: %s", p.stderr.decode())
         sys.exit(1)
+
+
+def write_lock(lockfile, lock, version):
+    lock["chart"]["version"] = version
+    with open(lockfile, "w") as f:
+        json.dump(lock, f, indent=2, sort_keys=False)
+        f.write("\n")
+    logging.info("lock version updated to %s", version)
 
 
 def helm_template(args, output):
@@ -210,6 +249,7 @@ def main():
     new_version = False
 
     check_values(lock["chart"], args.values)
+    check_conflict_markers(args.values)
 
     target_version = helm_repo_refresh(
         lock["repo"]["name"], lock["repo"]["url"], lock["chart"]["name"], args.target
@@ -221,7 +261,18 @@ def main():
             lock["repo"]["name"],
             target_version,
         )
-        merge_values(lock["chart"], target_version, args.values, workdir=args.workdir)
+        conflict = merge_values(
+            lock["chart"], target_version, args.values, workdir=args.workdir
+        )
+        if conflict:
+            # git merge-file has already rebased values.yaml onto the target
+            # version (conflict markers and all). Bump the lock now so that a
+            # re-run — after the user resolves the markers — sees the versions
+            # match, skips the merge entirely, and proceeds straight to render.
+            # Without this, the next run would re-diff against the stale base
+            # and re-conflict on the same lines.
+            write_lock(args.lock, lock, target_version)
+            sys.exit(1)
     else:
         logging.info("Chart's current version and target version are the same")
     helm_template_args = [
@@ -238,11 +289,7 @@ def main():
     )
 
     if new_version:
-        lock["chart"]["version"] = target_version
-        with open(args.lock, "w") as f:
-            json.dump(lock, f, indent=2, sort_keys=False)
-            f.write("\n")
-        logging.info("lock version updated")
+        write_lock(args.lock, lock, target_version)
 
 
 if __name__ == "__main__":
