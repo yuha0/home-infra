@@ -45,5 +45,5 @@ spec:
     objectStorageConfig:
       key: thanos.yaml
       name: thanos-objstore-config
-    version: v0.41.0
+    version: v0.42.2
   version: v3.13.1
