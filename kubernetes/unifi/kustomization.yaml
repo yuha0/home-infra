@@ -16,13 +16,13 @@ resources:
 images:
 - name: geoipupdate
   newName: ghcr.io/maxmind/geoipupdate
-  newTag: v7.1.1
+  newTag: v8.0.0
 - name: vector
   newName: docker.io/timberio/vector
   newTag: 0.56.0-distroless-libc
 - name: unpoller
   newName: ghcr.io/unpoller/unpoller
-  newTag: v3.3.1
+  newTag: v3.3.4
 - name: tls-cert-sync
   newName: ghcr.io/yuha0/tls-cert-sync
   newTag: v1.2.1
