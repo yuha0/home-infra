@@ -119,6 +119,20 @@
     state: restarted
   when: iscsi_conf is changed
 
+# Keep iSCSI sessions queued (not failed) through a TrueNAS target restart.
+- name: Raise iSCSI replacement_timeout
+  ansible.builtin.lineinfile:
+    path: /etc/iscsi/iscsid.conf
+    regexp: '^\s*node\.session\.timeo\.replacement_timeout\s*='
+    line: 'node.session.timeo.replacement_timeout = 86400'
+  register: iscsid_conf
+
+- name: Reload iscsi (iscsid.conf)
+  ansible.builtin.systemd_service:
+    name: open-iscsi
+    state: restarted
+  when: iscsid_conf is changed
+
 - name: Enable multipathing
   ansible.builtin.copy:
     src: multipath.conf
