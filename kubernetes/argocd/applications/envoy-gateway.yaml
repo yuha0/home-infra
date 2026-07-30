@@ -36,6 +36,4 @@ spec:
     namespace: envoy-gateway-system
   syncPolicy:
     syncOptions:
-    # Gateway API + Envoy Gateway CRDs are large; server-side apply avoids the
-    # last-applied-configuration annotation size limit (same as cloudnative-pg).
     - ServerSideApply=true
