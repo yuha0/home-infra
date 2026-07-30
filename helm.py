@@ -4,8 +4,10 @@ Upgrade helm chart version with newer values.yaml while retaining local modifica
 Flow:
   1. Read helm-lock.json to determine the current chart version and repo.
   2. Refresh the helm repo and resolve the target version (latest if unspecified).
-  3. If the target differs from the current version, download both the old and new
-     upstream default values.yaml from git.
+  3. If the target differs from the current version, fetch both the old and new
+     upstream default values.yaml from the packaged charts (`helm show values`),
+     which prints the raw authored file — comments included — as shipped by the
+     chart author.
   4. Run `git merge-file` to 3-way merge the upstream changes into the local file:
      current = user's customized values.yaml, base = old upstream, other = new upstream.
      Conflict markers are inserted where local edits clash with upstream changes.
@@ -26,8 +28,6 @@ For each helm application folder, create a subfolder and place a `helm-lock.json
     },
     "chart": {
         "name": "cloudnative-pg",
-        "gitValuesPath": "https://raw.githubusercontent.com/cloudnative-pg/charts/refs/tags/{gitTag}/charts/cloudnative-pg/values.yaml",
-        "gitTagFormat": "cloudnative-pg-v{version}",
         "version": "0.24.0"
     },
     "releaseName": "cnpg",
@@ -39,11 +39,19 @@ For each helm application folder, create a subfolder and place a `helm-lock.json
 
 Run this script from that directory to patch the values.yaml and generate manifest
 from newer chart version.
+
+OCI repos are supported and detected by URL scheme (`"url": "oci://docker.io/envoyproxy"`).
+For OCI charts:
+  - Versions are listed via the OCI Distribution API (`/v2/<repo>/tags/list`) with
+    anonymous bearer-token auth, since `helm search repo` cannot see OCI registries.
+  - `repo.name` is unused (no `helm repo add`); the chart ref is `<repo.url>/<chart.name>`.
 """
 import argparse
 import json
 import subprocess
 import logging
+import urllib.error
+import urllib.parse
 import urllib.request
 import sys
 import os
@@ -96,11 +104,16 @@ def get_lock(lockfile):
     return lock
 
 
-def seaweedtag(chart_version):
-    match = re.match(r"(\d+)\.(\d+)\.0", chart_version)
-    tag = f"{match.group(1)}.{match.group(2)}"
-    logging.warning("Special handling for seaweedfs due to values.yaml being tracked by app version tag and not chart version tag: extracted app version %s from chart version %s", tag, chart_version)
-    return tag
+def is_oci(repo_url):
+    return repo_url.startswith("oci://")
+
+
+def chart_ref(repo, chart_name):
+    """Chart reference for helm template/show: repo alias for classic repos,
+    full oci:// URL for OCI registries (which have no repo alias)."""
+    if is_oci(repo["url"]):
+        return f"{repo['url'].rstrip('/')}/{chart_name}"
+    return f"{repo['name']}/{chart_name}"
 
 
 def check_conflict_markers(values_file):
@@ -129,14 +142,10 @@ def check_conflict_markers(values_file):
                 sys.exit(1)
 
 
-def check_values(chart_info, values_file):
+def check_values(repo, chart_info, values_file):
     if os.path.isfile(values_file):
         return
-    tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
-    if chart_info["name"] == "seaweedfs":
-        tag = seaweedtag(chart_info["version"])
-    url = chart_info["gitValuesPath"].format(gitTag=tag)
-    get_remote_file(url, values_file)
+    fetch_default_values(repo, chart_info, chart_info["version"], values_file)
 
 
 def run_helm(args, output=False):
@@ -182,28 +191,110 @@ def helm_repo_refresh(repo_name, repo_url, chart_name, version):
         return latest
 
 
-def get_remote_file(url, path):
-    with urllib.request.urlopen(url) as remote:
-        content = remote.read()
-    with open(path, "wb") as f:
+def oci_registry_endpoint(repo_url, chart_name):
+    """Split oci://host/path + chart into (registry host, repository path)."""
+    ref = repo_url[len("oci://"):].strip("/") + "/" + chart_name
+    host, _, repository = ref.partition("/")
+    # docker.io is a pull alias, not a real registry endpoint (it redirects to
+    # www.docker.com); the distribution API lives at registry-1.docker.io.
+    if host in ("docker.io", "index.docker.io"):
+        host = "registry-1.docker.io"
+    return host, repository
+
+
+def oci_auth_token(challenge, repository):
+    """Fetch an anonymous pull token per the WWW-Authenticate bearer challenge."""
+    params = dict(re.findall(r'(\w+)="([^"]*)"', challenge))
+    if "realm" not in params:
+        return None
+    query = {"scope": f"repository:{repository}:pull"}
+    if "service" in params:
+        query["service"] = params["service"]
+    if "scope" in params:
+        query["scope"] = params["scope"]
+    url = f"{params['realm']}?{urllib.parse.urlencode(query)}"
+    with urllib.request.urlopen(url) as resp:
+        body = json.load(resp)
+    return body.get("token") or body.get("access_token")
+
+
+def oci_list_tags(repo_url, chart_name):
+    """List all tags of an OCI repository via the distribution API, following
+    Link-header pagination and the anonymous bearer-token auth flow."""
+    host, repository = oci_registry_endpoint(repo_url, chart_name)
+    url = f"https://{host}/v2/{repository}/tags/list"
+    token = None
+    tags = []
+    while url:
+        req = urllib.request.Request(url)
+        if token:
+            req.add_header("Authorization", f"Bearer {token}")
+        try:
+            resp = urllib.request.urlopen(req)
+        except urllib.error.HTTPError as e:
+            if e.code == 401 and not token:
+                token = oci_auth_token(e.headers.get("WWW-Authenticate", ""), repository)
+                if token:
+                    continue
+            logging.error("Failed to list tags at %s: %s", url, e)
+            sys.exit(1)
+        with resp:
+            tags.extend(json.load(resp).get("tags") or [])
+            link = resp.headers.get("Link", "")
+        m = re.search(r"<([^>]+)>", link)
+        url = urllib.parse.urljoin(url, m.group(1)) if m else None
+    return tags
+
+
+def oci_resolve_version(repo_url, chart_name, version):
+    """OCI counterpart of helm_repo_refresh: chart versions are registry tags.
+    Latest is picked from stable semver tags only (mirroring `helm search repo`,
+    which hides prereleases), but an explicitly pinned prerelease tag is honored."""
+    tags = oci_list_tags(repo_url, chart_name)
+    if version in tags:
+        return version
+    versions = [t for t in tags if re.fullmatch(r"v?\d+\.\d+\.\d+", t)]
+    if not versions:
+        logging.error(
+            "No semver tags found for %s in %s (tags: %s)", chart_name, repo_url, tags
+        )
+        sys.exit(1)
+    # Some registries publish both "1.8.3" and "v1.8.3" for the same chart
+    # version; sort the plain tag after its v-prefixed twin so it wins, matching
+    # what helm itself resolves (the OCI tag equals the Chart.yaml version).
+    versions.sort(
+        key=lambda v: (list(map(int, v.lstrip("v").split("."))), not v.startswith("v"))
+    )
+    latest = versions[-1]
+    logging.info(
+        "Target version not specified or not found, use latest version %s", latest
+    )
+    return latest
+
+
+def fetch_default_values(repo, chart_info, version, path):
+    """Fetch the upstream default values.yaml for a given chart version from the
+    packaged chart itself. `helm show values` prints the raw authored file from
+    the chart archive (comments and all), so it carries the author's intentional
+    changes just like the file in git — and it is what helm actually installs,
+    which can differ from git (e.g. envoy gateway packages a rendered
+    values.tmpl.yaml). For classic repos this requires the repo to be
+    added/refreshed first (main() resolves the target version before calling
+    this, which does exactly that)."""
+    content = run_helm(
+        ["show", "values", chart_ref(repo, chart_info["name"]), f"--version={version}"]
+    )
+    with open(path, "w") as f:
         f.write(content)
 
 
-def merge_values(chart_info, newv, values_file, workdir="/tmp"):
+def merge_values(repo, chart_info, newv, values_file, workdir="/tmp"):
     """3-way merge: upstream old → upstream new, applied to the user's values_file."""
-    old_tag = chart_info["gitTagFormat"].format(version=chart_info["version"])
-    if chart_info["name"] == "seaweedfs":
-        old_tag = seaweedtag(chart_info["version"])
-    old_url = chart_info["gitValuesPath"].format(gitTag=old_tag)
     old_file = os.path.join(workdir, f"{chart_info['version']}-values.yaml")
-    get_remote_file(old_url, old_file)
+    fetch_default_values(repo, chart_info, chart_info["version"], old_file)
 
-    new_tag = chart_info["gitTagFormat"].format(version=newv)
-    if chart_info["name"] == "seaweedfs":
-        new_tag = seaweedtag(newv)
-    new_url = chart_info["gitValuesPath"].format(gitTag=new_tag)
     new_file = os.path.join(workdir, f"{newv}-values.yaml")
-    get_remote_file(new_url, new_file)
+    fetch_default_values(repo, chart_info, newv, new_file)
 
     # git merge-file modifies values_file in-place:
     #   current = values_file (user's customized version)
@@ -248,12 +339,17 @@ def main():
     lock = get_lock(args.lock)
     new_version = False
 
-    check_values(lock["chart"], args.values)
+    if is_oci(lock["repo"]["url"]):
+        target_version = oci_resolve_version(
+            lock["repo"]["url"], lock["chart"]["name"], args.target
+        )
+    else:
+        # also registers/refreshes the repo, which fetch_default_values needs
+        target_version = helm_repo_refresh(
+            lock["repo"]["name"], lock["repo"]["url"], lock["chart"]["name"], args.target
+        )
+    check_values(lock["repo"], lock["chart"], args.values)
     check_conflict_markers(args.values)
-
-    target_version = helm_repo_refresh(
-        lock["repo"]["name"], lock["repo"]["url"], lock["chart"]["name"], args.target
-    )
     if lock["chart"]["version"] != target_version:
         new_version = True
         logging.info(
@@ -262,7 +358,7 @@ def main():
             target_version,
         )
         conflict = merge_values(
-            lock["chart"], target_version, args.values, workdir=args.workdir
+            lock["repo"], lock["chart"], target_version, args.values, workdir=args.workdir
         )
         if conflict:
             # git merge-file has already rebased values.yaml onto the target
@@ -280,7 +376,7 @@ def main():
         f"-f={args.values}",
         f"--version={target_version}",
         lock["releaseName"],
-        f"{lock['repo']['name']}/{lock['chart']['name']}",
+        chart_ref(lock["repo"], lock["chart"]["name"]),
     ]
     helm_template_args.extend(lock["extraTemplateArgs"])
     helm_template(
