@@ -5,8 +5,6 @@
   },
   "chart": {
     "name": "loki",
-    "gitValuesPath": "https://raw.githubusercontent.com/grafana-community/helm-charts/refs/tags/{gitTag}/charts/loki/values.yaml",
-    "gitTagFormat": "loki-{version}",
     "version": "17.1.1"
   },
   "releaseName": "loki",

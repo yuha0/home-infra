@@ -1,0 +1,16 @@
+{
+  "repo": {
+    "name": "envoyproxy",
+    "url": "oci://docker.io/envoyproxy"
+  },
+  "chart": {
+    "name": "gateway-helm",
+    "version": "1.8.3"
+  },
+  "releaseName": "eg",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=envoy-gateway-system",
+    "--include-crds"
+  ]
+}

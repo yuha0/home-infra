@@ -5,8 +5,6 @@
   },
   "chart": {
     "name": "prometheus-node-exporter",
-    "gitValuesPath": "https://raw.githubusercontent.com/prometheus-community/helm-charts/refs/tags/{gitTag}/charts/prometheus-node-exporter/values.yaml",
-    "gitTagFormat": "prometheus-node-exporter-{version}",
     "version": "4.53.1"
   },
   "releaseName": "monitoring",
