@@ -1,0 +1,19 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy-internal
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+      envoyService:
+        type: LoadBalancer
+        loadBalancerIP: 10.200.0.5
+        labels:
+          cilium-bgp-advertise: default
+        # # uncomment after cutover:
+        # annotations:
+        #   external-dns.alpha.kubernetes.io/hostname: "*.internal.yuha0.com"

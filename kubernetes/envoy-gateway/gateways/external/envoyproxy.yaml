@@ -1,0 +1,16 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: envoy-external
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+      envoyService:
+        type: LoadBalancer
+        loadBalancerIP: 10.200.0.6
+        labels:
+          cilium-bgp-advertise: default

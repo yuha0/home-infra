@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: internal-yuha0-com
+  namespace: envoy-gateway-system
+spec:
+  secretName: wildcard-yuha0-com
+  dnsNames:
+  - "*.internal.yuha0.com"
+  issuerRef:
+    name: letsencrypt
+    group: cert-manager.io
+    kind: ClusterIssuer

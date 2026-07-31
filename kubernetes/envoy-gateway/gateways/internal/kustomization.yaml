@@ -1,0 +1,6 @@
+resources:
+- certificate.yaml
+- envoyproxy.yaml
+- gateway.yaml
+- gatewayclass.yaml
+- redirect.yaml
