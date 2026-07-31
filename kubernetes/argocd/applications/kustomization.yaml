@@ -8,6 +8,7 @@ resources:
 - cloudflare-ddns.yaml
 - cloudnative-pg.yaml
 - democratic-csi.yaml
+- envoy-gateway.yaml
 - external-dns.yaml
 - grafana.yaml
 - homebridge.yaml
