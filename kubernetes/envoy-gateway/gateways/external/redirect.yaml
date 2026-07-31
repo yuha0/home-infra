@@ -5,10 +5,16 @@ metadata:
   namespace: envoy-gateway-system
 spec:
   parentRefs:
-  - name: envoy-external
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
     sectionName: http
   rules:
-  - filters:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
     - type: RequestRedirect
       requestRedirect:
         scheme: https

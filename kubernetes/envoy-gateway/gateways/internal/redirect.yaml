@@ -5,11 +5,17 @@ metadata:
   namespace: envoy-gateway-system
 spec:
   parentRefs:
-    - name: envoy-internal
-      sectionName: http
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-internal
+    sectionName: http
   rules:
-    - filters:
-        - type: RequestRedirect
-          requestRedirect:
-            scheme: https
-            statusCode: 301
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301
