@@ -5,7 +5,6 @@ metadata:
     app.kubernetes.io/instance: prom-k8s
   name: k8s
 spec:
-  disableCompaction: true
   externalLabels:
     cluster: k0
     prom_shard: "$(SHARD)"
