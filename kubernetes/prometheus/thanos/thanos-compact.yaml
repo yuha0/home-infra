@@ -37,6 +37,7 @@ spec:
             - --retention.resolution-1h=720d
             - --objstore.config=$(OBJSTORE_CONFIG)
             - --data-dir=/var/thanos/compactor
+            - --compact.enable-vertical-compaction
             env:
             - name: OBJSTORE_CONFIG
               valueFrom:
