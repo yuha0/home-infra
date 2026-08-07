@@ -2,7 +2,7 @@ namespace: logging
 resources:
 - namespace.yaml
 - loki
-- https://github.com/vectordotdev/vector//distribution/kubernetes/vector-agent?ref=v0.56.0
+- https://github.com/vectordotdev/vector//distribution/kubernetes/vector-agent?ref=v0.57.0
 
 configMapGenerator:
 - name: vector
