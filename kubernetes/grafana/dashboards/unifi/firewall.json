@@ -110,7 +110,7 @@
             "uid": "P982945308D3682D1"
           },
           "editorMode": "code",
-          "expr": "sum by (src_location_country_name) (count_over_time({rule_result=\"D\",rule_type=\"WAN_IN\",type=\"firewall\"} | json [1h]))",
+          "expr": "sum by (src_location_country_name) (count_over_time({rule_result=~\"(r-)?D\",rule_type=~\"(t-)?WAN_IN\",type=\"firewall\"} | json [1h]))",
           "legendFormat": "{{ src_location_country_name }}",
           "queryType": "range",
           "refId": "A",
@@ -219,7 +219,7 @@
             "uid": "P982945308D3682D1"
           },
           "editorMode": "code",
-          "expr": "{rule_result=\"D\",rule_type=\"WAN_IN\",type=\"firewall\"}",
+          "expr": "{rule_result=~\"(r-)?D\",rule_type=~\"(t-)?WAN_IN\",type=\"firewall\"}",
           "queryType": "range",
           "refId": "A"
         }

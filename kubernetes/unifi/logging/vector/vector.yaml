@@ -62,11 +62,11 @@ sinks:
       codec: json
     out_of_order_action: accept
     labels:
-      host: "{{ .host }}"
+      host: "host-{{ .host }}"
       type: "firewall"
-      rule_type: "{{ .rule_type }}"
-      rule_result: "{{ .rule_result }}"
-      rule_desc: "{{ .rule_desc }}"
+      rule_type: "t-{{ .rule_type }}"
+      rule_result: "r-{{ .rule_result }}"
+      rule_desc: "d-{{ .rule_desc }}"
   dropped:
     type: "loki"
     inputs:

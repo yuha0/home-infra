@@ -27,10 +27,10 @@ sinks:
       codec: text
     labels:
       job: "vector"
-      source: "{{ source_type }}"
-      stream: "{{ stream }}"
-      pod_host: "{{ kubernetes.pod_node_name }}"
-      pod_name: "{{ kubernetes.pod_name }}"
-      pod_namespace: "{{ kubernetes.pod_namespace }}"
-      container_name: "{{ kubernetes.container_name }}"
-      file: "{{ file }}"
+      source: "kubernetes_logs"
+      stream: "s-{{ stream }}"
+      pod_host: "h-{{ kubernetes.pod_node_name }}"
+      pod_name: "p-{{ kubernetes.pod_name }}"
+      pod_namespace: "ns-{{ kubernetes.pod_namespace }}"
+      container_name: "c-{{ kubernetes.container_name }}"
+      file: "f-{{ file }}"

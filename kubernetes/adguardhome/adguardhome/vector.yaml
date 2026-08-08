@@ -44,7 +44,7 @@ sinks:
     out_of_order_action: accept
     labels:
       app_name: "adguardhome"
-      CID: "{{ .CID }}"
-      IP: "{{ .IP }}"
-      IsFiltered: "{{ .IsFiltered }}"
-      CP: "{{ .CP }}"
+      CID: "cid-{{ .CID }}"
+      IP: "ip-{{ .IP }}"
+      IsFiltered: "f-{{ .IsFiltered }}"
+      CP: "cp-{{ .CP }}"
