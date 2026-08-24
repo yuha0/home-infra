@@ -330,6 +330,8 @@ data:
   commitserver.log.level: info
   controller.log.format: text
   controller.log.level: info
+  controller.operation.processors: "1"
+  controller.status.processors: "1"
   dexserver.log.format: text
   dexserver.log.level: info
   notificationscontroller.log.format: text
@@ -31655,7 +31657,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5b42638e170015b95131aa4410a57103e2e71dbf48561804274b9c9f9fc3e708
+        checksum/cmd-params: aa5c14fed6d28d0621074f62b165eb716e8a28ecb81b9d141bc7b44870d9c7e3
       labels:
         helm.sh/chart: argo-cd-10.2.2
         app.kubernetes.io/name: argocd-applicationset-controller
@@ -31953,7 +31955,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5b42638e170015b95131aa4410a57103e2e71dbf48561804274b9c9f9fc3e708
+        checksum/cmd-params: aa5c14fed6d28d0621074f62b165eb716e8a28ecb81b9d141bc7b44870d9c7e3
         checksum/cm: 30162b2927ebb0cc2ac38009dc2cd6e2fc261b4eab88a441f7ec54fd400f6b6f
       labels:
         helm.sh/chart: argo-cd-10.2.2
@@ -32384,7 +32386,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5b42638e170015b95131aa4410a57103e2e71dbf48561804274b9c9f9fc3e708
+        checksum/cmd-params: aa5c14fed6d28d0621074f62b165eb716e8a28ecb81b9d141bc7b44870d9c7e3
         checksum/cm: 30162b2927ebb0cc2ac38009dc2cd6e2fc261b4eab88a441f7ec54fd400f6b6f
       labels:
         helm.sh/chart: argo-cd-10.2.2
@@ -32950,7 +32952,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 5b42638e170015b95131aa4410a57103e2e71dbf48561804274b9c9f9fc3e708
+        checksum/cmd-params: aa5c14fed6d28d0621074f62b165eb716e8a28ecb81b9d141bc7b44870d9c7e3
         checksum/cm: 30162b2927ebb0cc2ac38009dc2cd6e2fc261b4eab88a441f7ec54fd400f6b6f
       labels:
         helm.sh/chart: argo-cd-10.2.2

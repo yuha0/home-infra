@@ -450,6 +450,8 @@ configs:
     # otlp.address: ''
     server.insecure: true
     reposerver.parallelism.limit: 3
+    controller.status.processors: 1
+    controller.operation.processors: 1
     reposerver.enable.git.submodule: "false"
 
   # Argo CD RBAC policy configuration
