@@ -1755,3 +1755,35 @@ spec:
                 name: loki-gateway
                 port:
                   number: 80
+---
+# Source: loki/templates/gateway/route-gateway.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: loki-gateway
+  namespace: logging
+  labels:
+    helm.sh/chart: loki-17.1.1
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/component: gateway
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
+      namespace: envoy-gateway-system
+  hostnames:
+    - loki-gateway.internal.yuha0.com
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: loki-gateway
+          port: 80
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

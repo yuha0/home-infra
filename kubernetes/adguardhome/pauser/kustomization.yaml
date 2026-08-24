@@ -2,6 +2,7 @@ resources:
 - deploy.yaml
 - service.yaml
 - ingress.yaml
+- httproute.yaml
 - networkpolicies.yaml
 commonLabels:
   app.kubernetes.io/component: pauser

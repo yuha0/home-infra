@@ -5,3 +5,4 @@ resources:
 - generated.yaml
 - applications
 - ingress-internal.yaml
+- httproute-internal.yaml

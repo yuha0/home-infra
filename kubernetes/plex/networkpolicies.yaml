@@ -16,6 +16,10 @@ spec:
       matchExpressions:
       - key: io.kubernetes.pod.namespace
         operator: Exists
+    - matchLabels:
+        app.kubernetes.io/name: envoy
+        app.kubernetes.io/component: proxy
+        io.kubernetes.pod.namespace: envoy-gateway-system
   egress:
   - toEntities:
     - host

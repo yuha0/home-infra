@@ -10,3 +10,4 @@ resources:
 - deployment.yaml
 - pvc.yaml
 - ingress.yaml
+- httproute.yaml

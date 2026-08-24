@@ -12,3 +12,4 @@ resources:
 - sealed-s3-config.yaml
 - worker-data.yaml
 - generated.yaml
+- httproutes.yaml

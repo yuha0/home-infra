@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: GRPCRoute
+metadata:
+  name: vector
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-internal
+    namespace: envoy-gateway-system
+  hostnames:
+  - vector.internal.yuha0.com
+  rules:
+  - backendRefs:
+    - name: vector
+      port: 80

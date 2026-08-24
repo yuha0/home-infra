@@ -7,4 +7,5 @@ resources:
 - volumes.yaml
 - statefulset.yaml
 - ingress.yaml
+- httproute.yaml
 - networkpolicies.yaml

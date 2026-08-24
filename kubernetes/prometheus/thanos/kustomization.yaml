@@ -3,6 +3,7 @@ commonLabels:
   app.kubernetes.io/name: thanos
 resources:
 - ingress.yaml
+- httproute.yaml
 - thanos-query.yaml
 - thanos-store.yaml
 - thanos-compact.yaml

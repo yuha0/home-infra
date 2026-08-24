@@ -2,6 +2,7 @@ nameSuffix: -external
 resources:
 - ../base
 - ingress.yaml
+- httproute.yaml
 patches:
 - patch: "- op: add\n  path: /spec/template/spec/containers/0/env/-\n  value:\n    name:
     GF_SERVER_ROOT_URL\n    value: https://grafana.yuha0.com   "

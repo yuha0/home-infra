@@ -3,3 +3,4 @@ commonLabels:
   k8s-app: hubble-ui
 resources:
 - ingress.yaml
+- httproute.yaml

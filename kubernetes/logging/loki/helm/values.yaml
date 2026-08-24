@@ -1317,7 +1317,7 @@ gateway:
   route:
     main:
       # -- Specifies whether this Gateway API route should be created
-      enabled: false
+      enabled: true
       # -- Set the route apiVersion, e.g. gateway.networking.k8s.io/v1 or gateway.networking.k8s.io/v1beta1.
       # If not set, the latest available version will be auto-detected.
       apiVersion: ""
@@ -1328,10 +1328,15 @@ gateway:
       # -- Additional labels for the route
       labels: {}
       # -- Hostnames for the route
-      hostnames: []
+      hostnames:
+      - loki-gateway.internal.yuha0.com
       # - gateway.loki.example.com
       # -- Parent gateway references to attach the route to
-      parentRefs: []
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: envoy-internal
+        namespace: envoy-gateway-system
       # - name: my-gateway
       #   namespace: gateway-namespace
       # -- Additional rules to prepend before the default catch-all rule.

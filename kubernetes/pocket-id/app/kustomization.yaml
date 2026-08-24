@@ -8,6 +8,7 @@ resources:
 - service.yaml
 - deployment.yaml
 - ingress.yaml
+- httproute.yaml
 - sealed-smtp.yaml
 - sealed-encryption-key.yaml
 - geoip-volume.yaml

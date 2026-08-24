@@ -4,6 +4,7 @@ commonLabels:
 resources:
 - namespace.yaml
 - ingress.yaml
+- httproute.yaml
 - volume.yaml
 - statefulset.yaml
 images:

@@ -1,0 +1,56 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: recipes-internal
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-internal
+    namespace: envoy-gateway-system
+  hostnames:
+  - recipes.internal.yuha0.com
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: recipes
+      port: 80
+    sessionPersistence:
+      type: Cookie
+      sessionName: tandoor-internal
+      absoluteTimeout: 1h
+      cookieConfig:
+        lifetimeType: Permanent
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: recipes-external
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.alpha.kubernetes.io/target: "ddns.yuha0.com"
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
+    namespace: envoy-gateway-system
+  hostnames:
+  - recipes.yuha0.com
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: recipes
+      port: 80
+    sessionPersistence:
+      type: Cookie
+      sessionName: tandoor-external
+      absoluteTimeout: 1h
+      cookieConfig:
+        lifetimeType: Permanent

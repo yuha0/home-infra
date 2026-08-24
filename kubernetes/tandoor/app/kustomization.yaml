@@ -8,6 +8,7 @@ resources:
 - service.yaml
 - deployment.yaml
 - ingress.yaml
+- httproute.yaml
 - sealed-django-key.yaml
 - sealed-email.yaml
 - volumes.yaml
