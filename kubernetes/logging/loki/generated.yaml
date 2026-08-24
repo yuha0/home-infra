@@ -1774,6 +1774,7 @@ spec:
       kind: Gateway
       name: envoy-internal
       namespace: envoy-gateway-system
+      sectionName: https
   hostnames:
     - loki-gateway.internal.yuha0.com
   rules:

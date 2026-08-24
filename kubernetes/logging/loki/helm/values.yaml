@@ -1337,6 +1337,7 @@ gateway:
         kind: Gateway
         name: envoy-internal
         namespace: envoy-gateway-system
+        sectionName: https
       # - name: my-gateway
       #   namespace: gateway-namespace
       # -- Additional rules to prepend before the default catch-all rule.

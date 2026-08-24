@@ -11,6 +11,7 @@ spec:
     kind: Gateway
     name: envoy-external
     namespace: envoy-gateway-system
+    sectionName: https
   hostnames:
   - adguard.yuha0.com
   rules:

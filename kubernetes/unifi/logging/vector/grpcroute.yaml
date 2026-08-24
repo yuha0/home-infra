@@ -8,6 +8,7 @@ spec:
     kind: Gateway
     name: envoy-internal
     namespace: envoy-gateway-system
+    sectionName: https
   hostnames:
   - vector.internal.yuha0.com
   rules:

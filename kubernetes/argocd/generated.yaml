@@ -33394,6 +33394,7 @@ spec:
       kind: Gateway
       name: envoy-external
       namespace: envoy-gateway-system
+      sectionName: https
   hostnames:
     - argocd.yuha0.com
   rules:

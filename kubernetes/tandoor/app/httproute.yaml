@@ -8,6 +8,7 @@ spec:
     kind: Gateway
     name: envoy-internal
     namespace: envoy-gateway-system
+    sectionName: https
   hostnames:
   - recipes.internal.yuha0.com
   rules:
@@ -38,6 +39,7 @@ spec:
     kind: Gateway
     name: envoy-external
     namespace: envoy-gateway-system
+    sectionName: https
   hostnames:
   - recipes.yuha0.com
   rules:

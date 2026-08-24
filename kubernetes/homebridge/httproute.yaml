@@ -8,6 +8,7 @@ spec:
     kind: Gateway
     name: envoy-internal
     namespace: envoy-gateway-system
+    sectionName: https
   hostnames:
   - homebridge.internal.yuha0.com
   rules:
@@ -29,6 +30,7 @@ spec:
     kind: Gateway
     name: envoy-internal
     namespace: envoy-gateway-system
+    sectionName: https
   hostnames:
   - homebridge-webhook.internal.yuha0.com
   rules:
