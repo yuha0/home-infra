@@ -45,4 +45,4 @@ spec:
       key: thanos.yaml
       name: thanos-objstore-config
     version: v0.42.2
-  version: v3.13.1
+  version: v3.14.0
