@@ -27,9 +27,9 @@ resources:
 - networkpolicy.yaml
 
 images:
-- name: alpine-chrome
-  newName: ghcr.io/zenika/alpine-chrome
-  newTag: "124"
+- name: karakeep-chrome
+  newName: ghcr.io/karakeep-app/karakeep-chrome
+  newTag: 151.0.7922.47-r1
 - name: meilisearch
   newName: docker.io/getmeili/meilisearch
   newTag: v1.29.0
