@@ -5,7 +5,7 @@
   },
   "chart": {
     "name": "argo-cd",
-    "version": "10.2.2"
+    "version": "10.4.2"
   },
   "releaseName": "argocd",
   "valuesFile": "./values.yaml",

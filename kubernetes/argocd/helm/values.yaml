@@ -855,6 +855,10 @@ controller:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## Application controller image
   image:
@@ -1252,6 +1256,10 @@ dex:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## Dex image
   image:
@@ -1573,6 +1581,10 @@ redis:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## Redis image
   image:
@@ -1580,7 +1592,7 @@ redis:
     repository: ecr-public.aws.com/docker/library/redis
     # -- Redis tag
     ## Do not use 7.4.0 <= v < 8.0.0, otherwise you are no longer using an open source version of Redis
-    tag: 8.2.3-alpine
+    tag: 8.6.4-alpine
     # -- Redis image pull policy
     # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
@@ -1596,7 +1608,7 @@ redis:
       # -- Repository to use for the redis-exporter
       repository: ghcr.io/oliver006/redis_exporter
       # -- Tag to use for the redis-exporter
-      tag: v1.88.0
+      tag: v1.90.0
       # -- Image pull policy for the redis-exporter
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
@@ -2145,6 +2157,10 @@ server:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## Argo CD server image
   image:
@@ -2493,16 +2509,33 @@ server:
     type: ClusterIP
     # -- Server service http port for NodePort service type (only if `server.service.type` is set to "NodePort")
     nodePortHttp: 30080
+    # -- (int) Server service http2 port for NodePort service type (only if `server.service.servicePortHttp2` is set and `server.service.type` is set to "NodePort")
+    # @default -- `nil` (a random node port is assigned)
+    nodePortHttp2:
     # -- Server service https port for NodePort service type (only if `server.service.type` is set to "NodePort")
     nodePortHttps: 30443
     # -- Server service http port
     servicePortHttp: 80
+    # -- (int) Server service cleartext http2 (h2c) port, targeting the same container port as `servicePortHttp`
+    # @default -- `nil` (disabled)
+    ## The Argo CD server serves the web UI (HTTP/1.1) and gRPC (HTTP/2) on a single container port, and
+    ## `appProtocol` is single-valued per service port. Set this to expose a second port advertising the
+    ## h2c backend protocol, for Gateway API implementations that do not infer it from the route type.
+    ## Leave empty to disable. Only rendered when `configs.params."server.insecure"` is `true`, since
+    ## h2c is not applicable to a TLS backend.
+    servicePortHttp2:
     # -- Server service https port
     servicePortHttps: 443
     # -- Server service http port name, can be used to route traffic via istio
     servicePortHttpName: http
+    # -- Server service http2 port name, can be used to route traffic via istio
+    servicePortHttp2Name: http2
     # -- Server service https port name, can be used to route traffic via istio
     servicePortHttpsName: https
+    # -- Server service http2 port appProtocol, e.g. `kubernetes.io/h2c`. Implementations that select the
+    # protocol from the port name instead do not need it
+    ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol
+    servicePortHttp2AppProtocol: ""
     # -- Server service https port appProtocol
     ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol
     servicePortHttpsAppProtocol: ""
@@ -3047,6 +3080,10 @@ repoServer:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## Repo server image
   image:
@@ -3485,6 +3522,10 @@ applicationSet:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## ApplicationSet controller image
   image:
@@ -4003,6 +4044,10 @@ notifications:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
 
   ## Notifications controller image
   image:
@@ -4799,3 +4844,7 @@ commitServer:
       # maxAllowed:
       #   cpu: 1
       #   memory: 1Gi
+    # -- The recommenders that will provide recommendations for vertical scaling. Only relevant if a named VPA recommender (e.g. one started with a custom recommender name) is in use; leave unset to use the cluster's default recommender
+    ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
+    ## NOTE: specify only zero or one recommender as of VPA 1.7.1
+    recommenders: []
