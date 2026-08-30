@@ -50,9 +50,16 @@ patches:
       value:
       - "https://github.com/yuha0/home-infra.git"
     - op: add
-      path: /spec/signatureKeys
+      path: /spec/sourceIntegrity
       value:
-      - keyID: 77DCB7E7567690CA
+        git:
+          policies:
+          - repos:
+            - url: "https://github.com/yuha0/home-infra.git"
+            gpg:
+              mode: head
+              keys:
+              - 77DCB7E7567690CA
 - target:
     group: argoproj.io
     kind: Application
