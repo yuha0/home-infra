@@ -115,7 +115,6 @@ spec:
           port_dns_over_quic: 853
           port_dnscrypt: 0
           dnscrypt_config_file: ""
-          strict_sni_check: false
           certificate_chain: ""
           private_key: ""
           certificate_path: ""
