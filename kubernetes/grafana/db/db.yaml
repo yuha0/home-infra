@@ -23,7 +23,7 @@ spec:
       owner: grafana
   storage:
     storageClass: truenas-iscsi-general
-    size: 5Gi
+    size: 10Gi
   affinity:
     enablePodAntiAffinity: true
     topologyKey: kubernetes.io/hostname
