@@ -15,6 +15,9 @@ spec:
     initdb:
       database: recipes
       owner: recipes
+      # PG18 enables page checksums by default; set explicitly so a future
+      # recreate can't silently lose them. Only applies at initdb time.
+      dataChecksums: true
       secret:
         name: db-user
   storage:

@@ -22,6 +22,9 @@ spec:
     initdb:
       database: seaweedfs
       owner: seaweedfs
+      # PG18 enables page checksums by default; set explicitly so a future
+      # recreate can't silently lose them. Only applies at initdb time.
+      dataChecksums: true
       postInitApplicationSQL:
       - |
         CREATE TABLE IF NOT EXISTS filemeta (

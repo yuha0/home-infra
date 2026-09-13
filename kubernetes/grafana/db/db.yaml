@@ -21,6 +21,9 @@ spec:
     initdb:
       database: grafana
       owner: grafana
+      # PG18 enables page checksums by default; set explicitly so a future
+      # recreate can't silently lose them. Only applies at initdb time.
+      dataChecksums: true
   storage:
     storageClass: truenas-iscsi-general
     size: 5Gi
