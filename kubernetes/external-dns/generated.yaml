@@ -40,6 +40,15 @@ rules:
   - apiGroups: ["extensions","networking.k8s.io"]
     resources: ["ingresses"]
     verbs: ["get","watch","list"]
+  - apiGroups: ["gateway.networking.k8s.io"]
+    resources: ["gateways"]
+    verbs: ["get","watch","list"]
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get","watch","list"]
+  - apiGroups: ["gateway.networking.k8s.io"]
+    resources: ["httproutes"]
+    verbs: ["get","watch","list"]
 ---
 # Source: external-dns/templates/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -154,10 +163,13 @@ spec:
             - --events
             - --source=service
             - --source=ingress
+            - --source=gateway-httproute
             - --policy=sync
             - --registry=txt
             - --domain-filter=yuha0.com
             - --provider=cloudflare
+            - "--gateway-name=envoy-external"
+            - "--gateway-namespace=envoy-gateway-system"
             - "--ingress-class=nginx-external"
             - "--zone-id-filter=$(CF_API_ZONE_ID)"
           ports:

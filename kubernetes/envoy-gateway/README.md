@@ -82,6 +82,10 @@ across 23 `Ingress` objects. Routes were *added alongside* the Ingresses rather
 than replacing them, so both paths serve traffic until cutover; DNS still
 resolves to ingress-nginx.
 
+All 24 hostnames were re-checked against both data planes (`curl --resolve`
+against `10.200.0.5`/`.6` vs `10.200.0.1`/`.2`) and every one returns the same
+status code on both, so cutover is a DNS/ownership change only.
+
 | App (dir) | Host(s) | Route | Source |
 | --- | --- | --- | --- |
 | `adguardhome/adguardhome/internal` | `adguard.internal` | `HTTPRoute` | kustomize |
@@ -214,20 +218,68 @@ standard channel the API server would silently prune those fields.
 
 Once everything is migrated:
 
-1. **Teach external-dns about routes.** It currently runs with only
+1. **Teach external-dns about routes.** It ran with only
    `--source=service --source=ingress` (see `sources` in
    `../external-dns/helm/values.yaml`), so the
    `external-dns.kubernetes.io/*` annotations on the external `HTTPRoute`s
-   are **inert today** — every public record is still published from the
+   were **inert** — every public record was published from the
    `Ingress`. Deleting those Ingresses before adding `--source=gateway-httproute`
    would strip the records (the `upsert-only` policy delays but does not prevent
    this once ownership changes). Add the source first, confirm the records are
    unchanged, then remove the Ingresses.
+
+   The source alone is not enough: external-dns is scoped to the *external*
+   controller by `--ingress-class=nginx-external`, and that flag does not apply
+   to routes. Without a route-side equivalent the new source would pick up all
+   ~17 internal `HTTPRoute`s and publish each host as its own A record at
+   `10.200.0.5`, on top of the `*.internal.yuha0.com` wildcard. The counterpart
+   is `--gateway-name` / `--gateway-namespace`; both are set in `extraArgs`
+   alongside `ingress-class`. Note `--gateway-name` filters the *Gateway* a
+   route attaches to, not the route's namespace, so it stays correct after
+   step 2.
+
+   The second trap is the catch-all redirect routes. They deliberately carry no
+   `hostnames`, and external-dns treats an empty route hostname as "inherit the
+   parent listener's" — `gwMatchingHost("*.yuha0.com", "")` returns
+   `("*.yuha0.com", true)` ([source/gateway.go#L865-L886]) — so
+   `external-https-redirect` alone would publish `*.yuha0.com` → `10.200.0.6`,
+   a wildcard pointing at an RFC1918 address, public and unproxied. Both
+   `redirect.yaml`s therefore carry
+   `external-dns.kubernetes.io/gateway-hostname-source: defined-hosts-only`,
+   which restricts them to hostnames spelled out on the route (none), so they
+   generate no records.
+
+   Adding the source also widens the chart's `ClusterRole` automatically
+   (`gateways`, `httproutes`, `namespaces`) — no manual RBAC edit.
+
+   `vector.internal` is a `GRPCRoute` but internal-only, so it is covered by the
+   wildcard and `gateway-grpcroute` is not needed.
+
+   What this step does **not** do is hand the existing records over to the
+   routes. With the Ingresses still in place both sources offer a candidate for
+   the same five hostnames, and external-dns's default `PerResource` conflict
+   resolver keeps whoever owns the record: `ResolveUpdate` scans the candidates
+   for one whose `resource` label equals the current TXT's and returns it
+   ([plan/conflict.go#L46-L57]). The `Ingress` matches, so the TXT keeps saying
+   `resource=ingress/...`. Ownership only moves at step 4, when the Ingresses go
+   away and the route becomes the sole candidate — which is exactly why this
+   step is separated out and expected to be a **no-op** in the logs
+   ("All records are already up to date"). Anything else appearing is a bug in
+   the filters above.
+
+[source/gateway.go#L865-L886]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L865-L886
+[plan/conflict.go#L46-L57]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/plan/conflict.go#L46-L57
 2. Point `*.internal.yuha0.com` at Envoy: move the Service to `10.200.0.1` (or
    move the `external-dns` wildcard annotation off ingress-nginx-internal and
    enable it in `envoyproxy.yaml`) and `10.200.0.2` for external.
-3. Drop the now-redundant per-app `Certificate`s / `tls:` blocks — the wildcard
-   listener certs replace them.
+3. Drop the now-redundant per-app `tls:` blocks — the wildcard listener certs
+   replace them. There is nothing to delete by hand: the five per-app
+   `Certificate`s (`adguard-server-tls`, `argocd-server-tls`,
+   `grafana-tls-certificate`, `pocket-id-tls-certificate`,
+   `recipes-tls-certificate`) are cert-manager **ingress-shim** objects,
+   `ownerReferences`-d to their `Ingress`, so they are garbage-collected when the
+   Ingress goes. The only hand-written one is
+   `../ingress-nginx/internal/certificate.yaml`, which leaves with step 5.
 4. Update the remaining ingress-nginx references in `CiliumNetworkPolicy`s. The
    Envoy selectors were added *alongside* the nginx ones, so the nginx clauses
    are safe to delete only at this point. One is not a route at all:
