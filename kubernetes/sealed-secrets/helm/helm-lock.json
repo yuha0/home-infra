@@ -5,7 +5,7 @@
   },
   "chart": {
     "name": "sealed-secrets",
-    "version": "2.19.3"
+    "version": "2.20.0"
   },
   "releaseName": "sealed-secrets-controller",
   "valuesFile": "./values.yaml",
