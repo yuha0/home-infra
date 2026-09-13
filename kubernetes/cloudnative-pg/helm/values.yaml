@@ -694,3 +694,4 @@ monitoringQueriesConfigMap:
             description: "An update is available"
       target_databases:
         - '*'
+

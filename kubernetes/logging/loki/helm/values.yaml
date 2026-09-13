@@ -1262,23 +1262,23 @@ gateway:
     # -- Specifies whether an ingress for the gateway should be created
     enabled: false
     # -- Ingress Class Name. MAY be required for Kubernetes versions >= 1.18
-    ingressClassName: "nginx-internal"
+    ingressClassName: ""
     # -- Annotations for the gateway ingress
     annotations: {}
     # -- Labels for the gateway ingress
     labels: {}
     # -- Hosts configuration for the gateway ingress, passed through the `tpl` function to allow templating
     hosts:
-      - host: loki-gateway.internal.yuha0.com
+      - host: gateway.loki.example.com
         paths:
           - path: /
             # -- pathType (e.g. ImplementationSpecific, Prefix, .. etc.) might also be required by some Ingress Controllers
-            pathType: Prefix
+            # pathType: Prefix
     # -- TLS configuration for the gateway ingress. Hosts passed through the `tpl` function to allow templating
     tls:
       - secretName: loki-gateway-tls
         hosts:
-          - loki-gateway.internal.yuha0.com
+          - gateway.loki.example.com
   # Basic auth configuration
   basicAuth:
     # -- Enables basic authentication for the gateway
@@ -5875,3 +5875,4 @@ tableManager:
     labels: {}
     # -- Set this toggle to false to opt out of automounting API credentials for the service account
     automountServiceAccountToken: true
+

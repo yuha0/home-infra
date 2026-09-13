@@ -383,3 +383,4 @@ csiProxy:
 
 # Configure a pod security policy to allow privileged pods
 enablePSP: false
+

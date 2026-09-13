@@ -891,9 +891,6 @@ controller:
   #     name: secret-name
 
   # -- Additional containers to be added to the application controller pod
-  # -- Labels for the application controller StatefulSet
-  statefulsetLabels: {}
-
   ## Note: Supports use of custom Helm templates
   extraContainers: []
 
@@ -934,6 +931,9 @@ controller:
 
   # -- Annotations for the application controller StatefulSet
   statefulsetAnnotations: {}
+
+  # -- Labels for the application controller StatefulSet
+  statefulsetLabels: {}
 
   # -- Annotations for the application controller Deployment
   deploymentAnnotations: {}
@@ -2627,15 +2627,12 @@ server:
     labels: {}
     # -- Additional ingress annotations
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
-    annotations:
+    annotations: {}
       # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      cert-manager.io/cluster-issuer: letsencrypt
-      external-dns.kubernetes.io/cloudflare-proxied: "true"
-      external-dns.kubernetes.io/target: ddns.yuha0.com
 
     # -- Defines which ingress controller will implement the resource
-    ingressClassName: "nginx-external"
+    ingressClassName: ""
 
     # -- Argo CD server hostname
     # @default -- `""` (defaults to global.domain)
@@ -2650,7 +2647,7 @@ server:
     # -- Enable TLS configuration for the hostname defined at `server.ingress.hostname`
     ## TLS certificate will be retrieved from a TLS secret `argocd-server-tls`
     ## You can create this secret via `certificate` or `certificateSecret` option
-    tls: true
+    tls: false
 
     # -- The list of additional hostnames to be covered by ingress record
     # @default -- `[]` (See [values.yaml])
@@ -2701,12 +2698,12 @@ server:
       backendProtocolVersion: GRPC
       # -- Service type for the AWS ALB gRPC service
       ## Can be of type NodePort or ClusterIP depending on which mode you are running.
-      # -- Annotations for the AWS ALB gRPC service
-      ## Allows adding custom annotations to the gRPC service for integrations like DataDog, Prometheus, etc.
-      serviceAnnotations: {}
       ## Instance mode needs type NodePort, IP mode needs type ClusterIP
       ## Ref: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/how-it-works/#ingress-traffic
       serviceType: NodePort
+      # -- Annotations for the AWS ALB gRPC service
+      ## Allows adding custom annotations to the gRPC service for integrations like DataDog, Prometheus, etc.
+      serviceAnnotations: {}
 
     # Google specific options for Google Application Load Balancer
     # Applies only when `server.ingress.controller` is set to `gke`
@@ -2860,12 +2857,12 @@ server:
         # filters: []
         #   - type: RequestHeaderModifier
         #     requestHeaderModifier:
-        # timeouts:
-        #   request: 10s
-        #   backendRequest: 2s
         #       add:
         #         - name: X-Custom-Header
         #           value: custom-value
+        # timeouts:
+        #   request: 10s
+        #   backendRequest: 2s
 
   # Gateway API GRPCRoute configuration
   # NOTE: Gateway API support is in EXPERIMENTAL status
@@ -4848,3 +4845,4 @@ commitServer:
     ## Ref: https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/docs/api.md#verticalpodautoscalerspec
     ## NOTE: specify only zero or one recommender as of VPA 1.7.1
     recommenders: []
+

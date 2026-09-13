@@ -265,9 +265,6 @@ txtOwnerId:  # @schema type:[string, null]; default: null
 # Mutually exclusive with `txtSuffix`.
 txtPrefix: "" # @schema type:[string, null]; default: null
 # -- (string) Specify a suffix for the domain names of TXT records created for the `txt` registry.
-# -- Annotation prefix for external-dns annotations (useful for split horizon DNS with multiple instances).
-annotationPrefix:  # @schema type: [string,null]; default: null
-
 # Mutually exclusive with `txtPrefix`.
 txtSuffix: "" # @schema type:[string, null]; default: null
 
@@ -283,6 +280,9 @@ labelFilter:  # @schema type: [string,null]; default: null
 
 # -- Filter resources queried for endpoints by annotation selector.
 annotationFilter:  # @schema type: [string,null]; default: null
+
+# -- Annotation prefix for external-dns annotations (useful for split horizon DNS with multiple instances).
+annotationPrefix:  # @schema type: [string,null]; default: null
 
 # -- Record types to manage (default: A, AAAA, CNAME)
 managedRecordTypes: []  # @schema type: [array, null]; item: string; uniqueItems: true
@@ -364,3 +364,4 @@ secretConfiguration:
 
 # -- (bool) No effect - reserved for use in sub-charting.
 enabled:  # @schema type: [boolean, null]; description: No effect - reserved for use in sub-charting
+

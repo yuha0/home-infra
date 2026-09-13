@@ -510,6 +510,9 @@ hostAliases: []
 # This default ensures that Pods are only scheduled to Linux nodes.
 # It prevents Pods being scheduled to Windows nodes in a mixed OS cluster.
 # +docs:property
+nodeSelector:
+  kubernetes.io/os: linux
+
 # Enables default network policies for cert-manager.
 # This provides a way for you to restrict network traffic
 # between cert-manager components and other pods.
@@ -548,9 +551,6 @@ networkPolicy:
     # port 6443.
     - port: 6443
       protocol: TCP
-
-nodeSelector:
-  kubernetes.io/os: linux
 
 # +docs:ignore
 ingressShim: {}
@@ -860,15 +860,15 @@ webhook:
     # an integer (e.g., 1) or a percentage value (e.g., 25%).
     # It cannot be used if `minAvailable` is set.
     # +docs:property
+    # +docs:type=unknown
+    # maxUnavailable: 1
+
     # This configures how to act with unhealthy pods during eviction
     # Note that this requires Kubernetes 1.31 or `PDBUnhealthyPodEvictionPolicy` feature gate enabled for
     # the cluster to work.
     # +docs:property
     # +docs:type=string
     # unhealthyPodEvictionPolicy: AlwaysAllow
-
-    # +docs:type=unknown
-    # maxUnavailable: 1
 
   # Optional additional annotations to add to the webhook Deployment.
   # +docs:property
@@ -1759,3 +1759,4 @@ creator: "helm"
 # for more info.
 # +docs:hidden
 enabled: true
+
