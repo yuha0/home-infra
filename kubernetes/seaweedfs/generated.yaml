@@ -328,7 +328,8 @@ spec:
               -maxDetect=1 \
               -maxExecute=4 \
               -workingDir=/tmp/seaweedfs-worker \
-              -metricsPort=9327
+              -metricsPort=9327 \
+              -id=${POD_NAME}
           volumeMounts:
             - name: worker-data
               mountPath: /tmp/seaweedfs-worker

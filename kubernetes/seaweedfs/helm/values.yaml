@@ -1545,7 +1545,7 @@ worker:
 
   # Custom command line arguments to add to the worker command
   # Example: ["-customFlag", "value", "-anotherFlag"]
-  extraArgs: []
+  extraArgs: ["-id=${POD_NAME}"]
 
   # Storage configuration for working directory
   # Note: Workers use Deployment, so use "emptyDir", "hostPath", or "existingClaim"
