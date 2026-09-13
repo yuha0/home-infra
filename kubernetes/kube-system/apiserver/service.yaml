@@ -6,8 +6,8 @@ metadata:
   labels:
     cilium-bgp-advertise: default
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: k0.yuha0.com
-    external-dns.alpha.kubernetes.io/ttl: "120"
+    external-dns.kubernetes.io/hostname: k0.yuha0.com
+    external-dns.kubernetes.io/ttl: "120"
 spec:
   ports:
   - protocol: TCP

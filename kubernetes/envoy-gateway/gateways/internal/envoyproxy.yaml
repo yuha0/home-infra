@@ -16,4 +16,4 @@ spec:
           cilium-bgp-advertise: default
         # # uncomment after cutover:
         # annotations:
-        #   external-dns.alpha.kubernetes.io/hostname: "*.internal.yuha0.com"
+        #   external-dns.kubernetes.io/hostname: "*.internal.yuha0.com"

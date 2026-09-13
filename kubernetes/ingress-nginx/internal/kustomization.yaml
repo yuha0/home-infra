@@ -17,7 +17,7 @@ patches:
     - op: add
       path: /metadata/annotations
       value:
-        external-dns.alpha.kubernetes.io/hostname: "*.internal.yuha0.com"
+        external-dns.kubernetes.io/hostname: "*.internal.yuha0.com"
     - op: add
       path: /metadata/labels/cilium-bgp-advertise
       value: default

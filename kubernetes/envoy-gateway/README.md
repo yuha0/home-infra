@@ -192,7 +192,7 @@ whose project has a `namespaceResourceWhitelist`). For each app:
    - `proxy-buffer-size` &co. (pocket-id) → nothing to translate; see the comment in
      `../pocket-id/app/httproute.yaml`
 3. For external apps, carry the DNS annotations over from the `Ingress` onto the
-   `HTTPRoute` (`external-dns.alpha.kubernetes.io/target: ddns.yuha0.com`,
+   `HTTPRoute` (`external-dns.kubernetes.io/target: ddns.yuha0.com`,
    `cloudflare-proxied: "true"`). TLS needs nothing — the wildcard listener
    already covers the host — and the old per-app `Certificate` can be dropped
    once the app is cut over.
@@ -217,7 +217,7 @@ Once everything is migrated:
 1. **Teach external-dns about routes.** It currently runs with only
    `--source=service --source=ingress` (see `sources` in
    `../external-dns/helm/values.yaml`), so the
-   `external-dns.alpha.kubernetes.io/*` annotations on the external `HTTPRoute`s
+   `external-dns.kubernetes.io/*` annotations on the external `HTTPRoute`s
    are **inert today** — every public record is still published from the
    `Ingress`. Deleting those Ingresses before adding `--source=gateway-httproute`
    would strip the records (the `upsert-only` policy delays but does not prevent
