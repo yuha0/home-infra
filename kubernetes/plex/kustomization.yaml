@@ -6,6 +6,5 @@ resources:
 - namespace.yaml
 - volumes.yaml
 - statefulset.yaml
-- ingress.yaml
 - httproute.yaml
 - networkpolicies.yaml

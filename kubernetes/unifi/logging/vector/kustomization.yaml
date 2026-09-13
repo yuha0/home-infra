@@ -7,7 +7,6 @@ labels:
 
 resources:
 - deployment.yaml
-- ingress.yaml
 - grpcroute.yaml
 - service.yaml
 

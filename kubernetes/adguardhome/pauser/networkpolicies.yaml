@@ -10,9 +10,6 @@ spec:
   ingress:
   - fromEndpoints:
     - matchLabels:
-        app.kubernetes.io/component: controller
-        io.kubernetes.pod.namespace: ingress-nginx-internal
-    - matchLabels:
         app.kubernetes.io/name: envoy
         app.kubernetes.io/component: proxy
         gateway.envoyproxy.io/owning-gateway-name: envoy-internal

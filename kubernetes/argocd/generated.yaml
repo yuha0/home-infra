@@ -33664,42 +33664,6 @@ spec:
             path: profiler.enabled
       dnsPolicy: ClusterFirst
 ---
-# Source: argo-cd/templates/argocd-server/ingress.yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: argocd-server
-  namespace: argocd
-  labels:
-    helm.sh/chart: argo-cd-10.4.2
-    app.kubernetes.io/name: argocd-server
-    app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: server
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.5.2"
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt"
-    external-dns.kubernetes.io/cloudflare-proxied: "true"
-    external-dns.kubernetes.io/target: "ddns.yuha0.com"
-spec:
-  ingressClassName: nginx-external
-  rules:
-    - host: argocd.yuha0.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: argocd-server
-                port:
-                  number: 80
-  tls:
-    - hosts:
-      - argocd.yuha0.com
-      secretName: argocd-server-tls
----
 # Source: argo-cd/templates/argocd-server/httproute.yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

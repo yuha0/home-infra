@@ -1260,7 +1260,7 @@ gateway:
   # Gateway ingress configuration
   ingress:
     # -- Specifies whether an ingress for the gateway should be created
-    enabled: true
+    enabled: false
     # -- Ingress Class Name. MAY be required for Kubernetes versions >= 1.18
     ingressClassName: "nginx-internal"
     # -- Annotations for the gateway ingress

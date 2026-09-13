@@ -823,7 +823,7 @@ filer:
   containerSecurityContext: {}
 
   ingress:
-    enabled: true
+    enabled: false
     className: "nginx-internal"
     # host: false for "*" hostname
     host: "seaweedfs-filer.internal.yuha0.com"
@@ -1142,7 +1142,7 @@ s3:
     resources: {}
 
   ingress:
-    enabled: true
+    enabled: false
     className: "nginx-internal"
     # host: false for "*" hostname, or an array for multiple hostnames
     host: "seaweedfs-s3.internal.yuha0.com"
@@ -1379,7 +1379,7 @@ admin:
     timeoutSeconds: 10
 
   ingress:
-    enabled: true
+    enabled: false
     className: "nginx-internal"
     # host: false for "*" hostname
     host: "seaweedfs-admin.internal.yuha0.com"

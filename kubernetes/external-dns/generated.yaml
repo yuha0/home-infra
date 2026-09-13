@@ -37,9 +37,6 @@ rules:
   - apiGroups: ["discovery.k8s.io"]
     resources: ["endpointslices"]
     verbs: ["get","watch","list"]
-  - apiGroups: ["extensions","networking.k8s.io"]
-    resources: ["ingresses"]
-    verbs: ["get","watch","list"]
   - apiGroups: ["gateway.networking.k8s.io"]
     resources: ["gateways"]
     verbs: ["get","watch","list"]
@@ -162,7 +159,6 @@ spec:
             - --interval=1m
             - --events
             - --source=service
-            - --source=ingress
             - --source=gateway-httproute
             - --policy=sync
             - --registry=txt
@@ -170,7 +166,6 @@ spec:
             - --provider=cloudflare
             - "--gateway-name=envoy-external"
             - "--gateway-namespace=envoy-gateway-system"
-            - "--ingress-class=nginx-external"
             - "--zone-id-filter=$(CF_API_ZONE_ID)"
           ports:
             - name: http

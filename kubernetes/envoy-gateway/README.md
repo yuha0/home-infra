@@ -1,17 +1,18 @@
 # Envoy Gateway
 
-Gateway API implementation, intended to replace the (deprecated) ingress-nginx
-controllers. The two GatewayClasses map 1:1 onto the existing IngressClasses:
+Gateway API implementation. **This is the only ingress path in the cluster** —
+it replaced the (deprecated) ingress-nginx controllers, which were removed on
+2026-09-13. The two GatewayClasses took over the old IngressClasses 1:1,
+including their LB IPs:
 
-| ingress-nginx        | Envoy Gateway     | LB IP (parallel) | LB IP (cutover) |
-| -------------------- | ----------------- | ---------------- | --------------- |
-| `nginx-internal`     | `envoy-internal`  | `10.200.0.5`     | `10.200.0.1`    |
-| `nginx-external`     | `envoy-external`  | `10.200.0.6`     | `10.200.0.2`    |
+| was (`IngressClass`) | now (`GatewayClass`) | LB IP         |
+| -------------------- | -------------------- | ------------- |
+| `nginx-internal`     | `envoy-internal`     | `10.200.0.1`  |
+| `nginx-external`     | `envoy-external`     | `10.200.0.2`  |
 
-Envoy Gateway runs in parallel with ingress-nginx on fresh BGP IPs so apps can be
-migrated one at a time, then cut over (or switched back). `.3` and `.4` are not
-free — they belong to the adguardhome DNS Service and the kube-system apiserver
-Service respectively.
+`.3` and `.4` belong to the adguardhome DNS Service and the kube-system
+apiserver Service respectively. `.5`/`.6` were the parallel IPs Envoy ran on
+during the migration and are now free.
 
 ## Rendering `generated.yaml`
 
@@ -52,23 +53,26 @@ API that scrypted's self-signed HTTPS upstream needs.
 >
 > Until then the scrypted route has no reachable backend.
 
-Data-plane customization lives in `gateways/`, split per
-gateway into `internal/` and `external/` (mirroring `../ingress-nginx/`), each
-with:
+Data-plane customization lives in `gateways/`, split per gateway into
+`internal/` and `external/`, each with:
 
 - `gatewayclass.yaml` — the GatewayClass, `parametersRef`-ing its EnvoyProxy.
-- `envoyproxy.yaml` — sets the Envoy Service `loadBalancerIP`, the
-  `cilium-bgp-advertise: default` label (so cilium advertises it via BGP, see
-  `../cilium/bgp-advertisement.yaml`), the external-dns wildcard (internal), and
-  `replicas: 2` for the data plane. Both scopes are live on their parallel IPs
-  alongside ingress-nginx; only the DNS records still point at nginx.
+- `envoyproxy.yaml` — sets the Envoy Service `loadBalancerIP` (`.1` internal,
+  `.2` external), the `cilium-bgp-advertise: default` label (so cilium
+  advertises it via BGP, see `../cilium/bgp-advertisement.yaml`), the
+  external-dns `*.internal.yuha0.com` wildcard (internal only), and
+  `replicas: 2` for the data plane.
 - `gateway.yaml` — listeners: one wildcard HTTPS listener plus a plain HTTP
-  listener (which the catch-all redirect below upgrades to HTTPS).
+  listener (which the catch-all redirect below upgrades to HTTPS). The
+  **external** Gateway also carries
+  `external-dns.kubernetes.io/target: ddns.yuha0.com` — see the Cutover notes
+  for why that annotation belongs on the Gateway and not on the routes.
 - `certificate.yaml` — the wildcard cert each HTTPS listener terminates with:
-  `*.internal.yuha0.com` internally (mirrors
-  `../ingress-nginx/internal/certificate.yaml`), `*.yuha0.com` externally.
+  `*.internal.yuha0.com` internally, `*.yuha0.com` externally.
   Both are DNS-01 issued by the `letsencrypt` ClusterIssuer.
 - `redirect.yaml` — catch-all HTTPRoute on the HTTP listener, 301 to HTTPS.
+  Both carry `gateway-hostname-source: defined-hosts-only` for external-dns;
+  see Cutover.
 
 Because both scopes terminate TLS with a wildcard, **migrating an app never
 requires touching `gateways/`** — an app only needs its own `HTTPRoute`. Note
@@ -77,14 +81,13 @@ that `*.yuha0.com` covers `recipes.yuha0.com` but not the apex `yuha0.com` nor
 
 ## Migration status
 
-**Every `Ingress` in the cluster now has a route counterpart** — 24 hostnames
-across 23 `Ingress` objects. Routes were *added alongside* the Ingresses rather
-than replacing them, so both paths serve traffic until cutover; DNS still
-resolves to ingress-nginx.
+**Done.** All 24 hostnames (23 former `Ingress` objects) now serve from Envoy
+only; every `Ingress` in the cluster has been deleted and the `ingress-nginx`
+ArgoCD app removed. Before cutover all 24 were checked against both data planes
+(`curl --resolve` against the parallel IPs vs the nginx IPs) and every one
+returned the same status code on both.
 
-All 24 hostnames were re-checked against both data planes (`curl --resolve`
-against `10.200.0.5`/`.6` vs `10.200.0.1`/`.2`) and every one returns the same
-status code on both, so cutover is a DNS/ownership change only.
+The table below is the current route inventory.
 
 | App (dir) | Host(s) | Route | Source |
 | --- | --- | --- | --- |
@@ -172,16 +175,16 @@ Watch-items with no traffic in the sampled window, so no evidence either way:
 shipper to reconnect). Both were previously carrying nginx timeout annotations
 that the logs show nothing has exercised.
 
-## Migrating an app off ingress-nginx
+## Exposing an app
 
-Per-app `Ingress` → `HTTPRoute` lives in each app's own directory/ArgoCD project
-(`HTTPRoute` is namespaced, so no AppProject change is needed — except `hubble`,
-whose project has a `namespaceResourceWhitelist`). For each app:
+A route lives in the app's own directory/ArgoCD project (`HTTPRoute` is
+namespaced, so no AppProject change is needed — except `hubble`, whose project
+has a `namespaceResourceWhitelist`).
 
 1. Add an `HTTPRoute` whose `parentRefs` point at
-   `envoy-internal`/`envoy-external` in `envoy-gateway-system`, keeping the same
-   hostname/paths/backend.
-2. Translate any live nginx annotations to Gateway API policies:
+   `envoy-internal`/`envoy-external` in `envoy-gateway-system`.
+2. Historical: how each app's nginx annotations were translated during the
+   migration — useful as a precedent table when adding something similar.
    - `proxy-read/send-timeout` (hubble, seaweedfs) → usually **nothing**; these are
      idle timeouts and Envoy's 5m default already beats nginx's 60s default. See
      "Timeouts" below.
@@ -195,16 +198,14 @@ whose project has a `namespaceResourceWhitelist`). For each app:
      `../tandoor/app/httproute.yaml`
    - `proxy-buffer-size` &co. (pocket-id) → nothing to translate; see the comment in
      `../pocket-id/app/httproute.yaml`
-3. For external apps, carry the DNS annotations over from the `Ingress` onto the
-   `HTTPRoute` (`external-dns.kubernetes.io/target: ddns.yuha0.com`,
-   `cloudflare-proxied: "true"`). TLS needs nothing — the wildcard listener
-   already covers the host — and the old per-app `Certificate` can be dropped
-   once the app is cut over.
-4. Test against the parallel IP (`10.200.0.5/.6`) via a temporary host override,
-   then leave the route in place:
+3. For external apps set `external-dns.kubernetes.io/cloudflare-proxied: "true"`
+   on the route. Do **not** put `target` on the route — external-dns's gateway
+   source ignores it; the target comes from the Gateway annotation. TLS needs
+   nothing, the wildcard listener already covers the host.
+4. Test with a temporary host override before trusting DNS:
 
    ```sh
-   curl -sSv --resolve grafana.internal.yuha0.com:443:10.200.0.5 \
+   curl -sSv --resolve grafana.internal.yuha0.com:443:10.200.0.1 \
      https://grafana.internal.yuha0.com/ -o /dev/null
    ```
 
@@ -214,9 +215,10 @@ chart ships the **experimental** Gateway API channel (`helm template
 `gateway.networking.k8s.io/channel: experimental`, bundle `v1.5.1`). On the
 standard channel the API server would silently prune those fields.
 
-## Cutover
+## Cutover (done 2026-09-13)
 
-Once everything is migrated:
+Kept as a record, because the external-dns traps below are not obvious and the
+first attempt at step 1 took all five public hostnames down.
 
 1. **Teach external-dns about routes.** It ran with only
    `--source=service --source=ingress` (see `sources` in
@@ -285,33 +287,59 @@ Once everything is migrated:
    ([plan/conflict.go#L46-L57]). Ownership only moves to `httproute/...` at
    step 4, when the Ingresses go away and the route becomes the sole candidate.
 
-   The lesson for the remaining steps: **a route is not a drop-in for its
-   Ingress annotation-for-annotation.** `target` moves to the Gateway,
+   The general lesson: **a route is not a drop-in for its Ingress
+   annotation-for-annotation.** `target` moves to the Gateway,
    `cloudflare-proxied` stays on the route. Check where each annotation is read
    from before assuming it carries over.
+
+   With the Ingresses gone, `--source=ingress` and `--ingress-class` were
+   dropped too; external-dns now runs `service` + `gateway-httproute` only.
 
 [source/gateway.go#L537-L543]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L537-L543
 [source/gateway.go#L666]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L666
 [source/gateway.go#L865-L886]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L865-L886
 [plan/conflict.go#L46-L57]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/plan/conflict.go#L46-L57
 [plan/conflict.go#L59-L97]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/plan/conflict.go#L59-L97
-2. Point `*.internal.yuha0.com` at Envoy: move the Service to `10.200.0.1` (or
-   move the `external-dns` wildcard annotation off ingress-nginx-internal and
-   enable it in `envoyproxy.yaml`) and `10.200.0.2` for external.
-3. Drop the now-redundant per-app `tls:` blocks — the wildcard listener certs
-   replace them. There is nothing to delete by hand: the five per-app
+2. **Move the IPs.** The Envoy Services took `10.200.0.1`/`.2` in
+   `envoyproxy.yaml`, and the `*.internal.yuha0.com` external-dns annotation
+   moved onto the internal Envoy Service. Because the internal wildcard is
+   published from the *Service* (`--source=service`), not from any route, it had
+   to land on the Envoy Service in the same change that removed the nginx one.
+3. **Per-app TLS.** Nothing had to be deleted by hand: the five per-app
    `Certificate`s (`adguard-server-tls`, `argocd-server-tls`,
    `grafana-tls-certificate`, `pocket-id-tls-certificate`,
    `recipes-tls-certificate`) are cert-manager **ingress-shim** objects,
-   `ownerReferences`-d to their `Ingress`, so they are garbage-collected when the
-   Ingress goes. The only hand-written one is
-   `../ingress-nginx/internal/certificate.yaml`, which leaves with step 5.
-4. Update the remaining ingress-nginx references in `CiliumNetworkPolicy`s. The
-   Envoy selectors were added *alongside* the nginx ones, so the nginx clauses
-   are safe to delete only at this point. One is not a route at all:
-   `../unifi/networkpolicies.yaml` lets `unpoller` *egress* to the
-   ingress-nginx-internal controller on 443 and will need the Envoy equivalent.
-5. Scale down / remove the `ingress-nginx` ArgoCD app.
+   `ownerReferences`-d to their `Ingress`, so they were garbage-collected with
+   it. The only hand-written one went with the app in step 5.
+4. **`CiliumNetworkPolicy` cleanup.** The Envoy selectors had been added
+   alongside the nginx ones, so the nginx clauses were simply dropped
+   (adguardhome, pauser, karakeep, plex).
+
+   `../unifi/networkpolicies.yaml` looked like an exception — it let `unpoller`
+   *egress* to the nginx-internal controller on 443 — but that rule was dead
+   twice over and was deleted rather than translated. unpoller talks to
+   `https://unifi.core.yuha0.com` (`10.106.0.1`, the UniFi gateway appliance),
+   never to an ingress; and the policy's `endpointSelector`
+   (`component: exporter, name: unpoller`) matches no pod — the deployment
+   labels it `component: unpoller, name: unifi`. **That CNP has selected nothing
+   for its whole life, so unpoller has no network policy at all.** Unrelated to
+   this migration, but worth fixing deliberately rather than by accident.
+5. **Removed the `ingress-nginx` ArgoCD app**, its AppProject, and the
+   `kubernetes/ingress-nginx/` tree.
+
+   > Deletion cascades on its own: `applications/kustomization.yaml` patches
+   > `resources-finalizer.argocd.argoproj.io` onto every `argoproj.io` object,
+   > so pruning the Application takes its namespaces, Services, ClusterRoles,
+   > IngressClasses and webhooks with it. Note the finalizer is **only in the
+   > rendered output** — the per-app `ingress-nginx.yaml` does not show it.
+   >
+   > The one thing to watch is the `10.200.0.1`/`.2` handover: Envoy cannot
+   > claim an IP the nginx Service still holds, so its Service may sit
+   > `<pending>` until the cascade finishes. If one is still pending once the
+   > old namespaces are gone, delete it and let Envoy Gateway recreate it.
+
+The ingress-nginx Grafana dashboards (`../grafana/dashboards/kubernetes/`) were
+left in place and now have no data source. Harmless; delete when convenient.
 
 ### Gotcha: kustomize and Gateway API name references
 

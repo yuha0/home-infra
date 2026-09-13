@@ -1,7 +1,6 @@
 resources:
 - deploy.yaml
 - service.yaml
-- ingress.yaml
 - httproute.yaml
 - networkpolicies.yaml
 commonLabels:

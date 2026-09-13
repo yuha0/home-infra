@@ -5,7 +5,6 @@ resources:
 - namespace.yaml
 - volume.yaml
 - statefulset.yaml
-- ingress.yaml
 - httproute.yaml
 
 images:

@@ -3,7 +3,6 @@ commonLabels:
   app.kubernetes.io/name: scrypted
 resources:
 - namespace.yaml
-- ingress.yaml
 - httproute.yaml
 - volume.yaml
 - statefulset.yaml

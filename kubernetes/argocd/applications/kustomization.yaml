@@ -13,7 +13,6 @@ resources:
 - grafana.yaml
 - homebridge.yaml
 - hubble.yaml
-- ingress-nginx.yaml
 - invidious.yaml
 - karakeep.yaml
 - kube-state-metrics.yaml

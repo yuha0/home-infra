@@ -11,6 +11,6 @@ spec:
         replicas: 2
       envoyService:
         type: LoadBalancer
-        loadBalancerIP: 10.200.0.6
+        loadBalancerIP: 10.200.0.2
         labels:
           cilium-bgp-advertise: default

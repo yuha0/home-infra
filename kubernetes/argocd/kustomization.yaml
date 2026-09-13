@@ -4,5 +4,4 @@ resources:
 - sealed-argocd-secret.yaml
 - generated.yaml
 - applications
-- ingress-internal.yaml
 - httproute-internal.yaml

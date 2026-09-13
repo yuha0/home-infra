@@ -1,7 +1,6 @@
 nameSuffix: -internal
 resources:
 - ../base
-- ingress.yaml
 - httproute.yaml
 patches:
 - patch: "- op: add\n  path: /spec/template/spec/containers/0/env/-\n  value:\n    name:

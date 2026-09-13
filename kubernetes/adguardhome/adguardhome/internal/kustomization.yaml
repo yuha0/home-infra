@@ -4,7 +4,6 @@ nameSuffix: -internal
 resources:
 - ../base
 - service.yaml
-- ingress.yaml
 - httproute.yaml
 patches:
 - target:

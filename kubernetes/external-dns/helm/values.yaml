@@ -251,7 +251,6 @@ sourceNamespace:  # @schema type:[string, null]; default: null
 # -- _Kubernetes_ resources to monitor for DNS entries.
 sources:
   - service
-  - ingress
   - gateway-httproute
 
 # -- (REQUIRED) How DNS records are synchronized between sources and providers; must be set explicitly to one of `create-only`, `sync`, or `upsert-only`.
@@ -350,7 +349,6 @@ provider:  # @schema type: [object, string]
 # An array or map can be used, with maps allowing for value overrides; maps also support slice values to use the same arg multiple times.
 extraArgs:  # @schema type: [array, null, object]; item: string; uniqueItems: true
   zone-id-filter: $(CF_API_ZONE_ID)
-  ingress-class: nginx-external
   gateway-name: envoy-external
   gateway-namespace: envoy-gateway-system
 

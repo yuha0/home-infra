@@ -11,9 +11,8 @@ spec:
         replicas: 2
       envoyService:
         type: LoadBalancer
-        loadBalancerIP: 10.200.0.5
+        loadBalancerIP: 10.200.0.1
         labels:
           cilium-bgp-advertise: default
-        # # uncomment after cutover:
-        # annotations:
-        #   external-dns.kubernetes.io/hostname: "*.internal.yuha0.com"
+        annotations:
+          external-dns.kubernetes.io/hostname: "*.internal.yuha0.com"

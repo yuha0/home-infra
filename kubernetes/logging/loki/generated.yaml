@@ -1726,36 +1726,6 @@ spec:
           requests:
             storage: "10Gi"
 ---
-# Source: loki/templates/gateway/ingress.yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: loki-gateway
-  namespace: logging
-  labels:
-    helm.sh/chart: loki-17.1.1
-    app.kubernetes.io/name: loki
-    app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
-    app.kubernetes.io/component: gateway
-spec:
-  ingressClassName: nginx-internal
-  tls:
-    - hosts:
-        - "loki-gateway.internal.yuha0.com"
-      secretName: loki-gateway-tls
-  rules:
-    - host: "loki-gateway.internal.yuha0.com"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: loki-gateway
-                port:
-                  number: 80
----
 # Source: loki/templates/gateway/route-gateway.yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

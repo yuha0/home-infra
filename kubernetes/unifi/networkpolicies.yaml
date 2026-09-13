@@ -24,10 +24,3 @@ spec:
       rules:
         dns:
         - matchPattern: "*"
-  - toEndpoints:
-    - matchLabels:
-        app.kubernetes.io/component: controller
-        io.kubernetes.pod.namespace: ingress-nginx-internal
-    toPorts:
-    - ports:
-      - port: "443"

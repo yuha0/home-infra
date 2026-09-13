@@ -11,13 +11,6 @@ spec:
     - {}
   - fromEndpoints:
     - matchLabels:
-        app.kubernetes.io/name: ingress-nginx
-        app.kubernetes.io/component: controller
-        io.cilium.k8s.namespace.labels.app.kubernetes.io/name: ingress-nginx
-      matchExpressions:
-      - key: io.kubernetes.pod.namespace
-        operator: Exists
-    - matchLabels:
         app.kubernetes.io/name: envoy
         app.kubernetes.io/component: proxy
         io.kubernetes.pod.namespace: envoy-gateway-system
