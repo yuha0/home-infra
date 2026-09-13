@@ -458,7 +458,8 @@ spec:
               -port=23646 \
               -port.grpc=33646 \
               -dataDir=/data \
-              -masters=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333
+              -masters=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333 \
+              -ip=0.0.0.0
           volumeMounts:
             - name: admin-data
               mountPath: /data
