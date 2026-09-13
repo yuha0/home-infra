@@ -255,20 +255,46 @@ Once everything is migrated:
    `vector.internal` is a `GRPCRoute` but internal-only, so it is covered by the
    wildcard and `gateway-grpcroute` is not needed.
 
-   What this step does **not** do is hand the existing records over to the
-   routes. With the Ingresses still in place both sources offer a candidate for
-   the same five hostnames, and external-dns's default `PerResource` conflict
-   resolver keeps whoever owns the record: `ResolveUpdate` scans the candidates
-   for one whose `resource` label equals the current TXT's and returns it
-   ([plan/conflict.go#L46-L57]). The `Ingress` matches, so the TXT keeps saying
-   `resource=ingress/...`. Ownership only moves at step 4, when the Ingresses go
-   away and the route becomes the sole candidate — which is exactly why this
-   step is separated out and expected to be a **no-op** in the logs
-   ("All records are already up to date"). Anything else appearing is a bug in
-   the filters above.
+   The third trap is the one that actually took the public records down on the
+   first attempt (2026-09-13, ~05:31 UTC). **The gateway source ignores the
+   route's `external-dns.kubernetes.io/target` annotation.** Targets come from
+   the *Gateway*: `overrides` is `TargetsFromTargetAnnotation(gw.Annotations)`
+   ([source/gateway.go#L666]), and if the Gateway has no `target` annotation the
+   source falls back to the Gateway's `status.addresses`
+   ([source/gateway.go#L537-L543]). So the five external routes — each carrying
+   `target: ddns.yuha0.com` — emitted `A → 10.200.0.6` instead of
+   `CNAME → ddns.yuha0.com`.
 
+   That is a record-*type* conflict with the Ingress candidate, and
+   `PerResource.ResolveRecordTypes` resolves it by **discarding the CNAME**
+   ([plan/conflict.go#L59-L97]). external-dns therefore deleted the five CNAMEs
+   and tried to create A records, which Cloudflare rejected
+   (`9003: Target 10.200.0.6 is not allowed for a proxied record`) because the
+   routes also set `cloudflare-proxied: "true"`. Deletes succeeded, creates
+   failed, and all five hostnames went NXDOMAIN.
+
+   The fix is `external-dns.kubernetes.io/target: ddns.yuha0.com` on the
+   **`envoy-external` Gateway** (`gateways/external/gateway.yaml`). Then both
+   sources emit an identical `CNAME → ddns.yuha0.com` and there is no conflict
+   at all. `cloudflare-proxied` still comes from the route annotations, via
+   `ProviderSpecificAnnotations`, so those stay where they are.
+
+   With the targets matched, this step *is* a no-op for the record values, and
+   ownership stays with the `Ingress`: `PerResource.ResolveUpdate` prefers the
+   candidate whose `resource` label equals the current TXT's
+   ([plan/conflict.go#L46-L57]). Ownership only moves to `httproute/...` at
+   step 4, when the Ingresses go away and the route becomes the sole candidate.
+
+   The lesson for the remaining steps: **a route is not a drop-in for its
+   Ingress annotation-for-annotation.** `target` moves to the Gateway,
+   `cloudflare-proxied` stays on the route. Check where each annotation is read
+   from before assuming it carries over.
+
+[source/gateway.go#L537-L543]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L537-L543
+[source/gateway.go#L666]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L666
 [source/gateway.go#L865-L886]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/source/gateway.go#L865-L886
 [plan/conflict.go#L46-L57]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/plan/conflict.go#L46-L57
+[plan/conflict.go#L59-L97]: https://github.com/kubernetes-sigs/external-dns/blob/v0.22.0/plan/conflict.go#L59-L97
 2. Point `*.internal.yuha0.com` at Envoy: move the Service to `10.200.0.1` (or
    move the `external-dns` wildcard annotation off ingress-nginx-internal and
    enable it in `envoyproxy.yaml`) and `10.200.0.2` for external.

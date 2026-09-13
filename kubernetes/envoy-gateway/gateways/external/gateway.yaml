@@ -3,6 +3,8 @@ kind: Gateway
 metadata:
   name: envoy-external
   namespace: envoy-gateway-system
+  annotations:
+    external-dns.kubernetes.io/target: ddns.yuha0.com
 spec:
   gatewayClassName: envoy-external
   listeners:
