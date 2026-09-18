@@ -47,9 +47,6 @@ spec:
           - domain: "*.internal.yuha0.com"
             answer: 10.200.0.1
             enabled: true
-          - domain: "*.yuha0.com"
-            answer: 10.200.0.2
-            enabled: true
           - {{ index . "static1" }}
           protection_enabled: true
           blocking_mode: default
@@ -138,7 +135,8 @@ spec:
           name: Steven Black
           id: 2
         whitelist_filters: []
-        user_rules: []
+        user_rules:
+        - '/^[a-z0-9-]+\.yuha0\.com/$dnsrewrite=NOERROR;A;10.200.0.2'
         dhcp:
           enabled: false
           interface_name: ""
