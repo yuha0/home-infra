@@ -47,6 +47,9 @@ spec:
           - domain: "*.internal.yuha0.com"
             answer: 10.200.0.1
             enabled: true
+          - domain: "*.yuha0.com"
+            answer: 10.200.0.2
+            enabled: true
           - {{ index . "static1" }}
           protection_enabled: true
           blocking_mode: default
