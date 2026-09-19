@@ -13,3 +13,4 @@ resources:
 - worker-data.yaml
 - generated.yaml
 - httproutes.yaml
+- httproute-ente-s3.yaml
