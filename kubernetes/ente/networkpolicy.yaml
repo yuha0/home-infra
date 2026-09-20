@@ -1,0 +1,69 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: ente
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: ente
+    matchExpressions:
+    - key: app.kubernetes.io/component
+      operator: In
+      values:
+      - museum
+      - web
+  ingress:
+  - fromEndpoints:
+    - {}
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: envoy
+        app.kubernetes.io/component: proxy
+        io.kubernetes.pod.namespace: envoy-gateway-system
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: kube-system
+        k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEntities:
+    - host
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEndpoints:
+    - {}
+  # museum resolves ente-s3.yuha0.com to the external gateway via hostAliases
+  # and calls HeadObject there on every upload commit. Cilium sees the envoy
+  # pods, not the LoadBalancer IP, and 10.0.0.0/8 is excluded below.
+  - toEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: envoy
+        app.kubernetes.io/component: proxy
+        io.kubernetes.pod.namespace: envoy-gateway-system
+    toPorts:
+    - ports:
+      - port: "10443"
+        protocol: TCP
+  - toCIDRSet:
+    - cidr: 0.0.0.0/0
+      except:
+      - 10.0.0.0/8
+    toPorts:
+    - ports:
+      - port: "443"
+        protocol: TCP
+      - port: "465"
+        protocol: TCP

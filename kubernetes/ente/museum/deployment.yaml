@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: museum
+spec:
+  replicas: 3
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    spec:
+      # until we have better split-horizon setup
+      hostAliases:
+      - ip: 10.200.0.2
+        hostnames:
+        - ente-s3.yuha0.com
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: ente
+        matchLabelKeys:
+        - pod-template-hash
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: museum
+        image: museum
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: metrics
+          containerPort: 2112
+        env:
+        - name: ENTE_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-app
+              key: username
+        - name: ENTE_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-app
+              key: password
+        envFrom:
+        - secretRef:
+            name: museum-keys
+        - secretRef:
+            name: museum-s3
+        - secretRef:
+            name: museum-smtp
+        startupProbe:
+          httpGet:
+            path: /ping
+            port: http
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 192Mi
+          limits:
+            memory: 768Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        volumeMounts:
+        - name: config
+          mountPath: /museum.yaml
+          subPath: museum.yaml
+          readOnly: true
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: config
+        configMap:
+          name: museum-config
+      - name: tmp
+        emptyDir: {}

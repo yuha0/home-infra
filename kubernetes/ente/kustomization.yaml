@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/name: ente
+namespace: ente
+resources:
+- namespace.yaml
+- networkpolicy.yaml
+- db
+- museum
+- web
+images:
+- name: museum
+  newName: ghcr.io/ente/server
+  newTag: 163f45c26f130090abed03649530f53d2d976565
+  digest: sha256:3511ff25db3bf950abeb3983928eeadeed7f53b690ee94704c14be72fa719b1d
+- name: ente-web
+  newName: ghcr.io/ente/web
+  newTag: 59989de7eec29314d12cebed2f9af3280c79be09
+  digest: sha256:3fc9b2a59ace953b62767aae11ce9064ed483722f78ce51632f2dc2a45a086b0

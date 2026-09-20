@@ -1,0 +1,32 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+spec:
+  description: "database for ente (museum)"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: ente
+      app.kubernetes.io/component: database
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: ente
+      owner: ente
+      dataChecksums: true
+  storage:
+    storageClass: truenas-iscsi-general
+    size: 20Gi
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: 500m
+    limits:
+      memory: "1Gi"
+      cpu: "1"

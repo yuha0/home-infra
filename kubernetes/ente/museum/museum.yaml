@@ -1,0 +1,43 @@
+log-file: ""
+log-level: info
+
+http:
+  port: 8080
+  use-tls: false
+
+apps:
+  public-albums: https://ente-albums.yuha0.com
+  public-memories: https://ente-memories.yuha0.com
+  accounts: https://ente-accounts.yuha0.com
+
+db:
+  host: db-rw.ente.svc.cluster.local
+  port: 5432
+  name: ente
+  sslmode: disable
+
+s3:
+  use_path_style_urls: true
+  b2-eu-cen:
+    endpoint: https://ente-s3.yuha0.com
+    region: us-east-1
+    bucket: ente
+
+webauthn:
+  rpid: yuha0.com
+  rporigins:
+  - https://ente.yuha0.com
+  - https://ente-accounts.yuha0.com
+
+internal:
+  silent: false
+  disable-registration: true
+  admin: 1580559962386438
+  trusted-client-ip-header: CF-Connecting-IP
+
+replication:
+  enabled: false
+
+jobs:
+  cron:
+    skip: false

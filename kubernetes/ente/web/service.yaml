@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  ports:
+  - name: photos
+    port: 3000
+    targetPort: photos
+    protocol: TCP
+  - name: accounts
+    port: 3001
+    targetPort: accounts
+    protocol: TCP
+  - name: albums
+    port: 3002
+    targetPort: albums
+    protocol: TCP
+  - name: memories
+    port: 3010
+    targetPort: memories
+    protocol: TCP
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: web
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ente
+      app.kubernetes.io/component: web

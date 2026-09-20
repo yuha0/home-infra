@@ -1,0 +1,151 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: photos
+  annotations:
+    external-dns.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.kubernetes.io/target: "ddns.yuha0.com"
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
+    namespace: envoy-gateway-system
+    sectionName: https
+  hostnames:
+  - ente.yuha0.com
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /_next/
+    backendRefs:
+    - name: web
+      port: 3000
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: ResponseHeaderModifier
+      responseHeaderModifier:
+        set:
+        - name: Cache-Control
+          value: "no-cache"
+    backendRefs:
+    - name: web
+      port: 3000
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: accounts
+  annotations:
+    external-dns.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.kubernetes.io/target: "ddns.yuha0.com"
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
+    namespace: envoy-gateway-system
+    sectionName: https
+  hostnames:
+  - ente-accounts.yuha0.com
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /_next/
+    backendRefs:
+    - name: web
+      port: 3001
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: ResponseHeaderModifier
+      responseHeaderModifier:
+        set:
+        - name: Cache-Control
+          value: "no-cache"
+    backendRefs:
+    - name: web
+      port: 3001
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: albums
+  annotations:
+    external-dns.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.kubernetes.io/target: "ddns.yuha0.com"
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
+    namespace: envoy-gateway-system
+    sectionName: https
+  hostnames:
+  - ente-albums.yuha0.com
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /_next/
+    backendRefs:
+    - name: web
+      port: 3002
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: ResponseHeaderModifier
+      responseHeaderModifier:
+        set:
+        - name: Cache-Control
+          value: "no-cache"
+    backendRefs:
+    - name: web
+      port: 3002
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: memories
+  annotations:
+    external-dns.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.kubernetes.io/target: "ddns.yuha0.com"
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: envoy-external
+    namespace: envoy-gateway-system
+    sectionName: https
+  hostnames:
+  - ente-memories.yuha0.com
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /_next/
+    backendRefs:
+    - name: web
+      port: 3010
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: ResponseHeaderModifier
+      responseHeaderModifier:
+        set:
+        - name: Cache-Control
+          value: "no-cache"
+    backendRefs:
+    - name: web
+      port: 3010
