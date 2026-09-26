@@ -56,7 +56,7 @@ global:
       gatewayPort: null
       additionalLabels: {}
     # if enabled will use global.seaweedfs.replicationPlacement and override master.defaultReplication & filer.defaultReplicaPlacement config
-    enableReplication: false
+    enableReplication: true
     #  replication type is XYZ:
     # X number of replica in other data centers
     # Y number of replica in other racks in the same data center
@@ -391,7 +391,7 @@ volume:
       type: "persistentVolumeClaim"
       size: "256Gi"
       storageClass: "truenas-iscsi-general"
-      maxVolumes: 9
+      maxVolumes: 18
 
       # - name: data2
       #   type: "persistentVolumeClaim"

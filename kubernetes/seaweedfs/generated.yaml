@@ -618,7 +618,7 @@ spec:
               -port=8888 \
               -metricsPort=9327 \
               -dirListLimit=100000 \
-              -defaultReplicaPlacement=000 \
+              -defaultReplicaPlacement=001 \
               -ip=${POD_IP} \
               -ip.bind=0.0.0.0 \
               -s3 \
@@ -761,7 +761,7 @@ spec:
               -port=9333 \
               -mdir=/data \
               -ip.bind=0.0.0.0 \
-              -defaultReplication=000 \
+              -defaultReplication=001 \
               -metricsPort=9327 \
               -volumeSizeLimitMB=30000 \
               -disableHttp \
@@ -936,7 +936,7 @@ spec:
                 -metricsPort=9327 \
                 -dir /data1 \
                 -dir.idx=/idx \
-                -max 9 \
+                -max 18 \
                 -ip.bind=0.0.0.0 \
                 -readMode=proxy \
                 -index=memory \
