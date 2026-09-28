@@ -6,6 +6,7 @@ spec:
   selector:
     app.kubernetes.io/instance: grafana
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 80
     targetPort: 3000
