@@ -6,10 +6,10 @@ metadata:
   name: loki-backend
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: backend
 spec:
   maxUnavailable: 1
@@ -26,10 +26,10 @@ metadata:
   name: loki-read
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: read
 spec:
   maxUnavailable: 1
@@ -46,10 +46,10 @@ metadata:
   name: loki-write
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: write
 spec:
   maxUnavailable: 1
@@ -66,10 +66,10 @@ metadata:
   name: loki
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
 data:
   config.yaml: |
     
@@ -217,10 +217,10 @@ metadata:
   name: loki-gateway
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: gateway
 data:
   nginx.conf: |
@@ -463,10 +463,10 @@ metadata:
   name: loki-runtime
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
 data:
   runtime-config.yaml: |
     {}
@@ -476,10 +476,10 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
   name: loki-clusterrole
 rules:
 - apiGroups: [""] # "" indicates the core API group
@@ -492,10 +492,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: loki-clusterrolebinding
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
 subjects:
   - kind: ServiceAccount
     name: default
@@ -542,10 +542,10 @@ metadata:
   name: "loki-backend"
   namespace: "logging"
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "backend"
   annotations:
 spec:
@@ -577,10 +577,10 @@ metadata:
   name: "loki-backend-headless"
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "backend"
     prometheus.io/service-monitor: "false"
     variant: headless
@@ -614,10 +614,10 @@ kind: Service
 metadata:
   name: loki-chunks-cache
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "memcached-chunks-cache"
   annotations:
     {}
@@ -645,10 +645,10 @@ metadata:
   name: loki-gateway
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: gateway
     prometheus.io/service-monitor: "false"
   annotations:
@@ -671,10 +671,10 @@ metadata:
   name: "loki-read"
   namespace: "logging"
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "read"
   annotations:
 spec:
@@ -706,10 +706,10 @@ metadata:
   name: "loki-read-headless"
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "read"
     prometheus.io/service-monitor: "false"
     variant: headless
@@ -743,10 +743,10 @@ kind: Service
 metadata:
   name: loki-results-cache
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "memcached-results-cache"
   annotations:
     {}
@@ -774,10 +774,10 @@ metadata:
   name: loki-memberlist
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
   annotations:
 spec:
   type: ClusterIP
@@ -799,10 +799,10 @@ metadata:
   name: "loki-write"
   namespace: "logging"
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "write"
   annotations:
 spec:
@@ -834,10 +834,10 @@ metadata:
   name: "loki-write-headless"
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "write"
     prometheus.io/service-monitor: "false"
     variant: headless
@@ -872,10 +872,10 @@ metadata:
   name: loki-gateway
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: gateway
 spec:
   replicas: 1
@@ -962,10 +962,10 @@ metadata:
   name: "loki-read"
   namespace: "logging"
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: read
 spec:
   replicas: 3
@@ -985,10 +985,10 @@ spec:
         checksum/config: 11a9eadc5c26f567721a87f67d3550d6cdfb8dd7ae4e2319f6eeefd629e4d4d9
         kubectl.kubernetes.io/default-container: "read"
       labels:
-        helm.sh/chart: loki-17.1.1
+        helm.sh/chart: loki-18.13.7
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.7.2"
+        app.kubernetes.io/version: "3.7.8"
         app.kubernetes.io/component: read
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1029,7 +1029,7 @@ spec:
           emptyDir: {}
       containers:
         - name: read
-          image: docker.io/grafana/loki:3.7.2
+          image: docker.io/grafana/loki:3.7.8
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1098,10 +1098,10 @@ metadata:
   name: "loki-backend"
   namespace: "logging"
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: backend
 spec:
   replicas: 3
@@ -1125,10 +1125,10 @@ spec:
         checksum/config: 11a9eadc5c26f567721a87f67d3550d6cdfb8dd7ae4e2319f6eeefd629e4d4d9
         kubectl.kubernetes.io/default-container: "backend"
       labels:
-        helm.sh/chart: loki-17.1.1
+        helm.sh/chart: loki-18.13.7
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.7.2"
+        app.kubernetes.io/version: "3.7.8"
         app.kubernetes.io/component: backend
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1171,7 +1171,7 @@ spec:
           emptyDir: {}
       containers:
         - name: backend
-          image: docker.io/grafana/loki:3.7.2
+          image: docker.io/grafana/loki:3.7.8
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1236,7 +1236,7 @@ spec:
             - name: sc-rules-volume
               mountPath: "/rules"
         - name: loki-sc-rules
-          image: docker.io/kiwigrid/k8s-sidecar:2.7.3
+          image: docker.io/kiwigrid/k8s-sidecar:2.11.2
           imagePullPolicy: IfNotPresent
           ports:
             - name: http-sidecar
@@ -1309,10 +1309,10 @@ kind: StatefulSet
 metadata:
   name: loki-chunks-cache
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "memcached-chunks-cache"
     name: "memcached-chunks-cache"
   annotations:
@@ -1360,7 +1360,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
         - name: memcached
-          image: memcached:1.6.42-alpine
+          image: docker.io/library/memcached:1.6.45-alpine
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -1404,7 +1404,7 @@ spec:
               port: client
             timeoutSeconds: 5
         - name: exporter
-          image: prom/memcached-exporter:v0.16.0
+          image: docker.io/prom/memcached-exporter:v0.17.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9150
@@ -1447,10 +1447,10 @@ kind: StatefulSet
 metadata:
   name: loki-results-cache
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: "memcached-results-cache"
     name: "memcached-results-cache"
   annotations:
@@ -1498,7 +1498,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
         - name: memcached
-          image: memcached:1.6.42-alpine
+          image: docker.io/library/memcached:1.6.45-alpine
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -1542,7 +1542,7 @@ spec:
               port: client
             timeoutSeconds: 5
         - name: exporter
-          image: prom/memcached-exporter:v0.16.0
+          image: docker.io/prom/memcached-exporter:v0.17.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9150
@@ -1586,10 +1586,10 @@ metadata:
   name: "loki-write"
   namespace: "logging"
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: write
 spec:
   replicas: 3
@@ -1610,10 +1610,10 @@ spec:
         checksum/config: 11a9eadc5c26f567721a87f67d3550d6cdfb8dd7ae4e2319f6eeefd629e4d4d9
         kubectl.kubernetes.io/default-container: "write"
       labels:
-        helm.sh/chart: loki-17.1.1
+        helm.sh/chart: loki-18.13.7
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.7.2"
+        app.kubernetes.io/version: "3.7.8"
         app.kubernetes.io/component: write
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1652,7 +1652,7 @@ spec:
             name: loki-runtime
       containers:
         - name: write
-          image: docker.io/grafana/loki:3.7.2
+          image: docker.io/grafana/loki:3.7.8
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1733,10 +1733,10 @@ metadata:
   name: loki-gateway
   namespace: logging
   labels:
-    helm.sh/chart: loki-17.1.1
+    helm.sh/chart: loki-18.13.7
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.7.2"
+    app.kubernetes.io/version: "3.7.8"
     app.kubernetes.io/component: gateway
 spec:
   parentRefs:
