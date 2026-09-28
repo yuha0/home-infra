@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: grafana
 spec:
+  selector:
+    app.kubernetes.io/instance: grafana
   ports:
   - protocol: TCP
     port: 80

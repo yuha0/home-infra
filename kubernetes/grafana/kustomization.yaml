@@ -4,8 +4,9 @@ resources:
 - db
 - sealed-grafana-admin.yaml
 - rbac.yaml
-- internal
-- external
+- deployment.yaml
+- service.yaml
+- httproute.yaml
 - dashboards
 - sealed-oidc.yaml
 configMapGenerator:
@@ -18,7 +19,7 @@ configMapGenerator:
 images:
 - name: grafana
   newName: docker.io/grafana/grafana
-  newTag: 12.4.11
+  newTag: 13.2.2
 - name: k8s-sidecar
   newName: docker.io/kiwigrid/k8s-sidecar
   newTag: 2.11.2
