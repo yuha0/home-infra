@@ -8,6 +8,17 @@ spec:
     type: Recreate
   template:
     spec:
+      initContainers:
+      - name: copy-geoip
+        image: pocket-id
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c", "cp /geoip-src/GeoLite2-City.mmdb /geoip/GeoLite2-City.mmdb || true"]
+        volumeMounts:
+        - name: geoip-src
+          mountPath: /geoip-src
+          readOnly: true
+        - name: geoip
+          mountPath: /geoip
       containers:
       - name: pocket-id
         image: pocket-id
@@ -64,6 +75,9 @@ spec:
         - name: GEOLITE_DB_PATH
           value: /geoip/GeoLite2-City.mmdb
       volumes:
-      - name: geoip
+      - name: geoip-src
         persistentVolumeClaim:
           claimName: geoip
+          readOnly: true
+      - name: geoip
+        emptyDir: {}
