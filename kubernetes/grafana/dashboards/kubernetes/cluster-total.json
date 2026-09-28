@@ -1,15 +1,13 @@
 {
-    "__inputs":
-    [],
-    "__requires":
-    [],
-    "annotations":
-    {
-        "list":
-        [
+    "__inputs": [],
+    "__requires": [],
+    "annotations": {
+        "list": [
             {
                 "builtIn": 1,
-                "datasource": "-- Grafana --",
+                "datasource": {
+                    "uid": "-- Grafana --"
+                },
                 "enable": true,
                 "hide": true,
                 "iconColor": "rgba(0, 211, 255, 1)",
@@ -19,90 +17,92 @@
         ]
     },
     "editable": true,
+    "fiscalYearStartMonth": 0,
     "gnetId": null,
     "graphTooltip": 0,
-    "hideControls": false,
     "id": null,
-    "links":
-    [],
-    "panels":
-    [
+    "links": [],
+    "panels": [
         {
-            "collapse": false,
             "collapsed": false,
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
                 "y": 0
             },
             "id": 2,
-            "panels":
-            [],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": true,
+            "panels": [],
             "title": "Current Bandwidth",
-            "titleSize": "h6",
             "type": "row"
         },
         {
-            "aliasColors":
-            {},
-            "bars": true,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 2,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "mappings": [],
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "Bps"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 12,
                 "x": 0,
                 "y": 1
             },
             "id": 3,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "sort": "current",
-                "sortDesc": true,
-                "total": false,
-                "values": true
+            "options": {
+                "displayMode": "gradient",
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "maxVizHeight": 300,
+                "minVizHeight": 16,
+                "minVizWidth": 8,
+                "namePlacement": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "valueMode": "color"
             },
-            "lines": false,
-            "linewidth": 1,
-            "links":
-            [],
-            "minSpan": 24,
-            "nullPointMode": "null",
-            "paceLength": 10,
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "span": 24,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "time_series",
                     "intervalFactor": 1,
@@ -111,104 +111,76 @@
                     "step": 10
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Current Rate of Bytes Received",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "series",
-                "name": null,
-                "show": false,
-                "values":
-                [
-                    "current"
-                ]
-            },
-            "yaxes":
-            [
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                }
-            ]
+            "type": "bargauge"
         },
         {
-            "aliasColors":
-            {},
-            "bars": true,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 2,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "mappings": [],
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "Bps"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 12,
                 "x": 12,
                 "y": 1
             },
             "id": 4,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "sort": "current",
-                "sortDesc": true,
-                "total": false,
-                "values": true
+            "options": {
+                "displayMode": "gradient",
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "maxVizHeight": 300,
+                "minVizHeight": 16,
+                "minVizWidth": 8,
+                "namePlacement": "auto",
+                "orientation": "auto",
+                "reduceOptions": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "fields": "",
+                    "values": false
+                },
+                "showUnfilled": true,
+                "sizing": "auto",
+                "valueMode": "color"
             },
-            "lines": false,
-            "linewidth": 1,
-            "links":
-            [],
-            "minSpan": 24,
-            "nullPointMode": "null",
-            "paceLength": 10,
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "span": 24,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "time_series",
                     "intervalFactor": 1,
@@ -217,286 +189,304 @@
                     "step": 10
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Current Rate of Bytes Transmitted",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "series",
-                "name": null,
-                "show": false,
-                "values":
-                [
-                    "current"
-                ]
-            },
-            "yaxes":
-            [
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                }
-            ]
+            "type": "bargauge"
         },
         {
-            "columns":
-            [
-                {
-                    "text": "Time",
-                    "value": "Time"
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "custom": {
+                        "align": "auto",
+                        "cellOptions": {
+                            "type": "auto"
+                        },
+                        "footer": {
+                            "reducers": []
+                        },
+                        "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
                 },
-                {
-                    "text": "Value #A",
-                    "value": "Value #A"
-                },
-                {
-                    "text": "Value #B",
-                    "value": "Value #B"
-                },
-                {
-                    "text": "Value #C",
-                    "value": "Value #C"
-                },
-                {
-                    "text": "Value #D",
-                    "value": "Value #D"
-                },
-                {
-                    "text": "Value #E",
-                    "value": "Value #E"
-                },
-                {
-                    "text": "Value #F",
-                    "value": "Value #F"
-                },
-                {
-                    "text": "Value #G",
-                    "value": "Value #G"
-                },
-                {
-                    "text": "Value #H",
-                    "value": "Value #H"
-                },
-                {
-                    "text": "namespace",
-                    "value": "namespace"
-                }
-            ],
-            "datasource": "$datasource",
-            "fill": 1,
-            "fontSize": "90%",
-            "gridPos":
-            {
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Time"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Time"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.hideFrom.viz",
+                                "value": true
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #A"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Current Bandwidth Received"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "Bps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #B"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Current Bandwidth Transmitted"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "Bps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #C"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Average Bandwidth Received"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "Bps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #D"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Average Bandwidth Transmitted"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "Bps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #E"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Rate of Received Packets"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "pps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #F"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Rate of Transmitted Packets"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "pps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #G"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Rate of Received Packets Dropped"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "pps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "Value #H"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Rate of Transmitted Packets Dropped"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "pps"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "namespace"
+                        },
+                        "properties": [
+                            {
+                                "id": "displayName",
+                                "value": "Namespace"
+                            },
+                            {
+                                "id": "unit",
+                                "value": "short"
+                            },
+                            {
+                                "id": "decimals",
+                                "value": 2
+                            },
+                            {
+                                "id": "links",
+                                "value": [
+                                    {
+                                        "targetBlank": false,
+                                        "title": "Drill down",
+                                        "url": "d/8b7a8b326d7a6f1f04244066368c67af/kubernetes-networking-namespace-pods?orgId=1&refresh=30s&var-namespace=$__cell"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "custom.align"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 24,
                 "x": 0,
                 "y": 10
             },
             "id": 5,
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "minSpan": 24,
-            "nullPointMode": "null as zero",
-            "renderer": "flot",
-            "scroll": true,
-            "showHeader": true,
-            "sort":
-            {
-                "col": 0,
-                "desc": false
+            "options": {
+                "cellHeight": "sm",
+                "showHeader": true
             },
-            "spaceLength": 10,
-            "span": 24,
-            "styles":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
-                    "alias": "Time",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Time",
-                    "thresholds":
-                    [],
-                    "type": "hidden",
-                    "unit": "short"
-                },
-                {
-                    "alias": "Current Bandwidth Received",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #A",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "Bps"
-                },
-                {
-                    "alias": "Current Bandwidth Transmitted",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #B",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "Bps"
-                },
-                {
-                    "alias": "Average Bandwidth Received",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #C",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "Bps"
-                },
-                {
-                    "alias": "Average Bandwidth Transmitted",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #D",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "Bps"
-                },
-                {
-                    "alias": "Rate of Received Packets",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #E",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "pps"
-                },
-                {
-                    "alias": "Rate of Transmitted Packets",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #F",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "pps"
-                },
-                {
-                    "alias": "Rate of Received Packets Dropped",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #G",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "pps"
-                },
-                {
-                    "alias": "Rate of Transmitted Packets Dropped",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": false,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "",
-                    "pattern": "Value #H",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "pps"
-                },
-                {
-                    "alias": "Namespace",
-                    "colorMode": null,
-                    "colors":
-                    [],
-                    "dateFormat": "YYYY-MM-DD HH:mm:ss",
-                    "decimals": 2,
-                    "link": true,
-                    "linkTooltip": "Drill down",
-                    "linkUrl": "d/8b7a8b326d7a6f1f04244066368c67af/kubernetes-networking-namespace-pods?orgId=1&refresh=30s&var-namespace=$__cell",
-                    "pattern": "namespace",
-                    "thresholds":
-                    [],
-                    "type": "number",
-                    "unit": "short"
-                }
-            ],
-            "targets":
-            [
-                {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -506,6 +496,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -515,6 +508,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(avg(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -524,6 +520,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(avg(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -533,6 +532,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_receive_packets_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -542,6 +544,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_transmit_packets_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -551,6 +556,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_receive_packets_dropped_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -560,6 +568,9 @@
                     "step": 10
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_transmit_packets_dropped_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "table",
                     "instant": true,
@@ -569,79 +580,86 @@
                     "step": 10
                 }
             ],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Current Status",
             "type": "table"
         },
         {
-            "collapse": true,
             "collapsed": true,
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
                 "y": 10
             },
             "id": 6,
-            "panels":
-            [
+            "panels": [
                 {
-                    "aliasColors":
-                    {},
-                    "bars": true,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "Bps"
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 12,
                         "x": 0,
                         "y": 11
                     },
                     "id": 7,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": false,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": false,
-                        "min": false,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "sort": "current",
-                        "sortDesc": true,
-                        "total": false,
-                        "values": true
+                    "options": {
+                        "displayMode": "gradient",
+                        "legend": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "maxVizHeight": 300,
+                        "minVizHeight": 16,
+                        "minVizWidth": 8,
+                        "namePlacement": "auto",
+                        "orientation": "auto",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "",
+                            "values": false
+                        },
+                        "showUnfilled": true,
+                        "sizing": "auto",
+                        "valueMode": "color"
                     },
-                    "lines": false,
-                    "linewidth": 1,
-                    "links":
-                    [],
-                    "minSpan": 24,
-                    "nullPointMode": "null",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": false,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(avg(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -650,104 +668,76 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Average Rate of Bytes Received",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "series",
-                        "name": null,
-                        "show": false,
-                        "values":
-                        [
-                            "current"
-                        ]
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "Bps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "Bps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "bargauge"
                 },
                 {
-                    "aliasColors":
-                    {},
-                    "bars": true,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "Bps"
+                        },
+                        "overrides": []
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 12,
                         "x": 12,
                         "y": 11
                     },
                     "id": 8,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": false,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": false,
-                        "min": false,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "sort": "current",
-                        "sortDesc": true,
-                        "total": false,
-                        "values": true
+                    "options": {
+                        "displayMode": "gradient",
+                        "legend": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "maxVizHeight": 300,
+                        "minVizHeight": 16,
+                        "minVizWidth": 8,
+                        "namePlacement": "auto",
+                        "orientation": "auto",
+                        "reduceOptions": {
+                            "calcs": [
+                                "lastNotNull"
+                            ],
+                            "fields": "",
+                            "values": false
+                        },
+                        "showUnfilled": true,
+                        "sizing": "auto",
+                        "valueMode": "color"
                     },
-                    "lines": false,
-                    "linewidth": 1,
-                    "links":
-                    [],
-                    "minSpan": 24,
-                    "nullPointMode": "null",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": false,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(avg(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -756,132 +746,160 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Average Rate of Bytes Transmitted",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "series",
-                        "name": null,
-                        "show": false,
-                        "values":
-                        [
-                            "current"
-                        ]
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "Bps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "Bps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "bargauge"
                 }
             ],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": true,
             "title": "Average Bandwidth",
-            "titleSize": "h6",
             "type": "row"
         },
         {
-            "collapse": false,
             "collapsed": false,
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
                 "y": 11
             },
             "id": 9,
-            "panels":
-            [],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": true,
+            "panels": [],
             "title": "Bandwidth History",
-            "titleSize": "h6",
             "type": "row"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 2,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 20,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": true,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "normal"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "Bps"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsZero",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsNull",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 24,
                 "x": 0,
                 "y": 12
             },
             "id": 10,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": true,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": true,
-                "min": true,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "mean",
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "desc"
+                }
             },
-            "lines": true,
-            "linewidth": 2,
-            "links":
-            [],
-            "minSpan": 24,
-            "nullPointMode": "connected",
-            "paceLength": 10,
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "span": 24,
-            "stack": true,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_receive_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "time_series",
                     "intervalFactor": 1,
@@ -890,100 +908,143 @@
                     "step": 10
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Receive Bandwidth",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 2,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 20,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": true,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "normal"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "min": 0,
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "Bps"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsZero",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsNull",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 24,
                 "x": 0,
                 "y": 21
             },
             "id": 11,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": true,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": true,
-                "min": true,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "mean",
+                        "lastNotNull",
+                        "max",
+                        "min"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "desc"
+                }
             },
-            "lines": true,
-            "linewidth": 2,
-            "links":
-            [],
-            "minSpan": 24,
-            "nullPointMode": "connected",
-            "paceLength": 10,
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "span": 24,
-            "stack": true,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sort_desc(sum(irate(container_network_transmit_bytes_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                     "format": "time_series",
                     "intervalFactor": 1,
@@ -992,113 +1053,153 @@
                     "step": 10
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Transmit Bandwidth",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                },
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": 0,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "collapse": true,
             "collapsed": true,
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
                 "y": 30
             },
             "id": 12,
-            "panels":
-            [
+            "panels": [
                 {
-                    "aliasColors":
-                    {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "barWidthFactor": 0.6,
+                                "drawStyle": "line",
+                                "fillOpacity": 20,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 2,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "showValues": false,
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "normal"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "pps"
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsZero",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsNull",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 24,
                         "x": 0,
                         "y": 31
                     },
                     "id": 13,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": true,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": true,
-                        "min": true,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "total": false,
-                        "values": true
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "mean",
+                                "lastNotNull",
+                                "max",
+                                "min"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "hideZeros": false,
+                            "mode": "multi",
+                            "sort": "desc"
+                        }
                     },
-                    "lines": true,
-                    "linewidth": 2,
-                    "links":
-                    [],
-                    "minSpan": 24,
-                    "nullPointMode": "connected",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": true,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(sum(irate(container_network_receive_packets_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -1107,100 +1208,143 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Rate of Received Packets",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values":
-                        []
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "timeseries"
                 },
                 {
-                    "aliasColors":
-                    {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "barWidthFactor": 0.6,
+                                "drawStyle": "line",
+                                "fillOpacity": 20,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 2,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "showValues": false,
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "normal"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "pps"
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsZero",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsNull",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 24,
                         "x": 0,
                         "y": 40
                     },
                     "id": 14,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": true,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": true,
-                        "min": true,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "total": false,
-                        "values": true
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "mean",
+                                "lastNotNull",
+                                "max",
+                                "min"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "hideZeros": false,
+                            "mode": "multi",
+                            "sort": "desc"
+                        }
                     },
-                    "lines": true,
-                    "linewidth": 2,
-                    "links":
-                    [],
-                    "minSpan": 24,
-                    "nullPointMode": "connected",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": true,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(sum(irate(container_network_transmit_packets_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -1209,122 +1353,157 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Rate of Transmitted Packets",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values":
-                        []
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "timeseries"
                 }
             ],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": true,
             "title": "Packets",
-            "titleSize": "h6",
             "type": "row"
         },
         {
-            "collapse": true,
             "collapsed": true,
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 1,
                 "w": 24,
                 "x": 0,
                 "y": 31
             },
             "id": 15,
-            "panels":
-            [
+            "panels": [
                 {
-                    "aliasColors":
-                    {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "barWidthFactor": 0.6,
+                                "drawStyle": "line",
+                                "fillOpacity": 20,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 2,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "showValues": false,
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "normal"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "pps"
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsZero",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsNull",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 24,
                         "x": 0,
                         "y": 50
                     },
                     "id": 16,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": true,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": true,
-                        "min": true,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "total": false,
-                        "values": true
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "mean",
+                                "lastNotNull",
+                                "max",
+                                "min"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "hideZeros": false,
+                            "mode": "multi",
+                            "sort": "desc"
+                        }
                     },
-                    "lines": true,
-                    "linewidth": 2,
-                    "links":
-                    [],
-                    "minSpan": 24,
-                    "nullPointMode": "connected",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": true,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(sum(irate(container_network_receive_packets_dropped_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -1333,100 +1512,143 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Rate of Received Packets Dropped",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values":
-                        []
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "timeseries"
                 },
                 {
-                    "aliasColors":
-                    {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "barWidthFactor": 0.6,
+                                "drawStyle": "line",
+                                "fillOpacity": 20,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 2,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "showValues": false,
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "normal"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "pps"
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsZero",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsNull",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 24,
                         "x": 0,
                         "y": 59
                     },
                     "id": 17,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": true,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": true,
-                        "min": true,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "total": false,
-                        "values": true
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "mean",
+                                "lastNotNull",
+                                "max",
+                                "min"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "hideZeros": false,
+                            "mode": "multi",
+                            "sort": "desc"
+                        }
                     },
-                    "lines": true,
-                    "linewidth": 2,
-                    "links":
-                    [],
-                    "minSpan": 24,
-                    "nullPointMode": "connected",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": true,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(sum(irate(container_network_transmit_packets_dropped_total{cluster=\"$cluster\",namespace=~\".+\"}[$interval:$resolution])) by (namespace))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -1435,106 +1657,150 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Rate of Transmitted Packets Dropped",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values":
-                        []
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "pps",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "timeseries"
                 },
                 {
-                    "aliasColors":
-                    {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "barWidthFactor": 0.6,
+                                "drawStyle": "line",
+                                "fillOpacity": 20,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 2,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "showValues": false,
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "normal"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "percentunit"
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsZero",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsNull",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 24,
                         "x": 0,
                         "y": 59
                     },
                     "id": 18,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": true,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": true,
-                        "min": true,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "total": false,
-                        "values": true
-                    },
-                    "lines": true,
-                    "linewidth": 2,
-                    "links":
-                    [
+                    "links": [
                         {
                             "targetBlank": true,
                             "title": "What is TCP Retransmit?",
                             "url": "https://accedian.com/enterprises/blog/network-packet-loss-retransmissions-and-duplicate-acknowledgements/"
                         }
                     ],
-                    "minSpan": 24,
-                    "nullPointMode": "connected",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": true,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "mean",
+                                "lastNotNull",
+                                "max",
+                                "min"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "hideZeros": false,
+                            "mode": "multi",
+                            "sort": "desc"
+                        }
+                    },
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(sum(rate(node_netstat_Tcp_RetransSegs{cluster=\"$cluster\"}[$interval:$resolution]) / rate(node_netstat_Tcp_OutSegs{cluster=\"$cluster\"}[$interval:$resolution])) by (instance))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -1543,106 +1809,150 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Rate of TCP Retransmits out of all sent segments",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values":
-                        []
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "percentunit",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "percentunit",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "timeseries"
                 },
                 {
-                    "aliasColors":
-                    {},
-                    "bars": false,
-                    "dashLength": 10,
-                    "dashes": false,
-                    "datasource": "$datasource",
-                    "fill": 2,
-                    "fillGradient": 0,
-                    "gridPos":
-                    {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
+                    "fieldConfig": {
+                        "defaults": {
+                            "color": {
+                                "mode": "palette-classic"
+                            },
+                            "custom": {
+                                "axisBorderShow": false,
+                                "axisCenteredZero": false,
+                                "axisColorMode": "text",
+                                "axisLabel": "",
+                                "axisPlacement": "auto",
+                                "barAlignment": 0,
+                                "barWidthFactor": 0.6,
+                                "drawStyle": "line",
+                                "fillOpacity": 20,
+                                "gradientMode": "none",
+                                "hideFrom": {
+                                    "legend": false,
+                                    "tooltip": false,
+                                    "viz": false
+                                },
+                                "insertNulls": false,
+                                "lineInterpolation": "linear",
+                                "lineWidth": 2,
+                                "pointSize": 5,
+                                "scaleDistribution": {
+                                    "type": "linear"
+                                },
+                                "showPoints": "never",
+                                "showValues": false,
+                                "spanNulls": true,
+                                "stacking": {
+                                    "group": "A",
+                                    "mode": "normal"
+                                },
+                                "thresholdsStyle": {
+                                    "mode": "off"
+                                }
+                            },
+                            "mappings": [],
+                            "min": 0,
+                            "thresholds": {
+                                "mode": "absolute",
+                                "steps": [
+                                    {
+                                        "color": "green",
+                                        "value": 0
+                                    },
+                                    {
+                                        "color": "red",
+                                        "value": 80
+                                    }
+                                ]
+                            },
+                            "unit": "percentunit"
+                        },
+                        "overrides": [
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsZero",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "matcher": {
+                                    "id": "byValue",
+                                    "options": {
+                                        "op": "gte",
+                                        "reducer": "allIsNull",
+                                        "value": 0
+                                    }
+                                },
+                                "properties": [
+                                    {
+                                        "id": "custom.hideFrom",
+                                        "value": {
+                                            "legend": true,
+                                            "tooltip": true,
+                                            "viz": false
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "gridPos": {
                         "h": 9,
                         "w": 24,
                         "x": 0,
                         "y": 59
                     },
                     "id": 19,
-                    "legend":
-                    {
-                        "alignAsTable": true,
-                        "avg": true,
-                        "current": true,
-                        "hideEmpty": true,
-                        "hideZero": true,
-                        "max": true,
-                        "min": true,
-                        "rightSide": true,
-                        "show": true,
-                        "sideWidth": null,
-                        "total": false,
-                        "values": true
-                    },
-                    "lines": true,
-                    "linewidth": 2,
-                    "links":
-                    [
+                    "links": [
                         {
                             "targetBlank": true,
                             "title": "Why monitor SYN retransmits?",
                             "url": "https://github.com/prometheus/node_exporter/issues/1023#issuecomment-408128365"
                         }
                     ],
-                    "minSpan": 24,
-                    "nullPointMode": "connected",
-                    "paceLength": 10,
-                    "percentage": false,
-                    "pointradius": 5,
-                    "points": false,
-                    "renderer": "flot",
-                    "repeat": null,
-                    "seriesOverrides":
-                    [],
-                    "spaceLength": 10,
-                    "span": 24,
-                    "stack": true,
-                    "steppedLine": false,
-                    "targets":
-                    [
+                    "options": {
+                        "legend": {
+                            "calcs": [
+                                "mean",
+                                "lastNotNull",
+                                "max",
+                                "min"
+                            ],
+                            "displayMode": "table",
+                            "placement": "right",
+                            "showLegend": true
+                        },
+                        "tooltip": {
+                            "hideZeros": false,
+                            "mode": "multi",
+                            "sort": "desc"
+                        }
+                    },
+                    "pluginVersion": "12.4.11",
+                    "targets": [
                         {
+                            "datasource": {
+                                "uid": "$datasource"
+                            },
                             "expr": "sort_desc(sum(rate(node_netstat_TcpExt_TCPSynRetrans{cluster=\"$cluster\"}[$interval:$resolution]) / rate(node_netstat_Tcp_RetransSegs{cluster=\"$cluster\"}[$interval:$resolution])) by (instance))",
                             "format": "time_series",
                             "intervalFactor": 1,
@@ -1651,88 +1961,32 @@
                             "step": 10
                         }
                     ],
-                    "thresholds":
-                    [],
-                    "timeFrom": null,
-                    "timeShift": null,
                     "title": "Rate of TCP SYN Retransmits out of all retransmits",
-                    "tooltip":
-                    {
-                        "shared": true,
-                        "sort": 2,
-                        "value_type": "individual"
-                    },
-                    "type": "graph",
-                    "xaxis":
-                    {
-                        "buckets": null,
-                        "mode": "time",
-                        "name": null,
-                        "show": true,
-                        "values":
-                        []
-                    },
-                    "yaxes":
-                    [
-                        {
-                            "format": "percentunit",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        },
-                        {
-                            "format": "percentunit",
-                            "label": null,
-                            "logBase": 1,
-                            "max": null,
-                            "min": 0,
-                            "show": true
-                        }
-                    ]
+                    "type": "timeseries"
                 }
             ],
-            "repeat": null,
-            "repeatIteration": null,
-            "repeatRowId": null,
-            "showTitle": true,
             "title": "Errors",
-            "titleSize": "h6",
             "type": "row"
         }
     ],
+    "preload": false,
     "refresh": "10s",
-    "rows":
-    [],
-    "schemaVersion": 18,
-    "style": "dark",
-    "tags":
-    [
+    "schemaVersion": 42,
+    "tags": [
         "kubernetes-mixin"
     ],
-    "templating":
-    {
-        "list":
-        [
+    "templating": {
+        "list": [
             {
-                "allValue": null,
                 "auto": false,
                 "auto_count": 30,
                 "auto_min": "10s",
-                "current":
-                {
+                "current": {
                     "text": "5m",
                     "value": "5m"
                 },
-                "datasource": "$datasource",
-                "hide": 0,
-                "includeAll": false,
-                "label": null,
-                "multi": false,
                 "name": "resolution",
-                "options":
-                [
+                "options": [
                     {
                         "selected": false,
                         "text": "30s",
@@ -1751,34 +2005,19 @@
                 ],
                 "query": "30s,5m,1h",
                 "refresh": 2,
-                "regex": "",
-                "skipUrlSync": false,
-                "sort": 1,
-                "tagValuesQuery": "",
-                "tags":
-                [],
-                "tagsQuery": "",
-                "type": "interval",
-                "useTags": false
+                "type": "interval"
             },
             {
-                "allValue": null,
                 "auto": false,
                 "auto_count": 30,
                 "auto_min": "10s",
-                "current":
-                {
+                "current": {
                     "text": "5m",
                     "value": "5m"
                 },
-                "datasource": "$datasource",
                 "hide": 2,
-                "includeAll": false,
-                "label": null,
-                "multi": false,
                 "name": "interval",
-                "options":
-                [
+                "options": [
                     {
                         "selected": true,
                         "text": "4h",
@@ -1787,66 +2026,44 @@
                 ],
                 "query": "4h",
                 "refresh": 2,
-                "regex": "",
-                "skipUrlSync": false,
-                "sort": 1,
-                "tagValuesQuery": "",
-                "tags":
-                [],
-                "tagsQuery": "",
-                "type": "interval",
-                "useTags": false
+                "type": "interval"
             },
             {
-                "current":
-                {
+                "current": {
                     "text": "default",
                     "value": "default"
                 },
-                "hide": 0,
                 "label": "Data Source",
                 "name": "datasource",
-                "options":
-                [],
+                "options": [],
                 "query": "prometheus",
                 "refresh": 1,
                 "regex": "",
                 "type": "datasource"
             },
             {
-                "allValue": null,
-                "current":
-                {},
-                "datasource": "$datasource",
+                "current": {},
+                "datasource": {
+                    "uid": "$datasource"
+                },
                 "hide": 2,
                 "includeAll": false,
-                "label": null,
-                "multi": false,
                 "name": "cluster",
-                "options":
-                [],
+                "options": [],
                 "query": "label_values(up{job=\"kubelet\", metrics_path=\"/metrics/cadvisor\"}, cluster)",
                 "refresh": 2,
                 "regex": "",
-                "sort": 0,
-                "tagValuesQuery": "",
-                "tags":
-                [],
-                "tagsQuery": "",
-                "type": "query",
-                "useTags": false
+                "regexApplyTo": "value",
+                "type": "query"
             }
         ]
     },
-    "time":
-    {
+    "time": {
         "from": "now-1h",
         "to": "now"
     },
-    "timepicker":
-    {
-        "refresh_intervals":
-        [
+    "timepicker": {
+        "refresh_intervals": [
             "5s",
             "10s",
             "30s",
@@ -1858,8 +2075,7 @@
             "2h",
             "1d"
         ],
-        "time_options":
-        [
+        "time_options": [
             "5m",
             "15m",
             "1h",
@@ -1874,5 +2090,6 @@
     "timezone": "UTC",
     "title": "Kubernetes / Networking / Cluster",
     "uid": "ff635a025bcfea7bc3dd4f508990a3e9",
-    "version": 0
+    "version": 0,
+    "weekStart": ""
 }

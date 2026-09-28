@@ -1,72 +1,75 @@
 {
-    "__inputs":
-    [],
-    "__requires":
-    [],
-    "annotations":
-    {
-        "list":
-        []
+    "__inputs": [],
+    "__requires": [],
+    "annotations": {
+        "list": [
+            {
+                "builtIn": 1,
+                "datasource": {
+                    "type": "grafana",
+                    "uid": "-- Grafana --"
+                },
+                "enable": true,
+                "hide": true,
+                "iconColor": "rgba(0, 211, 255, 1)",
+                "name": "Annotations & Alerts",
+                "type": "dashboard"
+            }
+        ]
     },
     "editable": true,
+    "fiscalYearStartMonth": 0,
     "gnetId": null,
     "graphTooltip": 0,
-    "hideControls": false,
     "id": null,
-    "links":
-    [],
-    "panels":
-    [
+    "links": [],
+    "panels": [
         {
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    [],
-                    "mappings":
-                    [],
-                    "thresholds":
-                    {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
                         "mode": "absolute",
-                        "steps":
-                        []
+                        "steps": []
                     },
                     "unit": "none"
-                }
+                },
+                "overrides": []
             },
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 7,
                 "w": 4,
                 "x": 0,
                 "y": 0
             },
             "id": 2,
-            "links":
-            [],
-            "options":
-            {
+            "options": {
                 "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions":
-                {
-                    "calcs":
-                    [
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                    "calcs": [
                         "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "7",
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(kubelet_node_name{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\"})",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -75,59 +78,54 @@
                 }
             ],
             "title": "Running Kubelets",
-            "transparent": false,
             "type": "stat"
         },
         {
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    [],
-                    "mappings":
-                    [],
-                    "thresholds":
-                    {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
                         "mode": "absolute",
-                        "steps":
-                        []
+                        "steps": []
                     },
                     "unit": "none"
-                }
+                },
+                "overrides": []
             },
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 7,
                 "w": 4,
                 "x": 4,
                 "y": 0
             },
             "id": 3,
-            "links":
-            [],
-            "options":
-            {
+            "options": {
                 "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions":
-                {
-                    "calcs":
-                    [
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                    "calcs": [
                         "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "7",
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(kubelet_running_pods{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}) OR sum(kubelet_running_pod_count{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -136,59 +134,54 @@
                 }
             ],
             "title": "Running Pods",
-            "transparent": false,
             "type": "stat"
         },
         {
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    [],
-                    "mappings":
-                    [],
-                    "thresholds":
-                    {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
                         "mode": "absolute",
-                        "steps":
-                        []
+                        "steps": []
                     },
                     "unit": "none"
-                }
+                },
+                "overrides": []
             },
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 7,
                 "w": 4,
                 "x": 8,
                 "y": 0
             },
             "id": 4,
-            "links":
-            [],
-            "options":
-            {
+            "options": {
                 "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions":
-                {
-                    "calcs":
-                    [
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                    "calcs": [
                         "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "7",
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(kubelet_running_containers{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}) OR sum(kubelet_running_container_count{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"})",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -197,59 +190,54 @@
                 }
             ],
             "title": "Running Containers",
-            "transparent": false,
             "type": "stat"
         },
         {
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    [],
-                    "mappings":
-                    [],
-                    "thresholds":
-                    {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
                         "mode": "absolute",
-                        "steps":
-                        []
+                        "steps": []
                     },
                     "unit": "none"
-                }
+                },
+                "overrides": []
             },
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 7,
                 "w": 4,
                 "x": 12,
                 "y": 0
             },
             "id": 5,
-            "links":
-            [],
-            "options":
-            {
+            "options": {
                 "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions":
-                {
-                    "calcs":
-                    [
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                    "calcs": [
                         "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "7",
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(volume_manager_total_volumes{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\", state=\"actual_state_of_world\"})",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -258,59 +246,54 @@
                 }
             ],
             "title": "Actual Volume Count",
-            "transparent": false,
             "type": "stat"
         },
         {
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    [],
-                    "mappings":
-                    [],
-                    "thresholds":
-                    {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
                         "mode": "absolute",
-                        "steps":
-                        []
+                        "steps": []
                     },
                     "unit": "none"
-                }
+                },
+                "overrides": []
             },
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 7,
                 "w": 4,
                 "x": 16,
                 "y": 0
             },
             "id": 6,
-            "links":
-            [],
-            "options":
-            {
+            "options": {
                 "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions":
-                {
-                    "calcs":
-                    [
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                    "calcs": [
                         "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "7",
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(volume_manager_total_volumes{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\",state=\"desired_state_of_world\"})",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -319,59 +302,54 @@
                 }
             ],
             "title": "Desired Volume Count",
-            "transparent": false,
             "type": "stat"
         },
         {
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    [],
-                    "mappings":
-                    [],
-                    "thresholds":
-                    {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
                         "mode": "absolute",
-                        "steps":
-                        []
+                        "steps": []
                     },
                     "unit": "none"
-                }
+                },
+                "overrides": []
             },
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 7,
                 "w": 4,
                 "x": 20,
                 "y": 0
             },
             "id": 7,
-            "links":
-            [],
-            "options":
-            {
+            "options": {
                 "colorMode": "value",
                 "graphMode": "area",
                 "justifyMode": "auto",
                 "orientation": "auto",
-                "reduceOptions":
-                {
-                    "calcs":
-                    [
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                    "calcs": [
                         "lastNotNull"
                     ],
                     "fields": "",
                     "values": false
                 },
-                "textMode": "auto"
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
             },
-            "pluginVersion": "7",
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_node_config_error{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}[$__rate_interval]))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -380,57 +358,97 @@
                 }
             ],
             "title": "Config Error Count",
-            "transparent": false,
             "type": "stat"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 0,
                 "y": 7
             },
             "id": 8,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_runtime_operations_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (operation_type, instance)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -438,95 +456,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Operation Rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 12,
                 "y": 7
             },
             "id": 9,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_runtime_operations_errors_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_type)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -534,95 +555,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Operation Error Rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 24,
                 "x": 0,
                 "y": 14
             },
             "id": 10,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(kubelet_runtime_operations_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_type, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -630,95 +654,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Operation duration 99th quantile",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 0,
                 "y": 21
             },
             "id": 11,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_pod_start_duration_seconds_count{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -726,6 +753,9 @@
                     "refId": "A"
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_pod_worker_duration_seconds_count{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -733,95 +763,98 @@
                     "refId": "B"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Pod Start Rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 12,
                 "y": 21
             },
             "id": 12,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(kubelet_pod_start_duration_seconds_count{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -829,6 +862,9 @@
                     "refId": "A"
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -836,97 +872,139 @@
                     "refId": "B"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Pod Start Duration",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsZero",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsNull",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 0,
                 "y": 28
             },
             "id": 13,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(storage_operation_duration_seconds_count{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_name, volume_plugin)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -934,97 +1012,139 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Storage Operation Rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsZero",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsNull",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 12,
                 "y": 28
             },
             "id": 14,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(storage_operation_errors_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_name, volume_plugin)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1032,97 +1152,139 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Storage Operation Error Rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsZero",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "matcher": {
+                            "id": "byValue",
+                            "options": {
+                                "op": "gte",
+                                "reducer": "allIsNull",
+                                "value": 0
+                            }
+                        },
+                        "properties": [
+                            {
+                                "id": "custom.hideFrom",
+                                "value": {
+                                    "legend": true,
+                                    "tooltip": true,
+                                    "viz": false
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 24,
                 "x": 0,
                 "y": 35
             },
             "id": 15,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "hideEmpty": true,
-                "hideZero": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(storage_operation_duration_seconds_bucket{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_name, volume_plugin, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1130,95 +1292,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Storage Operation Duration 99th quantile",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 0,
                 "y": 42
             },
             "id": 16,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_cgroup_manager_duration_seconds_count{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_type)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1226,95 +1391,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Cgroup manager operation rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 12,
                 "y": 42
             },
             "id": 17,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(kubelet_cgroup_manager_duration_seconds_bucket{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}[$__rate_interval])) by (instance, operation_type, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1322,96 +1490,99 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Cgroup manager 99th quantile",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
+            "datasource": {
+                "uid": "$datasource"
+            },
             "description": "Pod lifecycle event generator",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 0,
                 "y": 49
             },
             "id": 18,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(kubelet_pleg_relist_duration_seconds_count{cluster=\"$cluster\", job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}[$__rate_interval])) by (instance)",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1419,95 +1590,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "PLEG relist rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 12,
                 "x": 12,
                 "y": 49
             },
             "id": 19,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_interval_seconds_bucket{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1515,95 +1689,98 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "PLEG relist interval",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 24,
                 "x": 0,
                 "y": 56
             },
             "id": 20,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(kubelet_pleg_relist_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])) by (instance, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1611,95 +1788,96 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "PLEG relist duration",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "ops"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 24,
                 "x": 0,
                 "y": 63
             },
             "id": 21,
-            "legend":
-            {
-                "alignAsTable": false,
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "rightSide": false,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": false
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\",code=~\"2..\"}[$__rate_interval]))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1707,6 +1885,9 @@
                     "refId": "A"
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\",code=~\"3..\"}[$__rate_interval]))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1714,6 +1895,9 @@
                     "refId": "B"
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\",code=~\"4..\"}[$__rate_interval]))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1721,6 +1905,9 @@
                     "refId": "C"
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum(rate(rest_client_requests_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\",code=~\"5..\"}[$__rate_interval]))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1728,95 +1915,98 @@
                     "refId": "D"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "RPC Rate",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "ops",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "s"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 24,
                 "x": 0,
                 "y": 70
             },
             "id": 22,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": false,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": true
+            "options": {
+                "legend": {
+                    "calcs": [
+                        "lastNotNull"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "histogram_quantile(0.99, sum(rate(rest_client_request_duration_seconds_bucket{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\", instance=~\"$instance\"}[$__rate_interval])) by (instance, verb, url, le))",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1824,95 +2014,96 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Request duration 99th quantile",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "s",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "bytes"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 8,
                 "x": 0,
                 "y": 77
             },
             "id": 23,
-            "legend":
-            {
-                "alignAsTable": false,
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "rightSide": false,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": false
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "process_resident_memory_bytes{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -1920,95 +2111,96 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Memory",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "bytes",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "bytes",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 8,
                 "x": 8,
                 "y": 77
             },
             "id": 24,
-            "legend":
-            {
-                "alignAsTable": false,
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "rightSide": false,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": false
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "rate(process_cpu_seconds_total{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}[$__rate_interval])",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -2016,95 +2208,96 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "CPU usage",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "datasource": {
+                "uid": "$datasource"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "short"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 7,
                 "w": 8,
                 "x": 16,
                 "y": 77
             },
             "id": 25,
-            "legend":
-            {
-                "alignAsTable": false,
-                "avg": false,
-                "current": false,
-                "max": false,
-                "min": false,
-                "rightSide": false,
-                "show": true,
-                "sideWidth": null,
-                "total": false,
-                "values": false
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "none"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "links":
-            [],
-            "nullPointMode": "null",
-            "percentage": false,
-            "pointradius": 5,
-            "points": false,
-            "renderer": "flot",
-            "repeat": null,
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "go_goroutines{cluster=\"$cluster\",job=\"kubelet\", metrics_path=\"/metrics\",instance=~\"$instance\"}",
                     "format": "time_series",
                     "intervalFactor": 2,
@@ -2112,134 +2305,72 @@
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeShift": null,
             "title": "Goroutines",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 0,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ]
+            "type": "timeseries"
         }
     ],
+    "preload": false,
     "refresh": "10s",
-    "rows":
-    [],
-    "schemaVersion": 14,
-    "style": "dark",
-    "tags":
-    [
+    "schemaVersion": 42,
+    "tags": [
         "kubernetes-mixin"
     ],
-    "templating":
-    {
-        "list":
-        [
+    "templating": {
+        "list": [
             {
-                "current":
-                {
+                "current": {
                     "text": "default",
                     "value": "default"
                 },
-                "hide": 0,
                 "label": "Data Source",
                 "name": "datasource",
-                "options":
-                [],
+                "options": [],
                 "query": "prometheus",
                 "refresh": 1,
                 "regex": "",
                 "type": "datasource"
             },
             {
-                "allValue": null,
-                "current":
-                {},
-                "datasource": "$datasource",
+                "current": {},
+                "datasource": {
+                    "uid": "$datasource"
+                },
                 "hide": 2,
                 "includeAll": false,
                 "label": "cluster",
-                "multi": false,
                 "name": "cluster",
-                "options":
-                [],
+                "options": [],
                 "query": "label_values(up{job=\"kubelet\", metrics_path=\"/metrics\"}, cluster)",
                 "refresh": 2,
                 "regex": "",
+                "regexApplyTo": "value",
                 "sort": 1,
-                "tagValuesQuery": "",
-                "tags":
-                [],
-                "tagsQuery": "",
-                "type": "query",
-                "useTags": false
+                "type": "query"
             },
             {
-                "allValue": null,
-                "current":
-                {},
-                "datasource": "$datasource",
-                "hide": 0,
+                "current": {},
+                "datasource": {
+                    "uid": "$datasource"
+                },
                 "includeAll": true,
                 "label": "instance",
-                "multi": false,
                 "name": "instance",
-                "options":
-                [],
+                "options": [],
                 "query": "label_values(up{job=\"kubelet\", metrics_path=\"/metrics\",cluster=\"$cluster\"}, instance)",
                 "refresh": 2,
                 "regex": "",
+                "regexApplyTo": "value",
                 "sort": 1,
-                "tagValuesQuery": "",
-                "tags":
-                [],
-                "tagsQuery": "",
-                "type": "query",
-                "useTags": false
+                "type": "query"
             }
         ]
     },
-    "time":
-    {
+    "time": {
         "from": "now-1h",
         "to": "now"
     },
-    "timepicker":
-    {
-        "refresh_intervals":
-        [
+    "timepicker": {
+        "refresh_intervals": [
             "5s",
             "10s",
             "30s",
@@ -2251,8 +2382,7 @@
             "2h",
             "1d"
         ],
-        "time_options":
-        [
+        "time_options": [
             "5m",
             "15m",
             "1h",
@@ -2267,5 +2397,6 @@
     "timezone": "UTC",
     "title": "Kubernetes / Kubelet",
     "uid": "3138fa155d5915769fbded898ac09fd9",
-    "version": 0
+    "version": 0,
+    "weekStart": ""
 }

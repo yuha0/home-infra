@@ -1,21 +1,19 @@
 {
-    "annotations":
-    {
-        "list":
-        [
+    "annotations": {
+        "list": [
             {
                 "builtIn": 1,
-                "datasource": "-- Grafana --",
+                "datasource": {
+                    "uid": "-- Grafana --"
+                },
                 "enable": true,
                 "hide": true,
                 "iconColor": "rgba(0, 211, 255, 1)",
                 "name": "Annotations & Alerts",
-                "target":
-                {
+                "target": {
                     "limit": 100,
                     "matchAny": false,
-                    "tags":
-                    [],
+                    "tags": [],
                     "type": "dashboard"
                 },
                 "type": "dashboard"
@@ -28,308 +26,320 @@
     "graphTooltip": 1,
     "id": 2,
     "iteration": 1633998507271,
-    "links":
-    [],
-    "liveNow": false,
-    "panels":
-    [
+    "links": [],
+    "panels": [
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "thanos",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    []
-                },
-                "overrides":
-                []
+            "datasource": {
+                "type": "prometheus",
+                "uid": "PC96415006F908B67"
             },
-            "fill": 1,
-            "fillGradient": 3,
-            "gridPos":
-            {
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 30,
+                        "gradientMode": "opacity",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "decbytes"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 24,
                 "x": 0,
                 "y": 0
             },
-            "hiddenSeries": false,
             "id": 14,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": true,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sort": "current",
-                "sortDesc": true,
-                "total": false,
-                "values": true
+            "options": {
+                "alertThreshold": true,
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "desc"
+                }
             },
-            "lines": true,
-            "linewidth": 2,
-            "nullPointMode": "null",
-            "options":
-            {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "8.2.1",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "PC96415006F908B67"
+                    },
                     "expr": "sum (container_memory_working_set_bytes{image!=\"\", pod=~\"$pod\", namespace=~\"$namespace\"}) by (pod)",
                     "interval": "",
                     "legendFormat": "{{pod}}",
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeRegions":
-            [],
-            "timeShift": null,
             "title": "Pod Memory Usage",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "decbytes",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis":
-            {
-                "align": false,
-                "alignLevel": null
-            }
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {},
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    []
-                },
-                "overrides":
-                []
+            "datasource": {
+                "uid": "$datasource"
             },
-            "fill": 1,
-            "fillGradient": 2,
-            "gridPos":
-            {
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 20,
+                        "gradientMode": "opacity",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 2,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "none"
+                },
+                "overrides": []
+            },
+            "gridPos": {
                 "h": 9,
                 "w": 24,
                 "x": 0,
                 "y": 9
             },
-            "hiddenSeries": false,
             "id": 15,
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": true,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sort": "max",
-                "sortDesc": true,
-                "total": false,
-                "values": true
+            "options": {
+                "alertThreshold": true,
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "desc"
+                }
             },
-            "lines": true,
-            "linewidth": 2,
-            "nullPointMode": "null",
-            "options":
-            {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "8.2.1",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "expr": "sum (irate(container_cpu_usage_seconds_total{image!=\"\", pod=~\"$pod\", namespace=~\"$namespace\"}[1m])) by (pod) * 1000",
                     "interval": "",
                     "legendFormat": "{{pod}}",
                     "refId": "A"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeRegions":
-            [],
-            "timeShift": null,
             "title": "Pod CPU Usage (millicore)",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "none",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis":
-            {
-                "align": false,
-                "alignLevel": null
-            }
+            "type": "timeseries"
         },
         {
-            "aliasColors":
-            {
-                "hubble": "semi-dark-blue"
+            "datasource": {
+                "uid": "$datasource"
             },
-            "bars": false,
-            "dashLength": 10,
-            "dashes": false,
-            "datasource": "$datasource",
-            "fieldConfig":
-            {
-                "defaults":
-                {
-                    "links":
-                    []
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisBorderShow": false,
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "barWidthFactor": 0.6,
+                        "drawStyle": "line",
+                        "fillOpacity": 10,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "insertNulls": false,
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "never",
+                        "showValues": false,
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "links": [],
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": 0
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    },
+                    "unit": "Bps"
                 },
-                "overrides":
-                []
+                "overrides": [
+                    {
+                        "matcher": {
+                            "id": "byName",
+                            "options": "hubble"
+                        },
+                        "properties": [
+                            {
+                                "id": "color",
+                                "value": {
+                                    "fixedColor": "semi-dark-blue",
+                                    "mode": "fixed"
+                                }
+                            }
+                        ]
+                    }
+                ]
             },
-            "fill": 1,
-            "fillGradient": 0,
-            "gridPos":
-            {
+            "gridPos": {
                 "h": 10,
                 "w": 24,
                 "x": 0,
                 "y": 18
             },
-            "hiddenSeries": false,
             "id": 25,
-            "interval": "",
-            "legend":
-            {
-                "alignAsTable": true,
-                "avg": false,
-                "current": true,
-                "max": true,
-                "min": false,
-                "rightSide": true,
-                "show": true,
-                "sort": "current",
-                "sortDesc": true,
-                "total": false,
-                "values": true
+            "options": {
+                "alertThreshold": true,
+                "legend": {
+                    "calcs": [
+                        "lastNotNull",
+                        "max"
+                    ],
+                    "displayMode": "table",
+                    "placement": "right",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "hideZeros": false,
+                    "mode": "multi",
+                    "sort": "desc"
+                }
             },
-            "lines": true,
-            "linewidth": 1,
-            "nullPointMode": "null",
-            "options":
-            {
-                "alertThreshold": true
-            },
-            "percentage": false,
-            "pluginVersion": "8.2.1",
-            "pointradius": 2,
-            "points": false,
-            "renderer": "flot",
-            "seriesOverrides":
-            [],
-            "spaceLength": 10,
-            "stack": false,
-            "steppedLine": false,
-            "targets":
-            [
+            "pluginVersion": "12.4.11",
+            "targets": [
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "exemplar": true,
                     "expr": "sum (rate (container_network_receive_bytes_total{pod=~\"$pod\", namespace=~\"$namespace\"}[2m])) by (pod)",
                     "interval": "",
@@ -337,6 +347,9 @@
                     "refId": "A"
                 },
                 {
+                    "datasource": {
+                        "uid": "$datasource"
+                    },
                     "exemplar": true,
                     "expr": "- sum (rate (container_network_transmit_bytes_total{pod=~\"$pod\", namespace=~\"$namespace\"}[2m])) by (pod)",
                     "interval": "",
@@ -344,145 +357,70 @@
                     "refId": "B"
                 }
             ],
-            "thresholds":
-            [],
-            "timeFrom": null,
-            "timeRegions":
-            [],
-            "timeShift": null,
             "title": "Pod Network",
-            "tooltip":
-            {
-                "shared": true,
-                "sort": 2,
-                "value_type": "individual"
-            },
-            "type": "graph",
-            "xaxis":
-            {
-                "buckets": null,
-                "mode": "time",
-                "name": null,
-                "show": true,
-                "values":
-                []
-            },
-            "yaxes":
-            [
-                {
-                    "format": "Bps",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                },
-                {
-                    "format": "short",
-                    "label": null,
-                    "logBase": 1,
-                    "max": null,
-                    "min": null,
-                    "show": true
-                }
-            ],
-            "yaxis":
-            {
-                "align": false,
-                "alignLevel": null
-            }
+            "type": "timeseries"
         }
     ],
+    "preload": false,
     "refresh": "30s",
-    "schemaVersion": 31,
-    "style": "dark",
-    "tags":
-    [
+    "schemaVersion": 42,
+    "tags": [
         "kubernetes",
         "pod",
         "memory",
         "cpu"
     ],
-    "templating":
-    {
-        "list":
-        [
+    "templating": {
+        "list": [
             {
-                "current":
-                {
+                "current": {
                     "selected": false,
                     "text": "default",
                     "value": "default"
                 },
-                "description": null,
-                "error": null,
-                "hide": 0,
                 "includeAll": false,
-                "label": null,
-                "multi": false,
                 "name": "datasource",
-                "options":
-                [],
+                "options": [],
                 "query": "prometheus",
-                "queryValue": "",
                 "refresh": 1,
                 "regex": "",
-                "skipUrlSync": false,
                 "type": "datasource"
             },
             {
-                "allValue": null,
-                "current":
-                {
+                "current": {
                     "selected": true,
-                    "text":
-                    [
+                    "text": [
                         "kube-system"
                     ],
-                    "value":
-                    [
+                    "value": [
                         "kube-system"
                     ]
                 },
-                "datasource": "$datasource",
+                "datasource": {
+                    "uid": "$datasource"
+                },
                 "definition": "label_values(container_cpu_user_seconds_total, namespace)",
-                "description": null,
-                "error": null,
-                "hide": 0,
                 "includeAll": true,
-                "label": null,
                 "multi": true,
                 "name": "namespace",
-                "options":
-                [],
-                "query":
-                {
+                "options": [],
+                "query": {
                     "query": "label_values(container_cpu_user_seconds_total, namespace)",
                     "refId": "StandardVariableQuery"
                 },
                 "refresh": 2,
                 "regex": "",
-                "skipUrlSync": false,
-                "sort": 0,
-                "tagValuesQuery": "",
-                "tagsQuery": "",
-                "type": "query",
-                "useTags": false
+                "regexApplyTo": "value",
+                "type": "query"
             },
             {
-                "current":
-                {
+                "current": {
                     "selected": false,
                     "text": ".+",
                     "value": ".+"
                 },
-                "description": null,
-                "error": null,
-                "hide": 0,
-                "label": null,
                 "name": "pod",
-                "options":
-                [
+                "options": [
                     {
                         "selected": true,
                         "text": ".+",
@@ -490,20 +428,16 @@
                     }
                 ],
                 "query": ".+",
-                "skipUrlSync": false,
                 "type": "textbox"
             }
         ]
     },
-    "time":
-    {
+    "time": {
         "from": "now-30m",
         "to": "now"
     },
-    "timepicker":
-    {
-        "refresh_intervals":
-        [
+    "timepicker": {
+        "refresh_intervals": [
             "30s",
             "1m",
             "5m",
@@ -515,5 +449,6 @@
     "timezone": "browser",
     "title": "Container Resource Usage",
     "uid": "pods",
-    "version": 1
+    "version": 1,
+    "weekStart": ""
 }
