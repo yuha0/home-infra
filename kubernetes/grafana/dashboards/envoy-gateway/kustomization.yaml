@@ -1,0 +1,28 @@
+namePrefix: dashboard-envoy-gateway-
+commonAnnotations:
+  grafana-provisioning-directory: envoy-gateway
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- files:
+  - envoy-clusters.json
+  name: envoy-clusters
+- files:
+  - envoy-gateway-global.json
+  name: envoy-gateway-global
+- files:
+  - envoy-proxy-global.json
+  name: envoy-proxy-global
+- files:
+  - global-ratelimit.json
+  name: global-ratelimit
+- files:
+  - resources-monitor.gen.json
+  name: resources-monitor
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    grafana-provisioning: dashboard

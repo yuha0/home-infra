@@ -2,3 +2,5 @@ resources:
 - namespace.yaml
 - generated.yaml
 - gateways
+- podmonitor.yaml
+- servicemonitor.yaml
