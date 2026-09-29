@@ -8,7 +8,7 @@ spec:
     labels:
       app.kubernetes.io/name: ente
       app.kubernetes.io/component: database
-  imageName: ghcr.io/cloudnative-pg/postgresql:18.3-standard-trixie
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
   instances: 3
   primaryUpdateStrategy: unsupervised
   bootstrap:
