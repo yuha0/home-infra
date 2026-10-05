@@ -22,7 +22,7 @@ images:
   newTag: 0.58.0-distroless-libc
 - name: unpoller
   newName: ghcr.io/unpoller/unpoller
-  newTag: v5.2.8
+  newTag: v5.5.0
 - name: tls-cert-sync
   newName: ghcr.io/yuha0/tls-cert-sync
   newTag: v1.2.1
