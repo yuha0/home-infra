@@ -5,9 +5,9 @@ labels:
   pairs:
     app.kubernetes.io/component: museum
 resources:
-- sealed-secret-museum-keys.yaml
-- sealed-secret-s3.yaml
-- sealed-secret-smtp.yaml
+- sealed-museum-keys.yaml
+- sealed-s3.yaml
+- sealed-smtp.yaml
 - deployment.yaml
 - service.yaml
 - httproute.yaml
