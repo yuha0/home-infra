@@ -22,7 +22,7 @@ images:
   newTag: 13.2.4
 - name: k8s-sidecar
   newName: docker.io/kiwigrid/k8s-sidecar
-  newTag: 2.11.2
+  newTag: 2.14.1
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 labels:
