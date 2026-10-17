@@ -1,0 +1,15 @@
+{
+  "repo": {
+    "name": "vm",
+    "url": "https://victoriametrics.github.io/helm-charts/"
+  },
+  "chart": {
+    "name": "victoria-logs-cluster",
+    "version": "0.2.9"
+  },
+  "releaseName": "victorialogs",
+  "valuesFile": "./values.yaml",
+  "extraTemplateArgs": [
+    "-n=logging"
+  ]
+}

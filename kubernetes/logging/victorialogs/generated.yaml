@@ -1,0 +1,425 @@
+---
+# Source: victoria-logs-cluster/templates/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: victorialogs-victoria-logs-cluster-vlinsert
+  namespace: logging
+  labels: 
+    app.kubernetes.io/component: vlinsert
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels: 
+      app: vlinsert
+      app.kubernetes.io/instance: victorialogs
+      app.kubernetes.io/name: victoria-logs-cluster
+---
+# Source: victoria-logs-cluster/templates/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: victorialogs-victoria-logs-cluster-vlselect
+  namespace: logging
+  labels: 
+    app.kubernetes.io/component: vlselect
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels: 
+      app: vlselect
+      app.kubernetes.io/instance: victorialogs
+      app.kubernetes.io/name: victoria-logs-cluster
+---
+# Source: victoria-logs-cluster/templates/pdb.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: victorialogs-victoria-logs-cluster-vlstorage
+  namespace: logging
+  labels: 
+    app.kubernetes.io/component: vlstorage
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels: 
+      app: vlstorage
+      app.kubernetes.io/instance: victorialogs
+      app.kubernetes.io/name: victoria-logs-cluster
+---
+# Source: victoria-logs-cluster/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels: 
+    app.kubernetes.io/component: vlinsert
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+  name: victorialogs-victoria-logs-cluster-vlinsert
+  namespace: logging
+spec:
+  type: ClusterIP
+  ports: 
+    
+    - name: http
+      port: 9481
+      protocol: TCP
+      targetPort: http
+  selector: 
+    app: vlinsert
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/name: victoria-logs-cluster
+---
+# Source: victoria-logs-cluster/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels: 
+    app.kubernetes.io/component: vlselect
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+  name: victorialogs-victoria-logs-cluster-vlselect
+  namespace: logging
+spec:
+  type: ClusterIP
+  ports: 
+    
+    - name: http
+      port: 9471
+      protocol: TCP
+      targetPort: http
+  selector: 
+    app: vlselect
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/name: victoria-logs-cluster
+---
+# Source: victoria-logs-cluster/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels: 
+    app.kubernetes.io/component: vlstorage
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+  name: victorialogs-victoria-logs-cluster-vlstorage
+  namespace: logging
+spec:
+  type: ClusterIP
+  clusterIP: None
+  publishNotReadyAddresses: true
+  ports: 
+    
+    - name: http
+      port: 9491
+      protocol: TCP
+      targetPort: http
+  selector: 
+    app: vlstorage
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/name: victoria-logs-cluster
+---
+# Source: victoria-logs-cluster/templates/vlinsert-server.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app.kubernetes.io/component: vlinsert
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+  name: victorialogs-victoria-logs-cluster-vlinsert
+  namespace: logging
+spec:
+  selector:
+    matchLabels: 
+      app: vlinsert
+      app.kubernetes.io/instance: victorialogs
+      app.kubernetes.io/name: victoria-logs-cluster
+  replicas: 2
+  template:
+    metadata:
+      labels: 
+        app: vlinsert
+        app.kubernetes.io/component: vlinsert
+        app.kubernetes.io/instance: victorialogs
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: victoria-logs-cluster
+    spec:
+      containers:
+        - name: vlinsert
+          image: victoriametrics/victoria-logs:v1.53.0
+          imagePullPolicy: IfNotPresent
+          securityContext: 
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          args: 
+            - --envflag.enable
+            - --http.shutdownDelay=15s
+            - --httpListenAddr=:9481
+            - --loggerFormat=json
+            - --select.disable
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-0.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-1.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-2.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-3.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+          ports:
+            - name: http
+              containerPort: 9481
+          readinessProbe: 
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+          livenessProbe: 
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            tcpSocket:
+              port: http
+            timeoutSeconds: 5
+      securityContext: 
+        fsGroup: 1000
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: 
+              app: vlinsert
+              app.kubernetes.io/instance: victorialogs
+              app.kubernetes.io/name: victoria-logs-cluster
+      terminationGracePeriodSeconds: 30
+---
+# Source: victoria-logs-cluster/templates/vlselect-server.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: 
+    app.kubernetes.io/component: vlselect
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+  name: victorialogs-victoria-logs-cluster-vlselect
+  namespace: logging
+spec:
+  selector:
+    matchLabels: 
+      app: vlselect
+      app.kubernetes.io/instance: victorialogs
+      app.kubernetes.io/name: victoria-logs-cluster
+  replicas: 2
+  template:
+    metadata:
+      labels: 
+        app: vlselect
+        app.kubernetes.io/component: vlselect
+        app.kubernetes.io/instance: victorialogs
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: victoria-logs-cluster
+    spec:
+      containers:
+        - name: vlselect
+          image: victoriametrics/victoria-logs:v1.53.0
+          imagePullPolicy: IfNotPresent
+          securityContext: 
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          args: 
+            - --envflag.enable
+            - --http.shutdownDelay=15s
+            - --httpListenAddr=:9471
+            - --insert.disable
+            - --loggerFormat=json
+            - --search.allowPartialResponse
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-0.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-1.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-2.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+            - --storageNode=victorialogs-victoria-logs-cluster-vlstorage-3.victorialogs-victoria-logs-cluster-vlstorage.logging.svc.cluster.local.:9491
+          ports:
+            - name: http
+              containerPort: 9471
+          readinessProbe: 
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+          livenessProbe: 
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 15
+            tcpSocket:
+              port: http
+            timeoutSeconds: 5
+      securityContext: 
+        fsGroup: 1000
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: 
+              app: vlselect
+              app.kubernetes.io/instance: victorialogs
+              app.kubernetes.io/name: victoria-logs-cluster
+      terminationGracePeriodSeconds: 60
+---
+# Source: victoria-logs-cluster/templates/vlstorage-server.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels: 
+    app.kubernetes.io/component: vlstorage
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+  name: victorialogs-victoria-logs-cluster-vlstorage
+  namespace: logging
+spec:
+  serviceName: victorialogs-victoria-logs-cluster-vlstorage
+  selector:
+    matchLabels: 
+      app: vlstorage
+      app.kubernetes.io/instance: victorialogs
+      app.kubernetes.io/name: victoria-logs-cluster
+  replicas: 4
+  podManagementPolicy: OrderedReady
+  template:
+    metadata:
+      labels: 
+        app: vlstorage
+        app.kubernetes.io/component: vlstorage
+        app.kubernetes.io/instance: victorialogs
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: victoria-logs-cluster
+    spec:
+      containers:
+        - name: vlstorage
+          image: victoriametrics/victoria-logs:v1.53.0
+          imagePullPolicy: IfNotPresent
+          securityContext: 
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          args: 
+            - --envflag.enable
+            - --http.shutdownDelay=15s
+            - --httpListenAddr=:9491
+            - --loggerFormat=json
+            - --retention.maxDiskUsagePercent=80
+            - --retentionPeriod=31d
+            - --storageDataPath=/storage
+          ports:
+            - name: http
+              containerPort: 9491
+          readinessProbe: 
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: vlstorage-volume
+              mountPath: /storage
+            
+      securityContext: 
+        fsGroup: 1000
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: 
+              app: vlstorage
+              app.kubernetes.io/instance: victorialogs
+              app.kubernetes.io/name: victoria-logs-cluster
+      terminationGracePeriodSeconds: 60
+  minReadySeconds: 5
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: vlstorage-volume
+      spec:
+        accessModes: 
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 4Gi
+        storageClassName: truenas-iscsi-general
+---
+# Source: victoria-logs-cluster/templates/route.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: victorialogs-victoria-logs-cluster-vlselect
+  namespace: logging
+  labels: 
+    app.kubernetes.io/component: vlselect
+    app.kubernetes.io/instance: victorialogs
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: victoria-logs-cluster
+    app.kubernetes.io/version: v1.53.0
+    helm.sh/chart: victoria-logs-cluster-0.2.9
+spec:
+  parentRefs: 
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
+      namespace: envoy-gateway-system
+      sectionName: https
+  hostnames: 
+    - victorialogs.internal.yuha0.com
+  rules:
+    - backendRefs:
+        - name: victorialogs-victoria-logs-cluster-vlselect
+          port: 9471
+          group: ''
+          kind: Service
+          weight: 1
+      matches: 
+        - path:
+            type: PathPrefix
+            value: '/select'
