@@ -3,14 +3,9 @@ resources:
 - namespace.yaml
 - loki
 - victorialogs
-- https://github.com/vectordotdev/vector//distribution/kubernetes/vector-agent?ref=v0.58.0
-
-configMapGenerator:
-- name: vector
-  behavior: replace
-  files:
-  - vector.yaml
+- vector-agent
 
 images:
-- name: timberio/vector
-  newTag: 0.58.0-distroless-libc
+- name: vector
+  newName: docker.io/timberio/vector
+  newTag: 0.59.0-distroless-libc

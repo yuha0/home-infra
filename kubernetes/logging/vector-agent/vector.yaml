@@ -5,18 +5,23 @@ api:
 sources:
   kubernetes_logs:
     type: kubernetes_logs
-  host_metrics:
-    filesystem:
-      devices:
-        excludes: [binfmt_misc]
-      filesystems:
-        excludes: [binfmt_misc]
-      mountpoints:
-        excludes: ["*/proc/sys/fs/binfmt_misc"]
-    type: host_metrics
-  internal_metrics:
-    type: internal_metrics
 sinks:
+  kubernetes_victorialogs:
+    type: elasticsearch
+    inputs:
+    - kubernetes_logs
+    endpoints:
+    - http://victorialogs-victoria-logs-cluster-vlinsert.logging:9481/insert/elasticsearch/
+    mode: bulk
+    api_version: v8
+    compression: gzip
+    healthcheck:
+      enabled: false
+    query:
+      _msg_field: message
+      _time_field: timestamp
+      _stream_fields: kubernetes.pod_namespace,kubernetes.pod_name,kubernetes.container_name,stream
+      ignore_fields: kubernetes.node_labels*,kubernetes.namespace_labels*,kubernetes.container_image_id,kubernetes.pod_ips,source_type
   kubernetes_loki:
     type: "loki"
     inputs:
