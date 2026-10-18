@@ -4,7 +4,12 @@ metadata:
   name: vector
 spec:
   ports:
-  - name: vector
-    port: 80
+  - name: syslog-tcp
+    port: 514
+    targetPort: syslog-tcp
     protocol: TCP
+  - name: syslog-udp
+    port: 514
+    targetPort: syslog-udp
+    protocol: UDP
   type: ClusterIP

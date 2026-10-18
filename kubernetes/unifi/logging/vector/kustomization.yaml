@@ -7,7 +7,7 @@ labels:
 
 resources:
 - deployment.yaml
-- grpcroute.yaml
+- route.yaml
 - service.yaml
 
 configMapGenerator:

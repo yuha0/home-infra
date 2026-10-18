@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: 3
   template:
+    metadata:
+      labels:
+        vector.dev/exclude: "true"
     spec:
       containers:
       - name: vector
@@ -13,9 +16,12 @@ spec:
         - --config-dir
         - /etc/vector/
         ports:
-        - name: vector
-          containerPort: 6000
+        - name: syslog-tcp
+          containerPort: 514
           protocol: TCP
+        - name: syslog-udp
+          containerPort: 514
+          protocol: UDP
         volumeMounts:
         - name: data
           mountPath: /vector-data-dir

@@ -9,72 +9,20 @@ enrichment_tables:
     type: geoip
 
 sources:
-  unifi_ulog_syslogemu:
-    address: 0.0.0.0:80
-    type: http_server
-    decoding:
-      codec: json
-
-transforms:
-  parse_unifi_ulog_syslogemu:
-    type: "remap"
-    inputs:
-    - unifi_ulog_syslogemu
-    drop_on_abort: true
-    drop_on_error: true
-    reroute_dropped: true
-    source: |
-      parsed_message = parse_regex!(.message, r'^(?P<timestamp>\w+\s+\d+\s\d+:\d+:\d+)\s(?P<host>.+)\s\[(?P<rule_type>[A-Z_]+)\-(?P<rule_result>\w+)\-(?P<rule_id>\d+)\]\s(?P<rule_event>.+)')
-
-      parsed_time = string(parsed_message.timestamp)
-      year = format_timestamp!(now(),"%Y")
-      time_with_year = "{{ year }} {{ parsed_time }}"
-      .timestamp = parse_timestamp!(time_with_year, "%Y %b %e %T")
-
-      .host = parsed_message.host
-      .rule_type = parsed_message.rule_type
-      .rule_result = parsed_message.rule_result
-      .rule_id = to_int!(parsed_message.rule_id)
-
-      parsed_kv = parse_key_value!(parsed_message.rule_event)
-      .rule_desc = parsed_kv.DESCR
-      .mac = parsed_kv.MAC
-      .dst_ip = parsed_kv.DST
-
-      if starts_with!(parsed_kv.SRC, "10.") {
-        .src_ip = parsed_kv.SRC
-      } else {
-        .src_location = get_enrichment_table_record!("geoip_table",
-          {
-            "ip": parsed_kv.SRC
-          }
-        )
-        .src_location.ip = parsed_kv.SRC
-      }
+  unifi_syslog_tcp:
+    type: socket
+    mode: tcp
+    address: 0.0.0.0:514
+  unifi_syslog_udp:
+    type: socket
+    mode: udp
+    address: 0.0.0.0:514
 
 sinks:
-  loki_parse_unifi_ulog_syslogemu:
-    type: "loki"
+  console:
+    type: console
     inputs:
-    - parse_unifi_ulog_syslogemu
-    endpoint: http://loki-gateway.logging:80
+    - unifi_syslog_tcp
+    - unifi_syslog_udp
     encoding:
       codec: json
-    out_of_order_action: accept
-    labels:
-      host: "host-{{ .host }}"
-      type: "firewall"
-      rule_type: "t-{{ .rule_type }}"
-      rule_result: "r-{{ .rule_result }}"
-      rule_desc: "d-{{ .rule_desc }}"
-  dropped:
-    type: "loki"
-    inputs:
-    - parse_unifi_ulog_syslogemu.dropped
-    endpoint: http://loki-gateway.logging:80
-    encoding:
-      codec: json
-    out_of_order_action: accept
-    labels:
-      type: "firewall"
-      deadletter: "true"
