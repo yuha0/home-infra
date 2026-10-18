@@ -14,6 +14,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: unifi
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   project: unifi
   source:
