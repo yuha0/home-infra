@@ -130,6 +130,8 @@ transforms:
           if err == null {
             .fw.src_country = g.country_code
             .fw.src_city = g.city_name
+            .fw.src_lat = g.latitude
+            .fw.src_lon = g.longitude
           }
         }
         dst = string(.fw.dst) ?? ""
@@ -138,6 +140,8 @@ transforms:
           if err == null {
             .fw.dst_country = g.country_code
             .fw.dst_city = g.city_name
+            .fw.dst_lat = g.latitude
+            .fw.dst_lon = g.longitude
           }
         }
         .fw = compact(object!(.fw))
