@@ -45,7 +45,7 @@ spec:
               key: password
               name: db-app
         - name: GF_PLUGINS_PREINSTALL_SYNC
-          value: "grafana-clock-panel"
+          value: "grafana-clock-panel,victoriametrics-logs-datasource"
         - name: GF_LOG_MODE
           value: console
         - name: GF_SECURITY_ADMIN_USER

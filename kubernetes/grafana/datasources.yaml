@@ -8,11 +8,12 @@ datasources:
   version: 1
   isDefault: true
   editable: false
-- name: loki
-  type: loki
+- name: victorialogs
+  type: victoriametrics-logs-datasource
+  uid: victorialogs
   access: proxy
   orgId: 1
-  url: http://loki-gateway.logging:80
+  url: http://victorialogs-victoria-logs-cluster-vlselect.logging:9471
   version: 1
   isDefault: false
   editable: false

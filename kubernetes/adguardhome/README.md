@@ -9,7 +9,7 @@ What I get from this setup:
 - Configuration as code and GitOps.
 - Prometheus metrics (thanks to [ebrianne/adguard-exporter](https://github.com/ebrianne/adguard-exporter).
 - DoH.
-- Persistent query log in Loki.
+- Persistent query log in VictoriaLogs.
 
 ## Details
 
@@ -95,7 +95,7 @@ The web GUI's query log page no long makes sense.
 
 There's a load balancer that round-robins your reuqest to a random instance, and each instance manages its own query log file.
 
-However, you can run a log forwarder as a sidecar container, and forward query logs to some database. I use vector to forward the logs, enrich metadata with geoip info, send to loki, and visualize in grafana.
+However, you can run a log forwarder as a sidecar container, and forward query logs to some database. I use vector to forward the logs to VictoriaLogs, and query them in grafana.
 
 ## Result
 

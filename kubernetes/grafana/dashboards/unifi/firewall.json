@@ -24,8 +24,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "loki",
-        "uid": "P982945308D3682D1"
+        "type": "victoriametrics-logs-datasource",
+        "uid": "victorialogs"
       },
       "fieldConfig": {
         "defaults": {
@@ -102,28 +102,28 @@
         "xTickLabelRotation": 0,
         "xTickLabelSpacing": 100
       },
-      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P982945308D3682D1"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "victorialogs"
           },
-          "editorMode": "code",
-          "expr": "sum by (src_location_country_name) (count_over_time({rule_result=~\"(r-)?D\",rule_type=~\"(t-)?WAN_IN\",type=\"firewall\"} | json [1h]))",
-          "legendFormat": "{{ src_location_country_name }}",
-          "queryType": "range",
           "refId": "A",
-          "step": ""
+          "editorMode": "code",
+          "queryType": "statsRange",
+          "step": "1h",
+          "expr": "log_type:firewall fw.rule:~\"^b-ext-\" fw.src_country:* | stats by (fw.src_country) count() drops",
+          "legendFormat": "{{fw.src_country}}"
         }
       ],
-      "title": "WAN_IN Drops by Country",
-      "type": "barchart"
+      "title": "Internet-origin Drops by Country",
+      "type": "barchart",
+      "description": "Logged blocks of internet-initiated traffic (b-ext-* rules) per source country, hourly. UniFi Region Blocking drops most of it first and is not logged."
     },
     {
       "datasource": {
-        "type": "loki",
-        "uid": "P982945308D3682D1"
+        "type": "victoriametrics-logs-datasource",
+        "uid": "victorialogs"
       },
       "fieldConfig": {
         "defaults": {
@@ -181,6 +181,7 @@
               "blur": 11,
               "radius": 8,
               "weight": {
+                "field": "drops",
                 "fixed": 1,
                 "max": 1,
                 "min": 0
@@ -191,8 +192,9 @@
               "options": "A"
             },
             "location": {
-              "lookup": "src_location.country_name",
-              "mode": "lookup"
+              "mode": "coords",
+              "latitude": "fw.src_lat",
+              "longitude": "fw.src_lon"
             },
             "name": "Layer 1",
             "opacity": 1,
@@ -211,37 +213,49 @@
           "zoom": 1
         }
       },
-      "pluginVersion": "10.4.2",
       "targets": [
         {
           "datasource": {
-            "type": "loki",
-            "uid": "P982945308D3682D1"
+            "type": "victoriametrics-logs-datasource",
+            "uid": "victorialogs"
           },
+          "refId": "A",
           "editorMode": "code",
-          "expr": "{rule_result=~\"(r-)?D\",rule_type=~\"(t-)?WAN_IN\",type=\"firewall\"}",
-          "queryType": "range",
-          "refId": "A"
+          "queryType": "stats",
+          "expr": "_time:$__range log_type:firewall fw.rule:~\"^b-ext-\" fw.src_lat:* | stats by (fw.src_country, fw.src_city, fw.src_lat, fw.src_lon) count() drops"
         }
       ],
-      "title": "WAN-IN Drops Map",
+      "title": "Internet-origin Drops Map",
       "transformations": [
         {
-          "id": "extractFields",
+          "id": "labelsToFields",
           "options": {
-            "format": "json",
-            "jsonPaths": [
+            "mode": "columns"
+          }
+        },
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
               {
-                "path": "src_location.country_name"
+                "targetField": "fw.src_lat",
+                "destinationType": "number"
+              },
+              {
+                "targetField": "fw.src_lon",
+                "destinationType": "number"
               }
             ],
-            "keepTime": false,
-            "replace": false,
-            "source": "Line"
+            "fields": {}
           }
         }
       ],
-      "type": "geomap"
+      "type": "geomap",
+      "description": "Source locations (GeoLite2) of logged internet-initiated blocks (b-ext-* rules) in the selected time range."
     }
   ],
   "refresh": false,
@@ -258,6 +272,6 @@
   "timezone": "",
   "title": "Firewall Overview",
   "uid": "unifi-firewall",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
