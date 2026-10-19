@@ -18,11 +18,144 @@ sources:
     mode: udp
     address: 0.0.0.0:514
 
-sinks:
-  console:
-    type: console
+transforms:
+  parse_unifi:
+    type: remap
     inputs:
     - unifi_syslog_tcp
     - unifi_syslog_udp
-    encoding:
-      codec: json
+    source: |
+      raw = strip_whitespace(string!(.message))
+      received = .timestamp
+      . = {}
+      .timestamp = received
+
+      cef, err = parse_regex(raw, r'^\w{3} +\d+ [\d:]+ (?P<host>\S+) (?P<body>CEF:.*)$')
+      if err == null {
+        .log_type = "cef"
+        .hostname = cef.host
+        .appname = "unifi-network"
+        parsed, perr = parse_cef(cef.body)
+        if perr == null {
+          .cef = parsed
+          .message = parsed.msg || parsed.name || raw
+          t, terr = parse_timestamp(parsed.UNIFIutcTime || "", "%+")
+          if terr == null { .timestamp = t }
+        } else {
+          .message = raw
+          .parse_error = perr
+        }
+      } else {
+        sys, err = parse_regex(raw, r'^<(?P<pri>\d{1,3})>\w{3} +\d+ [\d:]+ (?P<host>\S+) (?P<rest>.*)$')
+        if err != null {
+          .log_type = "unparsed"
+          .message = raw
+        } else {
+          pri = to_int!(sys.pri)
+          .severity = get!(["emerg", "alert", "crit", "err", "warning", "notice", "info", "debug"], [mod(pri, 8)])
+          .facility = to_int(floor(pri / 8))
+          host = string!(sys.host)
+          .hostname = host
+          rest = string!(sys.rest)
+          if starts_with(rest, host + " ") {
+            rest = slice!(rest, length(host) + 1)
+          } else {
+            dev, derr = parse_regex(rest, r'^(?P<mac>[0-9a-f]{12}),(?P<model>\S+?): (?:: )?(?P<rest>.*)$')
+            if derr == null {
+              .device_mac = dev.mac
+              .device_firmware = dev.model
+              rest = string!(dev.rest)
+            }
+          }
+
+          fw, ferr = parse_regex(rest, r'^\[(?P<chain>[A-Z0-9_]+)-(?P<act>[A-Z])-(?P<idx>\d+)\] DESCR="(?P<rule>[^"]*)" ?(?P<kv>.*)$')
+          if ferr == null {
+            .log_type = "firewall"
+            .appname = "firewall"
+            .message = rest
+            kvs = replace(string!(fw.kv), r'=(\s|$)', "=-$1")
+            kv = parse_key_value(kvs, key_value_delimiter: "=", field_delimiter: " ", accept_standalone_key: true) ?? {}
+            first = { "SRC": null, "DST": null, "PROTO": null, "SPT": null, "DPT": null, "IN": null, "OUT": null, "MAC": null, "TYPE": null }
+            for_each(keys(first)) -> |_i, k| {
+              v = get(kv, [k]) ?? null
+              if is_array(v) { v = get(v, [0]) ?? null }
+              if v == "-" { v = null }
+              first = set!(first, [k], v)
+            }
+            nums = {}
+            for_each({"spt": first.SPT, "dpt": first.DPT, "icmp_type": first.TYPE}) -> |name, v| {
+              if is_string(v) {
+                n, nerr = parse_int(string!(v))
+                if nerr == null { nums = set!(nums, [name], n) }
+              }
+            }
+            flags = filter(keys(kv)) -> |_i, k| { includes(["SYN", "ACK", "FIN", "RST", "PSH", "URG"], k) && (get(kv, [k]) ?? null) == true }
+            .fw = {
+              "rule": fw.rule,
+              "chain": fw.chain,
+              "index": to_int!(fw.idx),
+              "action": get({"D": "drop", "A": "accept", "R": "reject"}, [string!(fw.act)]) ?? fw.act,
+              "in": first.IN,
+              "out": first.OUT,
+              "src": first.SRC,
+              "dst": first.DST,
+              "proto": first.PROTO,
+              "mac": first.MAC,
+              "tcp_flags": flags
+            }
+            .fw = compact(merge(.fw, nums))
+          } else {
+            app, aerr = parse_regex(rest, r'^(?P<app>[^\s\[:]+)(?:\[(?P<pid>\d+)\])?(?:\[\d+\])*: ?(?P<msg>.*)$')
+            .log_type = "syslog"
+            if aerr == null {
+              .appname = app.app
+              if app.pid != null { .procid = to_int!(app.pid) }
+              .message = app.msg
+            } else {
+              .message = rest
+            }
+          }
+        }
+      }
+  geoip_unifi:
+    type: remap
+    inputs:
+    - parse_unifi
+    source: |
+      if .log_type == "firewall" {
+        private = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "100.64.0.0/10", "169.254.0.0/16", "127.0.0.0/8", "224.0.0.0/4", "255.255.255.255/32"]
+        src = string(.fw.src) ?? ""
+        if src != "" && !(ip_cidr_contains(private, src) ?? true) {
+          g, err = get_enrichment_table_record("geoip_table", {"ip": src})
+          if err == null {
+            .fw.src_country = g.country_code
+            .fw.src_city = g.city_name
+          }
+        }
+        dst = string(.fw.dst) ?? ""
+        if dst != "" && !(ip_cidr_contains(private, dst) ?? true) {
+          g, err = get_enrichment_table_record("geoip_table", {"ip": dst})
+          if err == null {
+            .fw.dst_country = g.country_code
+            .fw.dst_city = g.city_name
+          }
+        }
+        .fw = compact(object!(.fw))
+      }
+
+sinks:
+  victorialogs:
+    type: elasticsearch
+    inputs:
+    - geoip_unifi
+    endpoints:
+    - http://victorialogs-victoria-logs-cluster-vlinsert.logging:9481/insert/elasticsearch/
+    mode: bulk
+    api_version: v8
+    compression: gzip
+    healthcheck:
+      enabled: false
+    query:
+      _msg_field: message
+      _time_field: timestamp
+      _stream_fields: log_type,hostname,appname
