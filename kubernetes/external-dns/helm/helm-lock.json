@@ -5,7 +5,7 @@
   },
   "chart": {
     "name": "external-dns",
-    "version": "1.22.0"
+    "version": "1.23.0"
   },
   "releaseName": "external-dns",
   "valuesFile": "./values.yaml",
