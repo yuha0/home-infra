@@ -1020,10 +1020,6 @@ filer:
     createBuckets:
     - name: prometheus
       anonymousRead: false
-    - name: loki-chunks
-      anonymousRead: false
-    - name: loki-ruler
-      anonymousRead: false
     - name: ente
       anonymousRead: false
     createBucketsHook:

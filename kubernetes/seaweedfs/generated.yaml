@@ -1111,20 +1111,6 @@ spec:
               /bin/echo 's3.bucket.create --name prometheus' | /usr/bin/weed shell
             fi
             bucket_list=$(/bin/echo 's3.bucket.list' | /usr/bin/weed shell) || { echo "Error listing s3 buckets"; exit 1; }
-            if echo "$bucket_list" | awk '{print $1}' | grep -Fxq "loki-chunks"; then
-              echo "Bucket 'loki-chunks' already exists, skipping creation."
-            else
-              echo "Creating bucket 'loki-chunks'..."
-              /bin/echo 's3.bucket.create --name loki-chunks' | /usr/bin/weed shell
-            fi
-            bucket_list=$(/bin/echo 's3.bucket.list' | /usr/bin/weed shell) || { echo "Error listing s3 buckets"; exit 1; }
-            if echo "$bucket_list" | awk '{print $1}' | grep -Fxq "loki-ruler"; then
-              echo "Bucket 'loki-ruler' already exists, skipping creation."
-            else
-              echo "Creating bucket 'loki-ruler'..."
-              /bin/echo 's3.bucket.create --name loki-ruler' | /usr/bin/weed shell
-            fi
-            bucket_list=$(/bin/echo 's3.bucket.list' | /usr/bin/weed shell) || { echo "Error listing s3 buckets"; exit 1; }
             if echo "$bucket_list" | awk '{print $1}' | grep -Fxq "ente"; then
               echo "Bucket 'ente' already exists, skipping creation."
             else

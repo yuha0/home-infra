@@ -11,10 +11,6 @@ spec:
     admin-sk: AgDFSDcalamUVnKKVcUI0gh3+P2v+zfgyru+DG6RP8sqPIHsECa5u8g/z1VST8tf61ZQC9GHIbmqbFMAaW1QBjuLY6NwI5C0Gb9YLa64j8BZ04K/ztooYR/F1AZqrUJhSlmnnlHhbd+57o8FHs6gmyjWTdPSJcC3zz6DkKewaB4N47NQChB/6hJvrIwKZHGVmnzbrljmxgEdCbQEx5RoDlYPDAopSctcqzIlrbS5Nv2OLjFhdf8lgeZpQyO1z/bQDzE5BRReC5II/8iz9w4OfXJZx6ZgnSg5Dxxdfd7qTFoOz6QRLL9gnbIN6MGq2NvntGecJajZDXrkhdCQPFxBqaFVJ2QM4iG5A2Z381omzJtQntnPSjra8oIEtN9eBU9XR0dq7vR08QrMxQbbAc6XfrCmuRPhobsTyEldjxq3X+I7O2J4h4zBtu6uNp0dmZ4ajvU9P53vbZUPhdO/a6hhglk2DzKt3/W0OKYvCX7f4gJdSEZa+qGBsRINRbpo1aDdeVY4DmzPC7jp8HaKXgo1jH1nFxfvFSqLWSzXxCUrJjsUF0usanVE1B4m4M3mdCx+U+9+OgfDt9QYWAez3tpU17ZE+6htBRfMYgXSmiqmpcsBh4t6YoPfh3mfUKl1LNFEqOJ+8M+Re+cL8o+onBDyajuTMnwbp0QalnQPNcBtc6uHy+fIXFEwkMhSQ9zfudynHfE1sa3l+wchyzVtHu/jCvyrmIIrwaU0i2HL6OtkMXu+dg==
     ente-ak: AgAjIH1MYL7EjVzIwtPH/mZ6XDGedRk2A40f2NFfzuYinyc2XA9OOpTJCxG5T3tl7UHVt/SQ3vnIxKCEhKEeURnvGQF3F+ioSNYNCn4Cm4ighNUjRf8+RD5OXjegCfcc+kNR12NQyM7Vcint1S9AONioq+TMvoVoex/ZYprw+sUwdpeAvGvYYctg07pMQV8Z5K4kYqBDwsLg3FDYMHj0MGONSgdP16nTN4N7sWJWG9Jlvz64GsvLDn3FeYveuKIi6DyacNyulwIYFC2bbZByA4X6kR/yRAkrQUyRl+RF5q0oz+RSjjHCFVCciHj1UaSR8tID1JeKFCaCsouVmRKv+Mw6p57cOHxVbNhjgyRIA4zF3+po3TpqFtipEpLHx7l5E8x235fFPZ5J1lPkBreG2mz1f9/w65Dt1y7z2byJuMSzcyc0DhiV0w0Xy3r11vg+TMOWAebOKDu1nGu+376wy6HMFGfaFT7NmZoilXJKNipNFYNaavl35pcf0sRJ09b5kkd6M+6k3Tap0ZumhThaiQ5CIaTSFjsUOJMwJYFxZz0AVHa5r2gRe8ze0Dy0qkSs/MWqmKoHYTbnGLgBk2mJScShYbd4nHxBBimSv/7LfzKz0i4HiUilnrHbif34Czyy7jKqOtG2q9RdNYDYde978eM47alfL6gaH1tlSzLe+JM2VmW4pMoOQVlZQ0+7HtintHMTM1S/97sI1ZOMXxU8lEXgKrCEVGDHiRAPXZJJe5zHVQ==
     ente-sk: AgBPBSWUtIgNVveL/Lcg5/bGWl4Qs/jNr7vyxAT7UU/FI1MQX0oG1tOvsO60woJ796yP6BIL0mYNVzoK7mU3aaULLxq5z6BJE4te6cLNPxv2c1dwwN+bWqngKOZeskj9f4LUbcOvK5iB0Nge4fQdO/AbekQrZ4zdyoVaaC68kp6d09TpEARpVGhVdWU8uGDk87WCI2ed+diILer5woX9KtxLtNoO7dnYHnrM/R1r5YrzZ68ZAVS2PDkSnTo6qQXyRJiarS9u4pVb6UHH3MKZaVxDA+i7AXcGMRVX4f0KqRC8UPKinmfv1Pm/r7HTG/JcxuinVG22Afrpcy6G9FInUN7scQsdIXWkPxt06pnihnspbOjLYmyaDEWZvC58TGY6rmPTnG7ojJ5sJCRw0h4/shTvSpx8mAi5QM52AYuppV60Dwp/9xPXFWAd52J2d7KfxUe7LbOD1czgzy13t4Bekm3w9ootbnvHbSac8P4qy641tf3GK5ih1p3Ny/ES+dJq0anKRi3QL48c7FNmHRtzf2+pVI1eKsBLKA0Ds7yBmjocnYvwpk+h9jalyXp9vV2SLH9orpzZe/zrpXkRpZ5n9lCwilIIXH40FNQmP/nJo6Sf9ULr/1nmYDGOwbA42tJrtpJOtE9D1m/XrVuMmUJ0IPLxGJ4fPhw9SW3/dMioZ372TBeFlbfIJ2TlwMy2EZ1/rKubU2ZJjmhtZNLmNznYr5MQaHutZG3g41If2QzB4MK29g==
-    loki-chunks-ak: AgBKpTGTasf1Uix8eTmZFVHk85EmrHXfVA/pLi89jezuwwbbY8yQPzeWmo5O6YI+U3nV/Ht874wve0eMDVQoHIzvuaH+AT2Y587KnX32H+j63NxL1/wsXdiIpNymxNg/dMKXWoexr64XiN6419GDRAu7U9OlVebfYjdGLRX5buLhkR4TuzNKSVfN2UqQUrEpJakq1s65HBqEot94BTIaDmLiuMwnJTusSsyzTdhkFjp1eKhiiy1RKleOiX2kpDFCXjfQoWh8CKOWChFMG9fBKD40NSWG30xr748G3TKfygkbuQugPoSailDOVbUp6Gmbe3p6CZNnPf+OxSVpQy4k/MR0LqtY2grb+zmLqBrsR/llbQj+IivokX8pC/LynMjD0JGlic/iz2SVPEHue1AGDfyts20GcziuhSolKk4rCnLFTTU7LTwD5ahlUe4UJ2TVCg1CGsPfgxwtP/MqSGuRN5a3Wcya77JXUVzy8CIR+RMnTDHKfDlNZ+5QFpFyXYvn2ULFkD3uHLrTF0srCj4jyhdjpbYrqA1a7UuTpHyssnZ577QuHHh/Tqo6x/19PB3keY49+ylboNe1oFAFz79RnQjG0urgCjDp1zQZKyWyAgXip9YPrzcVlfHQKzBWZvtug/DxoiD4huYTR3jvoV+uQcbGFv3srvaD+3aOYvr09Km/gRQZ+phqyGOTwtgsRy4j/1j8NiDdp7HpbXRODoCZGZ9fPe85C8kcvz0F1qpgF9Cujg==
-    loki-chunks-sk: AgBhwM9ZaeWU+7FZ6YQci591kpbc1GtZCJip0U2YWgjm10ZLUpjKmQJ1FjCPnjfjKCYqAdufdutDX2zgFRy/s5ygY5ruUa7FVVw8ke5xEofTceVeUxogySVJExUYY8gM0EiLOt7Ae5HPv1rPR/nYeyY1dyYs8L+ZLSB9qKP2vr78WtXEKIB9NGCu3t4vxdCzvFzdyHo9ISv/Iy1pJY1XomiWMeD4xb3G41jAzXBckyw6hVaSRsCAZgZ7QTTcAPsEKYh452p+CD71BGIJ9o9MYAKTduCgMEBlmmJN/NmKbgqzVFepgRqJqFHYzdd4CbLJtnc/xPxkhSbeTxdCaksvzjKEZiozwJ3JOfe+tzsud6cc7/z3hbdQNkWYyEpadfioFKYwbVa5rqZN0sJksBQjmeU8AM+Z9CrsQlFdhv8kZgRP+I72aURmJrfIGVfYqI03s8jWZ8c8iwHRUOj4i/4FpSJ+kCrWdeZcwZTPVpXb0o1puLg7pyba6m16AbPK0ddMIX1IqMEgHNzxi+3ITwrPW4TAADRCD6WNH7Jg4PiBFQY4mx43vLj9p4OtRa+wjztKMF/6M1F8nKBRzUEIWrBxyvwKZLNwuvPnAF2UO2sloHVuf4njUeCTai3cf9miHzDYNLadJAhjFcRCX9FXMXLFF0fWh/CwX2fx7LN3FL3pooYNuhtIZVVDnWcOXj65H5cXJiIxwk/SH7P9W5hC83zGnQrTOE9K0ikW67DW9DcYMYqt+g==
-    loki-ruler-ak: AgBqwYCTrKJOAhuiVgsf0WnrkWUUPibBOtsncpk6ch1IVGgivlJukeMCPhWiV7QdecN2PFZkHar68Xo1BFmyVPUJ7IyeN1HC4jgNDdsuVxufoq5rsU6l8g7w5AucNW6MK/6v3XZ53j/cfA8S2hnTdvUoqBPK3fgtjlVtWPxR0TQtzb6gkjaSnbBQebetqxVege1NiJCtCHZHuNt5lTlB9byU2ypQFbv6+rK8xNx13GzIuKOLUM34T8IioIedKQYcP5n97QGmSczkisefqRDaEp1LBjqNF7td1KJ0ZSgrSny7jwoRes2Q9fGqC3Nc+UaeF1FcNXvAfWpafSRJqcvNsWw7X/uNAA+Mbvt+hzwA2/I7R6Wf3XrnlB3qgYhN/DApPuV6Sq5bhStFLjep7FmtqfiUMApLNnDcWcpjq8rqLbMvMYSrhHkrlw0vwTPflbIklC32HOY3H5+20lr48cs3tU/utLWjoi0F+vTQ6LVhhRSxiPcxSv/LjNVtNKIwozxS651pnQyLnZxMUbc1/+bST0+EuS9YlX4jUH3aD1+PKb+4qS6l2MYDgx0VGS/5hh1DPm6jsrMhkgsUBHE5sCNLZeqCetSwIzcqIg/JYkCib7CZga99vauhxCnPHEf4aEKfFP3jX2BwELsAJtD7JHVwoAXWO34y+FopFNGEEaYdBLHZQKzDuWLrDv2M24NJWo50xPZKJ8Uvss5KYwwT9dDnJVqgGb7BJgJR0DVMfYjw4yOelQ==
-    loki-ruler-sk: AgB/SmbcECoI5Fr7NNLne15un8ZcZgcErG4efadUFkSWGKiHrx7lmnpfiQQv/BxpoQOsN4ZONkJjpq4tjYAkD53SfptB/Gw/WTjV4s02ogk0thwdr6nI5cFHfqAncOlAB7k47xelbIhi+T64Biv4xXXyrrexDTybgZ2Gxrsq/Mha3/zZXAdfLW/eiKXgeB7cno4Sno5CwGKVxqJNt540gmSaz+LMH/zqVC2zwCEjvWspeCc02tXNLwz+qHpsbJqO9lHsJx4J5wEVKK5+mADq4G1k2zFVXTGrcFyUMEhLQfgrYb4e5B/6VDYC5z/gFplLvvwxNpjA4GGGgpeXrsk+LIlNYs746mAKp1yR5tnTxoq9BEeKNd2VxFMVxAiA2W7JDxzgaEST99G7G4QVAeHZOe0zN8Hahwy7TEQXoOIDezJjW6CMdDgO+Ee+yttKPq/k6erx7t4k1B7co29KpokB/AIGfzAkxfm8bpV0afLfs/BJYekMG1HxYo2QbiTF2fjMfkfr7bRo3RMPsZaYMu6sz/b+UxiRcO1HPQAq1JBoNOu1ZMFdWkHcIf2K4BLD+epajoA9QWhvWYPGQojTI3nNlY9AraDIutr6y71vQaBsfSanOBuVrQxVGwwN4w9iBC/x9auUIgpR9BQUOIJzTIpPmxh0pNRLe0TXtbqmG7pSPn4hy2HEzy/PtZWUTI0oKaNKiOA/nhZJW4zjnYxyhIoV+i5IDKoJb8IFN5eY128vk6KPXA==
     thanos-ak: AgCtneZ64wIGsw/54+NmlnthVCrYuKD/840XdCS4pTWI7Z180goTajaONv0Ff4y6uT0wwa0eyiJt17E0PEdo54sk8yn4FtmeZqJK1abbvXXzgPhQ+MSe4bVejBGANQ0E+4bj24kAk3QCEfWye5Y88bGcQ8ZX4KOSNWOfBfz26BaltE3aMUN3tcqc3qYHewXXelaPX6j9rhudcwXYdkLUSw5yvs6gELdZivQnklI7UQgCThAWy4P20Sml5wuk+PTjS3On/4jGa7J0OqGE4JxwAN+wCOTM8grBkeAwrvY/a2zPBspBrD40QwlM/1nN8ALD9dbYJ/4KOdO/lINrH3zENxQn5Xf0rt7Iggf4SKUHh4g55Y6G6iV0aoaEY4wdOempX5l+oNs6kSYg4pivdzBZ9JBHz+6O09YHtNAGLHdcy8zK24cFBL9U6sZfE7alPltFFNjTNqWeoxrsN2rhRjzDC3Am0nsyxXqAZd9QdZDeUUF3BU4GwJcPwsvJF/EiZnHidDWHF5URxxJjiuXRkQ9Ie8dATfR5wFTVLlScm2YD2HYMjxpzHjiBSNBhADz0Qy+aJhlrC1rYN6KnG5AlQ+GsXOuSJcolKvhEvBVfxcwder8+424lkfiZWF22DmulXKiOeq6bHReV42P3s7uxBLJNMHYXGjdidJY66aikQ0rCLhmoZQ0LV630Fdf5zqjT26IkoPKik2miztg/qXp1HoQRDqk08w0YARtPXitHZV7SYOW33w==
     thanos-sk: AgB1pOoXqScjztavwObRDa840OUDZikqx2Mdnq/CTARtE35Do+dDWhQKwmP+YoKebQZ3rCDelnGju98kMG1+FLJnYMjB0psZFM0zw5mffL6rv3MutGLLHmf8a/UnQDDw5Ly1gDS2/9lleB33ysS2iWgV50o3eOeEfDUgn5Q+IvObuFX23ELE52dL5MgJMJxAjn/oie15ogdbKw6Y8AvmZiJ9kNqB+/W0yLxxODXXriC+irpWjlZBU5eFLR33y9gmcfbPzaAcYUn7L+9FSA1xBmQMY40XFD94UDVPGCAUmQPF7JRHNml/pbHzkWJBLU5p2ZHOmeqLBauKR8YJly2nIUUHuBYzxh5KREgS2NJiHAchEu7ntb2q+hj42HIrEOu+8LOuq7D/XRE3H9MH1BSg7a4jC9QGNYsAgUG2h0OPAbGuc9J04PQVI6T/r8EymcmTJ2lqGG96Xu5Vbzqsy7qRRYFT4ByAp2IvODob9y7Fu9UJIoaUjSgV4yqCtr1To2v3SyvXVxRsmxiDGiScLukCQKgxeIn7ilpDKRq+o8ENOG98rX0jsBYKdVIrrXLg0Pjv3TaRzlkOu3PubXdOw4LVS8/IUNSGCJ6A8Y0APCsYiIAwAeI88yz6sVv5wC62ueDDOoSwPsXVqWj1ZzYE+3TQDd5Fynd6a0Int5S2bwh9hgSH8a6sg1qP9Tb6hMkOXI4/SqCAOK1Xwzzq/j1D8flW1A/QJRlAPnbwG0lHtzyd28O9eg==
   template:
@@ -50,38 +46,6 @@ spec:
                         "List:prometheus",
                         "Tagging:prometheus",
                         "Admin:prometheus"
-                    ]
-                },
-                {
-                    "name": "loki-chunks",
-                    "credentials": [
-                        {
-                            "accessKey": "{{ index . "loki-chunks-ak" }}",
-                            "secretKey": "{{ index . "loki-chunks-sk" }}"
-                        }
-                    ],
-                    "actions": [
-                        "Read:loki-chunks",
-                        "Write:loki-chunks",
-                        "List:loki-chunks",
-                        "Tagging:loki-chunks",
-                        "Admin:loki-chunks"
-                    ]
-                },
-                {
-                    "name": "loki-ruler",
-                    "credentials": [
-                        {
-                            "accessKey": "{{ index . "loki-ruler-ak" }}",
-                            "secretKey": "{{ index . "loki-ruler-sk" }}"
-                        }
-                    ],
-                    "actions": [
-                        "Read:loki-ruler",
-                        "Write:loki-ruler",
-                        "List:loki-ruler",
-                        "Tagging:loki-ruler",
-                        "Admin:loki-ruler"
                     ]
                 },
                 {
