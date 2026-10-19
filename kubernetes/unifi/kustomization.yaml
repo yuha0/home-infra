@@ -25,4 +25,4 @@ images:
   newTag: v5.6.3
 - name: tls-cert-sync
   newName: ghcr.io/yuha0/tls-cert-sync
-  newTag: v1.2.1
+  newTag: v1.2.2
