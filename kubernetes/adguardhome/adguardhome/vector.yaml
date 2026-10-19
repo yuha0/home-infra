@@ -5,7 +5,7 @@ sources:
   adguardhome_querylog:
     type: file
     include:
-    - /querylog.json*
+    - /logs/querylog.json*
     line_delimiter: "\n"
 
 transforms:
@@ -17,34 +17,27 @@ transforms:
     drop_on_error: true
     reroute_dropped: false
     source: |
-      . = parse_json!(.message)
+      . = object!(parse_json!(.message))
       .timestamp = .T
       del(.T)
-      .pod, err = get_env_var("POD_NAME")
-      if err != null {
-        .pod = ""
-      }
-      if !exists(.CID) {
-        .CID = ""
-      }
-      if !exists(.Result.IsFiltered) {
-        .IsFiltered = false
-      } else {
-        .IsFiltered = .Result.IsFiltered
-      }
+      .Result.IsFiltered = .Result.IsFiltered || false
+      .app = "adguardhome"
+      .pod = get_env_var("POD_NAME") ?? ""
+      .message = join!(compact([.QT, .QH], recursive: false), " ")
 
 sinks:
-  loki_parse_adguardhome_querylog_json:
-    type: "loki"
+  victorialogs:
+    type: elasticsearch
     inputs:
     - parse_adguardhome_querylog_json
-    endpoint: http://loki-gateway.logging:80
-    encoding:
-      codec: json
-    out_of_order_action: accept
-    labels:
-      app_name: "adguardhome"
-      CID: "cid-{{ .CID }}"
-      IP: "ip-{{ .IP }}"
-      IsFiltered: "f-{{ .IsFiltered }}"
-      CP: "cp-{{ .CP }}"
+    endpoints:
+    - http://victorialogs-victoria-logs-cluster-vlinsert.logging:9481/insert/elasticsearch/
+    mode: bulk
+    api_version: v8
+    compression: gzip
+    healthcheck:
+      enabled: false
+    query:
+      _msg_field: message
+      _time_field: timestamp
+      _stream_fields: app,pod

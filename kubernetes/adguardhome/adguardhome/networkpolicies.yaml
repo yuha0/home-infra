@@ -74,11 +74,13 @@ spec:
     toPorts:
     - ports:
       - port: "443"
-  - toServices:
-  # send logs to loki
-    - k8sService:
-        serviceName: loki-loki-distributed-gateway
-        namespace: logging
+  - toEndpoints:
+  # send logs to victorialogs
+    - matchLabels:
+        app: vlinsert
+        app.kubernetes.io/name: victorialogs
+        io.kubernetes.pod.namespace: logging
     toPorts:
     - ports:
-      - port: "8080"
+      - port: "9481"
+        protocol: TCP
