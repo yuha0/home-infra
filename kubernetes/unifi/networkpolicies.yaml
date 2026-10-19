@@ -5,13 +5,17 @@ metadata:
 spec:
   endpointSelector:
     matchLabels:
-      app.kubernetes.io/component: exporter
-      app.kubernetes.io/name: unpoller
+      app.kubernetes.io/name: unifi
+      app.kubernetes.io/component: unpoller
   ingress:
   - fromEndpoints:
     - matchLabels:
         prometheus: k8s
         io.kubernetes.pod.namespace: monitoring
+    toPorts:
+    - ports:
+      - port: "9130"
+        protocol: TCP
   egress:
   - toEntities:
     - host
@@ -24,3 +28,10 @@ spec:
       rules:
         dns:
         - matchPattern: "*"
+  - toFQDNs:
+    - matchName: unifi.core.yuha0.com
+    - matchName: unifi.mgmt.yuha0.com
+    toPorts:
+    - ports:
+      - port: "443"
+        protocol: TCP
