@@ -1,7 +1,6 @@
 namespace: logging
 resources:
 - namespace.yaml
-- loki
 - victorialogs
 - vector-agent
 

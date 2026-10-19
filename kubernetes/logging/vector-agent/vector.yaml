@@ -22,20 +22,3 @@ sinks:
       _time_field: timestamp
       _stream_fields: kubernetes.pod_namespace,kubernetes.pod_name,kubernetes.container_name,stream
       ignore_fields: kubernetes.node_labels*,kubernetes.namespace_labels*,kubernetes.pod_annotations*,kubernetes.container_image_id,kubernetes.pod_ips,source_type
-  kubernetes_loki:
-    type: "loki"
-    inputs:
-    - kubernetes_logs
-    endpoint: http://loki-gateway.logging:80
-    out_of_order_action: accept
-    encoding:
-      codec: text
-    labels:
-      job: "vector"
-      source: "kubernetes_logs"
-      stream: "s-{{ stream }}"
-      pod_host: "h-{{ kubernetes.pod_node_name }}"
-      pod_name: "p-{{ kubernetes.pod_name }}"
-      pod_namespace: "ns-{{ kubernetes.pod_namespace }}"
-      container_name: "c-{{ kubernetes.container_name }}"
-      file: "f-{{ file }}"
