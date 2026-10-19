@@ -16,7 +16,7 @@ patches:
   patch: |-
     - op: add
       path: /spec/template/spec/containers/0/args/-
-      value: "--url=https://unifi.core.yuha0.com"
+      value: "--url=https://unifi.mgmt.yuha0.com"
     - op: add
       path: /spec/template/spec/volumes/-
       value:

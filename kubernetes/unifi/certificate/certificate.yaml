@@ -4,7 +4,6 @@ metadata:
   name: unifios-tls-certificate
 spec:
   dnsNames:
-  - unifi.core.yuha0.com
   - unifi.mgmt.yuha0.com
   issuerRef:
     group: cert-manager.io
@@ -18,7 +17,6 @@ metadata:
   name: unvr-tls-certificate
 spec:
   dnsNames:
-  - unvr.core.yuha0.com
   - unvr.mgmt.yuha0.com
   issuerRef:
     group: cert-manager.io

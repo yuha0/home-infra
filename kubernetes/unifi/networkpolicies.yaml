@@ -29,7 +29,6 @@ spec:
         dns:
         - matchPattern: "*"
   - toFQDNs:
-    - matchName: unifi.core.yuha0.com
     - matchName: unifi.mgmt.yuha0.com
     toPorts:
     - ports:
