@@ -20,3 +20,5 @@ spec:
     backendRefs:
     - name: plex
       port: 32400
+    timeouts:
+      request: 0s
