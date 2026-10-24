@@ -26,6 +26,16 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: data
+      - name: node
+        emptyDir: {}
+      # Overlay a patched Node.js until scrypted ships one with the fix for CVE-2026-111497.
+      initContainers:
+      - name: node
+        image: docker.io/library/node:22.23.4-slim
+        command: ["cp", "/usr/local/bin/node", "/patched/node"]
+        volumeMounts:
+        - name: node
+          mountPath: /patched
       containers:
       - name: scrypted
         image: scrypted
@@ -36,3 +46,6 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /server/volume
+        - name: node
+          mountPath: /usr/bin/node
+          subPath: node
