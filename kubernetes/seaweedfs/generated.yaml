@@ -323,6 +323,11 @@ spec:
               value: "seaweedfs-filer-client.seaweedfs:8888"
             - name: WEED_CLUSTER_SW_MASTER
               value: "seaweedfs-master.seaweedfs:9333"
+            - name: WEED_JWT_FILER_SIGNING_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: jwtFilerSigningKey
+                  name: seaweedfs-admin
           command:
             - "/bin/sh"
             - "-ec"
@@ -458,6 +463,11 @@ spec:
               value: "seaweedfs-filer-client.seaweedfs:8888"
             - name: WEED_CLUSTER_SW_MASTER
               value: "seaweedfs-master.seaweedfs:9333"
+            - name: WEED_JWT_FILER_SIGNING_KEY
+              valueFrom: 
+                secretKeyRef:
+                  key: jwtFilerSigningKey
+                  name: seaweedfs-admin
           command:
             - "/bin/sh"
             - "-ec"

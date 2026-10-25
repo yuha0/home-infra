@@ -1676,7 +1676,11 @@ admin:
   extraEnvironmentVars: {}
 
   # secret env variables (e.g. for injecting OIDC client secret from a Kubernetes Secret)
-  secretExtraEnvironmentVars: {}
+  secretExtraEnvironmentVars:
+    WEED_JWT_FILER_SIGNING_KEY:
+      secretKeyRef:
+        name: seaweedfs-admin
+        key: jwtFilerSigningKey
     # WEED_ADMIN_OIDC_CLIENT_SECRET:
     #   secretKeyRef:
     #     name: seaweedfs-admin-oidc
@@ -1873,7 +1877,11 @@ worker:
   #     type: RuntimeDefault
   containerSecurityContext: {}
 
-  extraEnvironmentVars: {}
+  extraEnvironmentVars:
+    WEED_JWT_FILER_SIGNING_KEY:
+      secretKeyRef:
+        name: seaweedfs-admin
+        key: jwtFilerSigningKey
 
   # Health checks for worker pods
   # Workers expose /health (liveness) and /ready (readiness) endpoints on the metricsPort
