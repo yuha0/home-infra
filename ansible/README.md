@@ -1,23 +1,6 @@
 # Ansible Server configuration
 
-![kubespray](https://img.shields.io/badge/kubespray-v2.22.0-green.svg)
-![kubernetes](https://img.shields.io/badge/kubernetes-v1.26.5-green.svg)
-
 Ansible playbook for basic server setup and then bootstrap a [kubernetes-sigs/kubespray] cluster.
-
-## Tested environment
-
-### Hardware
-
-- Raspberry Pi 4 Model B
-- Raspberry Pi 5
-- Intel NUC Kit NUC8i5BEK
-- MINISFORUM UN1245
-
-### Operating System
-
-- [x] Debian 12
-- [x] Ubuntu 24.04
 
 ## Operations
 
@@ -43,20 +26,18 @@ cd kubespray
 git fetch --all
 git checkout v2
 
-# 2. Generate a patch file with all the upstream changes in `group_vars`.
-cd inventory/sample
-git diff --relative v1 v2 group_vars > /tmp/group_vars.diff
+# 2. Apply the upstream changes in `group_vars` to the copy, inspect carefully, fix all the conflicts
+git diff --relative=inventory/sample v1 v2 -- inventory/sample/group_vars |
+  GIT_ALTERNATE_OBJECT_DIRECTORIES=$(git rev-parse --absolute-git-dir)/objects git -C ../.. apply -3 --directory=ansible/inventory
 
-# 3. Apply the diff to the copy, inspect carefully, fix all the conflicts
-cd ../../../inventory
-patch -s -p1 < /tmp/group_vars.diff
-
-# 4. Upgrade the ansible python environment
+# 3. Recreate the ansible python environment
 cd ..
-uv pip install --upgrade -r kubespray/requirements.txt
+rm -rf .venv
+uv venv
+uv pip install -r kubespray/requirements.txt
 
-# 5. Follow official docs instruction to upgrade the cluster:
-uv run ansible-playbook cluster.yml -b -i inventory/k0.ini -e upgrade_cluster_setup=true
+# 4. Follow official docs instruction to upgrade the cluster:
+uv run ansible-playbook cluster.yml -b -i inventory/k0.ini -e '{"upgrade_cluster_setup": true}'
 
 ```
 
