@@ -8,43 +8,21 @@ spec:
   replicas: 1
   template:
     spec:
-      initContainers:
-      - name: import
-        image: meilisearch
-        env:
-        - name: MEILI_NO_ANALYTICS
-          value: "true"
-        volumeMounts:
-        - mountPath: /meili_data
-          name: meilisearch
-        - mountPath: /meili_migration
-          name: meilisearch-migration
-        envFrom:
-        - secretRef:
-            name: meilisearch-secrets
-        command: ["/bin/sh", "/meili_migration/import.sh"]
       containers:
       - name: meilisearch
         image: meilisearch
         env:
         - name: MEILI_NO_ANALYTICS
           value: "true"
+        - name: MEILI_UPGRADE_DB
+          value: "true"
         volumeMounts:
         - mountPath: /meili_data
           name: meilisearch
-        - mountPath: /meili_migration
-          name: meilisearch-migration
         envFrom:
         - secretRef:
             name: meilisearch-secrets
-        lifecycle:
-          preStop:
-            exec:
-              command: ["/bin/sh", "-c", "/bin/sh /meili_migration/dump.sh > /proc/1/fd/1"]
       volumes:
       - name: meilisearch
         persistentVolumeClaim:
           claimName: meilisearch
-      - name: meilisearch-migration
-        configMap:
-          name: meilisearch-migration
