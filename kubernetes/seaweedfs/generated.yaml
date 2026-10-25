@@ -7,7 +7,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
 automountServiceAccountToken: true
@@ -20,7 +20,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
 data:
@@ -37,7 +37,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: admin
@@ -45,10 +45,18 @@ spec:
   type: ClusterIP
   ports:
   - name: "http"
+    port: 12535
+    targetPort: 12535
+    protocol: TCP
+  - name: "grpc"
+    port: 22535
+    targetPort: 22535
+    protocol: TCP
+  - name: "legacy-http"
     port: 23646
     targetPort: 23646
     protocol: TCP
-  - name: "grpc"
+  - name: "legacy-grpc"
     port: 33646
     targetPort: 33646
     protocol: TCP
@@ -65,7 +73,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: filer
@@ -97,7 +105,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: filer
@@ -138,7 +146,7 @@ metadata:
   labels:
     app.kubernetes.io/name: seaweedfs
     app.kubernetes.io/component: master
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
   annotations:
@@ -173,7 +181,7 @@ metadata:
   labels:
     app.kubernetes.io/name: seaweedfs
     app.kubernetes.io/component: s3
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
 spec:
@@ -199,7 +207,7 @@ metadata:
     app.kubernetes.io/name: seaweedfs
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: volume
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
 spec:
   clusterIP: None
@@ -230,7 +238,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: worker
@@ -254,7 +262,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: worker
@@ -269,7 +277,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.48.0
+        helm.sh/chart: seaweedfs-4.50.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: worker
       
@@ -291,7 +299,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.48
+          image: chrislusf/seaweedfs:4.50
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_IP
@@ -331,6 +339,7 @@ spec:
               -metricsPort=9327 \
               -id=${POD_NAME}
           volumeMounts:
+            
             - name: worker-data
               mountPath: /tmp/seaweedfs-worker
             
@@ -363,6 +372,7 @@ spec:
             failureThreshold: 3
             timeoutSeconds: 10
       volumes:
+        
         - name: worker-data
           persistentVolumeClaim:
             claimName: seaweedfs-worker-data
@@ -375,7 +385,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: admin
@@ -392,7 +402,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.48.0
+        helm.sh/chart: seaweedfs-4.50.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: admin
       
@@ -414,7 +424,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.48
+          image: chrislusf/seaweedfs:4.50
           imagePullPolicy: IfNotPresent
           env:
             - name: WEED_ADMIN_USER
@@ -457,19 +467,24 @@ spec:
               -v=1 \
               admin \
               -ip=0.0.0.0 \
-              -port=23646 \
-              -port.grpc=33646 \
+              -port=12535 \
+              -port.grpc=22535 \
               -dataDir=/data \
               -masters=${SEAWEEDFS_FULLNAME}-master-0.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-1.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333,${SEAWEEDFS_FULLNAME}-master-2.${SEAWEEDFS_FULLNAME}-master.seaweedfs:9333 \
           volumeMounts:
+            
             - name: admin-data
               mountPath: /data
             
           ports:
-            - containerPort: 23646
+            - containerPort: 12535
               name: http
-            - containerPort: 33646
+            - containerPort: 22535
               name: grpc
+            - containerPort: 23646
+              name: legacy-http
+            - containerPort: 33646
+              name: legacy-grpc
           readinessProbe:
             httpGet:
               path: /health
@@ -492,6 +507,7 @@ spec:
             timeoutSeconds: 10
       volumes:
         
+        
   volumeClaimTemplates:
     - metadata:
         name: admin-data
@@ -510,7 +526,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: filer
@@ -527,7 +543,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.48.0
+        helm.sh/chart: seaweedfs-4.50.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: filer
       annotations:
@@ -549,7 +565,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.48
+          image: chrislusf/seaweedfs:4.50
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_IP
@@ -626,6 +642,7 @@ spec:
               -s3.config=/etc/sw/seaweedfs_s3_config \
               -master=seaweedfs-master-0.seaweedfs-master.seaweedfs:9333,seaweedfs-master-1.seaweedfs-master.seaweedfs:9333,seaweedfs-master-2.seaweedfs-master.seaweedfs:9333 \
           volumeMounts:
+            
             - name: config-users
               mountPath: /etc/sw
               readOnly: true
@@ -660,6 +677,7 @@ spec:
             failureThreshold: 5
             timeoutSeconds: 10
       volumes:
+        
         - name: db-schema-config-volume
           configMap:
             name: seaweedfs-db-init-config
@@ -677,7 +695,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: master
@@ -694,12 +712,12 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.48.0
+        helm.sh/chart: seaweedfs-4.50.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: master
       
       annotations:
-        checksum/master-config: ce87ae10e81bf1925d30b0e15fca03ef9a2942195872e366834483bd32deb77a
+        checksum/master-config: ade966c09c87faaf3241313ed3446b54e340f3afffc5bbb65513d0cfe427bfaa
     spec:
       restartPolicy: Always
       affinity:
@@ -717,7 +735,7 @@ spec:
       serviceAccountName: "seaweedfs" # for deleting statefulset pods after migration
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.48
+          image: chrislusf/seaweedfs:4.50
           imagePullPolicy: IfNotPresent
           env:
             
@@ -772,6 +790,7 @@ spec:
               -ip=${POD_NAME}.seaweedfs-master.seaweedfs \
               -peers=seaweedfs-master-0.seaweedfs-master.seaweedfs:9333,seaweedfs-master-1.seaweedfs-master.seaweedfs:9333,seaweedfs-master-2.seaweedfs-master.seaweedfs:9333 \
           volumeMounts:
+            
             - name : data-seaweedfs
               mountPath: /data
             - name: master-config
@@ -807,6 +826,7 @@ spec:
             timeoutSeconds: 10
       volumes:
         
+        
         - name: master-config
           configMap:
             name: seaweedfs-master-config
@@ -831,7 +851,7 @@ metadata:
   namespace: seaweedfs
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: volume
@@ -848,7 +868,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.48.0
+        helm.sh/chart: seaweedfs-4.50.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: volume
       
@@ -873,7 +893,7 @@ spec:
       serviceAccountName: "seaweedfs" # for deleting statefulset pods after migration
       initContainers:
         - name: seaweedfs-vol-move-idx
-          image: chrislusf/seaweedfs:4.48
+          image: chrislusf/seaweedfs:4.50
           imagePullPolicy: IfNotPresent
           command: [ '/bin/sh', '-c' ]
           args:
@@ -894,13 +914,14 @@ spec:
                 fi
               done
           volumeMounts:
+            
             - name: idx
               mountPath: /idx
             - name: data1
               mountPath: /data1
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.48
+          image: chrislusf/seaweedfs:4.50
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME
@@ -946,6 +967,7 @@ spec:
                 -compactionMBps=50 \
                 -master=seaweedfs-master-0.seaweedfs-master.seaweedfs:9333,seaweedfs-master-1.seaweedfs-master.seaweedfs:9333,seaweedfs-master-2.seaweedfs-master.seaweedfs:9333 \
           volumeMounts:
+            
             - name: data1
               mountPath: "/data1/"
             - name: idx
@@ -979,6 +1001,7 @@ spec:
             failureThreshold: 4
             timeoutSeconds: 30
       volumes:
+        
   volumeClaimTemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim
@@ -1008,7 +1031,7 @@ metadata:
   name: "seaweedfs-bucket-hook"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.48.0
+    helm.sh/chart: seaweedfs-4.50.0
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "seaweedfs"
     app.kubernetes.io/component: bucket-hook
@@ -1022,7 +1045,7 @@ spec:
       name: "seaweedfs"
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.48.0
+        helm.sh/chart: seaweedfs-4.50.0
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/instance: "seaweedfs"
         app.kubernetes.io/component: bucket-hook
@@ -1031,7 +1054,7 @@ spec:
       
       containers:
       - name: post-install-job
-        image: chrislusf/seaweedfs:4.48
+        image: chrislusf/seaweedfs:4.50
         imagePullPolicy: IfNotPresent
         env:
           - name: POD_IP
@@ -1104,20 +1127,21 @@ spec:
             wait_for_service "http://$WEED_CLUSTER_SW_MASTER/cluster/status"
             wait_for_service "http://$WEED_CLUSTER_SW_FILER/"
             bucket_list=$(/bin/echo 's3.bucket.list' | /usr/bin/weed shell) || { echo "Error listing s3 buckets"; exit 1; }
-            if echo "$bucket_list" | awk '{print $1}' | grep -Fxq "prometheus"; then
+            if printf '%s\n' "$bucket_list" | awk -v bucket="prometheus" '$1 "" == bucket { found = 1 } END { exit !found }'; then
               echo "Bucket 'prometheus' already exists, skipping creation."
             else
               echo "Creating bucket 'prometheus'..."
               /bin/echo 's3.bucket.create --name prometheus' | /usr/bin/weed shell
             fi
             bucket_list=$(/bin/echo 's3.bucket.list' | /usr/bin/weed shell) || { echo "Error listing s3 buckets"; exit 1; }
-            if echo "$bucket_list" | awk '{print $1}' | grep -Fxq "ente"; then
+            if printf '%s\n' "$bucket_list" | awk -v bucket="ente" '$1 "" == bucket { found = 1 } END { exit !found }'; then
               echo "Bucket 'ente' already exists, skipping creation."
             else
               echo "Creating bucket 'ente'..."
               /bin/echo 's3.bucket.create --name ente' | /usr/bin/weed shell
             fi
         volumeMounts:
+          
           - name: config-users
             mountPath: /etc/sw
             readOnly: true
@@ -1127,6 +1151,7 @@ spec:
           - containerPort: 19333
             #name: swfs-master-grpc
       volumes:
+        
         - name: config-users
           secret:
             defaultMode: 420
