@@ -19,3 +19,5 @@ spec:
     backendRefs:
     - name: vigo-core
       port: 8080
+    timeouts:
+      request: 0s
