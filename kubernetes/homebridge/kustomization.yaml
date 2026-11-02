@@ -11,20 +11,3 @@ images:
 - name: homebridge
   newName: docker.io/homebridge/homebridge
   newTag: "2026-10-30"
-
-patches:
-- target:
-    group: apps
-  patch: |-
-    - op: add
-      path: /spec/template/spec/affinity
-      value:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                - mdns
-            topologyKey: kubernetes.io/hostname
