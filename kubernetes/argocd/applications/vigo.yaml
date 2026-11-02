@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: vigo
+spec:
+  destinations:
+  - namespace: "vigo"
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: ''
+    kind: PersistentVolume
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vigo
+spec:
+  project: vigo
+  source:
+    path: kubernetes/vigo
+  destination:
+    namespace: vigo
