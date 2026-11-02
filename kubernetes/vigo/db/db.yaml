@@ -1,0 +1,29 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+spec:
+  description: "database for vigo"
+  inheritedMetadata:
+    labels:
+      app.kubernetes.io/name: vigo-db
+      app.kubernetes.io/component: database
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
+  instances: 3
+  primaryUpdateStrategy: unsupervised
+  bootstrap:
+    initdb:
+      database: vigo
+      owner: vigo
+      dataChecksums: true
+  storage:
+    storageClass: truenas-iscsi-general
+    size: 5Gi
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: preferred
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: 128m

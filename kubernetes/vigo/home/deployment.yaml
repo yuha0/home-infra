@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vigo-home
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  # hostNetwork with fixed ports: a surge pod would need a node without a replica, so
+  # replace in place instead.
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    spec:
+      # Replicas bind the same host ports, so never two on one node. Other mDNS/HAP
+      # advertisers (homebridge, scrypted) can share a node: each uses its own HAP
+      # port and mDNS sockets are shared.
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: vigo-home
+            topologyKey: kubernetes.io/hostname
+      # HAP is advertised over link-local mDNS.
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 15
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+      - name: pki
+        secret:
+          secretName: vigo-home-tls
+          defaultMode: 0440
+      containers:
+      - name: vigo-home
+        image: vigo-home
+        args:
+        - --enable-source-maps
+        - dist/main.js
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        # With hostNetwork this is the node address; vigo-core calls HomeService there.
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: VIGO_PKI_DIR
+          value: /etc/vigo/pki
+        - name: VIGO_CORE_URL
+          value: https://vigo-core.vigo.svc:8443
+        # hostNetwork: kubespray's nginx-proxy already listens on :8081 on every worker node.
+        - name: VIGO_LISTEN
+          value: ":18081"
+        - name: TZ
+          value: America/Los_Angeles
+        ports:
+        - name: https
+          containerPort: 18081
+        - name: metrics
+          containerPort: 9090
+        - name: hap-tv
+          containerPort: 51830
+        - name: hap-bridge
+          containerPort: 51831
+        - name: mdns
+          containerPort: 5353
+          protocol: UDP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: metrics
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: metrics
+          periodSeconds: 5
+        volumeMounts:
+        - name: pki
+          mountPath: /etc/vigo/pki
+          readOnly: true
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            memory: 192Mi
+            cpu: 50m
+          limits:
+            memory: 384Mi

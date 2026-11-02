@@ -1,0 +1,13 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: vigo-keyring
+  namespace: vigo
+spec:
+  encryptedData:
+    keyring.json: AgBCzf0DgqknnaE5hsSKBQB5athSjb7aXHUln/EER4TyXgNidV3EalKNi1YnjlBzPNl56nIP5KY4WLysu9nXxW2x+K4daeHEtnyuehJ78birQQht3AEmA+jTc1A1BTONqYr480bGIGJi8Q4kPU5e1ZadJh94VScdtabaeHxbYtUjBZwjffzgKwQ4Z7LyVRQ5Nym9uvcdGERQQl+vWXCK0Mu52D3dCLJjoScgU37rIoer6RSj8mqGCg51lCNZ9LyZU/08REbeCclU1CmfaPV6nh+kl9n3w03Rf/Hiuks4Tgp6Uy3CjvLnDsx5ciG7AaqFgoWyRv9qjiVzYXUXAkjMEoD9Q4sYmLK/cX1bv2Abdb9hCzEmGojB3dQozI9BNsQWEnx3om5Js6+YhnvJy7biLtDxlR18O2xtdaQqLU+tyUzbXdA2M08okcSIwTfgbH2kTrbMhZCsMFQbkWFwk7dbH2sV4j31fFPF7s5vCtSh7UYv2dFdPK4GZpYHohAMNFYkYl4UKBM5nWqfAjxbz0pCGsieU7gUmBQyWsVEEU9LCUwmimwCZdwwd53roUco2KdBldk7yRL51OV7e9oXfw4vgj32ORgtca3uRBejyVapKq1+hMZeMEz0+2KfTYOFVHiBQBWOpa2wDpTNmB8ynP92pQf/XBSOMa771Fw9F1Kqr9xSEpDrVp2BHxYsI1a+xqGUOKXtwzZ9y5vHWxhADLM8F/a6zPxeCK8SLD1cyf2kZxXMDub58zaqCT84nbra8vsFK50Srbbj/n7IyQ0spZJM6DaJUJAYZGmi8Obew6oBm9OUGmc=
+  template:
+    metadata:
+      name: vigo-keyring
+      namespace: vigo

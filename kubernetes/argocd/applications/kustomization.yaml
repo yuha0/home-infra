@@ -30,6 +30,7 @@ resources:
 - tandoor.yaml
 - truenas.yaml
 - unifi.yaml
+- vigo.yaml
 
 patches:
 # Both Project and Application should have resource finalizer

@@ -1,0 +1,52 @@
+# Only vigo-core reaches the database; the instances reach each other for replication.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: db
+spec:
+  endpointSelector:
+    matchLabels:
+      cnpg.io/cluster: db
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        cnpg.io/cluster: db
+  - fromEndpoints:
+    - matchLabels:
+        app.kubernetes.io/name: vigo-core
+    toPorts:
+    - ports:
+      - port: "5432"
+        protocol: TCP
+  - fromEndpoints:
+    - matchLabels:
+        prometheus: k8s
+        io.kubernetes.pod.namespace: monitoring
+    toPorts:
+    - ports:
+      - port: "9187"
+        protocol: TCP
+  - fromEndpoints:
+    - matchLabels:
+        io.kubernetes.pod.namespace: cnpg-system
+    toPorts:
+    - ports:
+      - port: "8000"
+        protocol: TCP
+  egress:
+  - toEntities:
+    - host
+    toPorts:
+    - ports:
+      - port: "53"
+        protocol: UDP
+      - port: "53"
+        protocol: TCP
+      rules:
+        dns:
+        - matchPattern: "*"
+  - toEntities:
+    - kube-apiserver
+  - toEndpoints:
+    - matchLabels:
+        cnpg.io/cluster: db

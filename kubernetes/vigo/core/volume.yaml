@@ -1,0 +1,57 @@
+# The art library on the TrueNAS SMB share. ReadWriteMany so every vigo-core replica can mount
+# it read-write; only the leader writes.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: art
+spec:
+  storageClassName: truenas-smb-general
+  volumeName: pvc-21727066-48b3-42c4-b18c-fd8abdab4eeb
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+---
+# The volume democratic-csi provisioned for the claim above, declared so two settings the
+# StorageClass cannot provide are kept in code:
+# - mountOptions: CIFS mounts as uid 0 / mode 0755 by default (fsGroup does not apply), which
+#   non-root vigo-core (65532) cannot write.
+# - Retain: deleting the claim or the namespace must not delete the art.
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pvc-21727066-48b3-42c4-b18c-fd8abdab4eeb
+  annotations:
+    pv.kubernetes.io/provisioned-by: truenas-smb-general
+spec:
+  storageClassName: truenas-smb-general
+  persistentVolumeReclaimPolicy: Retain
+  mountOptions:
+  - uid=65532
+  - gid=65532
+  - file_mode=0640
+  - dir_mode=0750
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 50Gi
+  volumeMode: Filesystem
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: art
+    namespace: vigo
+  csi:
+    driver: truenas-smb-general
+    fsType: cifs
+    volumeHandle: pvc-21727066-48b3-42c4-b18c-fd8abdab4eeb
+    nodeStageSecretRef:
+      name: creds-smb-general
+      namespace: democratic-csi
+    volumeAttributes:
+      node_attach_driver: smb
+      provisioner_driver: freenas-api-smb
+      server: truenas.lab.yuha0.com
+      share: pvc-21727066-48b3-42c4-b18c-fd8abdab4eeb
+      storage.kubernetes.io/csiProvisionerIdentity: 1792967371182-992-truenas-smb-general

@@ -1,0 +1,24 @@
+# The URI SAN is the integration's identity: vigo-core authorises it as the homekit integration.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vigo-home
+spec:
+  secretName: vigo-home-tls
+  issuerRef:
+    kind: Issuer
+    name: vigo-ca
+  commonName: vigo-home
+  uris:
+  - spiffe://vigo/integration/homekit
+  duration: 2160h
+  renewBefore: 720h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  usages:
+  - digital signature
+  - key encipherment
+  - server auth
+  - client auth

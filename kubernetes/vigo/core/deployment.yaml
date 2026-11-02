@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vigo-core
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  template:
+    spec:
+      automountServiceAccountToken: false
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: vigo-core
+              topologyKey: kubernetes.io/hostname
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        # Secret volumes are mounted 0440 and group-owned by fsGroup.
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 15
+      volumes:
+      - name: pki
+        secret:
+          secretName: vigo-core-tls
+          defaultMode: 0440
+      - name: db
+        secret:
+          secretName: db-app
+          defaultMode: 0440
+          items:
+          - key: uri
+            path: uri
+      - name: db-ca
+        secret:
+          secretName: db-ca
+          defaultMode: 0440
+          items:
+          - key: ca.crt
+            path: ca.crt
+      - name: keyring
+        secret:
+          secretName: vigo-keyring
+          defaultMode: 0440
+          items:
+          - key: keyring.json
+            path: keyring.json
+      # Generated thumbnails and previews; disposable, emptied at startup.
+      - name: cache
+        emptyDir:
+          sizeLimit: 2Gi
+      # The art source. Every replica mounts it read-write because any of
+      # them can become leader; only the leader writes to it.
+      - name: art
+        persistentVolumeClaim:
+          claimName: art
+      containers:
+      - name: vigo-core
+        image: vigo-core
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: VIGO_LEADER_ELECT
+          value: "true"
+        # The gateway masquerades pod traffic to the TV, which only accepts its own subnet.
+        - name: VIGO_TV_HOST
+          value: 10.103.2.96
+        - name: VIGO_PKI_DIR
+          value: /run/vigo/pki
+        - name: VIGO_DATABASE_URL_FILE
+          value: /run/vigo/db/uri
+        - name: VIGO_DATABASE_CA_FILE
+          value: /run/vigo/db-ca/ca.crt
+        - name: VIGO_KEYRING_FILE
+          value: /run/vigo/keyring/keyring.json
+        - name: VIGO_CACHE_DIR
+          value: /cache
+        args:
+        # Repeat --source for more sources. The id becomes part of tags
+        # (source/<id>) and must stay stable.
+        - --source=file:///art?id=art
+        # Browsers reach vigo-core through envoy-gateway pods; trust their
+        # X-Forwarded-For so sign-in rate limiting sees the real client.
+        - --trusted-proxy=100.64.0.0/16
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: internal
+          containerPort: 8443
+        - name: ops
+          containerPort: 9090
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: ops
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: ops
+        volumeMounts:
+        - name: pki
+          mountPath: /run/vigo/pki
+          readOnly: true
+        - name: db
+          mountPath: /run/vigo/db
+          readOnly: true
+        - name: db-ca
+          mountPath: /run/vigo/db-ca
+          readOnly: true
+        - name: keyring
+          mountPath: /run/vigo/keyring
+          readOnly: true
+        - name: cache
+          mountPath: /cache
+        - name: art
+          mountPath: /art
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            memory: 512Mi

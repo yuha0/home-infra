@@ -1,0 +1,26 @@
+# Every replica serves the API; a standby forwards to the leader over mTLS.
+apiVersion: v1
+kind: Service
+metadata:
+  name: vigo-core
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: http
+  - name: internal
+    port: 8443
+    targetPort: internal
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vigo-core-metrics
+  labels:
+    app.kubernetes.io/component: metrics
+spec:
+  clusterIP: None
+  ports:
+  - name: ops
+    port: 9090
+    targetPort: ops

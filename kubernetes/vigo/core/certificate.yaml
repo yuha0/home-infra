@@ -1,0 +1,26 @@
+# The URI SAN is vigo-core's identity; peers authorise it by that, not by host name.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vigo-core
+spec:
+  secretName: vigo-core-tls
+  duration: 2160h
+  renewBefore: 720h
+  commonName: vigo-core
+  uris:
+  - spiffe://vigo/core
+  dnsNames:
+  - vigo-core
+  - vigo-core.vigo.svc
+  usages:
+  - digital signature
+  - server auth
+  - client auth
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+    rotationPolicy: Always
+  issuerRef:
+    kind: Issuer
+    name: vigo-ca

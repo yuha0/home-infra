@@ -1,0 +1,33 @@
+# The system CA. Namespaced Issuers can only be used by Certificates in this namespace, so no
+# other namespace can mint vigo identities. Leaves are authorised by URI SAN:
+# spiffe://vigo/core and spiffe://vigo/integration/<kind>.
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vigo-selfsigned
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vigo-ca
+spec:
+  isCA: true
+  commonName: vigo-ca
+  secretName: vigo-ca
+  duration: 87600h
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    kind: Issuer
+    name: vigo-selfsigned
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: vigo-ca
+spec:
+  ca:
+    secretName: vigo-ca
