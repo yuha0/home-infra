@@ -14,7 +14,7 @@ resources:
 images:
 - name: vigo-core
   newName: ghcr.io/yuha0/vigo-core
-  newTag: v1.0.0
+  newTag: v1.0.1
 - name: vigo-home
   newName: ghcr.io/yuha0/vigo-home
-  newTag: v1.0.0
+  newTag: v1.0.1
