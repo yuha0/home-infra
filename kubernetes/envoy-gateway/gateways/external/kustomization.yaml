@@ -3,4 +3,3 @@ resources:
 - envoyproxy.yaml
 - gatewayclass.yaml
 - gateway.yaml
-- redirect.yaml
