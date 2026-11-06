@@ -327,7 +327,9 @@ configs:
       jqPathExpressions:
         - '.metadata.annotations."notified.notifications.argoproj.io"'
         - '.metadata.annotations."argocd.argoproj.io/refresh"'
+        - '.metadata.annotations."argocd.argoproj.io/refresh-timestamp"'
         - '.metadata.annotations."argocd.argoproj.io/hydrate"'
+        - '.metadata.annotations."argocd.argoproj.io/hydrate-timestamp"'
         - '.operation'
     # -- Ignore Argo Rollouts generated fields
     # @default -- See [values.yaml]
@@ -552,6 +554,9 @@ configs:
       gitlab.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY=
       gitlab.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAfuCHKVTjquxvt6CM6tdG4SLp1Btn/nOeHHE5UOzRdf
       gitlab.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsj2bNKTBSpIYDEGk9KxsGh3mySTRgMtXL583qmBpzeQ+jqCMRgBqB98u3z++J1sKlXHWfM9dyhSevkMwSbhoR8XIq/U0tCNyokEi/ueaBMCvbcTHhO7FcwzY92WK4Yt0aGROY5qX2UKSeOvuP4D6TPqKF1onrSzH9bx9XUf2lEdWT/ia1NEKjunUqu1xOB/StKDHMoX4/OKyIzuS0q/T1zOATthvasJFoPrAjkohTyaDUz2LN5JoH839hViyEG82yB+MjcFV5MU3N1l1QL3cVUCh93xSaua1N85qivl+siMkPGbO5xR/En4iEY6K2XPASUEMaieWVNTRCtJ4S8H+9
+      ssh.bitbucket.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPIQmuzMBuKdWeF4+a2sjSSpBK0iqitSQ+5BM9KhpexuGt20JpTVM7u5BDZngncgrqDMbWdxMWWOGtZ9UgbqgZE=
+      ssh.bitbucket.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIazEu89wgQZ4bqs3d63QSMzYVa0MuJ2e2gKTKqu+UUO
+      ssh.bitbucket.org ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDQeJzhupRu0u0cdegZIa8e86EG2qOCsIsD1Xw0xSeiPDlCr7kq97NLmMbpKTX6Esc30NuoqEEHCuc7yWtwp8dI76EEEB1VqY9QJq6vk+aySyboD5QF61I/1WeTwu+deCbgKMGbUijeXhtfbxSxm6JwGrXrhBdofTsbKRUsrN1WoNgUa8uqN1Vx6WAJw1JHPhglEGGHea6QICwJOAr/6mrui/oB7pkaWKHj3z7d1IC4KWLtY47elvjbaTlkN04Kc/5LFEirorGYVbt15kAUlqGM65pk6ZBxtaO3+30LVlORZkxOh+LKL/BvbZ/iRNhItLqNyieoQj/uh/7Iv4uyH/cV/0b4WDSd3DptigWq84lJubb9t/DnZlrJazxyDCulTmKdOR7vs9gMTo+uoIrPSb8ScTtvw65+odKAlBj59dhnVp9zd7QUojOpXlL62Aw56U4oO+FALuevvMjiWeavKhJqlR7i5n9srYcrNV7ttmDw7kf/97P5zauIhxcjX+xHv4M=
       ssh.dev.azure.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H
       vs-ssh.visualstudio.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H
 
@@ -1315,7 +1320,7 @@ dex:
     # -- Dex image repository
     repository: ghcr.io/dexidp/dex
     # -- Dex image tag
-    tag: v2.46.0
+    tag: v2.46.1
     # -- Dex imagePullPolicy
     # @default -- `""` (defaults to global.image.imagePullPolicy)
     imagePullPolicy: ""
@@ -1673,7 +1678,7 @@ redis:
       # -- Repository to use for the redis-exporter
       repository: ghcr.io/oliver006/redis_exporter
       # -- Tag to use for the redis-exporter
-      tag: v1.94.0
+      tag: v1.97.0
       # -- Image pull policy for the redis-exporter
       # @default -- `""` (defaults to global.image.imagePullPolicy)
       imagePullPolicy: ""
@@ -1966,7 +1971,7 @@ redis-ha:
     # -- Repository to use for the redis-exporter
     image: ghcr.io/oliver006/redis_exporter
     # -- Tag to use for the redis-exporter
-    tag: v1.94.0
+    tag: v1.97.0
   persistentVolume:
     # -- Configures persistence on Redis nodes
     enabled: false
@@ -3046,8 +3051,8 @@ server:
   # Gateway API ListenerSet configuration
   # NOTE: Gateway API support is in EXPERIMENTAL status
   # ListenerSet allows attaching additional listeners to an existing Gateway
-  # Requires Gateway API v1alpha2 and a controller that supports ListenerSet
-  # Refer to https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1alpha2.ListenerSet
+  # Requires Gateway API v1.5+ and a controller that supports ListenerSet
+  # Refer to https://gateway-api.sigs.k8s.io/reference/api-spec/1.5/spec/#listenerset
   listenerset:
     # -- Enable ListenerSet resource for Argo CD server (Gateway API)
     enabled: false
@@ -3063,7 +3068,7 @@ server:
       # namespace: example-gateway-namespace
     # -- Hostname for the synthesized listener. Defaults to global.domain when empty.
     hostname: ""
-    # -- Name of the synthesized listener. Also used as sectionName in auto-derived httproute parentRefs.
+    # -- Name of the synthesized listener. Also used as sectionName in auto-derived httproute parentRefs. When `listeners` is set, sectionName is only kept if one of the listeners has this name.
     listenerName: https
     # -- Port for the synthesized listener
     port: 443
@@ -4061,8 +4066,8 @@ applicationSet:
   ## Ref: https://argocd-applicationset.readthedocs.io/en/master/Generators-Git/#webhook-configuration
   # NOTE: Gateway API support is in EXPERIMENTAL status
   # ListenerSet allows attaching additional listeners to an existing Gateway
-  # Requires Gateway API v1alpha2 and a controller that supports ListenerSet
-  # Refer to https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1alpha2.ListenerSet
+  # Requires Gateway API v1.5+ and a controller that supports ListenerSet
+  # Refer to https://gateway-api.sigs.k8s.io/reference/api-spec/1.5/spec/#listenerset
   listenerset:
     # -- Enable ListenerSet resource for Argo CD ApplicationSet webhook (Gateway API)
     enabled: false
@@ -4078,7 +4083,7 @@ applicationSet:
       # namespace: example-gateway-namespace
     # -- Hostname for the synthesized listener. Defaults to global.domain when empty.
     hostname: ""
-    # -- Name of the synthesized listener. Also used as sectionName in auto-derived httproute parentRefs.
+    # -- Name of the synthesized listener. Also used as sectionName in auto-derived httproute parentRefs. When `listeners` is set, sectionName is only kept if one of the listeners has this name.
     listenerName: https
     # -- Port for the synthesized listener
     port: 443
