@@ -10,4 +10,4 @@ resources:
 images:
 - name: homebridge
   newName: docker.io/homebridge/homebridge
-  newTag: "2026-11-13"
+  newTag: "2026-11-15"
