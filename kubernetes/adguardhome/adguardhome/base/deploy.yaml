@@ -103,6 +103,8 @@ spec:
               key: password
         - name: server_port
           value: "9617"
+        - name: rdns_enabled
+          value: "false"
       - name: vector
         image: vector
         env:
