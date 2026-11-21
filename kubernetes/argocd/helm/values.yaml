@@ -96,8 +96,10 @@ global:
   addPrometheusAnnotations: false
 
   # -- Toggle and define pod-level security context.
-  # @default -- `{}` (See [values.yaml])
+  # @default -- See [values.yaml]
   securityContext:
+    seccompProfile:
+      type: RuntimeDefault
     runAsUser: 999
     runAsGroup: 999
     fsGroup: 999
@@ -769,9 +771,10 @@ configs:
   #    background: linear-gradient(to bottom, #999, #777, #333, #222, #111);
   #  }
 
-# -- Array of extra K8s manifests to deploy
+# -- (list) Extra K8s manifests to deploy, as a list or a map. A map can be split over several values files, because Helm merges maps but replaces lists.
+# @default -- `[]`
 ## Note: Supports use of custom Helm templates
-extraObjects: []
+extraObjects:
   # - apiVersion: secrets-store.csi.x-k8s.io/v1
   #   kind: SecretProviderClass
   #   metadata:
@@ -982,6 +985,13 @@ controller:
   containerPorts:
     # -- Metrics container port
     metrics: 8082
+
+  ## Application controller headless service configuration
+  service:
+    # -- Application controller service annotations
+    annotations: {}
+    # -- Application controller service labels
+    labels: {}
 
   # -- Host Network for application controller pods
   hostNetwork: false
@@ -1225,6 +1235,16 @@ dex:
   # @default -- `""` (defaults to global.runtimeClassName)
   runtimeClassName: ""
 
+  # -- The number of Dex server pods to run
+  ## Values above 1 need a persistent storage backend in `configs.cm."dex.config"`, the in-memory default does not share state.
+  replicas: 1
+
+  storage:
+    # -- Dex storage type. Renders the RBAC for `kubernetes` storage and validates `dex.replicas`.
+    ## Only set it when `configs.cm.create` is false, so the chart cannot read `configs.cm."dex.config"`.
+    # @default -- `""` (read from `storage.type` in `configs.cm."dex.config"`, `memory` when unset)
+    type: ""
+
   metrics:
     # -- Deploy metrics service
     enabled: false
@@ -1273,7 +1293,7 @@ dex:
     # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
     # @default -- `""` (defaults to 0 if not specified)
     minAvailable: ""
-    # -- Number of pods that are unavailble after eviction as number or percentage (eg.: 50%).
+    # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%).
     ## Has higher precedence over `dex.pdb.minAvailable`
     maxUnavailable: ""
     # -- Policy for evicting unhealthy (not ready) pods, either `IfHealthyBudget` or `AlwaysAllow`
@@ -1602,6 +1622,23 @@ redis:
   # and for external Redis use `externalRedis.existingSecret`.
   existingSecret: ""
 
+  ## TLS for the single node Redis deployment
+  ## Ref: https://redis.io/docs/latest/operate/oss_and_stack/management/security/encryption/
+  tls:
+    # -- Serve Redis over TLS only, and connect the Argo CD server, repo server and application controller to it over TLS.
+    # Only applies to the single node Redis deployment.
+    enabled: false
+    # -- Name of the Secret holding the Redis server certificate and key, such as one cert-manager creates.
+    # The certificate must name the Redis Service, which the Argo CD components connect to.
+    secretName: ""
+    # -- Key of the server certificate in that Secret
+    certFile: tls.crt
+    # -- Key of the server private key in that Secret
+    keyFile: tls.key
+    # -- Key of the CA certificate in that Secret, which the Argo CD components verify Redis with.
+    # Leave empty to verify Redis against the system CAs.
+    caCertFile: ca.crt
+
   ## Redis Pod Disruption Budget
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   pdb:
@@ -1614,7 +1651,7 @@ redis:
     # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
     # @default -- `""` (defaults to 0 if not specified)
     minAvailable: ""
-    # -- Number of pods that are unavailble after eviction as number or percentage (eg.: 50%).
+    # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%).
     ## Has higher precedence over `redis.pdb.minAvailable`
     maxUnavailable: ""
     # -- Policy for evicting unhealthy (not ready) pods, either `IfHealthyBudget` or `AlwaysAllow`
@@ -2137,7 +2174,10 @@ redisSecretInit:
       type: RuntimeDefault
 
   # -- Redis secret-init Job pod-level security context
-  securityContext: {}
+  # @default -- See [values.yaml]
+  securityContext:
+    seccompProfile:
+      type: RuntimeDefault
 
   serviceAccount:
     # -- Create a service account for the redis pod
