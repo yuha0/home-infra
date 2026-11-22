@@ -10,8 +10,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
 spec:
   maxUnavailable: 1
   selector:
@@ -31,8 +31,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
 spec:
   maxUnavailable: 1
   selector:
@@ -52,8 +52,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
 spec:
   maxUnavailable: 1
   selector:
@@ -71,8 +71,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
   name: victorialogs-victoria-logs-cluster-vlinsert
   namespace: logging
 spec:
@@ -97,8 +97,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
   name: victorialogs-victoria-logs-cluster-vlselect
   namespace: logging
 spec:
@@ -123,8 +123,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
   name: victorialogs-victoria-logs-cluster-vlstorage
   namespace: logging
 spec:
@@ -151,8 +151,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
   name: victorialogs-victoria-logs-cluster-vlinsert
   namespace: logging
 spec:
@@ -173,7 +173,7 @@ spec:
     spec:
       containers:
         - name: vlinsert
-          image: victoriametrics/victoria-logs:v1.53.0
+          image: victoriametrics/victoria-logs:v1.54.0
           imagePullPolicy: IfNotPresent
           securityContext: 
             runAsGroup: 1000
@@ -230,8 +230,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
   name: victorialogs-victoria-logs-cluster-vlselect
   namespace: logging
 spec:
@@ -252,7 +252,7 @@ spec:
     spec:
       containers:
         - name: vlselect
-          image: victoriametrics/victoria-logs:v1.53.0
+          image: victoriametrics/victoria-logs:v1.54.0
           imagePullPolicy: IfNotPresent
           securityContext: 
             runAsGroup: 1000
@@ -310,8 +310,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
   name: victorialogs-victoria-logs-cluster-vlstorage
   namespace: logging
 spec:
@@ -334,7 +334,7 @@ spec:
     spec:
       containers:
         - name: vlstorage
-          image: victoriametrics/victoria-logs:v1.53.0
+          image: victoriametrics/victoria-logs:v1.54.0
           imagePullPolicy: IfNotPresent
           securityContext: 
             runAsGroup: 1000
@@ -401,8 +401,8 @@ metadata:
     app.kubernetes.io/instance: victorialogs
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: victoria-logs-cluster
-    app.kubernetes.io/version: v1.53.0
-    helm.sh/chart: victoria-logs-cluster-0.2.9
+    app.kubernetes.io/version: v1.54.0
+    helm.sh/chart: victoria-logs-cluster-0.2.12
 spec:
   parentRefs: 
     - group: gateway.networking.k8s.io

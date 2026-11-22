@@ -5,7 +5,7 @@
   },
   "chart": {
     "name": "victoria-logs-cluster",
-    "version": "0.2.9"
+    "version": "0.2.12"
   },
   "releaseName": "victorialogs",
   "valuesFile": "./values.yaml",

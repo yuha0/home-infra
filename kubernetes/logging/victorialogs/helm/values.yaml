@@ -93,9 +93,6 @@ vlselect:
       tlsCertFile: ""
       tlsKeyFile: ""
       tlsMinVersion: ""
-      tlsAutocertHosts: ""
-      tlsAutocertEmail: ""
-      tlsAutocertCacheDir: ""
       mtls: false
       mtlsCAFile: ""
 
@@ -279,8 +276,8 @@ vlselect:
     labels: {}
     # -- Service type
     type: ClusterIP
-    # -- Service ClusterIP
-    clusterIP: ""
+    # -- Service ClusterIP. When unset, the Service is a regular ClusterIP Service with legacy naming and headless (`None`), as in the VictoriaMetrics operator, with operator naming
+    clusterIP:
     # -- Publish not-ready addresses. Set this to `true` together with `clusterIP: None` when vlselect is discovered via its headless service (e.g. behind vmauth balancing) before pods pass readiness checks
     publishNotReadyAddresses: false
     # -- Service nodePort # nodePort: "30471"
@@ -289,6 +286,8 @@ vlselect:
     externalIPs: []
     # -- Extra service ports
     extraPorts: []
+    # -- Per-port Service overrides, keyed by port name. Each entry may override port, protocol, targetPort, nodePort and/or appProtocol
+    portOverrides: {}
     # -- Service load balancer IP
     loadBalancerIP: ""
     # -- Load balancer source range
@@ -425,9 +424,6 @@ vlinsert:
       tlsCertFile: ""
       tlsKeyFile: ""
       tlsMinVersion: ""
-      tlsAutocertHosts: ""
-      tlsAutocertEmail: ""
-      tlsAutocertCacheDir: ""
       mtls: false
       mtlsCAFile: ""
   # -- List of Syslog listen addresses
@@ -640,6 +636,8 @@ vlinsert:
     externalIPs: []
     # -- Extra service ports
     extraPorts: []
+    # -- Per-port Service overrides, keyed by port name. Each entry may override port, protocol, targetPort, nodePort and/or appProtocol
+    portOverrides: {}
     # -- Service load balancer IP
     loadBalancerIP: ""
     # -- Load balancer source range
@@ -781,9 +779,6 @@ vlstorage:
       tlsCertFile: ""
       tlsKeyFile: ""
       tlsMinVersion: ""
-      tlsAutocertHosts: ""
-      tlsAutocertEmail: ""
-      tlsAutocertCacheDir: ""
       mtls: false
       mtlsCAFile: ""
   # -- Additional vlstorage container arguments. Extra command line arguments for vlstorage component
@@ -860,7 +855,8 @@ vlstorage:
     # -- Create/use Persistent Volume Claim for vlstorage component. Empty dir if false. If true,  vlstorage will create/use a Persistent Volume Claim
     enabled: true
 
-    name: vlstorage-volume
+    # -- Override Persistent Volume Claim template name. Defaults to `vlstorage-volume`, or to `vlstorage-db` when `useLegacyNaming` is `false`
+    name: ""
 
     # -- Array of access modes. Must match those of existing PV or dynamic provisioner. Details are [here](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
     accessModes:
@@ -945,6 +941,8 @@ vlstorage:
     servicePort: ""
     # -- Extra service ports
     extraPorts: []
+    # -- Per-port Service overrides, keyed by port name. Each entry may override port, protocol, targetPort, nodePort and/or appProtocol
+    portOverrides: {}
     # -- Health check node port for a service. Check [here](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip) for details
     healthCheckNodePort: ""
     # -- Service external traffic policy. Check [here](https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip) for details
@@ -1054,7 +1052,7 @@ vmauth:
     repository: victoriametrics/vmauth
     # -- Image tag
     # override the default Chart.AppVersion, which is for vlogs components
-    tag: "v1.143.0"
+    tag: "v1.156.0"
     # -- Image pull policy
     pullPolicy: IfNotPresent
   # -- Specify pod lifecycle
@@ -1074,9 +1072,6 @@ vmauth:
       tlsCertFile: ""
       tlsKeyFile: ""
       tlsMinVersion: ""
-      tlsAutocertHosts: ""
-      tlsAutocertEmail: ""
-      tlsAutocertCacheDir: ""
       mtls: false
       mtlsCAFile: ""
   # -- Extra command line arguments for vmauth component
@@ -1260,6 +1255,8 @@ vmauth:
     externalIPs: []
     # -- Extra service ports
     extraPorts: []
+    # -- Per-port Service overrides, keyed by port name. Each entry may override port, protocol, targetPort, nodePort and/or appProtocol
+    portOverrides: {}
     # -- Service load balancer IP
     loadBalancerIP: ""
     # -- Load balancer source range
