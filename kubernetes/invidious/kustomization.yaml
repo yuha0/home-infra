@@ -14,7 +14,7 @@ resources:
 images:
 - name: invidious
   newName: quay.io/invidious/invidious
-  newTag: 2026.10.22-3c9555d
+  newTag: 2026.11.14-9a5c91c
 - name: invidious-companion
   newName: quay.io/invidious/invidious-companion
   newTag: latest
