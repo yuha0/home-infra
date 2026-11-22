@@ -74,6 +74,17 @@ global:
       #     name: seaweedfs-signing-key
       #     key: signingKey
 
+# Deploy every namespaced object into this existing namespace instead of the
+# release one. Changing it on an installed release moves regular namespaced
+# objects only: claims and the data behind them are left behind or deleted,
+# hook resources stay in the old namespace, and the generated S3 and DB
+# Secrets are not recreated — migrate claims, copy the Secrets, and clean up
+# the old hook resources by hand first. The default hostPath storage is
+# node-local as well: stop the old workloads and plan the hostPath data
+# migration, or the new pods can come up empty on other nodes or share the
+# same directories concurrently.
+namespaceOverride: ""
+
 image:
   registry: ""
   repository: ""
@@ -1098,12 +1109,16 @@ filer:
     # You may specify buckets to be created during the install or upgrade process.
     # Buckets may be exposed publicly by setting `anonymousRead` to `true`
     # ttl format: [1-255][m|h|d|w|M|y] (e.g., 7d)
+    # replication (e.g., 001) and disk (e.g., ssd) apply to writes into the bucket
+    # removing ttl, replication or disk later keeps the stored rule; set a new value instead
     # objectLock enables S3 Object Lock (irreversible, forces versioning)
     # versioning: Enabled or Suspended (or bool true/false)
     # createBuckets:
     #   - name: bucket-a
     #     anonymousRead: true
     #     ttl: 7d
+    #     replication: "001"
+    #     disk: ssd
     #     objectLock: true
     #     versioning: Enabled
     #   - name: bucket-b
@@ -1185,12 +1200,16 @@ s3:
   # You may specify buckets to be created during the install or upgrade process.
   # Buckets may be exposed publicly by setting `anonymousRead` to `true`
   # ttl format: [1-255][m|h|d|w|M|y] (e.g., 7d)
+  # replication (e.g., 001) and disk (e.g., ssd) apply to writes into the bucket
+  # removing ttl, replication or disk later keeps the stored rule; set a new value instead
   # objectLock enables S3 Object Lock (irreversible, forces versioning)
   # versioning: Enabled or Suspended (or bool true/false)
   # createBuckets:
   #   - name: bucket-a
   #     anonymousRead: true
   #     ttl: 7d
+  #     replication: "001"
+  #     disk: ssd
   #     objectLock: true
   #     versioning: Enabled
   #   - name: bucket-b
@@ -1754,6 +1773,60 @@ admin:
   serviceMonitor:
     annotations: {}
 
+vector:
+  enabled: false
+  imageOverride: null
+  replicas: 1
+  port: 8090
+  metricsPort: 0
+  masters: ""
+  readCacheMB: 512
+  nprobes: null
+  extraArgs: []
+  extraEnvironmentVars: {}
+  podLabels: {}
+  podAnnotations: {}
+  annotations: {}
+  nodeSelector:
+    kubernetes.io/os: linux
+  tolerations: []
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values: [amd64, arm64]
+  resources: {}
+  podSecurityContext: {}
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: [ALL]
+  serviceMonitor:
+    annotations: {}
+  createBuckets: []
+  bucketHook:
+    podSecurityContext:
+      seccompProfile:
+        type: RuntimeDefault
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: [ALL]
+    image: amazon/aws-cli:2.39.6
+    endpoint: ""
+    region: us-east-1
+    credentialsSecret: ""
+    accessKeyKey: AWS_ACCESS_KEY_ID
+    secretKeyKey: AWS_SECRET_ACCESS_KEY
+    sessionTokenKey: AWS_SESSION_TOKEN
+    caBundleSecret: ""
+    caBundleKey: tls.crt
+    resources: {}
+
 worker:
   enabled: true
   imageOverride: null
@@ -1765,6 +1838,14 @@ worker:
 
   # The lance_* jobs run in their own container, /usr/bin/weed-worker.
   # amd64/arm64 only; pin mixed clusters with worker.affinity/nodeSelector.
+  # It keeps tables through the filers the masters list and reads
+  # security.toml. The Lance namespace knows it by a token derived from
+  # jwt.filer_signing.key, which the chart renders only with
+  # global.seaweedfs.securityConfig.jwtSigning.filerWrite: true. When S3 has
+  # identities, set it, or the namespace lists the worker no tables and the
+  # lance_* jobs find nothing to do. It also makes the filer accept only signed
+  # HTTP writes, so clients writing to the filer's HTTP API directly need a JWT
+  # signed with that key.
 
   # Lance namespace URL override; empty derives it from s3.lancePort.
   namespaceUrl: ""
@@ -1843,6 +1924,10 @@ worker:
     limits:
       cpu: "2"
       memory: "2Gi"
+
+  # Resources for the worker-lance sidecar. Falls back to worker.resources if unset.
+  lanceResources: {}
+
   tolerations: ""
   nodeSelector: ""
   priorityClassName: ""
@@ -1965,12 +2050,16 @@ allInOne:
     # You may specify buckets to be created during the install process.
     # Buckets may be exposed publicly by setting `anonymousRead` to `true`
     # ttl format: [1-255][m|h|d|w|M|y] (e.g., 7d)
+    # replication (e.g., 001) and disk (e.g., ssd) apply to writes into the bucket
+    # removing ttl, replication or disk later keeps the stored rule; set a new value instead
     # objectLock enables S3 Object Lock (irreversible, forces versioning)
     # versioning: Enabled or Suspended (or bool true/false)
     # createBuckets:
     #   - name: bucket-a
     #     anonymousRead: true
     #     ttl: 7d
+    #     replication: "001"
+    #     disk: ssd
     #     objectLock: true
     #     versioning: Enabled
     #   - name: bucket-b
@@ -2259,6 +2348,9 @@ certificates:
     # seaweedfs-master-cert, seaweedfs-filer-cert, etc. Can see any statefulset definition to see secret names
     enabled: false
 
+# Labels added to the metadata of every object, except pods and volumeClaimTemplates.
+# A map, or a template string rendering to one.
+commonLabels: {}
 # Labels to be added to all the created pods
 podLabels: {}
 # Annotations to be added to all the created pods

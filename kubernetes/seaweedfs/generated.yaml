@@ -4,10 +4,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: seaweedfs
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
 automountServiceAccountToken: true
@@ -17,10 +17,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: seaweedfs-master-config
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
 data:
@@ -34,10 +34,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-admin
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: admin
@@ -70,10 +70,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-filer-client
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: filer
@@ -102,10 +102,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-filer
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: filer
@@ -142,11 +142,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-master
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
     app.kubernetes.io/component: master
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
   annotations:
@@ -177,11 +177,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-s3
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
     app.kubernetes.io/component: s3
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
 spec:
@@ -202,12 +202,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-volume
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: volume
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
 spec:
   clusterIP: None
@@ -235,10 +235,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: seaweedfs-worker
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: worker
@@ -259,10 +259,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: seaweedfs-worker
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: worker
@@ -277,7 +277,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.50.0
+        helm.sh/chart: seaweedfs-4.54.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: worker
       
@@ -299,7 +299,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.50
+          image: chrislusf/seaweedfs:4.54
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_IP
@@ -387,10 +387,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seaweedfs-admin
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: admin
@@ -407,7 +407,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.50.0
+        helm.sh/chart: seaweedfs-4.54.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: admin
       
@@ -429,7 +429,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.50
+          image: chrislusf/seaweedfs:4.54
           imagePullPolicy: IfNotPresent
           env:
             - name: WEED_ADMIN_USER
@@ -533,10 +533,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seaweedfs-filer
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: filer
@@ -553,7 +553,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.50.0
+        helm.sh/chart: seaweedfs-4.54.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: filer
       annotations:
@@ -575,7 +575,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.50
+          image: chrislusf/seaweedfs:4.54
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_IP
@@ -590,10 +590,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+
             - name: SEAWEEDFS_FULLNAME
               value: "seaweedfs"
             
-
             - name: WEED_CLUSTER_DEFAULT
               value: "sw"
             - name: WEED_CLUSTER_SW_FILER
@@ -702,10 +702,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seaweedfs-master
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: master
@@ -722,12 +722,12 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.50.0
+        helm.sh/chart: seaweedfs-4.54.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: master
       
       annotations:
-        checksum/master-config: ade966c09c87faaf3241313ed3446b54e340f3afffc5bbb65513d0cfe427bfaa
+        checksum/master-config: b08335231462aeb48efc986950ea4987265e7401b0d3a2df7a0d70510b79020c
     spec:
       restartPolicy: Always
       affinity:
@@ -745,7 +745,7 @@ spec:
       serviceAccountName: "seaweedfs" # for deleting statefulset pods after migration
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.50
+          image: chrislusf/seaweedfs:4.54
           imagePullPolicy: IfNotPresent
           env:
             
@@ -858,10 +858,10 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: seaweedfs-volume
-  namespace: seaweedfs
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: seaweedfs
     app.kubernetes.io/component: volume
@@ -878,7 +878,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.50.0
+        helm.sh/chart: seaweedfs-4.54.0
         app.kubernetes.io/instance: seaweedfs
         app.kubernetes.io/component: volume
       
@@ -903,7 +903,7 @@ spec:
       serviceAccountName: "seaweedfs" # for deleting statefulset pods after migration
       initContainers:
         - name: seaweedfs-vol-move-idx
-          image: chrislusf/seaweedfs:4.50
+          image: chrislusf/seaweedfs:4.54
           imagePullPolicy: IfNotPresent
           command: [ '/bin/sh', '-c' ]
           args:
@@ -931,7 +931,7 @@ spec:
               mountPath: /data1
       containers:
         - name: seaweedfs
-          image: chrislusf/seaweedfs:4.50
+          image: chrislusf/seaweedfs:4.54
           imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME
@@ -1039,9 +1039,10 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: "seaweedfs-bucket-hook"
+  namespace: "seaweedfs"
   labels:
     app.kubernetes.io/name: seaweedfs
-    helm.sh/chart: seaweedfs-4.50.0
+    helm.sh/chart: seaweedfs-4.54.0
     app.kubernetes.io/managed-by: "Helm"
     app.kubernetes.io/instance: "seaweedfs"
     app.kubernetes.io/component: bucket-hook
@@ -1055,7 +1056,7 @@ spec:
       name: "seaweedfs"
       labels:
         app.kubernetes.io/name: seaweedfs
-        helm.sh/chart: seaweedfs-4.50.0
+        helm.sh/chart: seaweedfs-4.54.0
         app.kubernetes.io/managed-by: "Helm"
         app.kubernetes.io/instance: "seaweedfs"
         app.kubernetes.io/component: bucket-hook
@@ -1064,7 +1065,7 @@ spec:
       
       containers:
       - name: post-install-job
-        image: chrislusf/seaweedfs:4.50
+        image: chrislusf/seaweedfs:4.54
         imagePullPolicy: IfNotPresent
         env:
           - name: POD_IP
