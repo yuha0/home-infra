@@ -1,0 +1,8 @@
+s = .
+. = [
+  {"name": "adguard_querylog_enabled", "kind": "absolute", "gauge": {"value": to_float(s.enabled == true)}},
+  {"name": "adguard_querylog_retention_seconds", "kind": "absolute", "gauge": {"value": (float(s.interval) ?? to_float(int(s.interval) ?? 0)) / 1000}},
+  {"name": "adguard_querylog_anonymize_client_ip", "kind": "absolute", "gauge": {"value": to_float(s.anonymize_client_ip == true)}},
+  {"name": "adguard_querylog_ignored_enabled", "kind": "absolute", "gauge": {"value": to_float(s.ignored_enabled == true)}},
+  {"name": "adguard_querylog_ignored_rules", "kind": "absolute", "gauge": {"value": to_float(length(array(s.ignored) ?? []))}},
+]

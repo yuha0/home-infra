@@ -1,0 +1,9 @@
+reason = .reason
+events = []
+for_each(array!(.rules)) -> |_index, rule| {
+  events = push(events, {
+    "reason": reason,
+    "filter_list_id": to_string(int(get(rule, ["FilterListID"]) ?? 0) ?? 0),
+  })
+}
+. = events

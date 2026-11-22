@@ -7,7 +7,7 @@ What I get from this setup:
 - HA AdGuard Home deployment, no single point of failure.
 - Combined TCP + UDP DNS service on port 53 (thanks to metallb).
 - Configuration as code and GitOps.
-- Prometheus metrics (thanks to [henrywhitaker3/adguard-exporter](https://github.com/henrywhitaker3/adguard-exporter)).
+- Prometheus metrics, built by the vector sidecar from the query log and the AdGuard Home HTTP API.
 - DoH.
 - Persistent query log in VictoriaLogs.
 
@@ -44,7 +44,7 @@ In the current design, Pauser is hardcoded to only control internal instance for
 
 For the following reasons, the configuration file has to be a secret instead of a configmap:
 
-- The password field is BCrypt-encrypted in config file, but the exporter also needs to read that as plaintext. And I don't want to define the same password in multiple places.
+- The password field is BCrypt-encrypted in config file, but the vector sidecar also needs to read that as plaintext to query the HTTP API. And I don't want to define the same password in multiple places.
 - My DOH bootstrap DNS are paid NextDNS account, which I agreed to not to expose to the public when I signed up.
 
 Obviously, I can't check in my secret as base64 encoded plaintext. All the secrets in my cluster are encrypted by sealed secrets controller. Here's how I managed to check in nonsensitive information as plaintext, while still keep sensitive information encrypted:
@@ -96,6 +96,15 @@ The web GUI's query log page no long makes sense.
 There's a load balancer that round-robins your reuqest to a random instance, and each instance manages its own query log file.
 
 However, you can run a log forwarder as a sidecar container, and forward query logs to some database. I use vector to forward the logs to VictoriaLogs, and query them in grafana.
+
+### Metrics
+
+There is no native Prometheus endpoint (https://github.com/AdguardTeam/AdGuardHome/issues/516), so the same vector sidecar doubles as the exporter:
+
+- `:9617` serves counters derived from every query log entry: `adguard_dns_queries_total` and `adguard_dns_query_duration_seconds` (by query type, class, protocol, filtering reason, blocked service, upstream, cache, DNSSEC AD bit, ECS, response code and truncation), plus `adguard_filter_rule_matches_total` by filter list. These never expire, because every label is bounded by an enum or by the configuration.
+- `:9618` serves gauges polled from the HTTP API (`/control/status`, `filtering/status`, `tls/status`, `dhcp/status`, safe browsing/parental/safe search status, query log and stats config, `dns_info`) and vector's own counters and gauges. These expire after 150s, so a dead instance does not keep reporting stale values.
+
+Anything that identifies a domain, client, address or rule text stays in VictoriaLogs only. Top domains and top clients in the dashboard are LogsQL queries.
 
 ## Result
 

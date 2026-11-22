@@ -1,0 +1,1 @@
+. = [{"name": "adguard_feature_enabled", "kind": "absolute", "gauge": {"value": to_float(.enabled == true)}, "tags": {"feature": "parental"}}]

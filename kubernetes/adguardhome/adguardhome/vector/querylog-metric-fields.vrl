@@ -1,0 +1,36 @@
+qtype_row = get_enrichment_table_record("dns_qtypes", {"name": string(.QT) ?? ""}) ?? {}
+qclass_row = get_enrichment_table_record("dns_qclasses", {"name": string(.QC) ?? ""}) ?? {}
+protocol_row = get_enrichment_table_record("adguard_client_protocols", {"value": string(.CP) ?? ""}) ?? {}
+reason_row = get_enrichment_table_record("adguard_reasons", {"id": int(.Result.Reason) ?? 0}) ?? {}
+
+rcode = "none"
+truncated = "false"
+answer = string(.Answer) ?? ""
+if answer != "" {
+  header = encode_base16(slice(decode_base64(answer) ?? "", 0, 4) ?? "")
+  if length(header) == 8 {
+    flags = parse_int(slice!(header, 4, 8), 16) ?? 0
+    rcode_row = get_enrichment_table_record("dns_rcodes", {"id": mod(flags, 16)}) ?? {}
+    rcode = string(rcode_row.name) ?? "other"
+    truncated = to_string(mod(floor(flags / 512), 2) == 1)
+  } else {
+    rcode = "invalid"
+  }
+}
+
+. = {
+  "qtype": string(qtype_row.name) ?? "other",
+  "qclass": string(qclass_row.name) ?? "other",
+  "protocol": string(protocol_row.name) ?? "other",
+  "reason": string(reason_row.name) ?? "Unknown",
+  "filtered": to_string(.Result.IsFiltered == true),
+  "blocked_service": string(.Result.ServiceName) ?? "",
+  "upstream": string(.Upstream) ?? "",
+  "cached": to_string(.Cached == true),
+  "dnssec_ad": to_string(.AD == true),
+  "ecs": to_string((string(.ECS) ?? "") != ""),
+  "rcode": rcode,
+  "truncated": truncated,
+  "elapsed_seconds": (int(.Elapsed) ?? 0) / 1000000000,
+  "rules": array(.Result.Rules) ?? [],
+}

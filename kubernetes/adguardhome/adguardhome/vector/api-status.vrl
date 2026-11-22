@@ -1,0 +1,17 @@
+s = .
+m = []
+m = push(m, {"name": "adguard_running", "kind": "absolute", "gauge": {"value": to_float(s.running == true)}})
+m = push(m, {"name": "adguard_protection_enabled", "kind": "absolute", "gauge": {"value": to_float(s.protection_enabled == true)}})
+m = push(m, {"name": "adguard_protection_disabled_seconds", "kind": "absolute", "gauge": {"value": (float(s.protection_disabled_duration) ?? to_float(int(s.protection_disabled_duration) ?? 0)) / 1000}})
+m = push(m, {"name": "adguard_dhcp_available", "kind": "absolute", "gauge": {"value": to_float(s.dhcp_available == true)}})
+m = push(m, {"name": "adguard_start_time_seconds", "kind": "absolute", "gauge": {"value": (float(s.start_time) ?? to_float(int(s.start_time) ?? 0)) / 1000}})
+m = push(m, {"name": "adguard_build_info", "kind": "absolute", "gauge": {"value": 1.0}, "tags": {
+  "version": string(s.version) ?? "",
+  "language": string(s.language) ?? "",
+  "dns_port": to_string(int(s.dns_port) ?? 0),
+  "http_port": to_string(int(s.http_port) ?? 0),
+}})
+for_each(array(s.dns_addresses) ?? []) -> |_i, addr| {
+  m = push(m, {"name": "adguard_dns_address_info", "kind": "absolute", "gauge": {"value": 1.0}, "tags": {"address": to_string(addr) ?? ""}})
+}
+. = m

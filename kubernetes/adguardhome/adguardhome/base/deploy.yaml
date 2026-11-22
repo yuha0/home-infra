@@ -80,31 +80,18 @@ spec:
             port: 80
           initialDelaySeconds: 2
           timeoutSeconds: 5
-      - name: adguard-exporter
-        image: adguard-exporter
+      - name: vector
+        image: vector
+        args:
+        - --config-dir
+        - /etc/vector
         ports:
         - name: metrics
           containerPort: 9617
           protocol: TCP
-        env:
-        - name: ADGUARD_SERVERS
-          value: http://localhost
-        - name: ADGUARD_USERNAMES
-          valueFrom:
-            secretKeyRef:
-              name: config
-              key: username
-        - name: ADGUARD_PASSWORDS
-          valueFrom:
-            secretKeyRef:
-              name: config
-              key: password
-        - name: BIND_ADDR
-          value: ":9617"
-        - name: INTERVAL
-          value: 15s
-      - name: vector
-        image: vector
+        - name: metrics-api
+          containerPort: 9618
+          protocol: TCP
         env:
         - name: POD_NAME
           valueFrom:
@@ -119,6 +106,9 @@ spec:
           readOnly: true
         - name: vector-data
           mountPath: /vector-data-dir
+        - name: adguard-credentials
+          mountPath: /secrets/adguard
+          readOnly: true
       volumes:
       - name: work-dir
         emptyDir: {}
@@ -138,3 +128,11 @@ spec:
       - name: conf
         secret:
           secretName: config
+      - name: adguard-credentials
+        secret:
+          secretName: config
+          items:
+          - key: username
+            path: username
+          - key: password
+            path: password

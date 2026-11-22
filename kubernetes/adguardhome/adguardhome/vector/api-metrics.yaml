@@ -1,0 +1,173 @@
+sources:
+  adguardhome_api_status:
+    type: http_client
+    endpoint: http://localhost/control/status
+    scrape_interval_secs: 15
+    scrape_timeout_secs: 10
+    auth: &adguard_auth
+      strategy: basic
+      user: SECRET[adguard.username]
+      password: SECRET[adguard.password]
+    decoding: &json
+      codec: json
+  adguardhome_api_filtering:
+    type: http_client
+    endpoint: http://localhost/control/filtering/status
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_tls:
+    type: http_client
+    endpoint: http://localhost/control/tls/status
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_dhcp:
+    type: http_client
+    endpoint: http://localhost/control/dhcp/status
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_safebrowsing:
+    type: http_client
+    endpoint: http://localhost/control/safebrowsing/status
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_parental:
+    type: http_client
+    endpoint: http://localhost/control/parental/status
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_safesearch:
+    type: http_client
+    endpoint: http://localhost/control/safesearch/status
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_querylog_config:
+    type: http_client
+    endpoint: http://localhost/control/querylog/config
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_stats_config:
+    type: http_client
+    endpoint: http://localhost/control/stats/config
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+  adguardhome_api_dns_info:
+    type: http_client
+    endpoint: http://localhost/control/dns_info
+    scrape_interval_secs: 60
+    scrape_timeout_secs: 10
+    auth: *adguard_auth
+    decoding: *json
+
+transforms:
+  api_status:
+    type: remap
+    inputs:
+    - adguardhome_api_status
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-status.vrl
+
+  api_filtering:
+    type: remap
+    inputs:
+    - adguardhome_api_filtering
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-filtering.vrl
+
+  api_tls:
+    type: remap
+    inputs:
+    - adguardhome_api_tls
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-tls.vrl
+
+  api_dhcp:
+    type: remap
+    inputs:
+    - adguardhome_api_dhcp
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-dhcp.vrl
+
+  api_safebrowsing:
+    type: remap
+    inputs:
+    - adguardhome_api_safebrowsing
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-safebrowsing.vrl
+
+  api_parental:
+    type: remap
+    inputs:
+    - adguardhome_api_parental
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-parental.vrl
+
+  api_safesearch:
+    type: remap
+    inputs:
+    - adguardhome_api_safesearch
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-safesearch.vrl
+
+  api_querylog_config:
+    type: remap
+    inputs:
+    - adguardhome_api_querylog_config
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-querylog-config.vrl
+
+  api_stats_config:
+    type: remap
+    inputs:
+    - adguardhome_api_stats_config
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-stats-config.vrl
+
+  api_dns_info:
+    type: remap
+    inputs:
+    - adguardhome_api_dns_info
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/api-dns-info.vrl
+
+  adguardhome_api_metrics:
+    type: log_to_metric
+    inputs:
+    - api_*
+    all_metrics: true
+    metrics: []

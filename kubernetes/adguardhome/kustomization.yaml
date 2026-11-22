@@ -34,9 +34,6 @@ images:
 - name: adguardhome
   newName: adguard/adguardhome
   newTag: v1.0.0
-- name: adguard-exporter
-  newName: ghcr.io/henrywhitaker3/adguard-exporter
-  newTag: v1.2.3
 - name: vector
   newName: docker.io/timberio/vector
   newTag: 0.58.0-distroless-libc

@@ -1,0 +1,22 @@
+s = .
+m = []
+m = push(m, {"name": "adguard_filtering_enabled", "kind": "absolute", "gauge": {"value": to_float(s.enabled == true)}})
+m = push(m, {"name": "adguard_filtering_update_interval_seconds", "kind": "absolute", "gauge": {"value": to_float(int(s.interval) ?? 0) * 3600}})
+m = push(m, {"name": "adguard_user_rules", "kind": "absolute", "gauge": {"value": to_float(length(array(s.user_rules) ?? []))}})
+for_each({"block": array(s.filters) ?? [], "allow": array(s.whitelist_filters) ?? []}) -> |list_type, lists| {
+  for_each(lists) -> |_i, f| {
+    tags = {
+      "id": to_string(int(f.id) ?? 0),
+      "name": string(f.name) ?? "",
+      "url": string(f.url) ?? "",
+      "type": list_type,
+    }
+    m = push(m, {"name": "adguard_filter_list_enabled", "kind": "absolute", "gauge": {"value": to_float(f.enabled == true)}, "tags": tags})
+    m = push(m, {"name": "adguard_filter_list_rules", "kind": "absolute", "gauge": {"value": to_float(int(f.rules_count) ?? 0)}, "tags": tags})
+    updated = parse_timestamp(string(f.last_updated) ?? "", "%+") ?? null
+    if updated != null {
+      m = push(m, {"name": "adguard_filter_list_last_updated_timestamp_seconds", "kind": "absolute", "gauge": {"value": to_float(to_unix_timestamp!(updated))}, "tags": tags})
+    }
+  }
+}
+. = m

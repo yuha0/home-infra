@@ -1,0 +1,11 @@
+sources:
+  vector_internal_metrics:
+    type: internal_metrics
+    scrape_interval_secs: 15
+
+transforms:
+  vector_internal_metrics_filtered:
+    type: filter
+    inputs:
+    - vector_internal_metrics
+    condition: .type == "counter" || .type == "gauge"

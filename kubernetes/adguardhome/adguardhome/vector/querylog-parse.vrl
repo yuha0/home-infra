@@ -1,0 +1,7 @@
+. = object!(parse_json!(.message))
+.timestamp = .T
+del(.T)
+.Result.IsFiltered = .Result.IsFiltered || false
+.app = "adguardhome"
+.pod = get_env_var("POD_NAME") ?? ""
+.message = join!(compact([.QT, .QH], recursive: false), " ")

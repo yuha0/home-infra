@@ -1,27 +1,20 @@
 # AdGuard Home dashboards
 
-`adguardhome.json` is developed based on the upstream dashboard example in https://github.com/ebrianne/adguard-exporter/tree/master/grafana.
+`adguardhome.json` shows a global view of every AdGuard Home replica. The metrics come from the vector sidecar described in [the AdGuard Home README](../../../adguardhome/README.md#metrics), and the per-domain and per-client panels come from the query log in VictoriaLogs.
 
-![adguard-dashboard](adguard-dashboard.png)
+## Data sources
 
-## Modifications
+Prometheus, for everything with a bounded set of values:
 
-The upstream version focus on metrics on each adguard home running instance and you can only view one instance at a time. That's not what I am interested in at all. Since I deploy AdGuard Home in HA mode with multiple replicas, it is more important to get aggregated metrics from all replicas and construct a global view of DNS query stats for the whole network. This modified version adds a `sum()` to all the panels.
+- Status: online instances, protection state and remaining pause, running version, filter rule count and filter list freshness.
+- Totals for the selected time range: queries, blocked queries, blocked ratio, cache hit ratio, SERVFAIL ratio and p95 latency, all computed with `increase(...[$__range])` on real counters.
+- Rates by instance, query type, response code, protocol, filtering reason, filter list and blocked service.
+- Latency percentiles, overall, cached vs not cached, and per upstream.
 
-The exporter's metrics has a label, `domain`, and basically every domain has a time series. This means for dashboards with `domain` has a legend filder, they will be filled by noisy subdomain values like:
+VictoriaLogs, for anything that identifies a domain or a client:
 
-```
-17de4c0f.akstat.io
-17de4c12.akstat.io
-17de4c14.akstat.io
-17de4c15.akstat.io
-17de4c16.akstat.io
-17de4c19.akstat.io
-17de4c1d.akstat.io
-```
+- Top allowed and blocked domains. The `Domain grouping` variable switches between full names and second-level domains, which are extracted at query time, so `<random-string>.siteintercept.qualtrics.com` is counted as `qualtrics.com`. The extraction takes the last two labels, so it is wrong for public suffixes like `co.uk`.
+- Top clients and top clients by blocked queries. A client is its ClientID when it sends one, otherwise its IP.
+- A table of the latest filtered queries.
 
-The workaround is to [add a relabling rule to capture second level domains with a regex](../../../adguardhome/servicemonitor.yaml) in another label, `second_level_domain`. And there's a variable selection dropdown to switch between `domain` and `second_level_domain`. In this way, I can see query count for `*.akstat.io`.
-
-Some raw counter dashboards are replaced with `rate()`. Because knowing how many DNS queries are block in the past 1 year in total is less useful than knowing the per second block ratio.
-
-Finally, the dedicated table panels in upstream are not very useful to me and they occupy large screen real estate. This dashboard removes them and displays tabel legends in piechart panels.
+The `Instance` variable limits every panel to the internal or external deployment.

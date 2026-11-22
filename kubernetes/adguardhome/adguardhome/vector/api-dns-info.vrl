@@ -1,0 +1,47 @@
+s = .
+m = []
+for_each({
+  "adguard_dns_edns_cs_enabled": s.edns_cs_enabled,
+  "adguard_dns_edns_cs_use_custom": s.edns_cs_use_custom,
+  "adguard_dns_dnssec_enabled": s.dnssec_enabled,
+  "adguard_dns_ipv6_disabled": s.disable_ipv6,
+  "adguard_dns_cache_enabled": s.cache_enabled,
+  "adguard_dns_cache_optimistic": s.cache_optimistic,
+  "adguard_dns_resolve_clients": s.resolve_clients,
+  "adguard_dns_use_private_ptr_resolvers": s.use_private_ptr_resolvers,
+}) -> |name, value| {
+  m = push(m, {"name": name, "kind": "absolute", "gauge": {"value": to_float(value == true)}})
+}
+for_each({
+  "adguard_dns_ratelimit": s.ratelimit,
+  "adguard_dns_ratelimit_subnet_len_ipv4": s.ratelimit_subnet_len_ipv4,
+  "adguard_dns_ratelimit_subnet_len_ipv6": s.ratelimit_subnet_len_ipv6,
+  "adguard_dns_upstream_timeout_seconds": s.upstream_timeout,
+  "adguard_dns_blocked_response_ttl_seconds": s.blocked_response_ttl,
+  "adguard_dns_cache_size_bytes": s.cache_size,
+  "adguard_dns_cache_ttl_min_seconds": s.cache_ttl_min,
+  "adguard_dns_cache_ttl_max_seconds": s.cache_ttl_max,
+}) -> |name, value| {
+  m = push(m, {"name": name, "kind": "absolute", "gauge": {"value": to_float(int(value) ?? 0)}})
+}
+m = push(m, {"name": "adguard_dns_ratelimit_allowlist_entries", "kind": "absolute", "gauge": {"value": to_float(length(array(s.ratelimit_whitelist) ?? []))}})
+m = push(m, {"name": "adguard_dns_config_info", "kind": "absolute", "gauge": {"value": 1.0}, "tags": {
+  "upstream_mode": string(s.upstream_mode) ?? "",
+  "blocking_mode": string(s.blocking_mode) ?? "",
+  "blocking_ipv4": string(s.blocking_ipv4) ?? "",
+  "blocking_ipv6": string(s.blocking_ipv6) ?? "",
+  "upstream_dns_file": string(s.upstream_dns_file) ?? "",
+  "edns_cs_custom_ip": string(s.edns_cs_custom_ip) ?? "",
+}})
+for_each({
+  "upstream": s.upstream_dns,
+  "bootstrap": s.bootstrap_dns,
+  "fallback": s.fallback_dns,
+  "local_ptr": s.local_ptr_upstreams,
+  "default_local_ptr": s.default_local_ptr_upstreams,
+}) -> |kind, entries| {
+  for_each(array(entries) ?? []) -> |_i, entry| {
+    m = push(m, {"name": "adguard_dns_upstream_info", "kind": "absolute", "gauge": {"value": 1.0}, "tags": {"type": kind, "upstream": to_string(entry) ?? ""}})
+  }
+}
+. = m

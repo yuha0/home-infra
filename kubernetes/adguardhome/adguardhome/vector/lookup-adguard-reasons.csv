@@ -1,0 +1,13 @@
+id,name
+0,NotFilteredNotFound
+1,NotFilteredWhiteList
+2,NotFilteredError
+3,FilteredBlackList
+4,FilteredSafeBrowsing
+5,FilteredParental
+6,FilteredInvalid
+7,FilteredSafeSearch
+8,FilteredBlockedService
+9,Rewrite
+10,RewriteEtcHosts
+11,RewriteRule

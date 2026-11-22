@@ -1,0 +1,36 @@
+s = .
+m = []
+for_each({
+  "adguard_tls_enabled": s.enabled,
+  "adguard_tls_force_https": s.force_https,
+  "adguard_tls_serve_plain_dns": s.serve_plain_dns,
+  "adguard_tls_cert_valid": s.valid_cert,
+  "adguard_tls_chain_valid": s.valid_chain,
+  "adguard_tls_key_valid": s.valid_key,
+  "adguard_tls_pair_valid": s.valid_pair,
+}) -> |name, value| {
+  m = push(m, {"name": name, "kind": "absolute", "gauge": {"value": to_float(value == true)}})
+}
+for_each({
+  "adguard_tls_cert_not_before_timestamp_seconds": s.not_before,
+  "adguard_tls_cert_not_after_timestamp_seconds": s.not_after,
+}) -> |name, value| {
+  ts = parse_timestamp(string(value) ?? "", "%+") ?? null
+  if ts != null {
+    unix = to_unix_timestamp!(ts)
+    if unix > 0 {
+      m = push(m, {"name": name, "kind": "absolute", "gauge": {"value": to_float(unix)}})
+    }
+  }
+}
+m = push(m, {"name": "adguard_tls_info", "kind": "absolute", "gauge": {"value": 1.0}, "tags": {
+  "server_name": string(s.server_name) ?? "",
+  "subject": string(s.subject) ?? "",
+  "issuer": string(s.issuer) ?? "",
+  "key_type": string(s.key_type) ?? "",
+  "port_https": to_string(int(s.port_https) ?? 0),
+  "port_dns_over_tls": to_string(int(s.port_dns_over_tls) ?? 0),
+  "port_dns_over_quic": to_string(int(s.port_dns_over_quic) ?? 0),
+  "port_dnscrypt": to_string(int(s.port_dnscrypt) ?? 0),
+}})
+. = m

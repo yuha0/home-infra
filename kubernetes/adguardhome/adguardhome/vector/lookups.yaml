@@ -1,0 +1,44 @@
+enrichment_tables:
+  adguard_reasons:
+    type: file
+    file:
+      path: /etc/vector/lookup-adguard-reasons.csv
+      encoding:
+        type: csv
+    schema:
+      id: integer
+      name: string
+  adguard_client_protocols:
+    type: file
+    file:
+      path: /etc/vector/lookup-adguard-client-protocols.csv
+      encoding:
+        type: csv
+    schema:
+      value: string
+      name: string
+  dns_rcodes:
+    type: file
+    file:
+      path: /etc/vector/lookup-dns-rcodes.csv
+      encoding:
+        type: csv
+    schema:
+      id: integer
+      name: string
+  dns_qtypes:
+    type: file
+    file:
+      path: /etc/vector/lookup-dns-qtypes.csv
+      encoding:
+        type: csv
+    schema:
+      name: string
+  dns_qclasses:
+    type: file
+    file:
+      path: /etc/vector/lookup-dns-qclasses.csv
+      encoding:
+        type: csv
+    schema:
+      name: string

@@ -1,0 +1,8 @@
+s = .
+m = [{"name": "adguard_feature_enabled", "kind": "absolute", "gauge": {"value": to_float(s.enabled == true)}, "tags": {"feature": "safesearch"}}]
+for_each(s) -> |engine, value| {
+  if engine != "enabled" && is_boolean(value) {
+    m = push(m, {"name": "adguard_safesearch_engine_enabled", "kind": "absolute", "gauge": {"value": to_float(value == true)}, "tags": {"engine": engine}})
+  }
+}
+. = m

@@ -10,7 +10,31 @@ resources:
 configMapGenerator:
 - name: vector
   files:
-  - vector.yaml
+  - vector/api-dhcp.vrl
+  - vector/api-dns-info.vrl
+  - vector/api-filtering.vrl
+  - vector/api-metrics.yaml
+  - vector/api-parental.vrl
+  - vector/api-querylog-config.vrl
+  - vector/api-safebrowsing.vrl
+  - vector/api-safesearch.vrl
+  - vector/api-stats-config.vrl
+  - vector/api-status.vrl
+  - vector/api-tls.vrl
+  - vector/lookup-adguard-client-protocols.csv
+  - vector/lookup-adguard-reasons.csv
+  - vector/lookup-dns-qclasses.csv
+  - vector/lookup-dns-qtypes.csv
+  - vector/lookup-dns-rcodes.csv
+  - vector/lookups.yaml
+  - vector/prometheus.yaml
+  - vector/querylog-metric-fields.vrl
+  - vector/querylog-metrics.yaml
+  - vector/querylog-parse.vrl
+  - vector/querylog-rule-matches.vrl
+  - vector/querylog.yaml
+  - vector/self-metrics.yaml
+  - vector/vector.yaml
 
 # Patch affinity rule at this level to avoid scheduling internal and external pods together.
 patches:

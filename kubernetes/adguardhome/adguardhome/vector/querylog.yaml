@@ -1,6 +1,3 @@
-data_dir: /vector-data-dir
-expire_metrics_secs: 3600
-
 sources:
   adguardhome_querylog:
     type: file
@@ -10,20 +7,13 @@ sources:
 
 transforms:
   parse_adguardhome_querylog_json:
-    type: "remap"
+    type: remap
     inputs:
     - adguardhome_querylog
     drop_on_abort: true
     drop_on_error: true
     reroute_dropped: false
-    source: |
-      . = object!(parse_json!(.message))
-      .timestamp = .T
-      del(.T)
-      .Result.IsFiltered = .Result.IsFiltered || false
-      .app = "adguardhome"
-      .pod = get_env_var("POD_NAME") ?? ""
-      .message = join!(compact([.QT, .QH], recursive: false), " ")
+    file: /etc/vector/querylog-parse.vrl
 
 sinks:
   victorialogs:

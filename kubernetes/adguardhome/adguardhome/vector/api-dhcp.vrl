@@ -1,0 +1,13 @@
+s = .
+m = []
+m = push(m, {"name": "adguard_dhcp_enabled", "kind": "absolute", "gauge": {"value": to_float(s.enabled == true)}})
+m = push(m, {"name": "adguard_dhcp_leases", "kind": "absolute", "gauge": {"value": to_float(length(array(s.leases) ?? []))}, "tags": {"type": "dynamic"}})
+m = push(m, {"name": "adguard_dhcp_leases", "kind": "absolute", "gauge": {"value": to_float(length(array(s.static_leases) ?? []))}, "tags": {"type": "static"}})
+m = push(m, {"name": "adguard_dhcp_info", "kind": "absolute", "gauge": {"value": 1.0}, "tags": {"interface_name": string(s.interface_name) ?? ""}})
+for_each({"v4": s.v4, "v6": s.v6}) -> |family, conf| {
+  lease_secs = int(get(conf, ["lease_duration"]) ?? null) ?? null
+  if lease_secs != null {
+    m = push(m, {"name": "adguard_dhcp_lease_duration_seconds", "kind": "absolute", "gauge": {"value": to_float(lease_secs)}, "tags": {"family": family}})
+  }
+}
+. = m

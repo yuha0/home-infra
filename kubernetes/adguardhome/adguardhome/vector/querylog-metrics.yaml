@@ -1,0 +1,62 @@
+transforms:
+  querylog_metric_fields:
+    type: remap
+    inputs:
+    - parse_adguardhome_querylog_json
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/querylog-metric-fields.vrl
+
+  querylog_rule_matches:
+    type: remap
+    inputs:
+    - querylog_metric_fields
+    drop_on_abort: true
+    drop_on_error: true
+    reroute_dropped: false
+    file: /etc/vector/querylog-rule-matches.vrl
+
+  querylog_metrics:
+    type: log_to_metric
+    inputs:
+    - querylog_metric_fields
+    metrics:
+    - type: counter
+      field: qtype
+      namespace: adguard
+      name: dns_queries_total
+      tags:
+        qtype: "{{ qtype }}"
+        qclass: "{{ qclass }}"
+        protocol: "{{ protocol }}"
+        reason: "{{ reason }}"
+        filtered: "{{ filtered }}"
+        blocked_service: "{{ blocked_service }}"
+        upstream: "{{ upstream }}"
+        cached: "{{ cached }}"
+        dnssec_ad: "{{ dnssec_ad }}"
+        ecs: "{{ ecs }}"
+        rcode: "{{ rcode }}"
+        truncated: "{{ truncated }}"
+    - type: histogram
+      field: elapsed_seconds
+      namespace: adguard
+      name: dns_query_duration_seconds
+      tags:
+        protocol: "{{ protocol }}"
+        upstream: "{{ upstream }}"
+        cached: "{{ cached }}"
+
+  querylog_rule_match_metrics:
+    type: log_to_metric
+    inputs:
+    - querylog_rule_matches
+    metrics:
+    - type: counter
+      field: filter_list_id
+      namespace: adguard
+      name: filter_rule_matches_total
+      tags:
+        filter_list_id: "{{ filter_list_id }}"
+        reason: "{{ reason }}"

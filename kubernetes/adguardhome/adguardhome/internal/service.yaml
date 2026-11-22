@@ -14,6 +14,10 @@ spec:
     targetPort: metrics
     port: 9617
     protocol: TCP
+  - name: metrics-api
+    targetPort: metrics-api
+    port: 9618
+    protocol: TCP
 
 ---
 

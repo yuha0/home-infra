@@ -1,0 +1,7 @@
+s = .
+. = [
+  {"name": "adguard_stats_enabled", "kind": "absolute", "gauge": {"value": to_float(s.enabled == true)}},
+  {"name": "adguard_stats_retention_seconds", "kind": "absolute", "gauge": {"value": (float(s.interval) ?? to_float(int(s.interval) ?? 0)) / 1000}},
+  {"name": "adguard_stats_ignored_enabled", "kind": "absolute", "gauge": {"value": to_float(s.ignored_enabled == true)}},
+  {"name": "adguard_stats_ignored_rules", "kind": "absolute", "gauge": {"value": to_float(length(array(s.ignored) ?? []))}},
+]
