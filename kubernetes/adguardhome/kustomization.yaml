@@ -41,7 +41,7 @@ images:
   newName: docker.io/timberio/vector
   newTag: 0.58.0-distroless-libc
 - name: python
-  newName: gcr.io/distroless/python3-debian12
+  newName: gcr.io/distroless/python3-debian13
 - name: httpd
   newName: docker.io/httpd
   newTag: 2.4.65-alpine
