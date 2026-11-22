@@ -401,7 +401,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "avg(adguard_avg_processing_time) by (pod)",
+          "expr": "avg(adguard_avg_processing_time_seconds) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -560,7 +560,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(adguard_num_dns_queries)",
+          "expr": "sum(adguard_queries)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -622,7 +622,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(adguard_num_blocked_filtering)",
+          "expr": "sum(adguard_queries_blocked)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -695,7 +695,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(adguard_num_blocked_filtering) / sum(adguard_num_dns_queries)",
+          "expr": "sum(adguard_queries_blocked) / sum(adguard_queries)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -786,7 +786,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(rate(adguard_num_dns_queries[1m])) by (pod)",
+          "expr": "sum(rate(adguard_queries[1m])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -872,7 +872,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(rate(adguard_num_blocked_filtering[1m])) by (pod)",
+          "expr": "sum(rate(adguard_queries_blocked[1m])) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -965,11 +965,11 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(rate(adguard_top_clients{client!=\"\"}[1m])) by (client)",
+          "expr": "sum(rate(adguard_top_clients{client!=\"\"}[1m])) by (name)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ client }}",
+          "legendFormat": "{{ name }}",
           "refId": "A"
         }
       ],
@@ -1052,7 +1052,7 @@
             "uid": "PC96415006F908B67"
           },
           "exemplar": true,
-          "expr": "sum(adguard_num_blocked_filtering) by (pod) / sum(adguard_num_dns_queries) by (pod)",
+          "expr": "sum(adguard_queries_blocked) by (pod) / sum(adguard_queries) by (pod)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,

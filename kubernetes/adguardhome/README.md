@@ -7,7 +7,7 @@ What I get from this setup:
 - HA AdGuard Home deployment, no single point of failure.
 - Combined TCP + UDP DNS service on port 53 (thanks to metallb).
 - Configuration as code and GitOps.
-- Prometheus metrics (thanks to [ebrianne/adguard-exporter](https://github.com/ebrianne/adguard-exporter).
+- Prometheus metrics (thanks to [henrywhitaker3/adguard-exporter](https://github.com/henrywhitaker3/adguard-exporter)).
 - DoH.
 - Persistent query log in VictoriaLogs.
 

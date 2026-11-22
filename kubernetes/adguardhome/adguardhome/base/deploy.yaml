@@ -87,24 +87,22 @@ spec:
           containerPort: 9617
           protocol: TCP
         env:
-        - name: adguard_protocol
-          value: http
-        - name: adguard_hostname
-          value: localhost
-        - name: adguard_username
+        - name: ADGUARD_SERVERS
+          value: http://localhost
+        - name: ADGUARD_USERNAMES
           valueFrom:
             secretKeyRef:
               name: config
               key: username
-        - name: adguard_password
+        - name: ADGUARD_PASSWORDS
           valueFrom:
             secretKeyRef:
               name: config
               key: password
-        - name: server_port
-          value: "9617"
-        - name: rdns_enabled
-          value: "false"
+        - name: BIND_ADDR
+          value: ":9617"
+        - name: INTERVAL
+          value: 15s
       - name: vector
         image: vector
         env:
