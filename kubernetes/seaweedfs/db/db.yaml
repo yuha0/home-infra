@@ -11,13 +11,6 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
   instances: 3
   primaryUpdateStrategy: unsupervised
-  managed:
-    roles:
-    - name: seaweedfs
-      ensure: present
-      comment: seaweedfs needs to be superuser
-      login: true
-      superuser: true
   bootstrap:
     initdb:
       database: seaweedfs

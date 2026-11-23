@@ -11,13 +11,6 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6-standard-trixie
   instances: 3
   primaryUpdateStrategy: unsupervised
-  managed:
-    roles:
-    - name: kemal
-      ensure: present
-      comment: invidious app is very helpful that it wants to be your db admin
-      login: true
-      superuser: true
   bootstrap:
     initdb:
       database: invidious

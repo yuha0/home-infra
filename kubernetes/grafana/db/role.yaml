@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: grafana
+spec:
+  cluster:
+    name: db
+  name: grafana
+  login: true
+  superuser: true

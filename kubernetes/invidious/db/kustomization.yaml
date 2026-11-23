@@ -8,3 +8,4 @@ resources:
 - config
 - db.yaml
 - network-policy.yaml
+- role.yaml

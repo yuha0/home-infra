@@ -7,3 +7,4 @@ labels:
 resources:
 - db.yaml
 - network-policy.yaml
+- role.yaml

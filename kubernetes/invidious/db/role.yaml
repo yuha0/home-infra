@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: kemal
+spec:
+  cluster:
+    name: db
+  name: kemal
+  comment: invidious app is very helpful that it wants to be your db admin
+  login: true
+  superuser: true

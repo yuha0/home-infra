@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: seaweedfs
+spec:
+  cluster:
+    name: db
+  name: seaweedfs
+  comment: seaweedfs needs to be superuser
+  login: true
+  superuser: true
