@@ -1,0 +1,28 @@
+namespace: kube-system
+resources:
+- multus-daemonset.yml
+patches:
+- patch: |-
+    $patch: delete
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: multus-cni-config
+      namespace: kube-system
+- patch: |-
+    apiVersion: apps/v1
+    kind: DaemonSet
+    metadata:
+      name: kube-multus-ds
+      namespace: kube-system
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kube-multus
+            volumeMounts:
+            - mountPath: /tmp/multus-conf
+              $patch: delete
+          volumes:
+          - name: multus-cfg
+            $patch: delete

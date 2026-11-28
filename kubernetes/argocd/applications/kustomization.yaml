@@ -19,6 +19,7 @@ resources:
 - kube-state-metrics.yaml
 - kube-system.yaml
 - logging.yaml
+- multus.yaml
 - node-exporter.yaml
 - plex.yaml
 - pocket-id.yaml
