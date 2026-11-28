@@ -1,3 +1,0 @@
-- hosts: gateway
-  roles:
-  - unifios
